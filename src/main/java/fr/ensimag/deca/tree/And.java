@@ -3,8 +3,8 @@ package fr.ensimag.deca.tree;
 
 /**
  *
- * @author @AUTHOR@
- * @date @DATE@
+ * @author gl12
+ * @date 01/01/2025
  */
 public class And extends AbstractOpBool {
 
