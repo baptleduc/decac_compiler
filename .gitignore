@@ -8,4 +8,6 @@
 .project
 .metadata
 .settings
-bin/
+
+# Avoid src from ima
+**/ima_sources
