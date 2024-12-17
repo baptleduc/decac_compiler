@@ -1,0 +1,11 @@
+stages:
+  - test
+
+before_script:
+  - chmod +x src/test/script/common-tests.sh
+
+test_common:
+  stage: test
+  script:
+    - echo "Running tests on all branches.."
+    - ./src/test/script/common-tests.sh
