@@ -95,10 +95,6 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>org.sonarsource.scanner.maven</groupId>
-                <artifactId>sonar-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
                 <!-- usual plugin to compile Java code -->
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.12.1</version>
