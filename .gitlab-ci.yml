@@ -1,6 +1,7 @@
 stages:
   - build
   - test
+  - sonarqube
 
 maven_build:
   stage: build
@@ -18,5 +19,26 @@ common_tests:
   dependencies:
     - maven_build
   script:
-    - chmod +x src/test/script/common-tests.sh
-    - mvn exec:exec@common-tests
+    - mvn test
+  artifacts:
+    when: on_failure
+    reports:
+      junit: target/surefire-reports/TEST-*.xml
+    paths:
+      - target/surefire-reports/
+
+sonarqube-check:
+  stage: sonarqube
+  image: registry.gitlab.com/ensimag5044950/projet-gl/custom-maven-image:latest
+  variables:
+    SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"
+    GIT_DEPTH: "0"
+    SONAR_HOST_URL: "http://<sonarqube-server>:9000"
+    SONAR_TOKEN: "${SONAR_TOKEN}"
+  cache:
+    key: "${CI_JOB_NAME}"
+    paths:
+      - .sonar/cache
+  script:
+    - mvn verify sonar:sonar -Dsonar.projectKey=Project-GL -Dsonar.login=$SONAR_TOKEN
+  allow_failure: true
