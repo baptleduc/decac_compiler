@@ -37,6 +37,29 @@ fragment DIGIT : '0' .. '9';
 fragment POSITIVE_DIGIT : '0' .. '9';
 fragment LETTER: ('a' .. 'z'|'A' .. 'Z');
 
+//Symboles spéciaux
+INF : '<';
+SUPP : '>';
+AFFECT : '=';
+ADD : '+';
+MINUS : '-';
+TIMES : '*';
+DIVID : '/';
+MOD : '%';
+DOT : '.';
+COMMA : ',';
+OPAR : '(';
+CPAR : ')';
+OACO : '{';
+CACO : '}';
+NOT : '!';
+SEPA : ';';
+EQUAL : '==';
+NEQUAL : '!=';
+SEQUAL : '>=';
+IEQUAL  : '<=';
+AND : '&&';
+OR : '||';
 
 // Flottants
 fragment NUM: DIGIT+;
@@ -69,3 +92,8 @@ COMMENT : '/*' .*? '*/'
                 { skip(); } ;
 MONO_LIGNE_COMMENT : '//' (~('\n'))*
                 { skip(); } ;
+                
+
+// Inclusion de fichier
+fragment FILENAME : (LETTER | DIGIT | '.' | '-' + '_')+;
+INCLUDE : '#include' (' ')* '"' FILENAME '"' {};
