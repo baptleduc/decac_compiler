@@ -1,0 +1,38 @@
+stages:
+  - build
+  - test
+
+maven_build:
+  stage: build
+  image: registry.gitlab.com/ensimag5044950/projet-gl/custom-maven-image:latest
+  script:
+    - mvn clean compile
+  artifacts:
+    paths:
+      - target/
+    expire_in: 1 hour
+
+common_tests:
+  stage: test
+  image: registry.gitlab.com/ensimag5044950/projet-gl/custom-maven-image:latest
+  dependencies:
+    - maven_build
+  script:
+    - mvn test
+  artifacts:
+    when: on_failure
+    reports:
+      junit: target/surefire-reports/TEST-*.xml
+    paths:
+      - target/surefire-reports/
+
+# sonarqube-check:
+#   stage: sonarqube
+#   image: registry.gitlab.com/ensimag5044950/projet-gl/custom-maven-image:latest
+#   cache:
+#     key: "${CI_JOB_NAME}"
+#     paths:
+#       - .sonar/cache
+#   script:
+#     - mvn verify sonar:sonar -Dsonar.projectKey=Project-GL -Dsonar.login=$SONAR_TOKEN
+#   allow_failure: true
