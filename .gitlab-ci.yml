@@ -4,7 +4,7 @@ stages:
 
 maven_build:
   stage: build
-  image: maven:3.9.4-eclipse-temurin-11
+  image: registry.gitlab.com/ensimag5044950/projet-gl/custom-maven-image:latest
   script:
     - mvn clean compile
   artifacts:
@@ -14,7 +14,7 @@ maven_build:
 
 common_tests:
   stage: test
-  image: maven:3.9.4-eclipse-temurin-11
+  image: registry.gitlab.com/ensimag5044950/projet-gl/custom-maven-image:latest
   dependencies:
     - maven_build
   script:
