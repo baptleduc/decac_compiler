@@ -1,0 +1,2 @@
+// Test inclusion d'un fichier se trouvant au même endroit
+#include "motie.deca"

@@ -101,4 +101,4 @@ MONO_LIGNE_COMMENT : '//' (~[\nEOF])*
 
 // Inclusion de fichier
 fragment FILENAME : (LETTER | DIGIT | '.' | '-' + '_')+;
-INCLUDE : '#include' (' ')* '"' FILENAME '"' {};
+INCLUDE : '#include' (' ')* '"' FILENAME '"' {System.out.println(getText());doInclude(getText());};
