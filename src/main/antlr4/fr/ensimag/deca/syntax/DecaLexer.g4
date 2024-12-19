@@ -33,35 +33,39 @@ TRUE : 'true';
 WHILE : 'while';
 
 // fragment rulxes are used by other rules, but do not produce tokens:
-fragment DIGIT : '0' .. '9';
 fragment POSITIVE_DIGIT : '0' .. '9';
+
+//Identificateurs
 fragment LETTER: ('a' .. 'z'|'A' .. 'Z');
+fragment DIGIT : '0' .. '9';
+IDENT : (LETTER | '$' | '_')(LETTER | DIGIT | '$' | '_')*;
 
 //Symboles spéciaux
-INF : '<';
-SUPP : '>';
-AFFECT : '=';
-ADD : '+';
+LT : '<';
+GT : '>';
+EQ : '=';
+PLUS : '+';
 MINUS : '-';
-TIMES : '*';
-DIVID : '/';
-MOD : '%';
+TIMEs : '*';
+SLASH : '/';
+PERCENT : '%';
 DOT : '.';
 COMMA : ',';
-OPAR : '(';
-CPAR : ')';
-OACO : '{';
-CACO : '}';
-NOT : '!';
-SEPA : ';';
-EQUAL : '==';
-NEQUAL : '!=';
-SEQUAL : '>=';
-IEQUAL  : '<=';
+OPARENT : '(';
+CPARENT : ')';
+OBRACE : '{';
+CBRACE : '}';
+EXCLAM : '!';
+SEMI : ';';
+EQEQ : '==';
+NEQ : '!=';
+GEQ : '>=';
+LEQ  : '<=';
 AND : '&&';
 OR : '||';
 
 // Flottants
+fragment EOL:'\n';
 fragment NUM: DIGIT+;
 fragment SIGN : '+' | '-' | ' ';
 EXP : ('E' | 'e') SIGN NUM;
@@ -73,9 +77,10 @@ FLOATHEX : ('Ox' | 'OX')NUMHEX '.' NUMHEX ('P' | 'p') SIGN NUM ('F' | 'f' | ' ')
 FLOAT : FLOATDEC | FLOATHEX;
 
 //Chaînes de caractères
-fragment STRING_CAR :  ~["\\\r\n] ;
+fragment STRING_CAR :  ~["\\\n];
 STRING : '"' (STRING_CAR | '\\"' | '\\\\')* '"';
-MULTI_LINE_STRING : '"' (STRING_CAR | '\n' | '\\"' | '\\\\')* '"';
+MULTI_LINE_STRING : '"' (STRING_CAR | EOL | '\\"' | '\\\\')* '"';
+
 
 // Séparateur
 WS  :   ( ' '
@@ -90,7 +95,7 @@ WS  :   ( ' '
 //Commentaires
 COMMENT : '/*' .*? '*/'
                 { skip(); } ;
-MONO_LIGNE_COMMENT : '//' (~('\n'))*
+MONO_LIGNE_COMMENT : '//' (~[\nEOF])*
                 { skip(); } ;
                 
 
