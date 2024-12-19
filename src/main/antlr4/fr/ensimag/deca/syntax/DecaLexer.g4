@@ -65,20 +65,28 @@ AND : '&&';
 OR : '||';
 
 // Flottants
+fragment EOL:'\n';
+fragment NUM: DIGIT+;
+fragment SIGN : '+' | '-';
+fragment EXP : ('E' | 'e') SIGN? NUM;
+fragment DEC : NUM '.' NUM;
+// on passe par un autre fragment car on veut ignorer le f
+fragment FLOATDEC : DEC (EXP)? FIGNORED?;
+fragment FIGNORED : [fF];
+fragment DIGITHEX :'0' .. '9' | 'A' .. 'F' + 'a' .. 'f';
+fragment NUMHEX : DIGITHEX+;
+fragment FLOATHEX : ('Ox' | 'OX')NUMHEX '.' NUMHEX ('P' | 'p') SIGN? NUM FIGNORED?;
+FLOAT : FLOATDEC | FLOATHEX
+        {
+            System.out.println("Checking float value: " + getText());
+            checkFloatCorrectValue(getText());
+        };
+
+//Integer
 INT : '0' | POSITIVE_DIGIT*
         {
             checkIntCorrectValue(getText());
         };
-fragment EOL:'\n';
-fragment NUM: DIGIT+;
-fragment SIGN : '+' | '-' | ' ';
-EXP : ('E' | 'e') SIGN NUM;
-DEC : NUM '.' NUM;
-FLOATDEC : (DEC | DEC EXP) ('F' | 'f' | ' ');
-DIGITHEX :'0' .. '9' | 'A' .. 'F' + 'a' .. 'f';
-NUMHEX : DIGITHEX+;
-FLOATHEX : ('Ox' | 'OX')NUMHEX '.' NUMHEX ('P' | 'p') SIGN NUM ('F' | 'f' | ' ');
-FLOAT : FLOATDEC | FLOATHEX;
 
 //Chaînes de caractères
 fragment STRING_CAR :  ~["\\\n];

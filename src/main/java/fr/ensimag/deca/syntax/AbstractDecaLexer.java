@@ -289,5 +289,7 @@ public abstract class AbstractDecaLexer extends Lexer {
 	    throw new IntNotCodable(sValue, this, getInputStream());
 	}
     }
-    
+    void checkFloatCorrectValue(String sValue) throws IntNotCodable{
+	throw new IntNotCodable(sValue, this, getInputStream());
+    }
 }
