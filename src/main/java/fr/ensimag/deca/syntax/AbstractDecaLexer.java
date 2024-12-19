@@ -281,4 +281,13 @@ public abstract class AbstractDecaLexer extends Lexer {
 
         return token;
     }
+
+    void checkIntCorrectValue(String sValue) throws IntNotCodable{
+	try{
+	    int value = Integer.valueOf(sValue);
+	} catch (NumberFormatException e){
+	    throw new IntNotCodable(sValue, this, getInputStream());
+	}
+    }
+    
 }

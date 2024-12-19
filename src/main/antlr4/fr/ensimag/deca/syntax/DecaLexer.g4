@@ -65,6 +65,10 @@ AND : '&&';
 OR : '||';
 
 // Flottants
+INT : '0' | POSITIVE_DIGIT*
+        {
+            checkIntCorrectValue(getText());
+        };
 fragment EOL:'\n';
 fragment NUM: DIGIT+;
 fragment SIGN : '+' | '-' | ' ';
@@ -99,6 +103,9 @@ MONO_LIGNE_COMMENT : '//' (~[\nEOF])*
                 { skip(); } ;
                 
 
-// Inclusion de fichier
+// clusion de fichier
 fragment FILENAME : (LETTER | DIGIT | '.' | '-' + '_')+;
-INCLUDE : '#include' (' ')* '"' FILENAME '"' {System.out.println(getText());doInclude(getText());};
+INCLUDE : '#include' (' ')* '"' FILENAME '"'
+                {
+                   doInclude(getText());
+                };
