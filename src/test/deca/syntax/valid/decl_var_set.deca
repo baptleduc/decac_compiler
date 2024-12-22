@@ -8,5 +8,7 @@
 //    cree le 19/12/2024
 
 {
-        int x;
+        int x, y, z;
+        boolean a, b = true;
+        
 }
