@@ -1,5 +1,5 @@
 // Description:
-//    Programme minimaliste utilisant la declaration d'une variable.
+//    Programme minimaliste utilisant le non-terminal decl_var_set.
 //
 // Resultats:
 //    None
@@ -10,5 +10,6 @@
 {
         int x, y, z;
         boolean a, b = true;
-        
+        int c=10;
+        str d ="toto";
 }

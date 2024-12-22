@@ -42,7 +42,7 @@ IDENT : (LETTER | '$' | '_')(LETTER | DIGIT | '$' | '_')*;
 
 // fragment rulxes are used by other rules, but do not produce tokens:
 fragment POSITIVE_DIGIT : '0' .. '9';
-INT : '0' + POSITIVE_DIGIT DIGIT*;
+INT : '0' | POSITIVE_DIGIT DIGIT*;
 
 //Symboles spéciaux
 LT : '<';
