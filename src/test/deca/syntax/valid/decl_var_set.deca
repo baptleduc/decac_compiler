@@ -12,4 +12,5 @@
         boolean a, b = true;
         int c=10;
         str d ="toto";
+        g;
 }
