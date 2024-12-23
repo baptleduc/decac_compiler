@@ -11,3 +11,6 @@
 
 # Avoid src from ima
 **/ima_sources
+
+# Avoid .antlr because files are generated
+**/.antlr
