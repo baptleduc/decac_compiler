@@ -206,6 +206,16 @@
                         </goals>
                     </execution>
                     <execution>
+                        <id>non-regression</id>
+                        <configuration>
+                            <executable>./src/test/script/non-regression.sh</executable>
+                        </configuration>
+                    <phase>test</phase>
+                    <goals>
+                        <goal>exec</goal>
+                    </goals>
+                    </execution>
+                    <execution>
                         <id>basic-synt</id>
                         <configuration>
                             <executable>./src/test/script/basic-synt.sh</executable>
