@@ -1,4 +1,8 @@
 #!/bin/sh
+# Auteur : Baptiste LE DUC
+
+# Arrête le script en cas d'echec d'une commande
+set -e 
 
 TMP_DIR="./src/test/results/tmp/"
 
