@@ -2,5 +2,5 @@
 {
    int x ;
    x=readInt() ;
-   println(0.5*(x*x)) ;
+   println(0.4*(x*x)) ;
 }
