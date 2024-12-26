@@ -7,7 +7,7 @@ set -e
 TMP_DIR="./src/test/results/tmp/"
 
 # Répertoires contenant les fichiers de tests
-INPUT_DIRS="./src/test/deca/syntax/valid/ ./src/test/deca/syntax/valid/provided"
+INPUT_DIRS="./src/test/deca/syntax/valid/ ./src/test/deca/syntax/valid/provided/"
 OUTPUT_DIR="./src/test/results/deca/syntax/"
 
 TEST_LEX="./src/test/script/launchers/test_lex"
@@ -48,7 +48,6 @@ run_tests() {
             if [ -f "$output_file" ]; then
                 # Compare les résultats avec le fichier existant
                 if ! diff "$output_file" "$tmp_file" > /dev/null; then
-                    diff "$output_file" "$tmp_file"
                     echo "Erreur : $output_file et $tmp_file non identique."
                     diff "$output_file" "$tmp_file"
                     rm "$tmp_file"
@@ -61,7 +60,6 @@ run_tests() {
             fi
         fi
     done
-    exit 0
 }
 
 
@@ -72,6 +70,7 @@ main() {
     for executable in $EXECUTABLES; do
         echo "[BEGIN] : $executable"
         for input_dir in $INPUT_DIRS; do
+            echo $input_dir
             run_tests "$input_dir" "$OUTPUT_DIR" "$executable"
         done
         echo "[SUCESS] : $executable"
