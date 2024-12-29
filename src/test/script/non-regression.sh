@@ -79,7 +79,7 @@ run_tests() {
                 rm "$tmp_file"
             else
                 # Si le fichier de sortie n'existe pas, suprrime la sortie temporaire
-                rm "$tmp_file" "$output_file"
+                rm "$tmp_file"
             fi
         fi
     done

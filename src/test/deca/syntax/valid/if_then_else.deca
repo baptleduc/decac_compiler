@@ -12,5 +12,10 @@
         if (a==2){
                 println("a==2");
         }
-        /*Commentaire*/
+        else if (a== 1){
+                println("a==1");
+        }
+        else{
+                println("a!=2 && a!=1");
+        }
 }
