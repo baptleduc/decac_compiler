@@ -1,6 +1,29 @@
 #!/bin/sh
-# Auteur : Baptiste LE DUC
+: '
+Script de tests pour la phase de lexique et de syntaxe du compilateur Deca.
+Auteur : Baptiste LE DUC
 
+Description :
+Ce script exécute des tests pour vérifier la conformité des phases de lexique (`test_lex`) et de syntaxe (`test_synt`) 
+en comparant les résultats générés avec des fichiers de référence. 
+
+Répertoires :
+- Les fichiers de test sont recherchés dans : ./src/test/deca/syntax/valid/ et ./src/test/deca/syntax/valid/provided/
+- Les résultats attendus sont situés dans : ./src/test/results/deca/syntax/
+- Les fichiers temporaires sont stockés dans : ./src/test/results/tmp/
+
+Ajout de fichiers de référence pour la comparaison :
+- Pour `test_lex`, ajoutez un fichier `.lex` dans ./src/test/results/deca/syntax/lex/.
+- Pour `test_synt`, ajoutez un fichier `.synt` dans ./src/test/results/deca/syntax/lex/.
+
+Usage :
+Le script :
+1. Exécute les tests avec les exécutables `test_lex` et `test_synt`.
+2. Compare les résultats générés avec les fichiers de référence.
+3. Affiche les différences en cas d'incohérence et arrête l'exécution.
+
+Le script s’arrête automatiquement si une erreur survient.
+'
 # Arrête le script en cas d'echec d'une commande
 set -e 
 
@@ -55,8 +78,8 @@ run_tests() {
                 fi
                 rm "$tmp_file"
             else
-                # Si le fichier de sortie n'existe pas, sauvegarde la sortie temporaire
-                mv "$tmp_file" "$output_file"
+                # Si le fichier de sortie n'existe pas, suprrime la sortie temporaire
+                rm "$tmp_file" "$output_file"
             fi
         fi
     done
