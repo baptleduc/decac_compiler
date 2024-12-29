@@ -437,9 +437,14 @@ type returns[AbstractIdentifier tree]
 
 literal returns[AbstractExpr tree]
     : INT {
-        $tree = new IntLiteral(Integer.parseInt($INT.text));
-        setLocation($tree, $INT);
+        try {
+            $tree = new IntLiteral(Integer.parseInt($INT.text));
+            setLocation($tree, $INT);
+        } catch (NumberFormatException e){
+            throw new IntNotCodable(this, $INT);
         }
+
+        } 
     | fd=FLOAT {
         $tree = new FloatLiteral(Float.parseFloat($fd.text));
         setLocation($tree, $fd);

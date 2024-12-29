@@ -1,0 +1,12 @@
+// Description:
+//    Programme testant la déclaration d'un integer non codable sur 32 bits.
+//
+// Resultats:
+//    a==2
+//
+// Historique:
+//    cree le 19/12/2024
+
+{
+    int a = 2147483648;
+}

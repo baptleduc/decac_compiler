@@ -77,17 +77,10 @@ fragment FIGNORED : [fF];
 fragment DIGITHEX :'0' .. '9' | 'A' .. 'F' + 'a' .. 'f';
 fragment NUMHEX : DIGITHEX+;
 fragment FLOATHEX : ('Ox' | 'OX')NUMHEX '.' NUMHEX ('P' | 'p') SIGN? NUM FIGNORED?;
-FLOAT : FLOATDEC | FLOATHEX
-        {
-            System.out.println("Checking float value: " + getText());
-            checkFloatCorrectValue(getText());
-        };
+FLOAT : FLOATDEC | FLOATHEX;
 
 //Integer
-INT : '0' | POSITIVE_DIGIT*
-        {
-            checkIntCorrectValue(getText());
-        };
+INT : '0' | POSITIVE_DIGIT*;
 
 //Chaînes de caractères
 fragment STRING_CAR :  ~["\\\n];

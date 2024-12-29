@@ -1,0 +1,12 @@
+// Description:
+//    Programme testant la levé d'exception d'une non-lvalue
+//
+// Resultats:
+//    Ligne 11 : left-hand side of assignment is not an lvalue
+//
+// Historique:
+//    cree le 19/12/2024
+
+{
+    5 = x;
+}
