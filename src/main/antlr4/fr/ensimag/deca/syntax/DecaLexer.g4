@@ -36,10 +36,7 @@ WHILE : 'while';
 // fragment rulxes are used by other rules, but do not produce tokens:
 fragment POSITIVE_DIGIT : '0' .. '9';
 
-//Identificateurs
-fragment LETTER: ('a' .. 'z'|'A' .. 'Z');
-fragment DIGIT : '0' .. '9';
-IDENT : (LETTER | '$' | '_')(LETTER | DIGIT | '$' | '_')*;
+
 
 //Symboles spéciaux
 LT : '<';
@@ -76,7 +73,7 @@ fragment FLOATDEC : DEC (EXP)? FIGNORED?;
 fragment FIGNORED : [fF];
 fragment DIGITHEX :'0' .. '9' | 'A' .. 'F' + 'a' .. 'f';
 fragment NUMHEX : DIGITHEX+;
-fragment FLOATHEX : ('Ox' | 'OX')NUMHEX '.' NUMHEX ('P' | 'p') SIGN? NUM FIGNORED?;
+fragment FLOATHEX : ('0x' | '0X')NUMHEX '.' NUMHEX ('P' | 'p') SIGN? NUM FIGNORED?;
 FLOAT : FLOATDEC | FLOATHEX;
 
 //Integer
@@ -105,9 +102,15 @@ MONO_LIGNE_COMMENT : '//' (~[\nEOF])*
                 { skip(); } ;
                 
 
-// clusion de fichier
+// Inclusion de fichier
 fragment FILENAME : (LETTER | DIGIT | '.' | '-' + '_')+;
 INCLUDE : '#include' (' ')* '"' FILENAME '"'
                 {
                    doInclude(getText());
                 };
+
+
+//Identificateurs
+fragment LETTER: ('a' .. 'z'|'A' .. 'Z');
+fragment DIGIT : '0' .. '9';
+IDENT : (LETTER | '$' | '_')(LETTER | DIGIT | '$' | '_')*;

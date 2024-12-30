@@ -1,5 +1,5 @@
 // Description:
-//    Programme testant la déclaration d'un integer non codable sur 32 bits.
+//    Programme testant la déclaration d'un int non codable sur 32 bits.
 //
 // Resultats:
 //    a==2
