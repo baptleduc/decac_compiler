@@ -30,6 +30,9 @@ public class CompilerOptions {
     private boolean noCheck = false;
     private boolean parallel = false;
     private boolean printBanner = false;
+    private boolean printHelp = false;
+    private boolean warnings = false;
+
     private List<File> sourceFiles = new ArrayList<File>();
 
     public int getDebug() {
@@ -60,6 +63,14 @@ public class CompilerOptions {
         return noCheck;
     }
 
+    public boolean getPrintHelp(){
+        return printHelp;
+    }
+
+    public boolean getWarnings(){
+        return warnings;
+    }
+
     
     public List<File> getSourceFiles() {
         return Collections.unmodifiableList(sourceFiles);
@@ -77,16 +88,16 @@ public class CompilerOptions {
                 printBanner = true;
             }
             else if (args[i].equals("-p")){
-                parse = true;
+                handleParseOption();
             }
             else if (args[i].equals("-v")){
-                verify = true;
+                handleVerifyOption();
             }
             else if (args[i].equals("-n")){
                 noCheck = true;
             }
             else if (args[i].equals("-r")){
-                registers = Integer.parseInt(args[++i]);
+                i = handleRegistersOption(args, i);
             }
             else if (args[i].startsWith("-d")){
                 debug = args[i].length() - 1; // We remove 1 for '-'
@@ -94,26 +105,48 @@ public class CompilerOptions {
             else if (args[i].equals("-P")){
                 parallel = true;
             }
+            else if (args[i].equals("-h")){
+                printHelp = true;
+            }
+            else if (args[i].equals("-w")){
+                warnings = true;
+            }
+            else if (args[i].endsWith(".deca")){
+                handleSourceFile(args[i]);
+            }
             else{
                 throw new CLIException(args[i] + " is not recognized.");
             }
         }
 
+        this.configureLogger();
+        this.logAssertionsStatus();
+    }
+
+    private void configureLogger() {
         Logger logger = Logger.getRootLogger();
-        // map command-line debug option to log4j's level.
+        // Map command-line debug option to log4j's level
         switch (getDebug()) {
-        case QUIET: break; // keep default
-        case INFO:
-            logger.setLevel(Level.INFO); break;
-        case DEBUG:
-            logger.setLevel(Level.DEBUG); break;
-        case TRACE:
-            logger.setLevel(Level.TRACE); break;
-        default:
-            logger.setLevel(Level.ALL); break;
+            case QUIET:
+                break; // Default
+            case INFO:
+                logger.setLevel(Level.INFO);
+                break;
+            case DEBUG:
+                logger.setLevel(Level.DEBUG);
+                break;
+            case TRACE:
+                logger.setLevel(Level.TRACE);
+                break;
+            default:
+                logger.setLevel(Level.ALL);
+                break;
         }
         logger.info("Application-wide trace level set to " + logger.getLevel());
+    }
 
+    private void logAssertionsStatus(){
+        Logger logger = Logger.getRootLogger();
         boolean assertsEnabled = false;
         assert assertsEnabled = true; // Intentional side effect!!!
         if (assertsEnabled) {
@@ -123,6 +156,42 @@ public class CompilerOptions {
         }
     }
 
+    private int handleRegistersOption(String[] args, int currentIndex) throws CLIException {
+        if (currentIndex + 1 >= args.length){
+            throw new CLIException("Missing value for -r option.");
+        }
+        try {
+            registers = Integer.parseInt(args[++currentIndex]);
+            if (registers < 4 || registers > 16){
+                throw new CLIException("The number of registers must be between 4 and 16.");
+            }
+        } catch (NumberFormatException e) {
+            throw new CLIException("The number of registers must be an integer.");
+        }
+        return currentIndex;
+    }
+
+    private void handleVerifyOption() throws CLIException {
+        if (parse){
+            throw new CLIException("Cannot use -p and -v at the same time.");
+        }
+        verify = true;
+    }
+
+    private void handleParseOption() throws CLIException {
+        if (verify){
+            throw new CLIException("Cannot use -p and -v at the same time.");
+        }
+        parse = true;
+    }
+
+    private void handleSourceFile(String arg) throws CLIException {
+        File file = new File(arg);
+        if (!file.exists()){
+            throw new CLIException("File " + arg + " does not exist.");
+        }
+        sourceFiles.add(file);
+    }
     protected void displayUsage() {
         String usage = "usage : decac [-h] [-b] [-p] [-v] [-n] [-r X] [-d]* [-P] <fichier deca>...\n\n" 
              + "options:\n" 
