@@ -11,6 +11,19 @@ import org.apache.log4j.Logger;
  */
 public class DecacMain {
     private static Logger LOG = Logger.getLogger(DecacMain.class);
+    private static final String BANNER = 
+                "    *********************************************\r\n" + //
+                "    *                                           *\r\n" + //
+                "    *                 Team GL12                 *\r\n" + //
+                "    *                                           *\r\n" + //
+                "    * Members:                                  *\r\n" + //
+                "    *  - Baptiste Le Duc                        *\r\n" + //
+                "    *  - Ryan El Aroud                          *\r\n" + //
+                "    *  - Mathéo Dupiat                          *\r\n" + //
+                "    *  - Malo Nicolas                           *\r\n" + //
+                "    *  - Theo Giovanazi                         *\r\n" + //
+                "    *                                           *\r\n" + //
+                "    *********************************************\r\n";
     
     public static void main(String[] args) {
         // example log4j message.
@@ -26,7 +39,7 @@ public class DecacMain {
             System.exit(1);
         }
         if (options.getPrintBanner()) {
-            throw new UnsupportedOperationException("decac -b not yet implemented");
+            System.out.println(BANNER);
         }
         if (options.getSourceFiles().isEmpty()) {
             throw new UnsupportedOperationException("decac without argument not yet implemented");
