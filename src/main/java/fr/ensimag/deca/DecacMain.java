@@ -38,6 +38,10 @@ public class DecacMain {
             options.displayUsage();
             System.exit(1);
         }
+        if (options.getPrintHelp()) {
+            options.displayUsage();
+            System.exit(0);
+        }
         if (options.getPrintBanner()) {
             System.out.println(BANNER);
         }
