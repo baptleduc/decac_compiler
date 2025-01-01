@@ -1,2 +1,3 @@
-// Test inclusion d'un fichier bidon
+// Test: Inclusion of a dummy file
+
 #include "test.decah"

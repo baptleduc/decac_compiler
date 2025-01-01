@@ -1,11 +1,11 @@
 // Description:
-//    Programme minimaliste utilisant la declaration d'une variable.
+//    Minimalistic program using a variable declaration.
 //
-// Resultats:
+// Results:
 //    None
 //
-// Historique:
-//    cree le 19/12/2024
+// History:
+//    Created on 19/12/2024
 
 {
         int x;

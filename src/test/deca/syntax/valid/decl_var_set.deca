@@ -1,11 +1,11 @@
 // Description:
-//    Programme minimaliste utilisant le non-terminal decl_var_set.
+//    Minimalistic program using the non-terminal decl_var_set.
 //
-// Resultats:
+// Results:
 //    None
 //
-// Historique:
-//    cree le 19/12/2024
+// History:
+//    Created on 19/12/2024
 
 {
         int x, y, z;

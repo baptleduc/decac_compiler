@@ -1,11 +1,11 @@
 // Description:
-//    Programme testant la déclaration d'un float non codable sur 32 bits.
+//    Program testing the declaration of a float value that cannot be represented in 32 bits.
 //
-// Resultats:
-//    a==2
+// Results:
+//    a == 2
 //
-// Historique:
-//    cree le 19/12/2024
+// History:
+//    Created on 19/12/2024
 
 {   
     float a = 1.23E39;

@@ -1,11 +1,11 @@
 // Description:
-//    Programme minimaliste utilisant le non-terminal if_then_else.
+//    Minimalistic program using the non-terminal if_then_else.
 //
-// Resultats:
-//    a==2
+// Results:
+//    a == 2
 //
-// Historique:
-//    cree le 19/12/2024
+// History:
+//    Created on 19/12/2024
 
 {
         int a = 2;
