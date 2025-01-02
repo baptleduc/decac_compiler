@@ -54,7 +54,7 @@ public class TestCompilerOptions {
     @Test
     public void testParseInvalidRegisterOption() {
         CompilerOptions options = new CompilerOptions();
-        assertThrows(CLIException.class, () -> options.parseArgs(new String[]{"-r", "invalid"}));
+        assertThrows(CLIException.class, () -> options.parseArgs(new String[]{"-r", "17"}));
     }
 
     @Test
