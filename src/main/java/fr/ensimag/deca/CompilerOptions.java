@@ -2,8 +2,10 @@ package fr.ensimag.deca;
 
 import java.io.File;
 import java.io.PrintStream;
+import java.util.LinkedHashSet;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 
 import org.apache.log4j.Level;
@@ -33,6 +35,7 @@ public class CompilerOptions {
     private boolean warnings = false;
 
     private List<File> sourceFiles = new ArrayList<File>();
+    private HashSet<String> sourceFilesPath = new HashSet<String>();
 
     public int getDebug() {
         return debug;
@@ -185,10 +188,14 @@ public class CompilerOptions {
     }
 
     private void handleSourceFile(String arg) throws CLIException {
+        if (sourceFilesPath.contains(arg)){
+            return;
+        }
         File file = new File(arg);
         if (!file.exists()){
             throw new CLIException("File " + arg + " does not exist.");
         }
+        sourceFilesPath.add(file.getAbsolutePath());
         sourceFiles.add(file);
     }
     protected void displayUsage() {

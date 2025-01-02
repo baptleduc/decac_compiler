@@ -97,6 +97,26 @@ public class TestCompilerOptions {
     }
 
     @Test
+    public void testParseSameSourceFileTwice() throws CLIException {
+        File file = new File("testFile.deca");
+        // Create a temporary file to simulate a valid file
+        try {
+            file.createNewFile();
+        } catch (Exception e) {
+            fail("Failed to create test file.");
+        }
+
+        CompilerOptions options = new CompilerOptions();
+        options.parseArgs(new String[]{file.getAbsolutePath(), file.getAbsolutePath()});
+        List<File> sourceFiles = options.getSourceFiles();
+        assertEquals(1, sourceFiles.size());
+        assertEquals(file.getAbsolutePath(), sourceFiles.get(0).getAbsolutePath());
+
+        // Clean up the temporary file
+        assertTrue(file.delete());
+    }
+
+    @Test
     public void testParseConflictingOptions() {
         CompilerOptions options = new CompilerOptions();
         try {
