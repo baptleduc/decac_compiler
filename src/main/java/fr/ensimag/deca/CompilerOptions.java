@@ -30,7 +30,6 @@ public class CompilerOptions {
     private boolean noCheck = false;
     private boolean parallel = false;
     private boolean printBanner = false;
-    private boolean printHelp = false;
     private boolean warnings = false;
 
     private List<File> sourceFiles = new ArrayList<File>();
@@ -63,10 +62,6 @@ public class CompilerOptions {
         return noCheck;
     }
 
-    public boolean getPrintHelp(){
-        return printHelp;
-    }
-
     public boolean getWarnings(){
         return warnings;
     }
@@ -85,7 +80,7 @@ public class CompilerOptions {
 
         for(int i = 0; i < args.length; i++){
             if (args[i].equals("-b")){
-                printBanner = true;
+                handleBannerOption(args);
             }
             else if (args[i].equals("-p")){
                 handleParseOption();
@@ -104,9 +99,6 @@ public class CompilerOptions {
             }
             else if (args[i].equals("-P")){
                 parallel = true;
-            }
-            else if (args[i].equals("-h")){
-                printHelp = true;
             }
             else if (args[i].equals("-w")){
                 warnings = true;
@@ -171,6 +163,13 @@ public class CompilerOptions {
         return currentIndex;
     }
 
+    private void handleBannerOption(String[] args) throws CLIException {
+        if (args.length > 1){
+            throw new CLIException("Cannot use -b with other options.");
+        }
+        printBanner = true;
+    }
+
     private void handleVerifyOption() throws CLIException {
         if (parse){
             throw new CLIException("Cannot use -p and -v at the same time.");
@@ -193,16 +192,18 @@ public class CompilerOptions {
         sourceFiles.add(file);
     }
     protected void displayUsage() {
-        String usage = "usage : decac [-h] [-b] [-p] [-v] [-n] [-r X] [-d]* [-P] <fichier deca>...\n\n" 
-             + "options:\n" 
-             + "    -b (banner) : affiche une bannière indiquant le nom de l'équipe\n"
-             + "    -p (parse) : arrête decac après l'étape de construction de l'arbre, et affiche la décompilation de ce dernier\n"
-             + "           (i.e. s'il n'y a qu'un fichier source à compiler, la sortie doit être un programme deca syntaxiquement correct)\n"
-             + "    -v (verification) : arrête decac après l'étape de vérifications (ne produit aucune sortie en l'absence d'erreur)\n"
-             + "    -n (no check) : supprime les tests à l'exécution spécifiés dans les points 11.1 et 11.3 de la sémantique de Deca.\n"
-             + "    -r X (registers) : limite les registres banalisés disponibles à R0 ... R{X-1}, avec 4 <= X <= 16\n"
-             + "    -d (debug) : active les traces de debug. Répéter l'option plusieurs fois pour avoir plus de traces.\n"
-             + "    -P (parallel) : s'il y a plusieurs fichiers sources, lance la compilation des fichiers en parallèle (pour accélérer la compilation)\n";
+        String usage = "usage: decac [-h] [-b] [-p] [-v] [-n] [-r X] [-d]* [-P] <deca file>...\n\n" 
+            + "options:\n" 
+            + "    -b (banner): displays a banner with the team's name\n"
+            + "           (cannot be used with any other options)\n"
+            + "    -p (parse): stops decac after the tree construction step and displays the decompilation of the tree\n"
+            + "           (i.e., if there is only one source file to compile, the output should be a syntactically correct deca program)\n"
+            + "    -v (verification): stops decac after the verification step (produces no output in the absence of errors)\n"
+            + "    -n (no check): disables runtime checks specified in points 11.1 and 11.3 of the Deca semantics.\n"
+            + "    -r X (registers): limits the available registers to R0 ... R{X-1}, with 4 <= X <= 16\n"
+            + "    -d (debug): enables debug traces. Repeat the option multiple times for more traces.\n"
+            + "    -P (parallel): if there are multiple source files, compiles them in parallel (to speed up compilation)\n";
+
 
         System.out.println(usage);
     }

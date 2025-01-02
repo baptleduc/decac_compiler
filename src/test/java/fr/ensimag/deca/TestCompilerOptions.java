@@ -16,10 +16,9 @@ public class TestCompilerOptions {
     }
 
     @Test
-    public void testParseHelpOption() throws CLIException {
+    public void testParseBannerOptionWithOtherOptions() {
         CompilerOptions options = new CompilerOptions();
-        options.parseArgs(new String[]{"-h"});
-        assertTrue(options.getPrintHelp());
+        assertThrows(CLIException.class, () -> options.parseArgs(new String[]{"-b", "-v"}));
     }
 
     @Test
@@ -118,8 +117,7 @@ public class TestCompilerOptions {
         }
 
         CompilerOptions options = new CompilerOptions();
-        options.parseArgs(new String[]{"-b", "-P", "-n", "-r", "8", file.getAbsolutePath()});
-        assertTrue(options.getPrintBanner());
+        options.parseArgs(new String[]{"-P", "-n", "-r", "8", file.getAbsolutePath()});
         assertTrue(options.getParallel());
         assertTrue(options.getNoCheck());
         assertEquals(8, options.getRegisters());
