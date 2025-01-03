@@ -22,7 +22,14 @@ maven_build:
     paths:
       - target/
     
-
+unit_tests:
+  stage: test
+  dependencies:
+    - maven_build
+  script:
+    - echo "Running unit tests..."
+    - mvn surefire:test -Dtest=fr.ensimag.deca.tools.SymbolTest
+    - mvn surefire:test -Dtest=fr.ensimag.deca.TestCompilerOptions
 
 non_regression_tests:
   stage: test
@@ -32,21 +39,6 @@ non_regression_tests:
     - echo "Running non-regression tests..."
     - mvn exec:exec@non-regression
 
-
-# common_tests:
-#   stage: test
-#   image: registry.gitlab.com/ensimag5044950/projet-gl/custom-maven-image:latest
-#   dependencies:
-#     - maven_build
-#   script:
-#     - echo "Running common tests..."
-#     - mvn exec:exec@common-tests
-#   artifacts:
-#     when: on_failure
-#     reports:
-#       junit: target/surefire-reports/TEST-*.xml
-#     paths:
-#       - target/surefire-reports/
 
 # Uncomment the section below to enable SonarQube analysis
 # sonarqube-check:
