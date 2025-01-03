@@ -7,6 +7,7 @@ image: maven:latest
 stages:
   - build
   - test
+  - format-check
   #- sonarqube # Uncomment when SonarQube is ready to be used
 
 cache:
@@ -38,6 +39,13 @@ non_regression_tests:
   script:
     - echo "Running non-regression tests..."
     - mvn exec:exec@non-regression
+
+spotless_check:
+  stage: format-check
+  script:
+  - echo "Checking code formatting with Spotless..."
+  - mvn spotless:check
+  allow_failure: false
 
 
 # Uncomment the section below to enable SonarQube analysis
