@@ -56,7 +56,7 @@ public class StringLiteral extends AbstractStringLiteral {
     protected void prettyPrintChildren(PrintStream s, String prefix) {
         // leaf node => nothing to do
     }
-    
+
     @Override
     String prettyPrintNode() {
         return "StringLiteral (" + value + ")";

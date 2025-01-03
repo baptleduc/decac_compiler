@@ -22,7 +22,7 @@ public abstract class AbstractPrint extends AbstractInst {
 
     private boolean printHex;
     private ListExpr arguments = new ListExpr();
-    
+
     abstract String getSuffix();
 
     public AbstractPrint(boolean printHex, ListExpr arguments) {

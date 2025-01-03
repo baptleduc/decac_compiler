@@ -10,9 +10,10 @@ import static org.mockito.Mockito.*;
 
 /**
  * Test for the Plus node using mockito, without using advanced features.
+ * 
  * @see TestPlusAdvanced for more advanced examples.
  * @see TestPlusWithoutMock too see what would need to be written if the test
- * was done without using Mockito.
+ *      was done without using Mockito.
  *
  * @author Ensimag
  * @date 01/01/2025

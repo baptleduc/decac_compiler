@@ -15,15 +15,16 @@ public abstract class AbstractUnaryExpr extends AbstractExpr {
     public AbstractExpr getOperand() {
         return operand;
     }
+
     private AbstractExpr operand;
+
     public AbstractUnaryExpr(AbstractExpr operand) {
         Validate.notNull(operand);
         this.operand = operand;
     }
 
-
     protected abstract String getOperatorName();
-  
+
     @Override
     public void decompile(IndentPrintStream s) {
         throw new UnsupportedOperationException("not yet implemented");

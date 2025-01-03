@@ -25,5 +25,4 @@ public class StringType extends Type {
         throw new UnsupportedOperationException("not yet implemented");
     }
 
-
 }

@@ -16,20 +16,19 @@ import org.apache.log4j.Logger;
  */
 public class DecacMain {
     private static Logger LOG = Logger.getLogger(DecacMain.class);
-    private static final String BANNER = 
-                "    *********************************************\r\n" + //
-                "    *                                           *\r\n" + //
-                "    *                 Team GL12                 *\r\n" + //
-                "    *                                           *\r\n" + //
-                "    * Members:                                  *\r\n" + //
-                "    *  - Baptiste Le Duc                        *\r\n" + //
-                "    *  - Ryan El Aroud                          *\r\n" + //
-                "    *  - Mathéo Dupiat                          *\r\n" + //
-                "    *  - Malo Nicolas                           *\r\n" + //
-                "    *  - Theo Giovanazi                         *\r\n" + //
-                "    *                                           *\r\n" + //
-                "    *********************************************\r\n";
-    
+    private static final String BANNER = "    *********************************************\r\n" + //
+            "    *                                           *\r\n" + //
+            "    *                 Team GL12                 *\r\n" + //
+            "    *                                           *\r\n" + //
+            "    * Members:                                  *\r\n" + //
+            "    *  - Baptiste Le Duc                        *\r\n" + //
+            "    *  - Ryan El Aroud                          *\r\n" + //
+            "    *  - Mathéo Dupiat                          *\r\n" + //
+            "    *  - Malo Nicolas                           *\r\n" + //
+            "    *  - Theo Giovanazi                         *\r\n" + //
+            "    *                                           *\r\n" + //
+            "    *********************************************\r\n";
+
     public static void main(String[] args) {
         // example log4j message.
         LOG.info("Decac compiler started");
@@ -64,15 +63,18 @@ public class DecacMain {
         System.exit(error ? 1 : 0);
     }
 
-    private static boolean executeInParallel(CompilerOptions options){
+    private static boolean executeInParallel(CompilerOptions options) {
         boolean error = false;
-        // Create a thread pool with a fixed number of threads (equal to available processors)
+        // Create a thread pool with a fixed number of threads (equal to available
+        // processors)
         ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
         ArrayList<Future<Boolean>> futures = new ArrayList<Future<Boolean>>();
         for (File source : options.getSourceFiles()) {
             DecacCompiler compiler = new DecacCompiler(options, source);
             // Submit the task to the thread pool
-            Future<Boolean> future = executorService.submit(() -> {return compiler.compile();});
+            Future<Boolean> future = executorService.submit(() -> {
+                return compiler.compile();
+            });
             futures.add(future);
         }
 

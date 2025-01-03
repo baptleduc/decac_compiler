@@ -1,6 +1,5 @@
 package fr.ensimag.deca.tree;
 
-
 /**
  *
  * @author gl12
@@ -16,6 +15,5 @@ public class And extends AbstractOpBool {
     protected String getOperatorName() {
         return "&&";
     }
-
 
 }

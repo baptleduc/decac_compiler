@@ -30,7 +30,8 @@ public class DecacErrorListner implements ANTLRErrorListener {
     }
 
     @Override
-    public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line, int charPositionInLine, String msg, RecognitionException e) {
+    public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line, int charPositionInLine,
+            String msg, RecognitionException e) {
         // When trying to recover from an error, e can actually be null
         // (eg. "println(;")
         Token offendingToken = null;
@@ -41,8 +42,8 @@ public class DecacErrorListner implements ANTLRErrorListener {
         if (offendingToken != null) {
             LOG.info("Use token info for Location");
             l = new Location(offendingToken.getLine(),
-                offendingToken.getCharPositionInLine(),
-                offendingToken.getTokenSource().getSourceName());
+                    offendingToken.getCharPositionInLine(),
+                    offendingToken.getTokenSource().getSourceName());
         } else if (e instanceof DecaRecognitionException) {
             LOG.info("no token => using e: location=" + ((DecaRecognitionException) e).getLocation());
             l = ((DecaRecognitionException) e).getLocation();
@@ -64,17 +65,20 @@ public class DecacErrorListner implements ANTLRErrorListener {
     }
 
     @Override
-    public void reportAmbiguity(Parser recognizer, DFA dfa, int startIndex, int stopIndex, boolean exact, BitSet ambigAlts, ATNConfigSet configs) {
+    public void reportAmbiguity(Parser recognizer, DFA dfa, int startIndex, int stopIndex, boolean exact,
+            BitSet ambigAlts, ATNConfigSet configs) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public void reportAttemptingFullContext(Parser recognizer, DFA dfa, int startIndex, int stopIndex, BitSet conflictingAlts, ATNConfigSet configs) {
+    public void reportAttemptingFullContext(Parser recognizer, DFA dfa, int startIndex, int stopIndex,
+            BitSet conflictingAlts, ATNConfigSet configs) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public void reportContextSensitivity(Parser recognizer, DFA dfa, int startIndex, int stopIndex, int prediction, ATNConfigSet configs) {
+    public void reportContextSensitivity(Parser recognizer, DFA dfa, int startIndex, int stopIndex, int prediction,
+            ATNConfigSet configs) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }

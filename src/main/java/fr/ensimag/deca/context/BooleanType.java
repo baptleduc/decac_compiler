@@ -26,5 +26,4 @@ public class BooleanType extends Type {
         throw new UnsupportedOperationException("not yet implemented");
     }
 
-
 }

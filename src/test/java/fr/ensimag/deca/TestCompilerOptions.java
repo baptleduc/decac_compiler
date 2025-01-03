@@ -5,68 +5,67 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.util.List;
 
-
 public class TestCompilerOptions {
 
     @Test
     public void testParseBannerOption() throws CLIException {
         CompilerOptions options = new CompilerOptions();
-        options.parseArgs(new String[]{"-b"});
+        options.parseArgs(new String[] { "-b" });
         assertTrue(options.getPrintBanner());
     }
 
     @Test
     public void testParseBannerOptionWithOtherOptions() {
         CompilerOptions options = new CompilerOptions();
-        assertThrows(CLIException.class, () -> options.parseArgs(new String[]{"-b", "-v"}));
+        assertThrows(CLIException.class, () -> options.parseArgs(new String[] { "-b", "-v" }));
     }
 
     @Test
     public void testParseVerificationOption() throws CLIException {
         CompilerOptions options = new CompilerOptions();
-        options.parseArgs(new String[]{"-v"});
+        options.parseArgs(new String[] { "-v" });
         assertTrue(options.getVerify());
     }
 
     @Test
     public void testParseNoCheckOption() throws CLIException {
         CompilerOptions options = new CompilerOptions();
-        options.parseArgs(new String[]{"-n"});
+        options.parseArgs(new String[] { "-n" });
         assertTrue(options.getNoCheck());
     }
 
     @Test
     public void testParseDebugOption() throws CLIException {
         CompilerOptions options = new CompilerOptions();
-        options.parseArgs(new String[]{"-d"});
+        options.parseArgs(new String[] { "-d" });
         assertEquals(1, options.getDebug());
-        options.parseArgs(new String[]{"-ddd"});
+        options.parseArgs(new String[] { "-ddd" });
         assertEquals(3, options.getDebug());
     }
 
     @Test
     public void testParseRegisterOption() throws CLIException {
         CompilerOptions options = new CompilerOptions();
-        options.parseArgs(new String[]{"-r", "8"});
+        options.parseArgs(new String[] { "-r", "8" });
         assertEquals(8, options.getRegisters());
     }
 
     @Test
     public void testParseInvalidRegisterOption() {
         CompilerOptions options = new CompilerOptions();
-        assertThrows(CLIException.class, () -> options.parseArgs(new String[]{"-r", "17"}));
+        assertThrows(CLIException.class, () -> options.parseArgs(new String[] { "-r", "17" }));
     }
 
     @Test
     public void testParseMissingRegisterValue() {
         CompilerOptions options = new CompilerOptions();
-        assertThrows(CLIException.class, () -> options.parseArgs(new String[]{"-r"}));
+        assertThrows(CLIException.class, () -> options.parseArgs(new String[] { "-r" }));
     }
 
     @Test
     public void testParseParallelOption() throws CLIException {
         CompilerOptions options = new CompilerOptions();
-        options.parseArgs(new String[]{"-P"});
+        options.parseArgs(new String[] { "-P" });
         assertTrue(options.getParallel());
     }
 
@@ -81,7 +80,7 @@ public class TestCompilerOptions {
         }
 
         CompilerOptions options = new CompilerOptions();
-        options.parseArgs(new String[]{file.getAbsolutePath()});
+        options.parseArgs(new String[] { file.getAbsolutePath() });
         List<File> sourceFiles = options.getSourceFiles();
         assertEquals(1, sourceFiles.size());
         assertEquals(file.getAbsolutePath(), sourceFiles.get(0).getAbsolutePath());
@@ -93,7 +92,7 @@ public class TestCompilerOptions {
     @Test
     public void testParseNonExistentSourceFile() throws CLIException {
         CompilerOptions options = new CompilerOptions();
-        assertThrows(CLIException.class, () -> options.parseArgs(new String[]{"nonExistentFile.deca"}));
+        assertThrows(CLIException.class, () -> options.parseArgs(new String[] { "nonExistentFile.deca" }));
     }
 
     @Test
@@ -107,7 +106,7 @@ public class TestCompilerOptions {
         }
 
         CompilerOptions options = new CompilerOptions();
-        options.parseArgs(new String[]{file.getAbsolutePath(), file.getAbsolutePath()});
+        options.parseArgs(new String[] { file.getAbsolutePath(), file.getAbsolutePath() });
         List<File> sourceFiles = options.getSourceFiles();
         assertEquals(1, sourceFiles.size());
         assertEquals(file.getAbsolutePath(), sourceFiles.get(0).getAbsolutePath());
@@ -120,7 +119,7 @@ public class TestCompilerOptions {
     public void testParseConflictingOptions() {
         CompilerOptions options = new CompilerOptions();
         try {
-            options.parseArgs(new String[]{"-p", "-v"});
+            options.parseArgs(new String[] { "-p", "-v" });
             fail("Expected CLIException for conflicting options.");
         } catch (CLIException e) {
             assertEquals("Cannot use -p and -v at the same time.", e.getMessage());
@@ -137,7 +136,7 @@ public class TestCompilerOptions {
         }
 
         CompilerOptions options = new CompilerOptions();
-        options.parseArgs(new String[]{"-P", "-n", "-r", "8", file.getAbsolutePath()});
+        options.parseArgs(new String[] { "-P", "-n", "-r", "8", file.getAbsolutePath() });
         assertTrue(options.getParallel());
         assertTrue(options.getNoCheck());
         assertEquals(8, options.getRegisters());

@@ -79,7 +79,7 @@ public abstract class AbstractDecaLexer extends Lexer {
             }
         } catch (ParseCancellationException e) {
             if (e.getCause() instanceof LocationException) {
-                ((LocationException)e.getCause()).display(System.err);
+                ((LocationException) e.getCause()).display(System.err);
             }
             return true;
         } catch (DecaRecognitionException e) {
@@ -132,7 +132,8 @@ public abstract class AbstractDecaLexer extends Lexer {
     }
 
     // Code needed to implement the #include directive.
-    // Adapted from https://theantlrguy.atlassian.net/wiki/pages/viewpage.action?pageId=2686987
+    // Adapted from
+    // https://theantlrguy.atlassian.net/wiki/pages/viewpage.action?pageId=2686987
     private static class IncludeSaveStruct {
         IncludeSaveStruct(CharStream input, int line, int charPositionInline) {
             this.input = input;
@@ -177,7 +178,8 @@ public abstract class AbstractDecaLexer extends Lexer {
         final URL url = ClassLoader.getSystemResource("include/" + name);
         if (url != null) {
             LOG.debug("Using library " + url);
-            // Use fromReader(Reader, String) to catch the file name --- fromStream(InputStream) does not.
+            // Use fromReader(Reader, String) to catch the file name ---
+            // fromStream(InputStream) does not.
             return CharStreams.fromReader(new InputStreamReader(url.openStream()), url.getFile());
         }
 
@@ -243,8 +245,9 @@ public abstract class AbstractDecaLexer extends Lexer {
 
     /**
      * Override method nextToken for <code>#include</code> management.
+     * 
      * @return the next Token which is read in an included files on
-     *    a <code>#include</code>
+     *         a <code>#include</code>
      */
     @Override
     @SuppressWarnings("InfiniteRecursion")
@@ -282,5 +285,4 @@ public abstract class AbstractDecaLexer extends Lexer {
         return token;
     }
 
-    
 }

@@ -9,7 +9,7 @@ import org.antlr.v4.runtime.Token;
 public class IntNotCodableException extends DecaRecognitionException {
     private static final long serialVersionUID = -3517868082633812254L;
     private final String name;
-    
+
     public IntNotCodableException(DecaParser recognizer, Token offendingToken) {
         super(recognizer, offendingToken);
         this.name = offendingToken.getText();

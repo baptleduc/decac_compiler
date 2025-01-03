@@ -29,12 +29,11 @@ public class DeclClass extends AbstractDeclClass {
             throws ContextualError {
         throw new UnsupportedOperationException("not yet implemented");
     }
-    
+
     @Override
     protected void verifyClassBody(DecacCompiler compiler) throws ContextualError {
         throw new UnsupportedOperationException("not yet implemented");
     }
-
 
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {

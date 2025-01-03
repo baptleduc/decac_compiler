@@ -23,7 +23,6 @@ public class Modulo extends AbstractOpArith {
         throw new UnsupportedOperationException("not yet implemented");
     }
 
-
     @Override
     protected String getOperatorName() {
         return "%";

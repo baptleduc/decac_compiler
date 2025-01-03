@@ -30,5 +30,4 @@ public class NullType extends Type {
         return true;
     }
 
-
 }

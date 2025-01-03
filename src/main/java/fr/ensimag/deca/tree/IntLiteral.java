@@ -31,7 +31,6 @@ public class IntLiteral extends AbstractExpr {
         throw new UnsupportedOperationException("not yet implemented");
     }
 
-
     @Override
     String prettyPrintNode() {
         return "Int (" + getValue() + ")";

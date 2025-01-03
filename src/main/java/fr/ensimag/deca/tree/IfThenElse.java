@@ -16,8 +16,8 @@ import org.apache.commons.lang.Validate;
  * @date 01/01/2025
  */
 public class IfThenElse extends AbstractInst {
-    
-    private final AbstractExpr condition; 
+
+    private final AbstractExpr condition;
     private final ListInst thenBranch;
     private ListInst elseBranch;
 
@@ -29,11 +29,11 @@ public class IfThenElse extends AbstractInst {
         this.thenBranch = thenBranch;
         this.elseBranch = elseBranch;
     }
-    
-    public void setElseBranch(ListInst newElseBranch){
+
+    public void setElseBranch(ListInst newElseBranch) {
         this.elseBranch = newElseBranch;
     }
-    
+
     @Override
     protected void verifyInst(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass, Type returnType)
@@ -51,8 +51,7 @@ public class IfThenElse extends AbstractInst {
     }
 
     @Override
-    protected
-    void iterChildren(TreeFunction f) {
+    protected void iterChildren(TreeFunction f) {
         condition.iter(f);
         thenBranch.iter(f);
         elseBranch.iter(f);
