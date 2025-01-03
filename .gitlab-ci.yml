@@ -1,31 +1,54 @@
+variables:
+  MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository" # Use a local maven cache
+
+
+image: maven:latest
+
 stages:
   - build
   - test
+  #- sonarqube # Uncomment when SonarQube is ready to be used
+
+cache:
+  paths:
+  - .m2/repository
 
 maven_build:
   stage: build
-  image: registry.gitlab.com/ensimag5044950/projet-gl/custom-maven-image:latest
   script:
-    - mvn clean compile
+    - echo "Starting Maven build process..."
+    - mvn clean test-compile
   artifacts:
     paths:
       - target/
-    expire_in: 1 hour
+    
 
-common_tests:
+
+non_regression_tests:
   stage: test
-  image: registry.gitlab.com/ensimag5044950/projet-gl/custom-maven-image:latest
   dependencies:
     - maven_build
   script:
-    - mvn test
-  artifacts:
-    when: on_failure
-    reports:
-      junit: target/surefire-reports/TEST-*.xml
-    paths:
-      - target/surefire-reports/
+    - echo "Running non-regression tests..."
+    - mvn exec:exec@non-regression
 
+
+# common_tests:
+#   stage: test
+#   image: registry.gitlab.com/ensimag5044950/projet-gl/custom-maven-image:latest
+#   dependencies:
+#     - maven_build
+#   script:
+#     - echo "Running common tests..."
+#     - mvn exec:exec@common-tests
+#   artifacts:
+#     when: on_failure
+#     reports:
+#       junit: target/surefire-reports/TEST-*.xml
+#     paths:
+#       - target/surefire-reports/
+
+# Uncomment the section below to enable SonarQube analysis
 # sonarqube-check:
 #   stage: sonarqube
 #   image: registry.gitlab.com/ensimag5044950/projet-gl/custom-maven-image:latest
@@ -34,5 +57,6 @@ common_tests:
 #     paths:
 #       - .sonar/cache
 #   script:
+#     - echo "Running SonarQube analysis..."
 #     - mvn verify sonar:sonar -Dsonar.projectKey=Project-GL -Dsonar.login=$SONAR_TOKEN
 #   allow_failure: true

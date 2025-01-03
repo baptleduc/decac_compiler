@@ -1,0 +1,16 @@
+// Description:
+//    Minimalistic program using the non-terminal decl_var_set.
+//
+// Results:
+//    None
+//
+// History:
+//    Created on 19/12/2024
+
+{
+        int x, y, z;
+        boolean a, b = true;
+        int c=10;
+        str d ="toto";
+        g;
+}

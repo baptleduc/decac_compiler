@@ -1,0 +1,6 @@
+// Display the floating-point result of half the square of an integer
+{
+   int x ;
+   x=readInt() ;
+   println(0.5*(x*x)) ;
+}

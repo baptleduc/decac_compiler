@@ -1,0 +1,2 @@
+// Test: Including a file located in the same directory
+#include "decl.deca"
