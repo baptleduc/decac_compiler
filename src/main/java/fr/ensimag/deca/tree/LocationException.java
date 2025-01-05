@@ -32,7 +32,7 @@ public class LocationException extends Exception {
 
     public LocationException(String message, Location location) {
         super(message);
-        assert(location == null || location.getFilename() != null);
+        assert (location == null || location.getFilename() != null);
         this.location = location;
     }
 

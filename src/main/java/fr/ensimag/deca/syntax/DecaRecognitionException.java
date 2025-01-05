@@ -17,21 +17,21 @@ import org.antlr.v4.runtime.Token;
 class DecaRecognitionException extends RecognitionException {
     private static final long serialVersionUID = -4104122409998903414L;
     Location location;
+
     Location getLocation() {
         if (location != null) {
             return location;
         }
         final Token offendingToken = getOffendingToken();
-        assert(offendingToken != null);
+        assert (offendingToken != null);
         return new Location(
                 offendingToken.getLine(),
                 offendingToken.getCharPositionInLine(),
-                offendingToken.getTokenSource().getSourceName()
-                );
+                offendingToken.getTokenSource().getSourceName());
     }
 
     public DecaRecognitionException(AbstractDecaLexer recognizer,
-                IntStream input) {
+            IntStream input) {
         super(recognizer, input, null);
         location = new Location(recognizer.getLine(), recognizer.getCharPositionInLine(), recognizer.getSourceName());
         setOffendingToken(recognizer.getToken());

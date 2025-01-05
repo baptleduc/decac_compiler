@@ -32,12 +32,14 @@ public abstract class Tree {
     public void setLocation(int line, int column, String filename) {
         this.location = new Location(line, column, filename);
     }
+
     private Location location;
 
     /**
      * Display the tree as a (compilable) source program
      *
-     * @param s Buffer to which the result will be written.
+     * @param s
+     *            Buffer to which the result will be written.
      */
     public abstract void decompile(IndentPrintStream s);
 
@@ -84,7 +86,7 @@ public abstract class Tree {
      * @param inlist
      * @param nodeName
      * @return The prefix to use for the next recursive calls to
-     * {@link #prettyPrint()}.
+     *         {@link #prettyPrint()}.
      */
     String printNodeLine(PrintStream s, String prefix, boolean last,
             boolean inlist, String nodeName) {
@@ -173,11 +175,15 @@ public abstract class Tree {
      * Pretty-print tree (see {@link #prettyPrint()}). This is an internal
      * function that should usually not be called directly.
      *
-     * @param s Stream to send the output to
-     * @param prefix Prefix (ASCII-art showing hierarchy) to print for this
-     * node.
-     * @param last Whether the node being displayed is the last child of a tree.
-     * @param inlist Whether the node is being displayed as part of a list.
+     * @param s
+     *            Stream to send the output to
+     * @param prefix
+     *            Prefix (ASCII-art showing hierarchy) to print for this
+     *            node.
+     * @param last
+     *            Whether the node being displayed is the last child of a tree.
+     * @param inlist
+     *            Whether the node is being displayed as part of a list.
      */
     protected final void prettyPrint(PrintStream s, String prefix,
             boolean last, boolean inlist) {
@@ -205,7 +211,8 @@ public abstract class Tree {
     }
 
     /**
-     * Function used internally by {@link #iter(TreeFunction)}. Must call iter() on each
+     * Function used internally by {@link #iter(TreeFunction)}. Must call iter() on
+     * each
      * child of the tree.
      *
      * @param f
@@ -231,8 +238,9 @@ public abstract class Tree {
      * Useful for debugging/defensive programming.
      *
      * @return true. Raises an exception in case of error. The return value is
-     * meant to allow assert(tree.checkAllLocations()), to enable the defensive
-     * check only if assertions are enabled.
+     *         meant to allow assert(tree.checkAllLocations()), to enable the
+     *         defensive
+     *         check only if assertions are enabled.
      */
     public boolean checkAllDecorations() {
         iter(new TreeFunction() {
@@ -266,8 +274,9 @@ public abstract class Tree {
      * Useful for debugging/defensive programming.
      *
      * @return true. Raises an exception in case of error. The return value is
-     * meant to allow assert(tree.checkAllLocations()), to enable the defensive
-     * check only if assertions are enabled.
+     *         meant to allow assert(tree.checkAllLocations()), to enable the
+     *         defensive
+     *         check only if assertions are enabled.
      */
     public boolean checkAllLocations() {
         iter(new TreeFunction() {

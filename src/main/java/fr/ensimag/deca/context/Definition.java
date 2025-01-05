@@ -44,10 +44,11 @@ public abstract class Definition {
 
     private Location location;
     private Type type;
+
     public boolean isField() {
         return false;
     }
-    
+
     public boolean isMethod() {
         return false;
     }
@@ -68,7 +69,7 @@ public abstract class Definition {
             throws ContextualError {
         throw new ContextualError(errorMessage, l);
     }
-    
+
     /**
      * Return the same object, as type FieldDefinition, if possible. Throws
      * ContextualError(errorMessage, l) otherwise.

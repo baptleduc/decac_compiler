@@ -14,7 +14,7 @@ public class LabelOperand extends DVal {
     }
 
     private Label label;
-    
+
     public LabelOperand(Label label) {
         super();
         Validate.notNull(label);

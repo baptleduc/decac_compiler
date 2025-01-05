@@ -1,6 +1,5 @@
 package fr.ensimag.deca.tree;
 
-
 /**
  * read...() statement.
  *
@@ -12,6 +11,5 @@ public abstract class AbstractReadExpr extends AbstractExpr {
     public AbstractReadExpr() {
         super();
     }
-
 
 }
