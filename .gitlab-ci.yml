@@ -31,6 +31,7 @@ unit_tests:
     - echo "Running unit tests..."
     - mvn surefire:test -Dtest=fr.ensimag.deca.tools.SymbolTest
     - mvn surefire:test -Dtest=fr.ensimag.deca.TestCompilerOptions
+    - mvn surefire:test -Dtest=fr.ensimag.deca.context.TestEnvironmentExp
 
 non_regression_tests:
   stage: test

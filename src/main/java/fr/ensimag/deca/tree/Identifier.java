@@ -1,6 +1,7 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.context.Type;
+import fr.ensimag.deca.context.TypeDefinition;
 import fr.ensimag.deca.context.ClassType;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
@@ -25,6 +26,7 @@ import org.apache.log4j.Logger;
  * @date 01/01/2025
  */
 public class Identifier extends AbstractIdentifier {
+    private static final Logger LOG = Logger.getLogger(Identifier.class);
 
     @Override
     protected void checkDecoration() {
@@ -179,7 +181,17 @@ public class Identifier extends AbstractIdentifier {
      */
     @Override
     public Type verifyType(DecacCompiler compiler) throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
+        LOG.debug("verifyType : start");
+        Symbol integer = compiler.createSymbol("int");
+        TypeDefinition typeDef = compiler.environmentType.defOfType(integer);
+        if (typeDef == null) {
+            throw new ContextualError("Type " + name + " is not defined", getLocation());
+        }
+        Type type = typeDef.getType();
+        setType(type);
+        setDefinition(typeDef);
+        LOG.debug("verifyType : end");
+        return type;
     }
 
     private Definition definition;
