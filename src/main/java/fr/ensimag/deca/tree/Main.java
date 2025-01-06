@@ -37,6 +37,10 @@ public class Main extends AbstractMain {
         EnvironmentExp localEnv = new EnvironmentExp(null);
 
         declVariables.verifyListDeclVariable(compiler, localEnv, null);
+
+        // Verification of statements
+        insts.verifyListInst(compiler, null, null, compiler.environmentType.VOID);
+
         LOG.debug("verify Main: end");
     }
 
