@@ -35,6 +35,8 @@ public class DeclVar extends AbstractDeclVar {
             throws ContextualError {
         // Verified that type is correct
         Type varType = type.verifyType(compiler);
+
+        
         if (localEnv.get(varName.getName()) != null) {
             throw new ContextualError("Variable " + varName.getName() + " already declared in this context", varName.getLocation());
         }
