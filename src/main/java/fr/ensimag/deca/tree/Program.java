@@ -38,8 +38,11 @@ public class Program extends AbstractProgram {
     @Override
     public void verifyProgram(DecacCompiler compiler) throws ContextualError {
         LOG.debug("verify program: start");
-        throw new UnsupportedOperationException("not yet implemented");
-        // LOG.debug("verify program: end");
+        if (main == null) {
+            throw new ContextualError("No main block defined in the program.", Location.BUILTIN);
+        }
+        main.verifyMain(compiler);
+        LOG.debug("verify program: end");
     }
 
     @Override
