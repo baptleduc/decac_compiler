@@ -34,8 +34,8 @@ public class StringLiteral extends AbstractStringLiteral {
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-         // Retrieve the 'string' type from the predefined environment
-        
+        // Retrieve the 'string' type from the predefined environment
+
         Type stringType = compiler.environmentType.STRING;
 
         // Decorate the node with the 'string' type
