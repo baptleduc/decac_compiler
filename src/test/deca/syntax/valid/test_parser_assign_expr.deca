@@ -1,0 +1,11 @@
+// Description:
+//    Minimalistic program to test non-terminal assign_expr.
+//
+// Results:
+//    None
+//
+// History:
+//    Created on 6/1/2025
+{
+    print(true && false, true && 1,  !a+3);
+}

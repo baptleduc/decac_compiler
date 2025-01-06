@@ -77,7 +77,7 @@ fragment FLOATHEX : ('0x' | '0X')NUMHEX '.' NUMHEX ('P' | 'p') SIGN? NUM FIGNORE
 FLOAT : FLOATDEC | FLOATHEX;
 
 //Integer
-INT : '0' | POSITIVE_DIGIT*;
+INT : '0' | POSITIVE_DIGIT+;
 
 //Chaînes de caractères
 fragment STRING_CAR :  ~["\\\n];
@@ -85,7 +85,7 @@ STRING : '"' (STRING_CAR | '\\"' | '\\\\')* '"';
 MULTI_LINE_STRING : '"' (STRING_CAR | EOL | '\\"' | '\\\\')* '"';
 
 
-// Séparateur
+// arateur
 WS  :   ( ' '
         | '\t'
         | '\r'
@@ -103,10 +103,10 @@ MONO_LIGNE_COMMENT : '//' (~[\nEOF])*
                 
 
 // Inclusion de fichier
-fragment FILENAME : (LETTER | DIGIT | '.' | '-' + '_')+;
+fragment FILENAME : (LETTER | DIGIT | '.' | '-' | '_')+;
 INCLUDE : '#include' (' ')* '"' FILENAME '"'
                 {
-                   doInclude(getText());
+                   //doInclude(getText());
                 };
 
 

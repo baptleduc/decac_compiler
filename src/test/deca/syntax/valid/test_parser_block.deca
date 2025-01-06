@@ -1,0 +1,16 @@
+// Description:
+//    Minimalistic program to test non-terminal related to declarationn of variables.
+//
+// Results:
+//    None
+//
+// History:
+//    Created on 6/1/2025
+
+{
+    int x;
+    int y,z;
+    int a =2
+    int b, c = 3;
+    int d=5, e;
+}

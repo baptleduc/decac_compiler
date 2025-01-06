@@ -1,0 +1,14 @@
+// Description:
+//    Minimalistic program to test while boucle.
+//
+// Results:
+//    None
+//
+// History:
+//    Created on 6/1/2025
+{
+    while(b)
+    {
+	print("a");
+    }
+}

@@ -1,0 +1,19 @@
+`> [9, 0] Program
+   +> ListDeclClass [List with 0 elements]
+   `> [9, 0] Main
+      +> ListDeclVar [List with 0 elements]
+      `> ListInst [List with 1 elements]
+         []> [10, 4] Print
+             `> ListExpr [List with 8 elements]
+                []> [10, 10] ReadFloat
+                []> [11, 3] BooleanLiteral (false)
+                []> [12, 3] Int (1)
+                []> [13, 3] Float (42.5)
+                []> [14, 3] StringLiteral ("drrs")
+                []> [15, 5] Or
+                ||  +> [15, 4] Identifier (s)
+                ||  `> [15, 8] And
+                ||     +> [15, 7] Identifier (a)
+                ||     `> [15, 10] Int (3)
+                []> [16, 3] ReadInt
+                []> [17, 3] ReadFloat
