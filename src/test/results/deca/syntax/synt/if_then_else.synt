@@ -15,8 +15,8 @@
              +> ListInst [List with 1 elements]
              |  []> [16, 16] Println
              |      `> ListExpr [List with 1 elements]
-             |         []> [16, 24] StringLiteral ("a==1")
+             |         []> [16, 24] StringLiteral (a==1)
              `> ListInst [List with 1 elements]
                 []> [19, 16] Println
                     `> ListExpr [List with 1 elements]
-                       []> [19, 24] StringLiteral ("a!=2 && a!=1")
+                       []> [19, 24] StringLiteral (a!=2 && a!=1)
