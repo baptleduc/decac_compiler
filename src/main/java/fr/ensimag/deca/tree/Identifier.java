@@ -27,7 +27,7 @@ import org.apache.log4j.Logger;
  */
 public class Identifier extends AbstractIdentifier {
     private static final Logger LOG = Logger.getLogger(Identifier.class);
-    
+
     @Override
     protected void checkDecoration() {
         if (getDefinition() == null) {
@@ -193,8 +193,7 @@ public class Identifier extends AbstractIdentifier {
         LOG.debug("verifyType : end");
         return type;
     }
-    
-    
+
     private Definition definition;
 
     @Override

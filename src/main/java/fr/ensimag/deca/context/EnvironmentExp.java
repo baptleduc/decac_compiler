@@ -26,7 +26,7 @@ public class EnvironmentExp {
 
     EnvironmentExp parentEnvironment;
     HashMap<Symbol, ExpDefinition> currentEnvironment;
-    
+
     public EnvironmentExp(EnvironmentExp parentEnvironment) {
         this.parentEnvironment = parentEnvironment;
         this.currentEnvironment = new HashMap<Symbol, ExpDefinition>();
@@ -42,7 +42,7 @@ public class EnvironmentExp {
      */
     public ExpDefinition get(Symbol key) {
         ExpDefinition defFromCurrent = this.currentEnvironment.get(key);
-        if (defFromCurrent == null && this.parentEnvironment != null){ 
+        if (defFromCurrent == null && this.parentEnvironment != null) {
             return this.parentEnvironment.get(key);
         }
         return defFromCurrent;
@@ -64,7 +64,7 @@ public class EnvironmentExp {
      *
      */
     public void declare(Symbol name, ExpDefinition def) throws DoubleDefException {
-        if (currentEnvironment.containsKey(name)){
+        if (currentEnvironment.containsKey(name)) {
             throw new DoubleDefException();
         }
         // Hides the previous declaration

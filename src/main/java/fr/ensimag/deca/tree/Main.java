@@ -32,7 +32,7 @@ public class Main extends AbstractMain {
         // A FAIRE: Appeler méthodes "verify*" de ListDeclVarSet et ListInst.
         // Vous avez le droit de changer le profil fourni pour ces méthodes
         // (mais ce n'est à priori pas nécessaire).
-        
+
         // Create a new local environment
         EnvironmentExp localEnv = new EnvironmentExp(null);
 
