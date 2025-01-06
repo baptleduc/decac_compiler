@@ -34,7 +34,16 @@ public class StringLiteral extends AbstractStringLiteral {
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
+        // Retrieve the 'string' type from the predefined environment
+
+        Type stringType = compiler.environmentType.STRING;
+
+        // Decorate the node with the 'string' type
+        this.setType(stringType);
+
+        // Return the type of the expression
+        return stringType;
+
     }
 
     @Override
