@@ -1,0 +1,12 @@
+// Description:
+//    Program testing the raising of an exception for a reserved word.
+//
+// Results:
+//    Line 11: wrong usage of a reserved word.
+//
+// History:
+//    Created on 06/01/2025
+
+{
+    float instanceof ;
+}
