@@ -1,0 +1,19 @@
+// Description:
+//    decompilation de la déclaration de variables
+//
+// Resultats:
+// {
+//    int x = 1;
+//    int y = x; 
+// }
+//
+// Historique:
+//    cree le 07/01/2025
+
+// Un exemple de programme Deca
+
+// Test de transformation des déclarations de variables
+// Chaque variable est déclarée individuellement
+{
+   int x = 1, y = x;
+}

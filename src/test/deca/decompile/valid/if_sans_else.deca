@@ -1,0 +1,24 @@
+// Description:
+//    decompilation if sans else
+//
+// Resultats:
+// {
+//    int x;
+//    if (x > 0) {
+//        x = 1;
+//    } else {
+//    }
+// }
+//
+// Historique:
+//    cree le 07/01/2025
+
+// Test de complétion des if sans else
+// Une branche else vide est ajoutée automatiquement
+{
+   int x;
+   if (x > 0) {
+       x = 1;
+   }
+}
+

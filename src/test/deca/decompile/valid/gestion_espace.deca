@@ -1,0 +1,13 @@
+// Description:
+//    decompilation espace en trop
+//
+// Resultats:
+// {int x= 3 + 2}
+//
+// Historique:
+//    cree le 07/01/2025
+
+
+// Suprression des espaces
+{ int x= 3 + 2 }
+ 
