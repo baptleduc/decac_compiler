@@ -13,6 +13,6 @@
 	  42.5f,
 	  "drrs",
 	  (s||a&&3),
-	  readInt(),
+	  readInt()
 	  );
 }
