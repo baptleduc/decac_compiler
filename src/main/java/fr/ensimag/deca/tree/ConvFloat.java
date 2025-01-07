@@ -27,9 +27,9 @@ public class ConvFloat extends AbstractUnaryExpr {
     protected String getOperatorName() {
         return "/* conv float */";
     }
-    
+
     @Override
     public void decompile(IndentPrintStream s) {
-	return;
+        return;
     }
 }
