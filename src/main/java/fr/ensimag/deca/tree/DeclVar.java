@@ -62,8 +62,8 @@ public class DeclVar extends AbstractDeclVar {
             throw new ContextualError("Variable " + varName.getName() + " already declared in this context",
                     varName.getLocation());
         }
-
-        initialization.verifyInitialization(compiler, varType, localEnv, currentClass);
+        EnvironmentExp empiledEnv = localEnv.empile(localEnv.getParent());
+        initialization.verifyInitialization(compiler, varType, empiledEnv, currentClass);
 
     }
 
