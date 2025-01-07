@@ -6,6 +6,8 @@ import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.ima.pseudocode.DAddr;
+
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
 import fr.ensimag.deca.context.VariableDefinition;
@@ -51,6 +53,10 @@ public class DeclVar extends AbstractDeclVar {
                     varName.getLocation());
         }
 
+    }
+
+    protected void codeGenDeclVar(DecacCompiler compiler) {
+        ((VariableDefinition)varName.getDefinition()).setOperand(new DAddr(compiler.getStackManagement().));
     }
 
     @Override

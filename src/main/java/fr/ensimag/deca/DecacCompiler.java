@@ -1,5 +1,6 @@
 package fr.ensimag.deca;
 
+import fr.ensimag.deca.codegen.StackManagement;
 import fr.ensimag.deca.context.EnvironmentType;
 import fr.ensimag.deca.syntax.DecaLexer;
 import fr.ensimag.deca.syntax.DecaParser;
@@ -65,6 +66,13 @@ public class DecacCompiler {
         return compilerOptions;
     }
 
+    /** 
+     * IMA StackManagement class tool
+     */
+    public StackManagement getStackManagement() {
+        return program.getStackManagement();
+    }
+
     /**
      * @see
      *      fr.ensimag.ima.pseudocode.IMAProgram#add(fr.ensimag.ima.pseudocode.AbstractLine)
@@ -94,6 +102,14 @@ public class DecacCompiler {
      */
     public void addInstruction(Instruction instruction) {
         program.addInstruction(instruction);
+    }
+
+    /**
+     * @see
+     *      fr.ensimag.ima.pseudocode.IMAProgram#addFirst(fr.ensimag.ima.pseudocode.Instruction,,java.lang.String)
+    */
+    public void addFirst(Instruction i, String comment){
+        program.addFirst(i,comment);
     }
 
     /**

@@ -4,6 +4,8 @@ import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.ima.pseudocode.instructions.TSTO;
+
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
 import org.apache.log4j.Logger;
@@ -47,8 +49,12 @@ public class Main extends AbstractMain {
     @Override
     protected void codeGenMain(DecacCompiler compiler) {
         // A FAIRE: traiter les déclarations de variables.
+        
         compiler.addComment("Beginning of main instructions:");
+        // Generate code for global variables
+        declVariables.(compiler);
         insts.codeGenListInst(compiler);
+        compiler.addFirst(new TSTO(1), "maximum size of stack");
     }
 
     @Override
