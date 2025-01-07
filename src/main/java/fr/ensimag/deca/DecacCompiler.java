@@ -184,18 +184,18 @@ public class DecacCompiler {
             PrintStream out, PrintStream err)
             throws DecacFatalError, LocationException {
         AbstractProgram prog = doLexingAndParsing(sourceName, err);
-	
+
         if (prog == null) {
             LOG.info("Parsing failed");
             return true;
         }
         assert (prog.checkAllLocations());
-	
-	if (this.compilerOptions.getParse()){
-	    //PrintStream printDecompile = new PrintStream();
-	    IndentPrintStream indentPrintDecompile = new IndentPrintStream(err);
-	    prog.decompile(indentPrintDecompile);
-	}
+
+        if (this.compilerOptions.getParse()) {
+            // PrintStream printDecompile = new PrintStream();
+            IndentPrintStream indentPrintDecompile = new IndentPrintStream(err);
+            prog.decompile(indentPrintDecompile);
+        }
         prog.verifyProgram(this);
         assert (prog.checkAllDecorations());
 

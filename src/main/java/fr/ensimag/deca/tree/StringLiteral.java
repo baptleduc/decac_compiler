@@ -53,9 +53,9 @@ public class StringLiteral extends AbstractStringLiteral {
 
     @Override
     public void decompile(IndentPrintStream s) {
-	s.print("\"");
-	s.print(value);
-	s.print("\"");
+        s.print("\"");
+        s.print(value);
+        s.print("\"");
     }
 
     @Override
