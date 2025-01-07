@@ -90,12 +90,14 @@ decl_var[AbstractIdentifier t] returns[AbstractDeclVar tree]
             AbstractInitialization init_tree = new NoInitialization();
         }
     : i=ident {;
+        setLocation(init_tree, $i.start);
         $tree = new DeclVar(t, $i.tree, init_tree);
         setLocation($tree, $i.start);
         }
       (EQUALS e=expr {
         assert($e.tree != null);
         init_tree = new Initialization($e.tree);
+        setLocation(init_tree, $e.start);
         $tree = new DeclVar(t, $i.tree, init_tree);
         setLocation($tree, $e.start);
         }
