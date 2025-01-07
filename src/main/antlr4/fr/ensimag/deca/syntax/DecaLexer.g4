@@ -98,7 +98,7 @@ WS  :   ( ' '
 //Commentaires
 COMMENT : '/*' .*? '*/'
                 { skip(); } ;
-MONO_LIGNE_COMMENT : '//' (~[\nEOF])*
+MONO_LIGNE_COMMENT : '//' (~[\n])*
                 { skip(); } ;
                 
 
