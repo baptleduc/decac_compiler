@@ -1,6 +1,5 @@
 package fr.ensimag.deca.tree;
 
-
 /**
  *
  * @author nicolmal
@@ -11,7 +10,6 @@ public class InstanceOf extends AbstractOpIneq {
     public InstanceOf(AbstractExpr leftOperand, AbstractExpr rightOperand) {
         super(leftOperand, rightOperand);
     }
-
 
     @Override
     protected String getOperatorName() {
