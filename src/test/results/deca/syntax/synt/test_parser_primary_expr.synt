@@ -4,7 +4,7 @@
       +> ListDeclVar [List with 0 elements]
       `> ListInst [List with 1 elements]
          []> [10, 4] Print
-             `> ListExpr [List with 8 elements]
+             `> ListExpr [List with 7 elements]
                 []> [10, 10] ReadFloat
                 []> [11, 3] BooleanLiteral (false)
                 []> [12, 3] Int (1)
@@ -16,4 +16,3 @@
                 ||     +> [15, 7] Identifier (a)
                 ||     `> [15, 10] Int (3)
                 []> [16, 3] ReadInt
-                []> [17, 3] ReadFloat
