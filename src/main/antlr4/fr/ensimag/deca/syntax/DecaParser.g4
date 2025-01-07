@@ -491,7 +491,10 @@ list_classes returns[ListDeclClass tree]
         $tree = new ListDeclClass();
     }
     :
-      (c1=class_
+        (c1=class_decl {
+            }
+        )*
+    ;
 
 class_decl
     : CLASS name=ident superclass=class_extension OBRACE class_body CBRACE {
@@ -556,7 +559,7 @@ list_params
         }
       )*)?
     ;
-    
+
 multi_line_string returns[String text, Location location]
     : s=STRING {
             $text = $s.text;

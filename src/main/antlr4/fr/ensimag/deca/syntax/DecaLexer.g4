@@ -19,7 +19,7 @@ ELSE : 'else';
 FALSE : 'false';
 IF : 'if';
 INSTANCEOF : 'instanceof';
-NEW : 'NEW';
+NEW : 'new';
 NULL : 'null';
 READINT : 'readInt';
 READFLOAT : 'readFloat';
@@ -106,7 +106,7 @@ MONO_LIGNE_COMMENT : '//' (~[\nEOF])*
 fragment FILENAME : (LETTER | DIGIT | '.' | '-' | '_')+;
 INCLUDE : '#include' (' ')* '"' FILENAME '"'
                 {
-                   //doInclude(getText());
+                   doInclude(getText());
                 };
 
 
