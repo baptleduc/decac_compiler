@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * write using a mock-up framework like Mockito.
  *
  * @see TestPlusPlain to see how the Mockito library can help writing this kind
- * of tests.
+ *      of tests.
  *
  * @author Ensimag
  * @date 01/01/2025

@@ -1,5 +1,7 @@
 package fr.ensimag.deca.context;
 
+import java.util.HashMap;
+
 import fr.ensimag.deca.tools.SymbolTable.Symbol;
 
 /**
@@ -8,26 +10,26 @@ import fr.ensimag.deca.tools.SymbolTable.Symbol;
  * This is actually a linked list of dictionaries: each EnvironmentExp has a
  * pointer to a parentEnvironment, corresponding to superblock (eg superclass).
  * 
- * The dictionary at the head of this list thus corresponds to the "current" 
+ * The dictionary at the head of this list thus corresponds to the "current"
  * block (eg class).
  * 
- * Searching a definition (through method get) is done in the "current" 
- * dictionary and in the parentEnvironment if it fails. 
+ * Searching a definition (through method get) is done in the "current"
+ * dictionary and in the parentEnvironment if it fails.
  * 
- * Insertion (through method declare) is always done in the "current" dictionary.
+ * Insertion (through method declare) is always done in the "current"
+ * dictionary.
  * 
  * @author gl12
  * @date 01/01/2025
  */
 public class EnvironmentExp {
-    // A FAIRE : implémenter la structure de donnée représentant un
-    // environnement (association nom -> définition, avec possibilité
-    // d'empilement).
 
     EnvironmentExp parentEnvironment;
-    
+    HashMap<Symbol, ExpDefinition> currentEnvironment;
+
     public EnvironmentExp(EnvironmentExp parentEnvironment) {
         this.parentEnvironment = parentEnvironment;
+        this.currentEnvironment = new HashMap<Symbol, ExpDefinition>();
     }
 
     public static class DoubleDefException extends Exception {
@@ -39,14 +41,18 @@ public class EnvironmentExp {
      * symbol is undefined.
      */
     public ExpDefinition get(Symbol key) {
-        throw new UnsupportedOperationException("not yet implemented");
+        ExpDefinition defFromCurrent = this.currentEnvironment.get(key);
+        if (defFromCurrent == null && this.parentEnvironment != null) {
+            return this.parentEnvironment.get(key);
+        }
+        return defFromCurrent;
     }
 
     /**
      * Add the definition def associated to the symbol name in the environment.
      * 
      * Adding a symbol which is already defined in the environment,
-     * - throws DoubleDefException if the symbol is in the "current" dictionary 
+     * - throws DoubleDefException if the symbol is in the "current" dictionary
      * - or, hides the previous declaration otherwise.
      * 
      * @param name
@@ -58,7 +64,11 @@ public class EnvironmentExp {
      *
      */
     public void declare(Symbol name, ExpDefinition def) throws DoubleDefException {
-        throw new UnsupportedOperationException("not yet implemented");
+        if (currentEnvironment.containsKey(name)) {
+            throw new DoubleDefException();
+        }
+        // Hides the previous declaration
+        this.currentEnvironment.put(name, def);
     }
 
 }

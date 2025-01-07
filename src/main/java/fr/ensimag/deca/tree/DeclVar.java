@@ -8,6 +8,7 @@ import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
+import fr.ensimag.deca.context.VariableDefinition;
 
 /**
  * @author gl12
@@ -15,7 +16,6 @@ import org.apache.commons.lang.Validate;
  */
 public class DeclVar extends AbstractDeclVar {
 
-    
     final private AbstractIdentifier type;
     final private AbstractIdentifier varName;
     final private AbstractInitialization initialization;
@@ -33,22 +33,38 @@ public class DeclVar extends AbstractDeclVar {
     protected void verifyDeclVar(DecacCompiler compiler,
             EnvironmentExp localEnv, ClassDefinition currentClass)
             throws ContextualError {
+        // Verified that type is correct
+        Type varType = type.verifyType(compiler);
+
+        if (localEnv.get(varName.getName()) != null) {
+            throw new ContextualError("Variable " + varName.getName() + " already declared in this context",
+                    varName.getLocation());
+        }
+
+        // Add the variable to the environment
+        VariableDefinition varDef = new VariableDefinition(varType, varName.getLocation());
+        varName.setDefinition(varDef);
+        try {
+            localEnv.declare(varName.getName(), varDef);
+        } catch (EnvironmentExp.DoubleDefException e) {
+            throw new ContextualError("Variable " + varName.getName() + " already declared in this context",
+                    varName.getLocation());
+        }
+
     }
 
-    
     @Override
     public void decompile(IndentPrintStream s) {
         throw new UnsupportedOperationException("not yet implemented");
     }
 
     @Override
-    protected
-    void iterChildren(TreeFunction f) {
+    protected void iterChildren(TreeFunction f) {
         type.iter(f);
         varName.iter(f);
         initialization.iter(f);
     }
-    
+
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
         type.prettyPrint(s, prefix, false);

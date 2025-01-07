@@ -14,7 +14,6 @@ import fr.ensimag.deca.tree.Location;
 
 public abstract class Type {
 
-
     /**
      * True if this and otherType represent the same type (in the case of
      * classes, this means they represent the same class).

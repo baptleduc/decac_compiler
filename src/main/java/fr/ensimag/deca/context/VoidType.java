@@ -25,5 +25,4 @@ public class VoidType extends Type {
         throw new UnsupportedOperationException("not yet implemented");
     }
 
-
 }

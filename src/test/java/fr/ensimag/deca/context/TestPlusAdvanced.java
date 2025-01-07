@@ -32,7 +32,7 @@ public class TestPlusAdvanced {
     AbstractExpr floatexpr2;
 
     DecacCompiler compiler;
-    
+
     @BeforeEach
     public void setup() throws ContextualError {
         MockitoAnnotations.initMocks(this);

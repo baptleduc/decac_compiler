@@ -3,7 +3,8 @@ package fr.ensimag.deca.syntax;
 import org.antlr.v4.runtime.IntStream;
 
 /**
- * Exception raised when a #include is found for a file that cannot be found or opened.
+ * Exception raised when a #include is found for a file that cannot be found or
+ * opened.
  *
  * @author gl12
  * @date 01/01/2025
@@ -15,7 +16,7 @@ public class IncludeFileNotFound extends DecaRecognitionException {
         super(recognizer, input);
         this.name = name;
     }
-    
+
     public String getName() {
         return name;
     }
@@ -24,7 +25,7 @@ public class IncludeFileNotFound extends DecaRecognitionException {
     public String getMessage() {
         return name + ": include file not found";
     }
-    
+
     private static final long serialVersionUID = -8541996188279897766L;
 
 }

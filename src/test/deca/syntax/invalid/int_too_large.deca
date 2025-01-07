@@ -1,0 +1,12 @@
+// Description:
+//    Program testing the declaration of an int value that cannot be represented in 32 bits.
+//
+// Results:
+//    a == 2
+//
+// History:
+//    Created on 19/12/2024
+
+{
+    int a = 2147483648;
+}

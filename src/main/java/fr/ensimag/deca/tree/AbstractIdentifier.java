@@ -60,7 +60,8 @@ public abstract class AbstractIdentifier extends AbstractLValue {
     public abstract SymbolTable.Symbol getName();
 
     /**
-     * Like {@link #getDefinition()}, but works only if the definition is a ExpDefinition.
+     * Like {@link #getDefinition()}, but works only if the definition is a
+     * ExpDefinition.
      *
      * This method essentially performs a cast, but throws an explicit exception
      * when the cast fails.
@@ -84,11 +85,11 @@ public abstract class AbstractIdentifier extends AbstractLValue {
 
     public abstract void setDefinition(Definition definition);
 
-
-
     /**
      * Implements non-terminal "type" of [SyntaxeContextuelle] in the 3 passes
-     * @param compiler contains "env_types" attribute
+     * 
+     * @param compiler
+     *            contains "env_types" attribute
      * @return the type corresponding to this identifier
      *         (corresponds to the "type" attribute)
      */

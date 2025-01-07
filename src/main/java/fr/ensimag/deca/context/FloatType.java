@@ -25,5 +25,4 @@ public class FloatType extends Type {
         throw new UnsupportedOperationException("not yet implemented");
     }
 
-
 }

@@ -1,6 +1,5 @@
 package fr.ensimag.deca.tree;
 
-
 /**
  *
  * @author gl12
@@ -12,10 +11,9 @@ public class Equals extends AbstractOpExactCmp {
         super(leftOperand, rightOperand);
     }
 
-
     @Override
     protected String getOperatorName() {
         return "==";
-    }    
-    
+    }
+
 }

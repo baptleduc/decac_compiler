@@ -23,5 +23,4 @@ public abstract class AbstractOpCmp extends AbstractBinaryExpr {
         throw new UnsupportedOperationException("not yet implemented");
     }
 
-
 }

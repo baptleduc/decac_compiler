@@ -1,6 +1,5 @@
 package fr.ensimag.deca.tree;
 
-
 /**
  *
  * @author gl12
@@ -10,7 +9,6 @@ public class LowerOrEqual extends AbstractOpIneq {
     public LowerOrEqual(AbstractExpr leftOperand, AbstractExpr rightOperand) {
         super(leftOperand, rightOperand);
     }
-
 
     @Override
     protected String getOperatorName() {

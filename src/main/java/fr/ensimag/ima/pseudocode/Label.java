@@ -22,5 +22,6 @@ public class Label extends Operand {
         Validate.isTrue(name.matches("^[a-zA-Z][a-zA-Z0-9_.]*$"), "Invalid label name " + name);
         this.name = name;
     }
+
     private String name;
 }

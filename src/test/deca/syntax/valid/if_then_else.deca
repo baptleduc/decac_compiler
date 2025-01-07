@@ -1,0 +1,21 @@
+// Description:
+//    Minimalistic program using the non-terminal if_then_else.
+//
+// Results:
+//    a == 2
+//
+// History:
+//    Created on 19/12/2024
+
+{
+        int a = 2;
+        if (a==2){
+                println("a==2");
+        }
+        else if (a== 1){
+                println("a==1");
+        }
+        else{
+                println("a!=2 && a!=1");
+        }
+}
