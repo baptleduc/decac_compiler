@@ -71,7 +71,7 @@ fragment DEC : NUM '.' NUM;
 // on passe par un autre fragment car on veut ignorer le f
 fragment FLOATDEC : DEC (EXP)? FIGNORED?;
 fragment FIGNORED : [fF];
-fragment DIGITHEX :'0' .. '9' | 'A' .. 'F' + 'a' .. 'f';
+fragment DIGITHEX :'0' .. '9' | 'A' .. 'F' | 'a' .. 'f';
 fragment NUMHEX : DIGITHEX+;
 fragment FLOATHEX : ('0x' | '0X')NUMHEX '.' NUMHEX ('P' | 'p') SIGN? NUM FIGNORED?;
 FLOAT : FLOATDEC | FLOATHEX;
