@@ -20,6 +20,7 @@ import java.io.PrintStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.apache.log4j.Logger;
+import fr.ensimag.deca.tools.IndentPrintStream;
 
 /**
  * Decac compiler instance.
@@ -183,13 +184,18 @@ public class DecacCompiler {
             PrintStream out, PrintStream err)
             throws DecacFatalError, LocationException {
         AbstractProgram prog = doLexingAndParsing(sourceName, err);
-
+	
         if (prog == null) {
             LOG.info("Parsing failed");
             return true;
         }
         assert (prog.checkAllLocations());
-
+	
+	if (this.compilerOptions.getParse()){
+	    //PrintStream printDecompile = new PrintStream();
+	    IndentPrintStream indentPrintDecompile = new IndentPrintStream(err);
+	    prog.decompile(indentPrintDecompile);
+	}
         prog.verifyProgram(this);
         assert (prog.checkAllDecorations());
 
