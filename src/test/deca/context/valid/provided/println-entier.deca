@@ -1,0 +1,12 @@
+// Description:
+//    Programme minimaliste affichant un entier
+//
+// Resultats:
+//    11
+//
+// Historique:
+//    cree le 07/01/2025
+
+{
+        println(11);
+}
