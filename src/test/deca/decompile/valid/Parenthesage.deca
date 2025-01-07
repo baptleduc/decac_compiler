@@ -1,0 +1,23 @@
+// Description:
+//    decompilation parenthésage
+//
+// Resultats:
+// {
+//    int x;
+//    x = (5 + 3) * 2;
+//    println(x);
+// }
+//
+// Historique:
+//    cree le 07/01/2025
+
+
+// Test d'équivalence de parenthésage
+// Les parenthèses doivent être préservées ou ajoutées si nécessaire
+
+{
+   int x;
+   x = (5 + 3) * 2;
+   println(x);
+}
+
