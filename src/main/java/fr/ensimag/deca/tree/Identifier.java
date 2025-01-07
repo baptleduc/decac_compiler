@@ -182,10 +182,10 @@ public class Identifier extends AbstractIdentifier {
     @Override
     public Type verifyType(DecacCompiler compiler) throws ContextualError {
         LOG.debug("verifyType : start");
-        Symbol integer = compiler.createSymbol("int");
-        TypeDefinition typeDef = compiler.environmentType.defOfType(integer);
+        Symbol symbol = compiler.createSymbol(name.getName());
+        TypeDefinition typeDef = compiler.environmentType.defOfType(symbol);
         if (typeDef == null) {
-            throw new ContextualError("Type " + name + " is not defined", getLocation());
+            throw new ContextualError("Type " + name.getName() + " is not defined", getLocation());
         }
         Type type = typeDef.getType();
         setType(type);
