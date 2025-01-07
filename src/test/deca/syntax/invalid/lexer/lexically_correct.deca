@@ -1,0 +1,20 @@
+< > = + - * / % . , ( ) { } ! ; == != >= <= && || asm class extends else false if instanceof new null readInt readFloat print println printlnx printx protected return this true while
+a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W X Y Z $ _
+a0 _1 $2 c3 Z4 z5 A6 $$7 ___8 _a_$$9 
+_ajbdaubAUYZ7623ojd__iajd9$ ppp9823$$$
+1 2 3 4 5 6 7 8 9 0 123456789 007263 7103810
+2.876 1.1E+17 1.1E-21 1.1E33 1.1e+44 1.1e-58 1.1e6 1.1f 1.2e1F
+0xff7e4.8aP-98F 0Xa.1p1 0x1.1P+1f
+"azertyuiopqsdfghjklmwxcvbnAZERTYUIOPQSDFGHJKLMWXCVBN1234567890*+-/!@#$%^&*()_+[]{}|;':,.<>?\\"\\\\"
+"azertyuiopqsdfghjklmwxcvbnAZERTYUIOPQSDFGHJKLMWXCVBN1234567890*+-/!@#$%^&*()_+[]{}|;':,.<>?\\"\\\\
+azertyuiop
+"
+// azertyuiopqsdfghjklmwxcvbnAZERTYUIOPQSDFGHJKLMWXCVBN1234567890*+-/!@#$%^&*()_+[]{}|;':,.<>?\"
+/* azertyuiopqsdfghjklmwxcvbnAZERT
+YUIOPQSDFGHJKLMWXCVBN1234567890*+-/!@
+#$%^&*()_+[]{
+
+}|;':,.<>?\" */
+    a   b/**/c
+d
+#include     "include_testing-0.deca"
