@@ -2,11 +2,11 @@
 //    Programme minimaliste affichant un nombre décimal
 //
 // Resultats:
-//    11.3
+//    11.2
 //
 // Historique:
 //    cree le 07/01/2025
 
 {
-        println(11.3);
+        println(11.2);
 }
