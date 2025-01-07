@@ -1,0 +1,26 @@
+// Description:
+//    decompilation d'un programme en FLOATDEC et FLOATHEX
+//
+// Resultats:
+// {
+//    float x;
+//    x = 0.5;
+//    println(x);
+//    x = 0x1.0p-1;
+//    println(x);
+// }
+//
+// Historique:
+//    cree le 07/01/2025
+
+// Test d'équivalence entre FLOATDEC et FLOATHEX
+// Les valeurs équivalentes doivent être exprimées dans le même format que l'original
+
+{
+   float x;
+   x = 0.5; // FLOATDEC
+   println(x);
+   x = 0x1.0p-1; // FLOATHEX (équivalent à 0.5)
+   println(x);
+}
+
