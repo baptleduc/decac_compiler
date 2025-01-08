@@ -1,6 +1,7 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.DecacCompiler;
+import fr.ensimag.deca.codegen.StackManagement;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
@@ -49,12 +50,12 @@ public class Main extends AbstractMain {
     @Override
     protected void codeGenMain(DecacCompiler compiler) {
         // A FAIRE: traiter les déclarations de variables.
-
+        StackManagement stackManager = compiler.getStackManagement();
         compiler.addComment("Beginning of main instructions:");
         // Generate code for global variables
         declVariables.codeGenListDeclVar(compiler);
         insts.codeGenListInst(compiler);
-        compiler.addFirst(new TSTO(1), "maximum size of stack");
+        compiler.addFirst(new TSTO(stackManager.getNeededStackFrame()), stackManager.getTSTOComment());;
     }
 
     @Override
