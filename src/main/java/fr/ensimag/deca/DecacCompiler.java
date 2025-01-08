@@ -195,6 +195,7 @@ public class DecacCompiler {
             // PrintStream printDecompile = new PrintStream();
             IndentPrintStream indentPrintDecompile = new IndentPrintStream(err);
             prog.decompile(indentPrintDecompile);
+	    return false;
         }
         prog.verifyProgram(this);
         assert (prog.checkAllDecorations());
