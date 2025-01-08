@@ -61,6 +61,7 @@ public class DecacCompiler {
     public DecacCompiler(CompilerOptions compilerOptions, File source) {
         super();
         this.compilerOptions = compilerOptions;
+        this.stackManager = new StackManagement(program, this.compilerOptions.getRegisters());
         this.source = source;
     }
 
@@ -93,7 +94,7 @@ public class DecacCompiler {
     /**
      * Stack management to handle registers and stack.
      */
-    private final StackManagement stackManager = new StackManagement(program);
+    private final StackManagement stackManager;
 
     /** The global environment for types (and the symbolTable) */
     public final SymbolTable symbolTable = new SymbolTable();

@@ -3,7 +3,6 @@ package fr.ensimag.ima.pseudocode;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.LinkedList;
-import fr.ensimag.deca.codegen.StackManagement;
 
 /**
  * Abstract representation of an IMA program, i.e. set of Lines.
@@ -13,11 +12,6 @@ import fr.ensimag.deca.codegen.StackManagement;
  */
 public class IMAProgram {
     private final LinkedList<AbstractLine> lines = new LinkedList<AbstractLine>();
-    private StackManagement stackManagement = new StackManagement(this);
-
-    public StackManagement getStackManagement() {
-        return stackManagement;
-    }
 
     public void add(AbstractLine line) {
         lines.add(line);

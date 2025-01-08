@@ -1,16 +1,10 @@
 package fr.ensimag.deca.codegen;
 
 import fr.ensimag.ima.pseudocode.Register;
-import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.IMAProgram;
-import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.RegisterOffset;
-import fr.ensimag.ima.pseudocode.Instruction;
-import fr.ensimag.ima.pseudocode.instructions.*;
-import fr.ensimag.ima.pseudocode.AbstractLine;
-import fr.ensimag.ima.pseudocode.DAddr;
-import fr.ensimag.ima.pseudocode.ImmediateInteger;
+
 import java.util.LinkedList;
 
 import org.apache.log4j.Logger;
@@ -37,12 +31,18 @@ public class StackManagement {
     private int numTemporaries = 0;
     private int numMethodParams = 0;
 
-    public StackManagement(IMAProgram program) {
+    public StackManagement(IMAProgram program, int numRegisters) {
         idxAvailableGPRegisters = new LinkedList<>();
         idxUsedGPRegisters = new LinkedList<>();
         this.program = program;
 
-        for (int i = 2; i < Register.getMaxGPRegisters(); i++) { // R0 and R1 are scratch registers
+        int numberOfRegisters;
+        if (numRegisters == -1) { // No limitations on the registers to be used
+            numberOfRegisters = Register.getMaxGPRegisters();
+        } else {
+            numberOfRegisters = numRegisters;
+        }
+        for (int i = 2; i < numberOfRegisters; i++) { // R0 and R1 are scratch registers
             idxAvailableGPRegisters.add(i);
         }
     }
