@@ -40,9 +40,12 @@ public class IntLiteral extends AbstractExpr {
         Symbol intSymbol = compiler.createSymbol("int");
         TypeDefinition intTypeDef = compiler.environmentType.defOfType(intSymbol);
         assert (intTypeDef != null);
+        Type intType = intTypeDef.getType();
+        this.setType(intType);
         LOG.debug("verifyExpr IntLiteral: end");
 
-        return intTypeDef.getType();
+
+        return intType;
     }
 
     @Override
