@@ -67,9 +67,7 @@ public class IntLiteral extends AbstractExpr {
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
-        compiler.getStackManagement().loadImmediateValue(value);
+        compiler.loadImmediateValue(value);
     }
-
-
 
 }

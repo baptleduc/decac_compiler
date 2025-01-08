@@ -60,6 +60,6 @@ public class Initialization extends AbstractInitialization {
     @Override
     public void codeGenInitialization(DecacCompiler compiler, DAddr addr) {
         expression.codeGenInst(compiler);
-        compiler.getStackManagement().storeLastUsedRegister(addr);
+        compiler.storeLastUsedRegister(addr);
     }
 }

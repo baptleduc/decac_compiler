@@ -49,7 +49,7 @@ public class DeclVar extends AbstractDeclVar {
 
         // Add the variable to the environment
         VariableDefinition varDef = new VariableDefinition(varType, varName.getLocation());
-        varDef.setOperand(compiler.getStackManagement().addGlobalVariable());
+        varDef.setOperand(compiler.getStackManager().addGlobalVariable());
         varName.setDefinition(varDef);
         try {
             localEnv.declare(varName.getName(), varDef);

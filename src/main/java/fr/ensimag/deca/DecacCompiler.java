@@ -10,9 +10,22 @@ import fr.ensimag.deca.tools.SymbolTable.Symbol;
 import fr.ensimag.deca.tree.AbstractProgram;
 import fr.ensimag.deca.tree.LocationException;
 import fr.ensimag.ima.pseudocode.AbstractLine;
+import fr.ensimag.ima.pseudocode.DAddr;
+import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.IMAProgram;
+import fr.ensimag.ima.pseudocode.ImmediateInteger;
 import fr.ensimag.ima.pseudocode.Instruction;
 import fr.ensimag.ima.pseudocode.Label;
+import fr.ensimag.ima.pseudocode.instructions.ADDSP;
+import fr.ensimag.ima.pseudocode.instructions.BOV;
+import fr.ensimag.ima.pseudocode.instructions.ERROR;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
+import fr.ensimag.ima.pseudocode.instructions.PUSH;
+import fr.ensimag.ima.pseudocode.instructions.STORE;
+import fr.ensimag.ima.pseudocode.instructions.TSTO;
+import fr.ensimag.ima.pseudocode.instructions.WNL;
+import fr.ensimag.ima.pseudocode.instructions.WSTR;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -66,20 +79,21 @@ public class DecacCompiler {
         return compilerOptions;
     }
 
-    /**
-     * IMA StackManagement class tool
-     */
-    public StackManagement getStackManagement() {
-        return program.getStackManagement();
+    public StackManagement getStackManager() {
+        return stackManager;
     }
-
 
     private final CompilerOptions compilerOptions;
     private final File source;
     /**
      * The main program. Every instruction generated will eventually end up here.
      */
-    private final IMAProgram program = new IMAProgram();
+    private IMAProgram program = new IMAProgram();
+
+    /**
+     * Stack management to handle registers and stack.
+     */
+    private final StackManagement stackManager = new StackManagement(program);
 
     /** The global environment for types (and the symbolTable) */
     public final SymbolTable symbolTable = new SymbolTable();
@@ -87,6 +101,172 @@ public class DecacCompiler {
 
     public Symbol createSymbol(String name) {
         return symbolTable.create(name);
+    }
+
+    /**
+     * Temporarily switches the current IMAProgram to the specified program
+     * for the duration of the provided runnable task. After the task is executed,
+     * the previous program is restored.
+     *
+     * @param program
+     *            the temporary IMAProgram to use during the execution of the
+     *            runnable
+     * @param r
+     *            the task to be executed with the temporary program
+     */
+    public void withProgram(IMAProgram program, Runnable r) {
+        IMAProgram oldProgram = this.program;
+        this.program = program;
+        r.run();
+        this.program = oldProgram;
+    }
+
+    /**
+     * @see
+     *      fr.ensimag.ima.pseudocode.IMAProgram#add(fr.ensimag.ima.pseudocode.AbstractLine)
+     */
+    public void add(AbstractLine line) {
+        program.add(line);
+    }
+
+    /**
+     * @see fr.ensimag.ima.pseudocode.IMAProgram#addComment(java.lang.String)
+     */
+    public void addComment(String comment) {
+        program.addComment(comment);
+    }
+
+    /**
+     * @see
+     *      fr.ensimag.ima.pseudocode.IMAProgram#addLabel(fr.ensimag.ima.pseudocode.Label)
+     */
+    public void addLabel(Label label) {
+        program.addLabel(label);
+    }
+
+    /**
+     * @see
+     *      fr.ensimag.ima.pseudocode.IMAProgram#addInstruction(fr.ensimag.ima.pseudocode.Instruction)
+     */
+    public void addInstruction(Instruction instruction) {
+        program.addInstruction(instruction);
+    }
+
+    /**
+     * @see
+     *      fr.ensimag.ima.pseudocode.IMAProgram#addFirst(fr.ensimag.ima.pseudocode.Instruction,,java.lang.String)
+     */
+    public void addFirst(Instruction i, String comment) {
+        program.addFirst(i, comment);
+    }
+
+    /**
+     * @see
+     *      fr.ensimag.ima.pseudocode.IMAProgram#addFirst(fr.ensimag.ima.pseudocode.AbstractLine)
+     */
+    public void addFirst(Instruction i) {
+        program.addFirst(i);
+    }
+
+    /**
+     * @see
+     *      fr.ensimag.ima.pseudocode.IMAProgram#addInstruction(fr.ensimag.ima.pseudocode.Instruction,
+     *      java.lang.String)
+     */
+    public void addInstruction(Instruction instruction, String comment) {
+        program.addInstruction(instruction, comment);
+    }
+
+    /**
+     * @see
+     *      fr.ensimag.ima.pseudocode.IMAProgram#display()
+     */
+    public String displayIMAProgram() {
+        return program.display();
+    }
+
+    /**
+     * Inserts a TSTO instruction to test for stack overflow and calculates
+     * the required stack size. If 'noVerify' is false, it adds a block to handle
+     * stack overflow errors.
+     *
+     * @param noVerify
+     *            if true, skips adding the stack overflow error-handling block
+     */
+    public void stackOverflowCheck(boolean noVerify) {
+        if (noVerify) {
+            return;
+        }
+        LOG.debug("Inserting TSTO instruction");
+        LOG.debug(noVerify);
+        int d = stackManager.getNeededStackFrame();
+        Label label = new Label("stack_overflow_error");
+        ImmediateInteger imm = new ImmediateInteger(stackManager.getOffsetSP());
+        addFirst(new ADDSP(imm));
+        addFirst(new BOV(label));
+        addFirst(new TSTO(d), stackManager.getCommentTSTO());
+        addLabel(label);
+        addInstruction(new WSTR("Error: Stack Overflow"));
+        addInstruction(new WNL());
+        addInstruction(new ERROR());
+    }
+
+    /**
+     * Adds a LOAD instruction to load an immediate value into an available
+     * register.
+     *
+     * @param value
+     *            the immediate value to be loaded into the register
+     */
+    public void loadImmediateValue(int value) {
+        GPRegister gpReg = getAvailableGPRegister();
+        program.addInstruction(new LOAD(value, gpReg));
+    }
+
+    /**
+     * Stores the value of the last used register into the specified memory address
+     * and releases the register for future use.
+     *
+     * @param addr
+     *            the memory address where the last used register's value will be
+     *            stored
+     */
+    public void storeLastUsedRegister(DAddr addr) {
+        GPRegister lastUsedRegister = stackManager.getLastUsedRegister();
+        addInstruction(new STORE(lastUsedRegister, addr));
+        // Release the register because its value is stored in memory
+        stackManager.addAvailableGPRegister(lastUsedRegister);
+    }
+
+    /*
+     * Retrieves the next available general-purpose register (GPRegister) from the
+     * list of available registers index. If there are no available registers, it
+     * saves the last used register onto the stack and marks it as available for
+     * reuse.
+     */
+    public GPRegister getAvailableGPRegister() {
+        GPRegister reg = stackManager.popAvailableGPRegister(); // Get the next available register
+        if (stackManager.isAvailableGPRegisterEmpty()) {
+            saveRegister(reg);
+            stackManager.addAvailableGPRegister(reg);
+        }
+        stackManager.addUsedGPRegister(reg); // Mark the register as used
+        return reg;
+    }
+
+    /**
+     * Saves the given register onto the stack by pushing it and marks it as
+     * available for reuse.
+     * Updates the list of available and used registers index.
+     *
+     * @param reg
+     *            the register to be saved onto the stack
+     */
+    private void saveRegister(GPRegister reg) {
+        LOG.debug("Saving register " + reg.toString());
+        stackManager.incrementNumSavedRegisters();
+        stackManager.addAvailableGPRegister(stackManager.popUsedRegister());
+        addInstruction(new PUSH(reg), "Save register " + reg.toString());
     }
 
     /**
@@ -153,9 +333,9 @@ public class DecacCompiler {
         prog.verifyProgram(this);
         assert (prog.checkAllDecorations());
 
-        program.addComment("start main program");
+        addComment("start main program");
         prog.codeGenProgram(this);
-        program.addComment("end main program");
+        addComment("end main program");
         LOG.debug("Generated assembly code:" + nl + program.display());
         LOG.info("Output file assembly file is: " + destName);
 

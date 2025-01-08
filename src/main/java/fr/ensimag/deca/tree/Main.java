@@ -5,6 +5,7 @@ import fr.ensimag.deca.codegen.StackManagement;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.ima.pseudocode.IMAProgram;
 import fr.ensimag.ima.pseudocode.instructions.TSTO;
 
 import java.io.PrintStream;
@@ -49,16 +50,15 @@ public class Main extends AbstractMain {
 
     @Override
     protected void codeGenMain(DecacCompiler compiler) {
-        StackManagement stackManager = compiler.getStackManagement();
-        stackManager.addComment("Main program");
-        stackManager.addComment("Beginning of main instructions:");
+        compiler.addComment("Main program");
+        compiler.addComment("Beginning of main instructions:");
         // Generate code for global variables
         declVariables.codeGenListDeclVar(compiler);
         // Generate code for instructions
         insts.codeGenListInst(compiler);
 
         // Add the TSTO instruction
-        stackManager.stackOverflowCheck(compiler.getCompilerOptions().getVerify());
+        compiler.stackOverflowCheck(compiler.getCompilerOptions().getVerify());
     }
 
     @Override
