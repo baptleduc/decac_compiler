@@ -1,0 +1,20 @@
+// Description:
+//   decompilation Variable non initialisée
+//
+// Resultats:
+//{
+//    int a;
+//}
+//
+// Historique:
+//    cree le 08/01/2025
+
+//Règles utilisées :
+//MAIN → Main [ LIST_DECL_VAR LIST_INST ]
+//DECL_VAR → DeclVar [ IDENTIFIER IDENTIFIER INITIALIZATION ]
+//INITIALIZATION → NoInitialization
+
+// Variable non initialisée
+{
+    int a;
+}
