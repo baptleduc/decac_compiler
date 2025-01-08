@@ -6,6 +6,10 @@ import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.ima.pseudocode.DAddr;
+import fr.ensimag.ima.pseudocode.instructions.STORE;
+import fr.ensimag.ima.pseudocode.GPRegister;
+
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
 
@@ -35,7 +39,7 @@ public class Initialization extends AbstractInitialization {
     protected void verifyInitialization(DecacCompiler compiler, Type t,
             EnvironmentExp localEnv, ClassDefinition currentClass)
             throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
+        expression.verifyRValue(compiler, localEnv, currentClass, t);
     }
 
     @Override
@@ -51,5 +55,15 @@ public class Initialization extends AbstractInitialization {
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
         expression.prettyPrint(s, prefix, true);
+    }
+
+    @Override
+    public void codeGenInitialization(DecacCompiler compiler, DAddr addr){
+        expression.codeGenInst(compiler);
+        GPRegister reg = compiler.getStackManagement().getLastUsedRegister(compiler);
+        compiler.addInstruction(new STORE(reg, addr));
+        
+        // Free the register because its value is stored in memory
+        compiler.getStackManagement().addAvailableGPRegister(reg); 
     }
 }

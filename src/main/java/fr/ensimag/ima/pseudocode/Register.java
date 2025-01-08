@@ -8,6 +8,7 @@ package fr.ensimag.ima.pseudocode;
  */
 public class Register extends DVal {
     private String name;
+    private static final int MAX_GP_REGISTERS = 16;
 
     protected Register(String name) {
         this.name = name;
@@ -43,6 +44,9 @@ public class Register extends DVal {
         return R[i];
     }
 
+    public static int getMaxGPRegisters(){
+        return MAX_GP_REGISTERS;
+    }
     /**
      * Convenience shortcut for R[0]
      */
@@ -53,8 +57,8 @@ public class Register extends DVal {
     public static final GPRegister R1 = R[1];
 
     static private GPRegister[] initRegisters() {
-        GPRegister[] res = new GPRegister[16];
-        for (int i = 0; i <= 15; i++) {
+        GPRegister[] res = new GPRegister[MAX_GP_REGISTERS];
+        for (int i = 0; i < MAX_GP_REGISTERS; i++) {
             res[i] = new GPRegister("R" + i, i);
         }
         return res;

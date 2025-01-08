@@ -52,7 +52,7 @@ public class Main extends AbstractMain {
         
         compiler.addComment("Beginning of main instructions:");
         // Generate code for global variables
-        declVariables.(compiler);
+        declVariables.codeGenListDeclVar(compiler);
         insts.codeGenListInst(compiler);
         compiler.addFirst(new TSTO(1), "maximum size of stack");
     }
