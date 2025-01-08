@@ -5,5 +5,5 @@
       `> ListInst [List with 1 elements]
          []> [10, 4] Print
              `> ListExpr [List with 2 elements]
-                []> [10, 10] StringLiteral ("a")
-                []> [10, 14] StringLiteral ("b")
+                []> [10, 10] StringLiteral (a)
+                []> [10, 14] StringLiteral (b)
