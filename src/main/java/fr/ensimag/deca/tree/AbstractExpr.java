@@ -92,7 +92,7 @@ public abstract class AbstractExpr extends AbstractInst {
         Type rvalueType = verifyExpr(compiler, localEnv, currentClass);
         if (!rvalueType.sameType(expectedType)) {
             if (rvalueType.isFloat() && expectedType.isInt()) {
-                //TODO: add a ConvFloat ?
+                // TODO: add a ConvFloat ?
             }
             throw new ContextualError("Expected type " + expectedType + " but found type " + rvalueType, getLocation());
         }

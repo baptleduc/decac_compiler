@@ -50,7 +50,7 @@ public class NoInitialization extends AbstractInitialization {
     }
 
     @Override
-    public void codeGenInitialization(DecacCompiler compiler, DAddr addr){
+    public void codeGenInitialization(DecacCompiler compiler, DAddr addr) {
         // nothing to do
     }
 

@@ -12,6 +12,7 @@ import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.instructions.LOAD;
 import fr.ensimag.deca.tools.SymbolTable.Symbol;
 import org.apache.log4j.Logger;
+
 /**
  * Integer literal
  *
@@ -37,7 +38,7 @@ public class IntLiteral extends AbstractExpr {
         LOG.debug("verifyExpr IntLiteral: start");
         Symbol intSymbol = compiler.createSymbol("int");
         TypeDefinition intTypeDef = compiler.environmentType.defOfType(intSymbol);
-        assert(intTypeDef != null);
+        assert (intTypeDef != null);
         LOG.debug("verifyExpr IntLiteral: end");
 
         return intTypeDef.getType();
@@ -64,12 +65,9 @@ public class IntLiteral extends AbstractExpr {
     }
 
     @Override
-    protected void codeGenInst(DecacCompiler compiler){
+    protected void codeGenInst(DecacCompiler compiler) {
         GPRegister gpRegister = compiler.getStackManagement().getAvailableGPRegister(compiler);
         compiler.addInstruction(new LOAD(value, gpRegister));
     }
-
-
-    
 
 }

@@ -18,6 +18,7 @@ public class IMAProgram {
     public StackManagement getStackManagement() {
         return stackManagement;
     }
+
     public void add(AbstractLine line) {
         lines.add(line);
     }

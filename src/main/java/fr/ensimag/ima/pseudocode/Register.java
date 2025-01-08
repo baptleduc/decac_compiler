@@ -44,9 +44,10 @@ public class Register extends DVal {
         return R[i];
     }
 
-    public static int getMaxGPRegisters(){
+    public static int getMaxGPRegisters() {
         return MAX_GP_REGISTERS;
     }
+
     /**
      * Convenience shortcut for R[0]
      */

@@ -58,12 +58,12 @@ public class Initialization extends AbstractInitialization {
     }
 
     @Override
-    public void codeGenInitialization(DecacCompiler compiler, DAddr addr){
+    public void codeGenInitialization(DecacCompiler compiler, DAddr addr) {
         expression.codeGenInst(compiler);
         GPRegister reg = compiler.getStackManagement().getLastUsedRegister(compiler);
         compiler.addInstruction(new STORE(reg, addr));
-        
+
         // Free the register because its value is stored in memory
-        compiler.getStackManagement().addAvailableGPRegister(reg); 
+        compiler.getStackManagement().addAvailableGPRegister(reg);
     }
 }

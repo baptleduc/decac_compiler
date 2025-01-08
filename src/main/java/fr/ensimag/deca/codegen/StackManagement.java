@@ -13,7 +13,7 @@ public class StackManagement {
     private final Register GB = Register.GB;
     private final Register LB = Register.LB;
     private final Register SP = Register.SP;
-    
+
     private LinkedList<Integer> idxAvailableGPRegisters;
     private LinkedList<Integer> idxUsedGPRegisters;
     private boolean isTmpRegister = false;
@@ -23,11 +23,11 @@ public class StackManagement {
     public StackManagement() {
         idxAvailableGPRegisters = new LinkedList<>();
 
-        
         for (int i = 2; i < Register.getMaxGPRegisters(); i++) { // R0 and R1 are scratch registers
             idxAvailableGPRegisters.add(i);
         }
     }
+
     public int getStackSizeTracker() {
         return stackSizeTracker;
     }
@@ -40,24 +40,27 @@ public class StackManagement {
         incrementMaxStack(1);
     }
 
-    public RegisterOffset addGlobalVariable(){
+    public RegisterOffset addGlobalVariable() {
         offsetGB++;
         stackSizeTracker++;
         return new RegisterOffset(offsetGB, GB);
     }
+
     // private GPRegister restoreTmpRegister(DecacCompiler compiler) {
-    //     if (isTmpRegister) {
-    //         compiler.addInstruction(new POP(Register.getR(0)), "Temporary register deallocation");
-    //         idxUsedGPRegisters.removeLast();
-    //         idxAvailableGPRegisters.add(idxUsedGPRegisters.removeLast());
-    //         isTmpRegister = false;
-    //     }
+    // if (isTmpRegister) {
+    // compiler.addInstruction(new POP(Register.getR(0)), "Temporary register
+    // deallocation");
+    // idxUsedGPRegisters.removeLast();
+    // idxAvailableGPRegisters.add(idxUsedGPRegisters.removeLast());
+    // isTmpRegister = false;
+    // }
     // }
     private void allocateTmpRegister(DecacCompiler compiler, GPRegister reg) {
         isTmpRegister = true;
         idxAvailableGPRegisters.add(idxUsedGPRegisters.removeFirst());
         compiler.addInstruction(new PUSH(reg), "Temporary register allocation");
     }
+
     public GPRegister getAvailableGPRegister(DecacCompiler compiler) throws RuntimeException {
         int idx = idxAvailableGPRegisters.removeFirst();
         idxUsedGPRegisters.addFirst(idx);
@@ -66,7 +69,7 @@ public class StackManagement {
             allocateTmpRegister(compiler, reg); // Save the register
             idxAvailableGPRegisters.add(idx);
         }
-        
+
         return reg;
     }
 
