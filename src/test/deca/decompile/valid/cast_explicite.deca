@@ -1,0 +1,22 @@
+// Description:
+//   decompilation Cast explicite
+//
+// Resultats:
+//{
+//    int x = (int) 5.0;
+//}
+//
+// Historique:
+//    cree le 08/01/2025
+
+//Règles utilisées :
+//MAIN → Main [ LIST_DECL_VAR LIST_INST ]
+//DECL_VAR → DeclVar [ IDENTIFIER IDENTIFIER INITIALIZATION ]
+//INITIALIZATION → Initialization [ EXPR ]
+//EXPR → Cast
+//Cast → Cast [ IDENTIFIER EXPR ]
+
+// Cast explicite
+{
+    int x = (int) 5.0;
+}

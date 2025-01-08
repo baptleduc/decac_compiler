@@ -1,0 +1,22 @@
+// Description:
+//   decompilation Négation logique
+//
+// Resultats:
+//{
+//    boolean b = !true;
+//}
+//
+// Historique:
+//    cree le 08/01/2025
+
+//Règles utilisées :
+// MAIN → Main [ LIST_DECL_VAR LIST_INST ]
+// DECL_VAR → DeclVar [ IDENTIFIER IDENTIFIER INITIALIZATION ]
+// INITIALIZATION → Initialization [ EXPR ]
+// EXPR → UNARY_EXPR
+// UNARY_EXPR → Not
+
+
+{
+    boolean b = !true;
+}

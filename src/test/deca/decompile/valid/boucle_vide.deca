@@ -1,0 +1,20 @@
+// Description:
+//   decompilation Boucle vide
+//
+// Resultats:
+//{
+//    while (false) {}
+//}
+//
+// Historique:
+//    cree le 08/01/2025
+
+//Règles utilisées :
+//MAIN → Main [ LIST_DECL_VAR LIST_INST ]
+//INST → While
+//EXPR → BooleanLiteral
+
+
+{
+    while (false) {}
+}

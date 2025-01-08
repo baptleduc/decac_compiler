@@ -1,0 +1,21 @@
+// Description:
+//   decompilation affectation valeur
+//
+// Resultats:
+// {
+//    int x = 42;
+//}
+//
+// Historique:
+//    cree le 08/01/2025
+
+//Règles utilisées :
+// MAIN → Main [ LIST_DECL_VAR LIST_INST ]
+// DECL_VAR → DeclVar [ IDENTIFIER IDENTIFIER INITIALIZATION ]
+// INITIALIZATION → Initialization [ EXPR ]
+// EXPR → IntLiteral
+
+// Affecter une valeur
+{
+    int x = 42;
+}
