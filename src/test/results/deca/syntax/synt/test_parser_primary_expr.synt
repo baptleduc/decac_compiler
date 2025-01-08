@@ -9,7 +9,7 @@
                 []> [11, 3] BooleanLiteral (false)
                 []> [12, 3] Int (1)
                 []> [13, 3] Float (42.5)
-                []> [14, 3] StringLiteral ("drrs")
+                []> [14, 3] StringLiteral (drrs)
                 []> [15, 5] Or
                 ||  +> [15, 4] Identifier (s)
                 ||  `> [15, 8] And

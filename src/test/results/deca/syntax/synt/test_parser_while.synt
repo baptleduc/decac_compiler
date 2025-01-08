@@ -8,4 +8,4 @@
              `> ListInst [List with 1 elements]
                 []> [12, 1] Print
                     `> ListExpr [List with 1 elements]
-                       []> [12, 7] StringLiteral ("a")
+                       []> [12, 7] StringLiteral (a)

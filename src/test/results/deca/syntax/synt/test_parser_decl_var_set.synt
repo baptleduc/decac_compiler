@@ -32,6 +32,6 @@
       |      +> [14, 8] Identifier (str)
       |      +> [14, 12] Identifier (d)
       |      `> Initialization
-      |         `> [14, 15] StringLiteral ("toto")
+      |         `> [14, 15] StringLiteral (toto)
       `> ListInst [List with 1 elements]
          []> [15, 8] Identifier (g)
