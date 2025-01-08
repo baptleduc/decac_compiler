@@ -50,6 +50,7 @@ public class Main extends AbstractMain {
     @Override
     protected void codeGenMain(DecacCompiler compiler) {
         StackManagement stackManager = compiler.getStackManagement();
+        stackManager.addComment("Main program");
         stackManager.addComment("Beginning of main instructions:");
         // Generate code for global variables
         declVariables.codeGenListDeclVar(compiler);

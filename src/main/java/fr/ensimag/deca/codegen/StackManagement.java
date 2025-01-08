@@ -10,6 +10,7 @@ import fr.ensimag.ima.pseudocode.Instruction;
 import fr.ensimag.ima.pseudocode.instructions.*;
 import fr.ensimag.ima.pseudocode.AbstractLine;
 import fr.ensimag.ima.pseudocode.DAddr;
+import fr.ensimag.ima.pseudocode.ImmediateInteger;
 import java.util.LinkedList;
 
 import org.apache.log4j.Logger;
@@ -27,6 +28,8 @@ public class StackManagement {
     private LinkedList<Integer> idxUsedGPRegisters;
 
     private int offsetGB = 0;
+    private int offsetLB = 0;
+    private int offsetSP = 0;
 
     // Add counters to calculate "d"
     private int numSavedRegisters = 0;
@@ -48,6 +51,17 @@ public class StackManagement {
         offsetGB++;
         numVariables++;
         return new RegisterOffset(offsetGB, GB);
+    }
+
+    public void withProgram(IMAProgram program, Runnable r) {
+        IMAProgram oldProgram = this.program;
+        this.program = program;
+        r.run();
+        this.program = oldProgram;
+    }
+
+    public IMAProgram getProgram() {
+        return program;
     }
 
     /**
@@ -114,13 +128,21 @@ public class StackManagement {
      * @param noVerify if true, skips adding the stack overflow error-handling block
      */
     public void stackOverflowCheck(boolean noVerify) {
+        if (noVerify){
+            return;
+        }
         LOG.debug("Inserting TSTO instruction");
         LOG.debug(noVerify);
         int d = getNeededStackFrame();
-        program.addInstruction(new TSTO(d), numVariables + " (variables) + " + numSavedRegisters + " (saved registers) + " + numTemporaries + " (temporaries) + " + 2 * numMethodParams + " (method parameters x 2)");
-        if (!noVerify) {
-            insertStackOverflowErrorBlock();
-        }
+        Label label = new Label("stack_overflow_error");
+        ImmediateInteger imm = new ImmediateInteger(++offsetSP);
+        program.addFirst(new ADDSP(imm));
+        program.addFirst(new BOV(label));
+        program.addFirst(new TSTO(d), numVariables + " (variables) + " + numSavedRegisters + " (saved registers) + " + numTemporaries + " (temporaries) + " + 2 * numMethodParams + " (method parameters x 2)");
+        program.addLabel(label);
+        program.addInstruction(new WSTR("Error: Stack Overflow"));
+        program.addInstruction(new WNL());
+        program.addInstruction(new ERROR());
     }
 
     /**

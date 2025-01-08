@@ -4,6 +4,7 @@ import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.codegen.StackManagement;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.ima.pseudocode.IMAProgram;
 import fr.ensimag.ima.pseudocode.instructions.*;
 import java.io.PrintStream;
 import java.util.Stack;
@@ -51,8 +52,14 @@ public class Program extends AbstractProgram {
     @Override
     public void codeGenProgram(DecacCompiler compiler) {
         StackManagement stackManager = compiler.getStackManagement();
-        stackManager.addComment("Main program");
-        main.codeGenMain(compiler);
+
+        IMAProgram mainIMAProgram = new IMAProgram();
+        
+        stackManager.withProgram(mainIMAProgram, () -> main.codeGenMain(compiler));
+        
+        // Merge the main program with the general program
+        stackManager.getProgram().append(mainIMAProgram);
+        
         stackManager.addInstruction(new HALT());
     }
 
