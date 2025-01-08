@@ -44,8 +44,14 @@ public class Program extends AbstractProgram {
         if (main == null) {
             throw new ContextualError("No main block defined in the program.", Location.BUILTIN);
         }
+	//Pass 1
+	
+	//Pass 2
+	
+	//Pass 3
         main.verifyMain(compiler);
-        LOG.debug("verify program: end");
+
+	LOG.debug("verify program: end");
     }
 
     @Override
