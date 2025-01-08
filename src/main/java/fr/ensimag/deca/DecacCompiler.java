@@ -73,61 +73,6 @@ public class DecacCompiler {
         return program.getStackManagement();
     }
 
-    /**
-     * @see
-     *      fr.ensimag.ima.pseudocode.IMAProgram#add(fr.ensimag.ima.pseudocode.AbstractLine)
-     */
-    public void add(AbstractLine line) {
-        program.add(line);
-    }
-
-    /**
-     * @see fr.ensimag.ima.pseudocode.IMAProgram#addComment(java.lang.String)
-     */
-    public void addComment(String comment) {
-        program.addComment(comment);
-    }
-
-    /**
-     * @see
-     *      fr.ensimag.ima.pseudocode.IMAProgram#addLabel(fr.ensimag.ima.pseudocode.Label)
-     */
-    public void addLabel(Label label) {
-        program.addLabel(label);
-    }
-
-    /**
-     * @see
-     *      fr.ensimag.ima.pseudocode.IMAProgram#addInstruction(fr.ensimag.ima.pseudocode.Instruction)
-     */
-    public void addInstruction(Instruction instruction) {
-        program.addInstruction(instruction);
-    }
-
-    /**
-     * @see
-     *      fr.ensimag.ima.pseudocode.IMAProgram#addFirst(fr.ensimag.ima.pseudocode.Instruction,,java.lang.String)
-     */
-    public void addFirst(Instruction i, String comment) {
-        program.addFirst(i, comment);
-    }
-
-    /**
-     * @see
-     *      fr.ensimag.ima.pseudocode.IMAProgram#addInstruction(fr.ensimag.ima.pseudocode.Instruction,
-     *      java.lang.String)
-     */
-    public void addInstruction(Instruction instruction, String comment) {
-        program.addInstruction(instruction, comment);
-    }
-
-    /**
-     * @see
-     *      fr.ensimag.ima.pseudocode.IMAProgram#display()
-     */
-    public String displayIMAProgram() {
-        return program.display();
-    }
 
     private final CompilerOptions compilerOptions;
     private final File source;
@@ -199,7 +144,6 @@ public class DecacCompiler {
             PrintStream out, PrintStream err)
             throws DecacFatalError, LocationException {
         AbstractProgram prog = doLexingAndParsing(sourceName, err);
-
         if (prog == null) {
             LOG.info("Parsing failed");
             return true;
@@ -209,9 +153,9 @@ public class DecacCompiler {
         prog.verifyProgram(this);
         assert (prog.checkAllDecorations());
 
-        addComment("start main program");
+        program.addComment("start main program");
         prog.codeGenProgram(this);
-        addComment("end main program");
+        program.addComment("end main program");
         LOG.debug("Generated assembly code:" + nl + program.display());
         LOG.info("Output file assembly file is: " + destName);
 

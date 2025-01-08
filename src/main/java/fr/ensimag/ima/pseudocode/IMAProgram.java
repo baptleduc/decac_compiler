@@ -13,7 +13,7 @@ import fr.ensimag.deca.codegen.StackManagement;
  */
 public class IMAProgram {
     private final LinkedList<AbstractLine> lines = new LinkedList<AbstractLine>();
-    private StackManagement stackManagement = new StackManagement();
+    private StackManagement stackManagement = new StackManagement(this);
 
     public StackManagement getStackManagement() {
         return stackManagement;

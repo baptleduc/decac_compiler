@@ -1,10 +1,13 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.DecacCompiler;
+import fr.ensimag.deca.codegen.StackManagement;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.instructions.*;
 import java.io.PrintStream;
+import java.util.Stack;
+
 import org.apache.commons.lang.Validate;
 import org.apache.log4j.Logger;
 
@@ -47,10 +50,10 @@ public class Program extends AbstractProgram {
 
     @Override
     public void codeGenProgram(DecacCompiler compiler) {
-        // A FAIRE: compléter ce squelette très rudimentaire de code
-        compiler.addComment("Main program");
+        StackManagement stackManager = compiler.getStackManagement();
+        stackManager.addComment("Main program");
         main.codeGenMain(compiler);
-        compiler.addInstruction(new HALT());
+        stackManager.addInstruction(new HALT());
     }
 
     @Override

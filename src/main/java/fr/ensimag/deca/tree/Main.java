@@ -49,13 +49,15 @@ public class Main extends AbstractMain {
 
     @Override
     protected void codeGenMain(DecacCompiler compiler) {
-        // A FAIRE: traiter les déclarations de variables.
         StackManagement stackManager = compiler.getStackManagement();
-        compiler.addComment("Beginning of main instructions:");
+        stackManager.addComment("Beginning of main instructions:");
         // Generate code for global variables
         declVariables.codeGenListDeclVar(compiler);
+        // Generate code for instructions
         insts.codeGenListInst(compiler);
-        compiler.addFirst(new TSTO(stackManager.getNeededStackFrame()), stackManager.getTSTOComment());;
+
+        // Add the TSTO instruction
+        stackManager.stackOverflowCheck(compiler.getCompilerOptions().getVerify());
     }
 
     @Override

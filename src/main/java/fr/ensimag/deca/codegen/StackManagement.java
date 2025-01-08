@@ -3,16 +3,21 @@ package fr.ensimag.deca.codegen;
 import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.ima.pseudocode.GPRegister;
+import fr.ensimag.ima.pseudocode.IMAProgram;
+import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.RegisterOffset;
-import fr.ensimag.ima.pseudocode.instructions.PUSH;
-import fr.ensimag.ima.pseudocode.instructions.TSTO;
-import fr.ensimag.ima.pseudocode.instructions.POP;
+import fr.ensimag.ima.pseudocode.Instruction;
+import fr.ensimag.ima.pseudocode.instructions.*;
+import fr.ensimag.ima.pseudocode.AbstractLine;
+import fr.ensimag.ima.pseudocode.DAddr;
 import java.util.LinkedList;
 
 import org.apache.log4j.Logger;
 
 public class StackManagement {
     private static final Logger LOG = Logger.getLogger(StackManagement.class);
+    
+    private IMAProgram program;
 
     private final Register GB = Register.GB;
     private final Register LB = Register.LB;
@@ -29,9 +34,10 @@ public class StackManagement {
     private int numTemporaries = 0;
     private int numMethodParams = 0;
 
-    public StackManagement() {
+    public StackManagement(IMAProgram program) {
         idxAvailableGPRegisters = new LinkedList<>();
         idxUsedGPRegisters = new LinkedList<>();
+        this.program = program;
 
         for (int i = 2; i < Register.getMaxGPRegisters(); i++) { // R0 and R1 are scratch registers
             idxAvailableGPRegisters.add(i);
@@ -44,39 +50,170 @@ public class StackManagement {
         return new RegisterOffset(offsetGB, GB);
     }
 
-    // Get the d number for TSTO instruction
-    public int getNeededStackFrame() {
+    /**
+     * @see
+     *      fr.ensimag.ima.pseudocode.IMAProgram#add(fr.ensimag.ima.pseudocode.AbstractLine)
+     */
+    public void add(AbstractLine line) {
+        program.add(line);
+    }
+
+    /**
+     * @see fr.ensimag.ima.pseudocode.IMAProgram#addComment(java.lang.String)
+     */
+    public void addComment(String comment) {
+        program.addComment(comment);
+    }
+
+    /**
+     * @see
+     *      fr.ensimag.ima.pseudocode.IMAProgram#addLabel(fr.ensimag.ima.pseudocode.Label)
+     */
+    public void addLabel(Label label) {
+        program.addLabel(label);
+    }
+
+    /**
+     * @see
+     *      fr.ensimag.ima.pseudocode.IMAProgram#addInstruction(fr.ensimag.ima.pseudocode.Instruction)
+     */
+    public void addInstruction(Instruction instruction) {
+        program.addInstruction(instruction);
+    }
+
+    /**
+     * @see
+     *      fr.ensimag.ima.pseudocode.IMAProgram#addFirst(fr.ensimag.ima.pseudocode.Instruction,,java.lang.String)
+     */
+    public void addFirst(Instruction i, String comment) {
+        program.addFirst(i, comment);
+    }
+
+    /**
+     * @see
+     *      fr.ensimag.ima.pseudocode.IMAProgram#addInstruction(fr.ensimag.ima.pseudocode.Instruction,
+     *      java.lang.String)
+     */
+    public void addInstruction(Instruction instruction, String comment) {
+        program.addInstruction(instruction, comment);
+    }
+
+    /**
+     * @see
+     *      fr.ensimag.ima.pseudocode.IMAProgram#display()
+     */
+    public String displayIMAProgram() {
+        return program.display();
+    }
+
+    /**
+     * Inserts a TSTO instruction to test for stack overflow and calculates
+     * the required stack size. If 'noVerify' is false, it adds a block to handle
+     * stack overflow errors.
+     *
+     * @param noVerify if true, skips adding the stack overflow error-handling block
+     */
+    public void stackOverflowCheck(boolean noVerify) {
+        LOG.debug("Inserting TSTO instruction");
+        LOG.debug(noVerify);
+        int d = getNeededStackFrame();
+        program.addInstruction(new TSTO(d), numVariables + " (variables) + " + numSavedRegisters + " (saved registers) + " + numTemporaries + " (temporaries) + " + 2 * numMethodParams + " (method parameters x 2)");
+        if (!noVerify) {
+            insertStackOverflowErrorBlock();
+        }
+    }
+
+    /**
+     * Adds a LOAD instruction to load an immediate value into an available register.
+     *
+     * @param value the immediate value to be loaded into the register
+     */
+    public void loadImmediateValue(int value) {
+        GPRegister gpReg = getAvailableGPRegister();
+        program.addInstruction(new LOAD(value, gpReg));
+    }
+
+    /**
+     * Stores the value of the last used register into the specified memory address
+     * and releases the register for future use.
+     *
+     * @param addr the memory address where the last used register's value will be stored
+     */
+    public void storeLastUsedRegister(DAddr addr) {
+        GPRegister lastUsedRegister = getLastUsedRegister();
+        program.addInstruction(new STORE(lastUsedRegister, addr));
+        // Free the register because its value is stored in memory
+        addAvailableGPRegister(lastUsedRegister);
+    }
+
+    /**
+     * Adds a labeled error-handling block for stack overflow to the program.
+     * This block outputs an error message and terminates the program.
+     */
+    private void insertStackOverflowErrorBlock(){
+        program.addLabel(new Label("stack_overflow_error"));
+        program.addInstruction(new WSTR("Error: Stack Overflow"));
+        program.addInstruction(new WNL());
+        program.addInstruction(new ERROR());
+    }
+
+    /**
+     * Calculates the required stack frame size for the TSTO instruction.
+     * Includes saved registers, variables, temporaries, and method parameters.
+     *
+     * @return the size of the stack frame needed for the TSTO instruction
+     */
+    private int getNeededStackFrame() {
         return numSavedRegisters + numVariables + numTemporaries + numMethodParams; // 2 * numMethodParams because BSR makes 2 pushes
     }
 
-    // Generate a comment explaining the stack size calculation
-    public String getTSTOComment() {
-        return numVariables + " (variables) + " + numSavedRegisters + " (saved registers) + " + numTemporaries + " (temporaries) + " + 2 * numMethodParams + " (method parameters x 2)";
-    }
-
-    private void saveRegister(DecacCompiler compiler, GPRegister reg) {
+    /**
+     * Saves the given register onto the stack by pushing it and marks it as available for reuse.
+     * Updates the list of available and used registers index.
+     *
+     * @param reg the register to be saved onto the stack
+     */
+    private void saveRegister(GPRegister reg) {
         LOG.debug("Saving register " + reg.toString());
         numSavedRegisters++;
         idxAvailableGPRegisters.add(idxUsedGPRegisters.removeFirst());
-        compiler.addInstruction(new PUSH(reg), "Save register " + reg.toString());
+        program.addInstruction(new PUSH(reg), "Save register " + reg.toString());
     }
 
-    public GPRegister getAvailableGPRegister(DecacCompiler compiler) throws RuntimeException {
+    /**
+     * Retrieves the next available general-purpose register (GPRegister).
+     * If no registers are available, it saves the currently used register onto the stack
+     * to free up space and makes it available for reuse.
+     *
+     * @return the next available GPRegister
+     */
+    public GPRegister getAvailableGPRegister(){
         int idx = idxAvailableGPRegisters.removeFirst();
         idxUsedGPRegisters.addFirst(idx);
         GPRegister reg = Register.getR(idx);
         if (idxAvailableGPRegisters.isEmpty()) {
-            saveRegister(compiler, reg); // Save the register
+            saveRegister(reg); // Save the register
             idxAvailableGPRegisters.add(idx);
         }
 
         return reg;
     }
 
-    public GPRegister getLastUsedRegister(DecacCompiler compiler) {
+    /**
+     * Retrieves the last used general-purpose register (GPRegister) from the list of used registers index.
+     *
+     * @return the last used GPRegister
+     */
+    public GPRegister getLastUsedRegister() {
         return Register.getR(idxUsedGPRegisters.getFirst());
     }
 
+    /**
+     * Marks the given general-purpose register (GPRegister) as available for future use.
+     * Updates the list of used and available registers index.
+     *
+     * @param reg the GPRegister to mark as available
+     */
     public void addAvailableGPRegister(GPRegister reg) {
         int idx = reg.getNumber();
         idxUsedGPRegisters.remove((Integer) idx);
