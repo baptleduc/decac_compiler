@@ -31,15 +31,20 @@ public abstract class AbstractOpArith extends AbstractBinaryExpr {
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-
-        // TODO: Check
-        Type leftOp = this.getLeftOperand().verifyExpr(compiler, localEnv, currentClass);
-        Type rightOp = this.getRightOperand().verifyExpr(compiler, localEnv, currentClass);
-        if (!leftOp.isInt() || !rightOp.isInt()) {
-            throw new ContextualError("Operands of arithmetic operation must be of type int", this.getLocation());
-        }
-        this.setType(leftOp);
-        return leftOp;
+                
+            Type rightType = this.getRightOperand().verifyExpr(compiler, localEnv, currentClass);
+            Type leftType = this.getLeftOperand().verifyExpr(compiler, localEnv, currentClass);
+            Type opType;
+            if (rightType.isInt()) {
+                if (leftType.isInt()) {
+                    opType = rightType; // int
+                } else {
+                    opType = leftType; // float
+                }
+            } else {
+                opType = rightType;
+            }
+            return opType;
     }
 
     @Override
@@ -56,5 +61,6 @@ public abstract class AbstractOpArith extends AbstractBinaryExpr {
         compiler.pushAvailableRegister(regRight);
         compiler.pushUsedRegister(regLeft);
     }
+
 
 }

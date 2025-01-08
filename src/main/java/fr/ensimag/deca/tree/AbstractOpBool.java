@@ -20,7 +20,16 @@ public abstract class AbstractOpBool extends AbstractBinaryExpr {
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
+        Type rightType = this.getRightOperand().verifyExpr(compiler, localEnv, currentClass);
+        Type leftType = this.getLeftOperand().verifyExpr(compiler, localEnv, currentClass);
+        if ((rightType.sameType(compiler.environmentType.INT) || rightType.sameType(compiler.environmentType.FLOAT))
+                && (leftType.sameType(compiler.environmentType.INT)
+                        || leftType.sameType(compiler.environmentType.FLOAT))) {
+            return compiler.environmentType.BOOLEAN;
+        }
+        throw new ContextualError(
+                "Vars" + rightType.getName() + "and" + leftType.getName() + " can't be calculated together",
+                this.getRightOperand().getLocation());
     }
 
 }
