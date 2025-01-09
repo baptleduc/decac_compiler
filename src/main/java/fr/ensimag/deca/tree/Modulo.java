@@ -2,6 +2,7 @@ package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.ima.pseudocode.GPRegister;
+import fr.ensimag.ima.pseudocode.instructions.REM;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
@@ -31,7 +32,7 @@ public class Modulo extends AbstractOpArith {
 
     @Override
     protected void codeGenOperationInst(GPRegister left, GPRegister right, DecacCompiler compiler) {
-        // a faire
+        compiler.addInstruction(new REM(right, left));
     }
 
 }
