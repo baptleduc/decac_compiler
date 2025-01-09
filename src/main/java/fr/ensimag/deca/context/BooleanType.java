@@ -23,7 +23,7 @@ public class BooleanType extends Type {
 
     @Override
     public boolean sameType(Type otherType) {
-	return otherType.isBoolean();
+        return otherType.isBoolean();
     }
 
 }
