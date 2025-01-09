@@ -1,0 +1,12 @@
+// Description:
+//    Program testing that you can not do an arith operation with a right operand that can not be operated
+//
+// Results:
+//    error
+//
+// History:
+//    Created on 9/01/2025
+
+{
+    int x = 1+true;
+}
