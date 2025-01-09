@@ -33,14 +33,13 @@ public class IntLiteral extends AbstractExpr {
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-        LOG.debug("verifyExpr IntLiteral: start");
-        Symbol intSymbol = compiler.createSymbol("int");
-        TypeDefinition intTypeDef = compiler.environmentType.defOfType(intSymbol);
-        assert (intTypeDef != null);
-        Type intType = intTypeDef.getType();
-        this.setType(intType);
-        LOG.debug("verifyExpr IntLiteral: end");
+        // Retrieve the 'int' type from the predefined environment
+        Type intType = compiler.environmentType.INT;
 
+        // Decorate the node with the 'int' type
+        this.setType(intType);
+
+        // Return the type of the expression
         return intType;
     }
 
