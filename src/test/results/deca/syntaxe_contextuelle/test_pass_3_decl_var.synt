@@ -1,0 +1,21 @@
+DEBUG fr.ensimag.deca.tree.Program.verifyProgram(Program.java:40) - verify program: start
+DEBUG fr.ensimag.deca.tree.Main.verifyMain(Main.java:33) - verify Main: start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:184) - verifyType : start
+DEBUG fr.ensimag.deca.tree.Identifier.verifyType(Identifier.java:193) - verifyType : end
+DEBUG fr.ensimag.deca.tree.IntLiteral.verifyExpr(IntLiteral.java:38) - verifyExpr IntLiteral: start
+DEBUG fr.ensimag.deca.tree.IntLiteral.verifyExpr(IntLiteral.java:42) - verifyExpr IntLiteral: end
+DEBUG fr.ensimag.deca.tree.Main.verifyMain(Main.java:47) - verify Main: end
+DEBUG fr.ensimag.deca.tree.Program.verifyProgram(Program.java:51) - verify program: end
+`> [11, 0] Program
+   +> ListDeclClass [List with 0 elements]
+   `> [11, 0] Main
+      +> ListDeclVar [List with 1 elements]
+      |  []> [12, 12] DeclVar
+      |      +> [12, 4] Identifier (int)
+      |      |  definition: type (builtin), type=int
+      |      +> [12, 8] Identifier (x)
+      |      |  definition: variable defined at [12, 8], type=int
+      |      `> [12, 12] Initialization
+      |         `> [12, 12] Int (5)
+      |            type: int
+      `> ListInst [List with 0 elements]

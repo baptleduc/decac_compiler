@@ -36,6 +36,9 @@ public class EnvironmentExp {
     }
 
     public EnvironmentExp empile(EnvironmentExp env2) {
+	if (env2 == null){
+	    return this;
+	}
         EnvironmentExp empiledEnv = this;
 
         for (Map.Entry<Symbol, ExpDefinition> entry : env2.currentEnvironment.entrySet()) {
