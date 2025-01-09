@@ -255,8 +255,6 @@ public class DecacCompiler {
         return stackManager.getRegister0();
     }
 
-
-
     /**
      * Adds a LOAD instruction to load an immediate value into an available
      * register.

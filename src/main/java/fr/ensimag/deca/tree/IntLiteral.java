@@ -33,7 +33,7 @@ public class IntLiteral extends AbstractExpr {
     public IntLiteral(int value) {
         this.value = value;
         this.immediate = new ImmediateInteger(value);
-        
+
     }
 
     @Override

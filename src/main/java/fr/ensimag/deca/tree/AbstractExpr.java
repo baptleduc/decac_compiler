@@ -135,7 +135,7 @@ public abstract class AbstractExpr extends AbstractInst {
      * @param compiler
      */
     protected void codeGenPrint(DecacCompiler compiler) {
-        
+
         if (getType().isInt()) {
             compiler.addInstruction(new LOAD(getDVal(compiler), compiler.getRegister1())); // TODO Change to get DAddr
             compiler.addInstruction(new WINT());
@@ -149,7 +149,8 @@ public abstract class AbstractExpr extends AbstractInst {
     }
 
     protected abstract DVal getDVal(DecacCompiler compiler);
-    protected boolean isDVal(){
+
+    protected boolean isDVal() {
         return false;
     }
 

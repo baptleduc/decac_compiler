@@ -73,11 +73,10 @@ public abstract class AbstractOpArith extends AbstractBinaryExpr {
         GPRegister regLeft = compiler.popUsedRegister();
 
         AbstractExpr rightOperand = getRightOperand();
-        if (rightOperand.isDVal()){
+        if (rightOperand.isDVal()) {
             DVal dval = getRightOperand().getDVal(compiler);
             codeGenOperationInst(regLeft, dval, compiler);
-        }
-        else{
+        } else {
             rightOperand.codeGenInst(compiler);
             GPRegister regRight = compiler.popUsedRegister();
             codeGenOperationInst(regLeft, regRight, compiler);

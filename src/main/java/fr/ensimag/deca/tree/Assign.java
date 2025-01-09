@@ -51,6 +51,5 @@ public class Assign extends AbstractBinaryExpr {
     protected boolean isDVal() {
         return false;
     }
-    
 
 }

@@ -177,7 +177,7 @@ public class Identifier extends AbstractIdentifier {
             throw new ContextualError("Variable " + name.getName() + " is not declared", getLocation());
         }
 
-        if (!exprDef.isExpression()){
+        if (!exprDef.isExpression()) {
             throw new ContextualError("Variable " + name.getName() + " is not an expression", getLocation());
         }
 
