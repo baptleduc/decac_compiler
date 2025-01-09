@@ -50,4 +50,12 @@ public class ListInst extends TreeList<AbstractInst> {
             s.println();
         }
     }
+
+    public AbstractInst getLast(){
+	AbstractInst tmp = null;
+	for (AbstractInst e : this.getList()){
+	    tmp = e;
+	}
+	return tmp;
+    }
 }

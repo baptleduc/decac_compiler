@@ -16,16 +16,25 @@
              |  []> [13, 16] Println
              |      `> ListExpr [List with 1 elements]
              |         []> [13, 24] StringLiteral (a==2)
-             `> ListInst [List with 1 elements]
+             `> ListInst [List with 2 elements]
                 []> [15, 13] IfThenElse
-                    +> [15, 18] Equals
-                    |  +> [15, 17] Identifier (a)
-                    |  `> [15, 21] Int (1)
+                ||  +> [15, 18] Equals
+                ||  |  +> [15, 17] Identifier (a)
+                ||  |  `> [15, 21] Int (1)
+                ||  +> ListInst [List with 1 elements]
+                ||  |  []> [16, 16] Println
+                ||  |      `> ListExpr [List with 1 elements]
+                ||  |         []> [16, 24] StringLiteral (a==1)
+                ||  `> ListInst [List with 0 elements]
+                []> [18, 6] IfThenElse
+                    +> [18, 12] Equals
+                    |  +> [18, 10] Identifier (a)
+                    |  `> [18, 15] Int (3)
                     +> ListInst [List with 1 elements]
-                    |  []> [16, 16] Println
+                    |  []> [19, 5] Println
                     |      `> ListExpr [List with 1 elements]
-                    |         []> [16, 24] StringLiteral (a==1)
+                    |         []> [19, 13] StringLiteral (a == 3)
                     `> ListInst [List with 1 elements]
-                       []> [19, 16] Println
+                       []> [22, 16] Println
                            `> ListExpr [List with 1 elements]
-                              []> [19, 24] StringLiteral (a!=2 && a!=1)
+                              []> [22, 24] StringLiteral (a!=2 && a!=1)
