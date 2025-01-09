@@ -1,6 +1,7 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.context.Type;
+import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
@@ -18,6 +19,15 @@ public abstract class AbstractOpArith extends AbstractBinaryExpr {
         super(leftOperand, rightOperand);
     }
 
+    /**
+     * Generate assembly code for the operation between left and right operands
+     * 
+     * @param left
+     * @param right
+     * @param compiler
+     */
+    abstract protected void codeGenOperationInst(GPRegister left, GPRegister right, DecacCompiler compiler);
+
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
@@ -30,6 +40,21 @@ public abstract class AbstractOpArith extends AbstractBinaryExpr {
         }
         this.setType(leftOp);
         return leftOp;
+    }
+
+    @Override
+    protected void codeGenInst(DecacCompiler compiler) {
+
+        getLeftOperand().codeGenInst(compiler);
+        GPRegister regLeft = compiler.popUsedRegister();
+
+        getRightOperand().codeGenInst(compiler);
+        GPRegister regRight = compiler.popUsedRegister();
+
+        codeGenOperationInst(regLeft, regRight, compiler);
+
+        compiler.pushAvailableRegister(regRight);
+        compiler.pushUsedRegister(regLeft);
     }
 
 }
