@@ -5,5 +5,5 @@
       |  []> [11, 12] DeclVar
       |      +> [11, 8] Identifier (int)
       |      +> [11, 12] Identifier (x)
-      |      `> NoInitialization
+      |      `> [11, 12] NoInitialization
       `> ListInst [List with 0 elements]

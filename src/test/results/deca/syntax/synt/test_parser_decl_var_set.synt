@@ -5,33 +5,33 @@
       |  []> [11, 12] DeclVar
       |  ||  +> [11, 8] Identifier (int)
       |  ||  +> [11, 12] Identifier (x)
-      |  ||  `> NoInitialization
+      |  ||  `> [11, 12] NoInitialization
       |  []> [11, 15] DeclVar
       |  ||  +> [11, 8] Identifier (int)
       |  ||  +> [11, 15] Identifier (y)
-      |  ||  `> NoInitialization
+      |  ||  `> [11, 15] NoInitialization
       |  []> [11, 18] DeclVar
       |  ||  +> [11, 8] Identifier (int)
       |  ||  +> [11, 18] Identifier (z)
-      |  ||  `> NoInitialization
+      |  ||  `> [11, 18] NoInitialization
       |  []> [12, 16] DeclVar
       |  ||  +> [12, 8] Identifier (boolean)
       |  ||  +> [12, 16] Identifier (a)
-      |  ||  `> NoInitialization
+      |  ||  `> [12, 16] NoInitialization
       |  []> [12, 23] DeclVar
       |  ||  +> [12, 8] Identifier (boolean)
       |  ||  +> [12, 19] Identifier (b)
-      |  ||  `> Initialization
+      |  ||  `> [12, 23] Initialization
       |  ||     `> [12, 23] BooleanLiteral (true)
       |  []> [13, 14] DeclVar
       |  ||  +> [13, 8] Identifier (int)
       |  ||  +> [13, 12] Identifier (c)
-      |  ||  `> Initialization
+      |  ||  `> [13, 14] Initialization
       |  ||     `> [13, 14] Int (10)
       |  []> [14, 15] DeclVar
       |      +> [14, 8] Identifier (str)
       |      +> [14, 12] Identifier (d)
-      |      `> Initialization
+      |      `> [14, 15] Initialization
       |         `> [14, 15] StringLiteral (toto)
       `> ListInst [List with 1 elements]
          []> [15, 8] Identifier (g)
