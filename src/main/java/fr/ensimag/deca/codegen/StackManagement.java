@@ -47,6 +47,14 @@ public class StackManagement {
         }
     }
 
+    public GPRegister getRegister1() {
+        return Register.getR(1);
+    }
+
+    public GPRegister getRegister0() {
+        return Register.getR(0);
+    }
+
     public void incrementNumSavedRegisters() {
         numSavedRegisters++;
     }

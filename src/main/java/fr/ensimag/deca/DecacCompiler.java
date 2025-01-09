@@ -247,6 +247,16 @@ public class DecacCompiler {
         return stackManager.debugUsedRegister();
     }
 
+    public GPRegister getRegister1() {
+        return stackManager.getRegister1();
+    }
+
+    public GPRegister getRegister0() {
+        return stackManager.getRegister0();
+    }
+
+
+
     /**
      * Adds a LOAD instruction to load an immediate value into an available
      * register.

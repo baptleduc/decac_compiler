@@ -243,7 +243,7 @@ public class Identifier extends AbstractIdentifier {
 
     @Override
     protected DVal getDVal(DecacCompiler compiler) {
-        throw new UnsupportedOperationException("Not supposed to be called");
+        return getVariableDefinition().getOperand();
     }
 
     @Override

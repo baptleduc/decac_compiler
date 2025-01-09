@@ -10,6 +10,7 @@ import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.DVal;
 import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.Label;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
 import fr.ensimag.ima.pseudocode.instructions.WFLOAT;
 import fr.ensimag.ima.pseudocode.instructions.WINT;
 
@@ -135,12 +136,11 @@ public abstract class AbstractExpr extends AbstractInst {
      */
     protected void codeGenPrint(DecacCompiler compiler) {
         
-        codeGenInst(compiler);
-
-
         if (getType().isInt()) {
+            compiler.addInstruction(new LOAD(getDVal(compiler), compiler.getRegister1())); // TODO Change to get DAddr
             compiler.addInstruction(new WINT());
         } else if (getType().isFloat()) {
+            compiler.addInstruction(new LOAD(getDVal(compiler), compiler.getRegister1())); // TODO Change to get DAddr
             compiler.addInstruction(new WFLOAT());
         } else {
             throw new DecacInternalError("Type of expression is not int or float");
