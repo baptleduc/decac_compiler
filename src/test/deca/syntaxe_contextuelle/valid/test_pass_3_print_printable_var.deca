@@ -1,0 +1,12 @@
+// Description:
+//    Program testing that we can print a printable var 
+//
+// Results:
+//    ok
+//
+// History:
+//    Created on 9/01/2025
+
+{
+    print(3,3.5,"test");
+}

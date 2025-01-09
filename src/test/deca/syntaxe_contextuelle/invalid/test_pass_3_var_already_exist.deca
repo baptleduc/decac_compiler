@@ -1,0 +1,13 @@
+// Description:
+//    Program testing a var already exist  
+//
+// Results:
+//    error
+//
+// History:
+//    Created on 9/01/2025
+
+{
+    int x = 3;
+    int x = 2;
+}

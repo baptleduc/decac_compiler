@@ -1,0 +1,8 @@
+	TSTO #1	; maximum size of stack
+; start main program
+; Main program
+; Beginning of main instructions:
+	WSTR "test1"
+	WSTR "test"
+	HALT
+; end main program
