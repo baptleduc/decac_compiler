@@ -1,0 +1,20 @@
+// Description:
+//    decompilation println
+//
+// Resultats:
+//{
+//   println(12);
+//   println("Hello World");
+//   println(0.5);
+//}
+//
+// Historique:
+//    cree le 07/01/2025
+
+
+
+{
+   println(12);
+   println("Hello World");
+   println(0.5);
+}

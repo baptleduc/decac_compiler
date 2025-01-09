@@ -69,6 +69,7 @@ public class Main extends AbstractMain {
         insts.decompile(s);
         s.unindent();
         s.println("}");
+        s.println();
     }
 
     @Override

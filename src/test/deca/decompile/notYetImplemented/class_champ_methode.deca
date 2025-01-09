@@ -1,0 +1,27 @@
+// Description:
+//    decompilation d'une classe avec des champs et des méthodes
+//
+// Resultats:
+// class Test {
+//    int x;
+//    int y;
+//    void printX() {
+//        println(x);
+//    }
+// }
+//
+// Historique:
+//    cree le 07/01/2025
+
+
+
+// Test de réorganisation des méthodes et champs
+// Les méthodes sont regroupées après les champs
+class Test {
+   int x;
+   void printX() {
+       println(x);
+   }
+   int y;
+}
+
