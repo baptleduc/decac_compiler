@@ -1,0 +1,11 @@
+// Description:
+//    Minimalistic program making all operations
+// Results:
+//    None
+//
+// History:
+//    Created on 08/01/2025
+
+{       
+        int x = 1 + 4 / 2 - 3 ;
+}
