@@ -301,9 +301,11 @@ inequality_expr returns[AbstractExpr tree]
             setLocation($tree, $LT);
         }
     | e1=inequality_expr INSTANCEOF type {
-            assert($e1.tree != null);
-            assert($type.tree != null);
-            //TODO
+            // assert($e1.tree != null);
+            // assert($type.tree != null);
+            // $tree = new InstanceOf($e1.tree, type.tree);
+            // setLocation($tree, INSTANCEOF);
+            //TODO not finished
         }
     ;
 
@@ -489,9 +491,9 @@ list_classes returns[ListDeclClass tree]
         $tree = new ListDeclClass();
     }
     :
-      (c1=class_decl {
-        }
-      )*
+        (c1=class_decl {
+            }
+        )*
     ;
 
 class_decl
@@ -557,7 +559,7 @@ list_params
         }
       )*)?
     ;
-    
+
 multi_line_string returns[String text, Location location]
     : s=STRING {
             $text = $s.text;

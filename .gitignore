@@ -14,3 +14,4 @@
 
 # Avoid .antlr because files are generated
 **/.antlr
+/global

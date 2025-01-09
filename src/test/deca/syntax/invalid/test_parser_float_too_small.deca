@@ -1,0 +1,13 @@
+// Description:
+//    Program testing the declaration of a float value that cannot be represented in 32 bits.
+//
+// Results:
+//    a == 0
+//
+// History:
+//    Created on 19/12/2024
+
+{   
+    float a = 0.1E-39989;
+}
+

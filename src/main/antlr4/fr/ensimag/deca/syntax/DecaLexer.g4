@@ -19,7 +19,7 @@ ELSE : 'else';
 FALSE : 'false';
 IF : 'if';
 INSTANCEOF : 'instanceof';
-NEW : 'NEW';
+NEW : 'new';
 NULL : 'null';
 READINT : 'readInt';
 READFLOAT : 'readFloat';
@@ -71,13 +71,13 @@ fragment DEC : NUM '.' NUM;
 // on passe par un autre fragment car on veut ignorer le f
 fragment FLOATDEC : DEC (EXP)? FIGNORED?;
 fragment FIGNORED : [fF];
-fragment DIGITHEX :'0' .. '9' | 'A' .. 'F' + 'a' .. 'f';
+fragment DIGITHEX :'0' .. '9' | 'A' .. 'F' | 'a' .. 'f';
 fragment NUMHEX : DIGITHEX+;
 fragment FLOATHEX : ('0x' | '0X')NUMHEX '.' NUMHEX ('P' | 'p') SIGN? NUM FIGNORED?;
 FLOAT : FLOATDEC | FLOATHEX;
 
 //Integer
-INT : '0' | POSITIVE_DIGIT*;
+INT : '0' | POSITIVE_DIGIT+;
 
 //Chaînes de caractères
 fragment STRING_CAR :  ~["\\\n];
@@ -85,7 +85,7 @@ STRING : '"' (STRING_CAR | '\\"' | '\\\\')* '"';
 MULTI_LINE_STRING : '"' (STRING_CAR | EOL | '\\"' | '\\\\')* '"';
 
 
-// Séparateur
+// arateur
 WS  :   ( ' '
         | '\t'
         | '\r'
@@ -98,12 +98,12 @@ WS  :   ( ' '
 //Commentaires
 COMMENT : '/*' .*? '*/'
                 { skip(); } ;
-MONO_LIGNE_COMMENT : '//' (~[\nEOF])*
+MONO_LIGNE_COMMENT : '//' (~[\n])*
                 { skip(); } ;
                 
 
 // Inclusion de fichier
-fragment FILENAME : (LETTER | DIGIT | '.' | '-' + '_')+;
+fragment FILENAME : (LETTER | DIGIT | '.' | '-' | '_')+;
 INCLUDE : '#include' (' ')* '"' FILENAME '"'
                 {
                    doInclude(getText());
