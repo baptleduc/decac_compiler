@@ -173,13 +173,15 @@ if_then_else returns[IfThenElse tree]
         }
       (ELSE elsif=IF OPARENT elsif_cond=expr CPARENT OBRACE elsif_li=list_inst CBRACE {
         assert($elsif_cond.tree != null);
-        $tree = new IfThenElse($elsif_cond.tree, $list_inst.tree, else_tree);
-        setLocation($tree, $elsif);
+        IfThenElse treeElseIf = new IfThenElse($elsif_cond.tree, $list_inst.tree, new ListInst());     
+        setLocation(treeElseIf, $elsif);
+        else_tree.add(treeElseIf);
         }
       )*
       (ELSE OBRACE li_else=list_inst CBRACE {
         assert($li_else.tree != null);
-        $tree.setElseBranch($li_else.tree);
+        ((IfThenElse)(else_tree.getLast())).setElseBranch($li_else.tree);
+        $tree.setElseBranch(else_tree);
         }
       )?
     ;
