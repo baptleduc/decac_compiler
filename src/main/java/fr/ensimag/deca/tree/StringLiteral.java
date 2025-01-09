@@ -6,6 +6,7 @@ import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.ima.pseudocode.DVal;
 import fr.ensimag.ima.pseudocode.ImmediateString;
 import fr.ensimag.ima.pseudocode.instructions.WSTR;
 import java.io.PrintStream;
@@ -71,6 +72,16 @@ public class StringLiteral extends AbstractStringLiteral {
     @Override
     String prettyPrintNode() {
         return "StringLiteral (" + value + ")";
+    }
+
+    @Override
+    protected DVal getDVal(DecacCompiler compiler) {
+        throw new UnsupportedOperationException("Not supposed to be called");
+    }
+
+    @Override
+    protected boolean isDVal() {
+        return false;
     }
 
 }

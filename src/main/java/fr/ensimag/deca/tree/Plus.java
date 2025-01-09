@@ -3,6 +3,7 @@ package fr.ensimag.deca.tree;
 import org.apache.log4j.Logger;
 
 import fr.ensimag.deca.DecacCompiler;
+import fr.ensimag.ima.pseudocode.DVal;
 import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.instructions.ADD;
 
@@ -23,7 +24,17 @@ public class Plus extends AbstractOpArith {
     }
 
     @Override
-    protected void codeGenOperationInst(GPRegister left, GPRegister right, DecacCompiler compiler) {
+    protected void codeGenOperationInst(GPRegister left, DVal right, DecacCompiler compiler) {
         compiler.addInstruction(new ADD(right, left));
+    }
+
+    @Override
+    protected DVal getDVal(DecacCompiler compiler) {
+        throw new UnsupportedOperationException("Not supposed to be called");
+    }
+
+    @Override
+    protected boolean isDVal() {
+        return false;
     }
 }

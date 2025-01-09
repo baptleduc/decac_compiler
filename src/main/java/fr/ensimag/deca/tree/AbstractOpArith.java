@@ -1,6 +1,7 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.context.Type;
+import fr.ensimag.ima.pseudocode.DVal;
 import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
@@ -26,7 +27,7 @@ public abstract class AbstractOpArith extends AbstractBinaryExpr {
      * @param right
      * @param compiler
      */
-    abstract protected void codeGenOperationInst(GPRegister left, GPRegister right, DecacCompiler compiler);
+    abstract protected void codeGenOperationInst(GPRegister left, DVal right, DecacCompiler compiler);
 
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
@@ -71,13 +72,18 @@ public abstract class AbstractOpArith extends AbstractBinaryExpr {
         getLeftOperand().codeGenInst(compiler);
         GPRegister regLeft = compiler.popUsedRegister();
 
-        getRightOperand().codeGenInst(compiler);
-        GPRegister regRight = compiler.popUsedRegister();
+        AbstractExpr rightOperand = getRightOperand();
+        if (rightOperand.isDVal()){
+            DVal dval = getRightOperand().getDVal(compiler);
+            codeGenOperationInst(regLeft, dval, compiler);
+        }
+        else{
+            rightOperand.codeGenInst(compiler);
+            GPRegister regRight = compiler.popUsedRegister();
+            codeGenOperationInst(regLeft, regRight, compiler);
+            compiler.pushAvailableRegister(regRight); // Free the register
+        }
 
-        codeGenOperationInst(regLeft, regRight, compiler);
-
-        compiler.pushAvailableRegister(regRight);
-        compiler.pushUsedRegister(regLeft);
+        compiler.pushUsedRegister(regLeft); // The result is in regLeft
     }
-
 }

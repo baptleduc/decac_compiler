@@ -1,6 +1,7 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.DecacCompiler;
+import fr.ensimag.ima.pseudocode.DVal;
 import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.instructions.SUB;
 
@@ -19,8 +20,18 @@ public class Minus extends AbstractOpArith {
     }
 
     @Override
-    protected void codeGenOperationInst(GPRegister left, GPRegister right, DecacCompiler compiler) {
+    protected void codeGenOperationInst(GPRegister left, DVal right, DecacCompiler compiler) {
         compiler.addInstruction(new SUB(right, left));
+    }
+
+    @Override
+    protected DVal getDVal(DecacCompiler compiler) {
+        throw new UnsupportedOperationException("Not supposed to be called");
+    }
+
+    @Override
+    protected boolean isDVal() {
+        return false;
     }
 
 }

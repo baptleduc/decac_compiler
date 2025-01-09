@@ -11,6 +11,7 @@ import fr.ensimag.deca.tree.AbstractProgram;
 import fr.ensimag.deca.tree.LocationException;
 import fr.ensimag.ima.pseudocode.AbstractLine;
 import fr.ensimag.ima.pseudocode.DAddr;
+import fr.ensimag.ima.pseudocode.DVal;
 import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.IMAProgram;
 import fr.ensimag.ima.pseudocode.ImmediateInteger;
@@ -253,7 +254,7 @@ public class DecacCompiler {
      * @param value
      *            the immediate value to be loaded into the register
      */
-    public void loadImmediateValue(int value) {
+    public void loadImmediateValue(DVal value) {
         GPRegister gpReg = getAvailableGPRegister();
         program.addInstruction(new LOAD(value, gpReg));
     }

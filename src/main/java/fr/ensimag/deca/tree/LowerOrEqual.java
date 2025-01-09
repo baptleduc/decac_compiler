@@ -1,5 +1,8 @@
 package fr.ensimag.deca.tree;
 
+import fr.ensimag.deca.DecacCompiler;
+import fr.ensimag.ima.pseudocode.DVal;
+
 /**
  *
  * @author gl12
@@ -13,6 +16,16 @@ public class LowerOrEqual extends AbstractOpIneq {
     @Override
     protected String getOperatorName() {
         return "<=";
+    }
+
+    @Override
+    protected DVal getDVal(DecacCompiler compiler) {
+        throw new UnsupportedOperationException("Not supposed to be called");
+    }
+
+    @Override
+    protected boolean isDVal() {
+        return false;
     }
 
 }
