@@ -22,7 +22,7 @@ public abstract class AbstractOpCmp extends AbstractBinaryExpr {
             ClassDefinition currentClass) throws ContextualError {
         Type rightType = this.getRightOperand().verifyExpr(compiler, localEnv, currentClass);
         Type leftType = this.getLeftOperand().verifyExpr(compiler, localEnv, currentClass);
-	// rajouter la decoration de l'arbre
+        // rajouter la decoration de l'arbre
         if ((rightType.sameType(compiler.environmentType.INT) || rightType.sameType(compiler.environmentType.FLOAT))
                 && (leftType.sameType(compiler.environmentType.INT)
                         || leftType.sameType(compiler.environmentType.FLOAT))) {

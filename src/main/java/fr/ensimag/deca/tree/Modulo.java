@@ -33,7 +33,7 @@ public class Modulo extends AbstractOpArith {
                     "Var" + leftType.getName() + " it not an int : modulo impossible",
                     this.getLeftOperand().getLocation());
         }
-	setType(compiler.environmentType.INT);
+        setType(compiler.environmentType.INT);
         return compiler.environmentType.INT;
     }
 
