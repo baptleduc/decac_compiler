@@ -41,13 +41,12 @@ public abstract class AbstractPrint extends AbstractInst {
             throws ContextualError {
         // Check the arguments passed to print
         for (AbstractExpr arg : this.getArguments().getList()) { // getArguments() returns the list of arguments
-            if (arg.getType().sameType(compiler.environmentType.INT) ||
+	    arg.verifyExpr(compiler, localEnv, currentClass);
+            if (!(arg.getType().sameType(compiler.environmentType.INT) ||
                     arg.getType().sameType(compiler.environmentType.FLOAT) ||
-                    arg.getType().sameType(compiler.environmentType.STRING)) {
-                arg.verifyExpr(compiler, localEnv, currentClass);
-            } else {
-                throw new ContextualError("Var" + arg.getType().getName() + " can't be printed", arg.getLocation());
-            }
+		  arg.getType().sameType(compiler.environmentType.STRING))) {
+		throw new ContextualError("Var " + arg.getType().getName() + " can't be printed", arg.getLocation());
+	    }
         }
     }
 
