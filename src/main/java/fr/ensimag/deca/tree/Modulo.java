@@ -24,11 +24,11 @@ public class Modulo extends AbstractOpArith {
             ClassDefinition currentClass) throws ContextualError {
         Type rightType = this.getRightOperand().verifyExpr(compiler, localEnv, currentClass);
         Type leftType = this.getLeftOperand().verifyExpr(compiler, localEnv, currentClass);
-        if (!rightType.sameType(compiler.environmentType.INT)) {
+        if (!rightType.isInt()) {
             throw new ContextualError(
                     "Var" + rightType.getName() + " it not an int : modulo impossible",
                     this.getRightOperand().getLocation());
-        } else if (!leftType.sameType(compiler.environmentType.INT)) {
+        } else if (!leftType.isInt()) {
             throw new ContextualError(
                     "Var" + leftType.getName() + " it not an int : modulo impossible",
                     this.getLeftOperand().getLocation());
