@@ -6,8 +6,13 @@ import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.ima.pseudocode.DAddr;
+import fr.ensimag.ima.pseudocode.RegisterOffset;
+
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
+import org.apache.log4j.Logger;
+
 import fr.ensimag.deca.context.VariableDefinition;
 
 /**
@@ -15,6 +20,7 @@ import fr.ensimag.deca.context.VariableDefinition;
  * @date 01/01/2025
  */
 public class DeclVar extends AbstractDeclVar {
+    private static final Logger LOG = Logger.getLogger(DeclVar.class);
 
     final private AbstractIdentifier type;
     final private AbstractIdentifier varName;
@@ -43,6 +49,7 @@ public class DeclVar extends AbstractDeclVar {
 
         // Add the variable to the environment
         VariableDefinition varDef = new VariableDefinition(varType, varName.getLocation());
+        varDef.setOperand(compiler.addGlobalVariable());
         varName.setDefinition(varDef);
         try {
             localEnv.declare(varName.getName(), varDef);
@@ -50,6 +57,16 @@ public class DeclVar extends AbstractDeclVar {
             throw new ContextualError("Variable " + varName.getName() + " already declared in this context",
                     varName.getLocation());
         }
+
+        initialization.verifyInitialization(compiler, varType, localEnv, currentClass);
+
+    }
+
+    @Override
+    protected void codeGenDeclVar(DecacCompiler compiler) {
+        DAddr addr = ((VariableDefinition) varName.getDefinition()).getOperand();
+
+        initialization.codeGenInitialization(compiler, addr);
 
     }
 

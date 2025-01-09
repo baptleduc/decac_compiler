@@ -1,9 +1,13 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.DecacCompiler;
+import fr.ensimag.deca.codegen.StackManagement;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.ima.pseudocode.IMAProgram;
+import fr.ensimag.ima.pseudocode.instructions.TSTO;
+
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
 import org.apache.log4j.Logger;
@@ -46,9 +50,15 @@ public class Main extends AbstractMain {
 
     @Override
     protected void codeGenMain(DecacCompiler compiler) {
-        // A FAIRE: traiter les déclarations de variables.
+        compiler.addComment("Main program");
         compiler.addComment("Beginning of main instructions:");
+        // Generate code for global variables
+        declVariables.codeGenListDeclVar(compiler);
+        // Generate code for instructions
         insts.codeGenListInst(compiler);
+
+        // Add the TSTO instruction
+        compiler.stackOverflowCheck(compiler.getCompilerOptions().getVerify());
     }
 
     @Override

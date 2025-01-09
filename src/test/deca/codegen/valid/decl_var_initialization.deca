@@ -1,0 +1,11 @@
+// Description:
+//    Minimalistic program using a variable declaration with initialization.
+//
+// Results:
+//    None
+//
+// History:
+//    Created on 19/12/2024
+
+{       int x=1;
+}

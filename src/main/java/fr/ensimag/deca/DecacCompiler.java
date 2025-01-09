@@ -1,5 +1,6 @@
 package fr.ensimag.deca;
 
+import fr.ensimag.deca.codegen.StackManagement;
 import fr.ensimag.deca.context.EnvironmentType;
 import fr.ensimag.deca.syntax.DecaLexer;
 import fr.ensimag.deca.syntax.DecaParser;
@@ -9,9 +10,23 @@ import fr.ensimag.deca.tools.SymbolTable.Symbol;
 import fr.ensimag.deca.tree.AbstractProgram;
 import fr.ensimag.deca.tree.LocationException;
 import fr.ensimag.ima.pseudocode.AbstractLine;
+import fr.ensimag.ima.pseudocode.DAddr;
+import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.IMAProgram;
+import fr.ensimag.ima.pseudocode.ImmediateInteger;
 import fr.ensimag.ima.pseudocode.Instruction;
 import fr.ensimag.ima.pseudocode.Label;
+import fr.ensimag.ima.pseudocode.RegisterOffset;
+import fr.ensimag.ima.pseudocode.instructions.ADDSP;
+import fr.ensimag.ima.pseudocode.instructions.BOV;
+import fr.ensimag.ima.pseudocode.instructions.ERROR;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
+import fr.ensimag.ima.pseudocode.instructions.PUSH;
+import fr.ensimag.ima.pseudocode.instructions.STORE;
+import fr.ensimag.ima.pseudocode.instructions.TSTO;
+import fr.ensimag.ima.pseudocode.instructions.WNL;
+import fr.ensimag.ima.pseudocode.instructions.WSTR;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -47,6 +62,7 @@ public class DecacCompiler {
     public DecacCompiler(CompilerOptions compilerOptions, File source) {
         super();
         this.compilerOptions = compilerOptions;
+        this.stackManager = new StackManagement(program, this.compilerOptions.getRegisters());
         this.source = source;
     }
 
@@ -63,6 +79,48 @@ public class DecacCompiler {
      */
     public CompilerOptions getCompilerOptions() {
         return compilerOptions;
+    }
+
+    public StackManagement getStackManager() {
+        return stackManager;
+    }
+
+    private final CompilerOptions compilerOptions;
+    private final File source;
+    /**
+     * The main program. Every instruction generated will eventually end up here.
+     */
+    private IMAProgram program = new IMAProgram();
+
+    /**
+     * Stack management to handle registers and stack.
+     */
+    private final StackManagement stackManager;
+
+    /** The global environment for types (and the symbolTable) */
+    public final SymbolTable symbolTable = new SymbolTable();
+    public final EnvironmentType environmentType = new EnvironmentType(this);
+
+    public Symbol createSymbol(String name) {
+        return symbolTable.create(name);
+    }
+
+    /**
+     * Temporarily switches the current IMAProgram to the specified program
+     * for the duration of the provided runnable task. After the task is executed,
+     * the previous program is restored.
+     *
+     * @param program
+     *            the temporary IMAProgram to use during the execution of the
+     *            runnable
+     * @param r
+     *            the task to be executed with the temporary program
+     */
+    public void withProgram(IMAProgram program, Runnable r) {
+        IMAProgram oldProgram = this.program;
+        this.program = program;
+        r.run();
+        this.program = oldProgram;
     }
 
     /**
@@ -98,6 +156,22 @@ public class DecacCompiler {
 
     /**
      * @see
+     *      fr.ensimag.ima.pseudocode.IMAProgram#addFirst(fr.ensimag.ima.pseudocode.Instruction,,java.lang.String)
+     */
+    public void addFirst(Instruction i, String comment) {
+        program.addFirst(i, comment);
+    }
+
+    /**
+     * @see
+     *      fr.ensimag.ima.pseudocode.IMAProgram#addFirst(fr.ensimag.ima.pseudocode.AbstractLine)
+     */
+    public void addFirst(Instruction i) {
+        program.addFirst(i);
+    }
+
+    /**
+     * @see
      *      fr.ensimag.ima.pseudocode.IMAProgram#addInstruction(fr.ensimag.ima.pseudocode.Instruction,
      *      java.lang.String)
      */
@@ -113,19 +187,120 @@ public class DecacCompiler {
         return program.display();
     }
 
-    private final CompilerOptions compilerOptions;
-    private final File source;
     /**
-     * The main program. Every instruction generated will eventually end up here.
+     * Inserts a TSTO instruction to test for stack overflow and calculates
+     * the required stack size. If 'noVerify' is false, it adds a block to handle
+     * stack overflow errors.
+     *
+     * @param noVerify
+     *            if true, skips adding the stack overflow error-handling block
      */
-    private final IMAProgram program = new IMAProgram();
+    public void stackOverflowCheck(boolean noVerify) {
+        if (noVerify) {
+            return;
+        }
+        LOG.debug("Inserting TSTO instruction");
+        LOG.debug(noVerify);
+        int d = stackManager.getNeededStackFrame();
+        Label label = new Label("stack_overflow_error");
+        ImmediateInteger imm = new ImmediateInteger(stackManager.getOffsetSP());
+        addFirst(new ADDSP(imm));
+        addFirst(new BOV(label));
+        addFirst(new TSTO(d), stackManager.getCommentTSTO());
+        addLabel(label);
+        addInstruction(new WSTR("Error: Stack Overflow"));
+        addInstruction(new WNL());
+        addInstruction(new ERROR());
+    }
 
-    /** The global environment for types (and the symbolTable) */
-    public final SymbolTable symbolTable = new SymbolTable();
-    public final EnvironmentType environmentType = new EnvironmentType(this);
+    /**
+     * @see
+     *      fr.ensimag.deca.codegen.StackManagement#addGlobalVariable()
+     */
+    public RegisterOffset addGlobalVariable() {
+        return stackManager.addGlobalVariable();
+    }
 
-    public Symbol createSymbol(String name) {
-        return symbolTable.create(name);
+    public GPRegister getLastUsedRegister() {
+        return stackManager.getLastUsedRegister();
+    }
+
+    public GPRegister popUsedRegister() {
+        return stackManager.popUsedRegister();
+    }
+
+    public void pushUsedRegister(GPRegister reg) {
+        stackManager.pushUsedGPRegister(reg);
+    }
+
+    public void pushAvailableRegister(GPRegister reg) {
+        stackManager.pushAvailableGPRegister(reg);
+    }
+
+    public String debugAvailableRegister() {
+        return stackManager.debugAvailableRegister();
+    }
+
+    public String debugUsedRegister() {
+        return stackManager.debugUsedRegister();
+    }
+
+    /**
+     * Adds a LOAD instruction to load an immediate value into an available
+     * register.
+     *
+     * @param value
+     *            the immediate value to be loaded into the register
+     */
+    public void loadImmediateValue(int value) {
+        GPRegister gpReg = getAvailableGPRegister();
+        program.addInstruction(new LOAD(value, gpReg));
+    }
+
+    /**
+     * Stores the value of the last used register into the specified memory address
+     * and releases the register for future use.
+     *
+     * @param addr
+     *            the memory address where the last used register's value will be
+     *            stored
+     */
+    public void storeLastUsedRegister(DAddr addr) {
+        GPRegister lastUsedRegister = stackManager.getLastUsedRegister();
+        addInstruction(new STORE(lastUsedRegister, addr));
+        // Release the register because its value is stored in memory
+        stackManager.pushAvailableGPRegister(lastUsedRegister);
+    }
+
+    /*
+     * Retrieves the next available general-purpose register (GPRegister) from the
+     * list of available registers index. If there are no available registers, it
+     * saves the last used register onto the stack and marks it as available for
+     * reuse.
+     */
+    public GPRegister getAvailableGPRegister() {
+        GPRegister reg = stackManager.popAvailableGPRegister(); // Get the next available register
+        if (stackManager.isAvailableGPRegisterEmpty()) {
+            saveRegister(reg);
+            stackManager.pushAvailableGPRegister(reg);
+        }
+        stackManager.pushUsedGPRegister(reg); // Mark the register as used
+        return reg;
+    }
+
+    /**
+     * Saves the given register onto the stack by pushing it and marks it as
+     * available for reuse.
+     * Updates the list of available and used registers index.
+     *
+     * @param reg
+     *            the register to be saved onto the stack
+     */
+    private void saveRegister(GPRegister reg) {
+        LOG.debug("Saving register " + reg.toString());
+        stackManager.incrementNumSavedRegisters();
+        stackManager.pushAvailableGPRegister(stackManager.popUsedRegister());
+        addInstruction(new PUSH(reg), "Save register " + reg.toString());
     }
 
     /**
@@ -183,7 +358,6 @@ public class DecacCompiler {
             PrintStream out, PrintStream err)
             throws DecacFatalError, LocationException {
         AbstractProgram prog = doLexingAndParsing(sourceName, err);
-
         if (prog == null) {
             LOG.info("Parsing failed");
             return true;

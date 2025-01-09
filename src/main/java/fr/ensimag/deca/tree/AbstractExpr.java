@@ -7,6 +7,7 @@ import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.DecacInternalError;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.ima.pseudocode.DVal;
 import fr.ensimag.ima.pseudocode.Label;
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
@@ -89,7 +90,15 @@ public abstract class AbstractExpr extends AbstractInst {
             EnvironmentExp localEnv, ClassDefinition currentClass,
             Type expectedType)
             throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
+        Type rvalueType = verifyExpr(compiler, localEnv, currentClass);
+        if (!rvalueType.sameType(expectedType)) {
+            if (rvalueType.isFloat() && expectedType.isInt()) {
+                // TODO: add a ConvFloat ?
+            }
+            throw new ContextualError("Expected type " + expectedType + " but found type " + rvalueType, getLocation());
+        }
+        setType(rvalueType);
+        return this;
     }
 
     @Override
