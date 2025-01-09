@@ -3,9 +3,7 @@ package fr.ensimag.deca.tree;
 import org.apache.log4j.Logger;
 
 import fr.ensimag.deca.DecacCompiler;
-import fr.ensimag.ima.pseudocode.DVal;
 import fr.ensimag.ima.pseudocode.GPRegister;
-import fr.ensimag.ima.pseudocode.ImmediateInteger;
 import fr.ensimag.ima.pseudocode.instructions.ADD;
 
 /**
@@ -25,17 +23,7 @@ public class Plus extends AbstractOpArith {
     }
 
     @Override
-    protected void codeGenInst(DecacCompiler compiler) {
-
-        getLeftOperand().codeGenInst(compiler);
-        GPRegister regLeft = compiler.popUsedRegister();
-
-        getRightOperand().codeGenInst(compiler);
-
-        GPRegister regRight = compiler.popUsedRegister();
-
-        compiler.addInstruction(new ADD(regRight, regLeft));
-        compiler.pushAvailableRegister(regRight);
-        compiler.pushUsedRegister(regLeft);
+    protected void codeGenOperationInst(GPRegister left, GPRegister right, DecacCompiler compiler) {
+        compiler.addInstruction(new ADD(right, left));
     }
 }
