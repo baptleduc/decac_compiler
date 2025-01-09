@@ -27,11 +27,11 @@ public class EnvironmentExp {
     EnvironmentExp parentEnvironment;
     HashMap<Symbol, ExpDefinition> currentEnvironment;
 
-    public EnvironmentExp getParent(){
+    public EnvironmentExp getParent() {
         return parentEnvironment;
     }
 
-    public HashMap<Symbol, ExpDefinition> getCurrentEnvironment(){
+    public HashMap<Symbol, ExpDefinition> getCurrentEnvironment() {
         return currentEnvironment;
     }
 
@@ -42,16 +42,15 @@ public class EnvironmentExp {
             Symbol var = entry.getKey();
             ExpDefinition definition = entry.getValue();
 
-            try{
+            try {
                 // Verify is the key is not in the current environment
                 if (!this.currentEnvironment.containsKey(var)) {
                     empiledEnv.declare(var, definition); // add the key-value
                 }
+            } catch (DoubleDefException e) {
+                // nothing to do
             }
-            catch(DoubleDefException e ){
-                    //nothing to do     
-            }
-            
+
         }
 
         return empiledEnv;
