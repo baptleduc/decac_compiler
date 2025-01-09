@@ -1,0 +1,23 @@
+// Description:
+//    Program testing that all opp bool are possible
+//
+// Results:
+//    ok
+//
+// History:
+//    Created on 9/01/2025
+
+{
+    bool a = 4 == 5;
+    bool b = 4.5 != 6;
+    bool c = 6 > 5.3;
+    bool d = 2 >= 32;
+    bool e = 2 < 3;
+    bool f = 2 <= 3;
+    bool g = 4 == true;
+    bool h = 4 == null;
+    bool i = true && false;
+    bool j = true || true;
+    bool k = false == false;
+    bool l = false != true;
+}

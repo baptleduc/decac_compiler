@@ -25,10 +25,12 @@ public abstract class AbstractOpBool extends AbstractBinaryExpr {
         if ((rightType.sameType(compiler.environmentType.INT) || rightType.sameType(compiler.environmentType.FLOAT))
                 && (leftType.sameType(compiler.environmentType.INT)
                         || leftType.sameType(compiler.environmentType.FLOAT))) {
+	    setType(compiler.environmentType.BOOLEAN);
+	    
             return compiler.environmentType.BOOLEAN;
         }
         throw new ContextualError(
-                "Vars" + rightType.getName() + "and" + leftType.getName() + " can't be calculated together",
+                "Vars " + rightType.getName() + " and " + leftType.getName() + " can't be calculated together",
                 this.getRightOperand().getLocation());
     }
 
