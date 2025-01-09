@@ -51,11 +51,11 @@ public class ListInst extends TreeList<AbstractInst> {
         }
     }
 
-    public AbstractInst getLast(){
-	AbstractInst tmp = null;
-	for (AbstractInst e : this.getList()){
-	    tmp = e;
-	}
-	return tmp;
+    public AbstractInst getLast() {
+        AbstractInst tmp = null;
+        for (AbstractInst e : this.getList()) {
+            tmp = e;
+        }
+        return tmp;
     }
 }
