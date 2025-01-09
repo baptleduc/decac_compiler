@@ -34,11 +34,11 @@ public abstract class AbstractOpArith extends AbstractBinaryExpr {
         Type rightType = this.getRightOperand().verifyExpr(compiler, localEnv, currentClass);
         Type leftType = this.getLeftOperand().verifyExpr(compiler, localEnv, currentClass);
         // Throw exception if the var has an unadapted type
-        if (!(leftType.isInt() || leftType.isBoolean() || leftType.isFloat())) {
+        if (!(leftType.isInt() || leftType.isFloat())) {
             throw new ContextualError(
                     "Var" + leftType.getName() + " can't be used for arithmetical operation",
                     this.getLeftOperand().getLocation());
-        } else if (!(rightType.isInt() || rightType.isBoolean() || rightType.isFloat())) {
+        } else if (!(rightType.isInt() || rightType.isFloat())) {
             throw new ContextualError(
                     "Var" + rightType.getName() + " can't be used for arithmetical operation",
                     this.getRightOperand().getLocation());
@@ -51,8 +51,9 @@ public abstract class AbstractOpArith extends AbstractBinaryExpr {
                 opType = leftType; // float
             }
         } else {
-            opType = rightType;
+            opType = rightType; // float
         }
+        setType(opType);
         return opType;
     }
 
