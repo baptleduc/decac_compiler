@@ -129,7 +129,7 @@ public class StackManagement {
         idxUsedGPRegisters.addFirst(idx);
     }
 
-    public String debugAvailableRegister(){
+    public String debugAvailableRegister() {
         String res = "Stack of available registers: ";
         for (int i = 0; i < idxAvailableGPRegisters.size(); i++) {
             res += Register.getR(idxAvailableGPRegisters.get(i)).toString() + " ";
@@ -137,7 +137,7 @@ public class StackManagement {
         return res;
     }
 
-    public String debugUsedRegister(){
+    public String debugUsedRegister() {
         String res = "Stack of Used registers: ";
         for (int i = 0; i < idxUsedGPRegisters.size(); i++) {
             res += Register.getR(idxUsedGPRegisters.get(i)).toString() + " ";

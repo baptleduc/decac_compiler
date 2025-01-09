@@ -22,7 +22,7 @@ public abstract class AbstractOpArith extends AbstractBinaryExpr {
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
 
-        //TODO: Check 
+        // TODO: Check
         Type leftOp = this.getLeftOperand().verifyExpr(compiler, localEnv, currentClass);
         Type rightOp = this.getRightOperand().verifyExpr(compiler, localEnv, currentClass);
         if (!leftOp.isInt() || !rightOp.isInt()) {

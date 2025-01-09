@@ -32,7 +32,6 @@ public class Plus extends AbstractOpArith {
 
         getRightOperand().codeGenInst(compiler);
 
-
         GPRegister regRight = compiler.popUsedRegister();
 
         compiler.addInstruction(new ADD(regRight, regLeft));

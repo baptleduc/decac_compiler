@@ -41,7 +41,6 @@ public class IntLiteral extends AbstractExpr {
         this.setType(intType);
         LOG.debug("verifyExpr IntLiteral: end");
 
-
         return intType;
     }
 

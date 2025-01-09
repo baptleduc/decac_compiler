@@ -229,7 +229,6 @@ public class DecacCompiler {
         return stackManager.popUsedRegister();
     }
 
-
     public void pushUsedRegister(GPRegister reg) {
         stackManager.pushUsedGPRegister(reg);
     }
@@ -245,7 +244,6 @@ public class DecacCompiler {
     public String debugUsedRegister() {
         return stackManager.debugUsedRegister();
     }
-
 
     /**
      * Adds a LOAD instruction to load an immediate value into an available
