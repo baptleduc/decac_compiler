@@ -101,7 +101,6 @@ public class StackManagement {
 
     public GPRegister popUsedRegister() {
         int idx = idxUsedGPRegisters.removeFirst();
-        idxAvailableGPRegisters.add(idx);
         return Register.getR(idx);
     }
 
@@ -120,14 +119,30 @@ public class StackManagement {
      * @param reg
      *            the GPRegister to mark as available
      */
-    public void addAvailableGPRegister(GPRegister reg) {
+    public void pushAvailableGPRegister(GPRegister reg) {
         int idx = reg.getNumber();
-        idxAvailableGPRegisters.add(idx);
+        idxAvailableGPRegisters.addFirst(idx);
     }
 
-    public void addUsedGPRegister(GPRegister reg) {
+    public void pushUsedGPRegister(GPRegister reg) {
         int idx = reg.getNumber();
-        idxUsedGPRegisters.add(idx);
+        idxUsedGPRegisters.addFirst(idx);
+    }
+
+    public String debugAvailableRegister(){
+        String res = "Stack of available registers: ";
+        for (int i = 0; i < idxAvailableGPRegisters.size(); i++) {
+            res += Register.getR(idxAvailableGPRegisters.get(i)).toString() + " ";
+        }
+        return res;
+    }
+
+    public String debugUsedRegister(){
+        String res = "Stack of Used registers: ";
+        for (int i = 0; i < idxUsedGPRegisters.size(); i++) {
+            res += Register.getR(idxUsedGPRegisters.get(i)).toString() + " ";
+        }
+        return res;
     }
 
 }

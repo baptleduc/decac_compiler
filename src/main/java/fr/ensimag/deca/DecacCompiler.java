@@ -16,6 +16,7 @@ import fr.ensimag.ima.pseudocode.IMAProgram;
 import fr.ensimag.ima.pseudocode.ImmediateInteger;
 import fr.ensimag.ima.pseudocode.Instruction;
 import fr.ensimag.ima.pseudocode.Label;
+import fr.ensimag.ima.pseudocode.RegisterOffset;
 import fr.ensimag.ima.pseudocode.instructions.ADDSP;
 import fr.ensimag.ima.pseudocode.instructions.BOV;
 import fr.ensimag.ima.pseudocode.instructions.ERROR;
@@ -213,6 +214,40 @@ public class DecacCompiler {
     }
 
     /**
+     * @see
+     *      fr.ensimag.deca.codegen.StackManagement#addGlobalVariable()
+     */
+    public RegisterOffset addGlobalVariable() {
+        return stackManager.addGlobalVariable();
+    }
+
+    public GPRegister getLastUsedRegister() {
+        return stackManager.getLastUsedRegister();
+    }
+
+    public GPRegister popUsedRegister() {
+        return stackManager.popUsedRegister();
+    }
+
+
+    public void pushUsedRegister(GPRegister reg) {
+        stackManager.pushUsedGPRegister(reg);
+    }
+
+    public void pushAvailableRegister(GPRegister reg) {
+        stackManager.pushAvailableGPRegister(reg);
+    }
+
+    public String debugAvailableRegister() {
+        return stackManager.debugAvailableRegister();
+    }
+
+    public String debugUsedRegister() {
+        return stackManager.debugUsedRegister();
+    }
+
+
+    /**
      * Adds a LOAD instruction to load an immediate value into an available
      * register.
      *
@@ -236,7 +271,7 @@ public class DecacCompiler {
         GPRegister lastUsedRegister = stackManager.getLastUsedRegister();
         addInstruction(new STORE(lastUsedRegister, addr));
         // Release the register because its value is stored in memory
-        stackManager.addAvailableGPRegister(lastUsedRegister);
+        stackManager.pushAvailableGPRegister(lastUsedRegister);
     }
 
     /*
@@ -249,9 +284,9 @@ public class DecacCompiler {
         GPRegister reg = stackManager.popAvailableGPRegister(); // Get the next available register
         if (stackManager.isAvailableGPRegisterEmpty()) {
             saveRegister(reg);
-            stackManager.addAvailableGPRegister(reg);
+            stackManager.pushAvailableGPRegister(reg);
         }
-        stackManager.addUsedGPRegister(reg); // Mark the register as used
+        stackManager.pushUsedGPRegister(reg); // Mark the register as used
         return reg;
     }
 
@@ -266,7 +301,7 @@ public class DecacCompiler {
     private void saveRegister(GPRegister reg) {
         LOG.debug("Saving register " + reg.toString());
         stackManager.incrementNumSavedRegisters();
-        stackManager.addAvailableGPRegister(stackManager.popUsedRegister());
+        stackManager.pushAvailableGPRegister(stackManager.popUsedRegister());
         addInstruction(new PUSH(reg), "Save register " + reg.toString());
     }
 
