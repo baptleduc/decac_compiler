@@ -22,15 +22,14 @@ public abstract class AbstractOpBool extends AbstractBinaryExpr {
             ClassDefinition currentClass) throws ContextualError {
         Type rightType = this.getRightOperand().verifyExpr(compiler, localEnv, currentClass);
         Type leftType = this.getLeftOperand().verifyExpr(compiler, localEnv, currentClass);
-        if ((rightType.sameType(compiler.environmentType.INT) || rightType.sameType(compiler.environmentType.FLOAT))
-                && (leftType.sameType(compiler.environmentType.INT)
-                        || leftType.sameType(compiler.environmentType.FLOAT))) {
+        if ((rightType.isBoolean() && leftType.isBoolean())) {
             setType(compiler.environmentType.BOOLEAN);
 
             return compiler.environmentType.BOOLEAN;
         }
         throw new ContextualError(
-                "Vars " + rightType.getName() + " and " + leftType.getName() + " can't be calculated together",
+                "Vars " + rightType.getName() + " and " + leftType.getName()
+                        + "must be boolean values for logical operations (AND, OR)",
                 this.getRightOperand().getLocation());
     }
 
