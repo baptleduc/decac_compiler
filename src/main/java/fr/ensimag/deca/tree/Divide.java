@@ -15,6 +15,7 @@ import fr.ensimag.ima.pseudocode.instructions.QUO;
  */
 public class Divide extends AbstractOpArith {
     private static final Logger LOG = Logger.getLogger(Divide.class);
+
     public Divide(AbstractExpr leftOperand, AbstractExpr rightOperand) {
         super(leftOperand, rightOperand);
     }
@@ -29,8 +30,7 @@ public class Divide extends AbstractOpArith {
         LOG.debug("DIV: " + left + "," + right);
         if (getLeftOperand().getType().isInt()) {
             compiler.addInstruction(new QUO(right, left));
-        }
-        else {
+        } else {
             compiler.addInstruction(new DIV(right, left));
         }
     }

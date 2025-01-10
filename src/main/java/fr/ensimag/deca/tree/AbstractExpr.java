@@ -44,9 +44,11 @@ public abstract class AbstractExpr extends AbstractInst {
         Validate.notNull(type);
         this.type = type;
     }
+
     protected void setDVal(DVal dval) {
         this.dval = dval;
     }
+
     private Type type;
     private DVal dval = null; // Register, Immediate or d(XX)
 
@@ -155,7 +157,7 @@ public abstract class AbstractExpr extends AbstractInst {
 
     }
 
-    protected DVal getDVal(DecacCompiler compiler){
+    protected DVal getDVal(DecacCompiler compiler) {
         return dval;
     }
 

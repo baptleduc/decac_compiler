@@ -243,6 +243,7 @@ public class Identifier extends AbstractIdentifier {
             s.println();
         }
     }
+
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
         setDVal(((VariableDefinition) getDefinition()).getOperand());

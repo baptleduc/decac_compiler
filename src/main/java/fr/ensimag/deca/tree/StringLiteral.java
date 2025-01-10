@@ -74,7 +74,6 @@ public class StringLiteral extends AbstractStringLiteral {
         return "StringLiteral (" + value + ")";
     }
 
-
     @Override
     protected boolean isImmediate() {
         return false;

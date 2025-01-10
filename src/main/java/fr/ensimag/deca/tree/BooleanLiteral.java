@@ -60,7 +60,6 @@ public class BooleanLiteral extends AbstractExpr {
         return "BooleanLiteral (" + value + ")";
     }
 
-
     @Override
     protected boolean isImmediate() {
         return false;

@@ -38,7 +38,6 @@ public class ReadFloat extends AbstractReadExpr {
         // leaf node => nothing to do
     }
 
-
     @Override
     protected boolean isImmediate() {
         return false;

@@ -20,7 +20,6 @@ public class GreaterOrEqual extends AbstractOpIneq {
         return ">=";
     }
 
-
     @Override
     protected boolean isImmediate() {
         return false;

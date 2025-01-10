@@ -24,7 +24,6 @@ public class Minus extends AbstractOpArith {
         compiler.addInstruction(new SUB(right, left));
     }
 
-
     @Override
     protected boolean isImmediate() {
         return false;

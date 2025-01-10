@@ -18,7 +18,6 @@ public class LowerOrEqual extends AbstractOpIneq {
         return "<=";
     }
 
-
     @Override
     protected boolean isImmediate() {
         return false;

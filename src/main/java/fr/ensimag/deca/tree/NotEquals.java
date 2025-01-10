@@ -19,7 +19,6 @@ public class NotEquals extends AbstractOpExactCmp {
         return "!=";
     }
 
-
     @Override
     protected boolean isImmediate() {
         return false;

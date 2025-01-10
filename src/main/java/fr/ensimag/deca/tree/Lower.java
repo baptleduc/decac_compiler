@@ -19,7 +19,6 @@ public class Lower extends AbstractOpIneq {
         return "<";
     }
 
-
     @Override
     protected boolean isImmediate() {
         return false;

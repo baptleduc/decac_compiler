@@ -29,7 +29,6 @@ public class Plus extends AbstractOpArith {
         compiler.addInstruction(new ADD(right, left));
     }
 
-
     @Override
     protected boolean isImmediate() {
         return false;

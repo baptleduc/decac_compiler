@@ -10,6 +10,6 @@ import fr.ensimag.deca.DecacCompiler;
  */
 public abstract class DVal extends Operand {
 
-    public abstract GPRegister codeGenToGPRegister(DecacCompiler  compiler);
+    public abstract GPRegister codeGenToGPRegister(DecacCompiler compiler);
 
 }

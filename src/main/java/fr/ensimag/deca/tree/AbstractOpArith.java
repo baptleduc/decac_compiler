@@ -85,18 +85,16 @@ public abstract class AbstractOpArith extends AbstractBinaryExpr {
         DVal rightDVal = getRightOperand().getDVal(compiler);
         LOG.debug("Left DVal: " + leftDVal.toString());
         LOG.debug("Right DVal: " + rightDVal.toString());
-        assert(leftDVal != null && rightDVal != null);
+        assert (leftDVal != null && rightDVal != null);
 
         GPRegister regDest = null;
-        if(rightIsImmediate){
+        if (rightIsImmediate) {
             regDest = leftDVal.codeGenToGPRegister(compiler);
             codeGenOperationInst(regDest, rightDVal, compiler);
-        }
-        else if(leftIsImmediate){
+        } else if (leftIsImmediate) {
             regDest = rightDVal.codeGenToGPRegister(compiler);
             codeGenOperationInst(regDest, leftDVal, compiler);
-        }
-        else{
+        } else {
             regDest = leftDVal.codeGenToGPRegister(compiler);
             GPRegister regRight = rightDVal.codeGenToGPRegister(compiler);
             codeGenOperationInst(regDest, regRight, compiler);

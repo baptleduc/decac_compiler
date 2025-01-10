@@ -35,7 +35,6 @@ public class ConvFloat extends AbstractUnaryExpr {
         return;
     }
 
-
     @Override
     protected boolean isImmediate() {
         return false;

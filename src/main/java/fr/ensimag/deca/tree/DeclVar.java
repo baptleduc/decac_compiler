@@ -71,7 +71,7 @@ public class DeclVar extends AbstractDeclVar {
     protected void codeGenDeclVar(DecacCompiler compiler) {
         DAddr addr = ((VariableDefinition) varName.getDefinition()).getOperand();
         initialization.codeGenInitialization(compiler, addr);
-    
+
     }
 
     @Override

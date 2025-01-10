@@ -19,7 +19,6 @@ public class And extends AbstractOpBool {
         return "&&";
     }
 
-
     @Override
     protected boolean isImmediate() {
         return false;
