@@ -12,12 +12,14 @@ Répertoires :
 - Les fichiers de test pour décompilation sont recherchés dans : ./src/test/deca/decompile/
 - Les résultats attendus pour lexique et syntaxe sont situés dans : ./src/test/results/deca/syntax/
 - Les résultats attendus pour décompilation sont situés dans : ./src/test/results/deca/decompile/
+- les résultats attendus pour les tests de vérification contextuelle sont situés dans : ./src/test/results/deca/contex/
 - Les fichiers temporaires sont stockés dans : ./src/test/results/tmp/
 
 Ajout de fichiers de référence pour la comparaison :
 - Pour `test_lex`, ajoutez un fichier `.lex` dans ./src/test/results/deca/syntax/lex/.
 - Pour `test_synt`, ajoutez un fichier `.synt` dans ./src/test/results/deca/syntax/synt/.
 - Pour `decac -p`, ajoutez un fichier `.synt` dans ./src/test/results/deca/decompile/.
+- Pour `decac`, ajoutez un fichier `.deca` dans ./src/test/results/deca/codegen.
 
 Usage :
 Le script :
@@ -35,37 +37,49 @@ TMP_DIR="./src/test/results/tmp/"
 # Répertoires contenant les fichiers de tests
 INPUT_DIRS_SYNTAX="./src/test/deca/syntax/valid/ ./src/test/deca/syntax/valid/provided/"
 INPUT_DIR_DECOMPILE="./src/test/deca/decompile/"
-OUTPUT_DIR_SYNTAX="./src/test/results/deca/syntax/"
-OUTPUT_DIR_DECOMPILE="./src/test/results/deca/decompile/"
+INPUT_DIR_CODEGEN="./src/test/deca/codegen/valid/"
 
-TEST_LEX="./src/test/script/launchers/test_lex"
+NAME_TEST_LEX="testlex"
+EXEC_LEX="./src/test/script/launchers/test_lex"
 EXTENSION_TEST_LEX="lex"
 OUTPUT_DIR_TEST_LEX="./src/test/results/deca/syntax/lex/"
 OPTIONS_TEST_LEX=""
 
-TEST_SYNT="./src/test/script/launchers/test_synt"
+NAME_TEST_SYNT="testsynt"
+EXEC_SYNT="./src/test/script/launchers/test_synt"
 EXTENSION_TEST_SYNT="synt"
 OUTPUT_DIR_TEST_SYNT="./src/test/results/deca/syntax/synt/"
 OPTIONS_TEST_SYNT=""
 
-TEST_DECOMPILE="./src/main/bin/decac"
+
+NAME_TEST_DECOMPILE="decompile"
+EXEC_DECOMPILE="./src/main/bin/decac"
 EXTENSION_TEST_DECOMPILE="synt"
 OUTPUT_DIR_TEST_DECOMPILE="./src/test/results/deca/decompile/"
 OPTIONS_DECOMPILE="-p"
 
-EXECUTABLES="$TEST_LEX $TEST_SYNT $TEST_DECOMPILE"
+NAME_TEST_CODEGEN="codegen"
+EXEC_CODEGEN="./src/main/bin/decac"
+EXTENSION_TEST_CODEGEN="ass"
+OUTPUT_DIR_TEST_CODEGEN="./src/test/results/deca/codegen/"
+OPTIONS_TEST_CODEGEN=""
+
+ALL_TESTS="$NAME_TEST_LEX $NAME_TEST_SYNT $NAME_TEST_DECOMPILE $NAME_TEST_CODEGEN"
 
 
 get_output_dir() {
     case $1 in
-        $TEST_LEX)
+        $NAME_TEST_LEX)
             echo $OUTPUT_DIR_TEST_LEX
             ;;
-        $TEST_SYNT)
+        $NAME_TEST_SYNT)
             echo $OUTPUT_DIR_TEST_SYNT
             ;;
-        $TEST_DECOMPILE)
+        $NAME_TEST_DECOMPILE)
             echo $OUTPUT_DIR_TEST_DECOMPILE
+            ;;
+        $NAME_TEST_CODEGEN)
+            echo $OUTPUT_DIR_TEST_CODEGEN
             ;;
         *)
             echo "Erreur : répertoire de sortie non trouvé pour $1."
@@ -74,16 +88,60 @@ get_output_dir() {
     esac
 }
 
+get_input_dir() {
+    case $1 in
+        $NAME_TEST_LEX)
+            echo $INPUT_DIRS_SYNTAX
+            ;;
+        $NAME_TEST_SYNT)
+            echo $INPUT_DIRS_SYNTAX
+            ;;
+        $NAME_TEST_DECOMPILE)
+            echo $INPUT_DIR_DECOMPILE
+            ;;
+        $NAME_TEST_CODEGEN)
+            echo $INPUT_DIR_CODEGEN
+            ;;
+        *)
+            echo "Erreur : répertoire d'entré non trouvé pour $1."
+            exit 1
+            ;;
+    esac
+}
+
+get_exec() {
+    case $1 in
+        $NAME_TEST_LEX)
+            echo $EXEC_LEX
+            ;;
+        $NAME_TEST_SYNT)
+            echo $EXEC_SYNT
+            ;;
+        $NAME_TEST_DECOMPILE)
+            echo $EXEC_DECOMPILE
+            ;;
+        $NAME_TEST_CODEGEN)
+            echo $EXEC_CODEGEN
+            ;;
+        *)
+            echo "Erreur : exécutable non trouvé pour $1."
+            exit 1
+            ;;
+    esac
+}
 get_extension() {
     case $1 in
-        $TEST_LEX)
+        $NAME_TEST_LEX)
             echo $EXTENSION_TEST_LEX
             ;;
-        $TEST_SYNT)
+        $NAME_TEST_SYNT)
             echo $EXTENSION_TEST_SYNT
             ;;
-        $TEST_DECOMPILE)
+        $NAME_TEST_DECOMPILE)
             echo $EXTENSION_TEST_DECOMPILE
+            ;;
+        $NAME_TEST_CODEGEN)
+            echo $EXTENSION_TEST_CODEGEN
             ;;
         *)
             echo "Erreur : extension non trouvée pour $1."
@@ -103,6 +161,9 @@ get_options() {
         $TEST_DECOMPILE)
             echo $OPTIONS_DECOMPILE
             ;;
+        $TEST_CODEGEN)
+            echo $OPTIONS_TEST_CODEGEN
+            ;;
         *)
             echo "Erreur : options non trouvées pour $1."
             exit 1
@@ -114,10 +175,17 @@ get_options() {
 #   $1 : Répertoire d'entrée (contenant les fichiers .deca)
 #   $2 : Répertoire de sortie (où les résultats seront sauvegardés)
 #   $3 : Exécutable (test_lex ou test_synt)
-run_tests_syntax() {
+run_non_regression_tests() {
+    
     input_dir=$1
     output_dir=$2
-    executable=$3
+    options=$3
+    executable=$4
+    name_test=$5
+
+    echo "input_dir : $input_dir"
+    echo "output_dir : $output_dir"
+    echo "executable : $executable"
 
     if [ ! -d "$output_dir" ]; then
         echo "Erreur : le répertoire de sortie $output_dir n'existe pas."
@@ -129,15 +197,21 @@ run_tests_syntax() {
         exit 1
     fi
     # Détermine l'extension des fichiers de sortie (lex ou synt)
-    extension=$(get_extension $executable)
+    extension=$(get_extension $name_test)
 
     for file in "$input_dir"*.deca
     do
         if [ -f "$file" ]; then
             echo "Traitement du fichier : $file"
-            output_file="$(get_output_dir $executable)/$(basename "${file%.deca}").$extension"
+            output_file="$output_dir$(basename "${file%.deca}").$extension"
             tmp_file=$TMP_DIR$(basename "${file%.deca}").$extension
-            $executable $(get_options $executable) "$file" > "$tmp_file"
+
+            if [ "$name_test" = "$NAME_TEST_CODEGEN" ]; then
+                $executable $option "$file"
+                mv "$input_dir$(basename "${file%.deca}").$extension" "$tmp_file"
+            else
+                $executable $option "$file" > "$tmp_file"
+            fi
 
             if [ -f "$output_file" ]; then
                 # Compare les résultats avec le fichier existant
@@ -161,13 +235,13 @@ run_tests_syntax() {
 
 # Fonction principale
 main() {
-    # Tests de lexique et de syntaxe
-    for executable in $EXECUTABLES; do
-        echo "[BEGIN] : $executable"
-        for input_dir in $INPUT_DIRS_SYNTAX; do
-            run_tests_syntax "$input_dir" "$OUTPUT_DIR_SYNTAX" "$executable"
-        done
+    for test_name in $ALL_TESTS; do
+        echo "[BEGIN] : $test_name"
+            for input_dir in $(get_input_dir $test_name); do
+                run_non_regression_tests "$input_dir" "$(get_output_dir $test_name)" "$(get_options $test_name)" "$(get_exec $test_name)" "$test_name"
+            done
         echo "[SUCCESS] : $executable"
     done
 }
+
 main
