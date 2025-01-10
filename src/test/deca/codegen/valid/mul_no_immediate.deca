@@ -1,0 +1,13 @@
+// Description:
+//    Minimalistic program making Mul arithmetic operation with 2 variables
+// Results:
+//    10
+//
+// History:
+//    Created on 10/01/2025
+
+{       
+        int y = 5;
+        int z = 2;
+        int x = y * z;
+}

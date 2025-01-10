@@ -1,0 +1,12 @@
+// Description:
+//    Minimalistic program making Plus operation with variable and immediate integer at left
+// Results:
+//    10
+//
+// History:
+//    Created on 08/01/2025
+
+{       
+        int y = 1;
+        int x = 9 + y;
+}

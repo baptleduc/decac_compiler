@@ -1,14 +1,13 @@
 // Description:
-//    Minimalistic program making operation Plus with immediate integer.
+//    Minimalistic program making operation Plus with 2 immediate integer.
 //
 // Results:
-//    None
+//    3
 //
 // History:
 //    Created on 08/01/2025
 
 {       
-        int y = 1;
-        int x = y + 4/2 + 1 ;
+        int x = 1+ 2;
         println(x);
 }

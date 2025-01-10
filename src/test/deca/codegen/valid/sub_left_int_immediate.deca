@@ -1,0 +1,12 @@
+// Description:
+//    Minimalistic program making Sub arithmetic operation with one variable and one immediate at left
+// Results:
+//    10
+//
+// History:
+//    Created on 10/01/2025
+
+{       
+        int y = 1;
+        int x = 11 - y;
+}

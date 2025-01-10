@@ -1,0 +1,11 @@
+// Description:
+//    Minimalistic program making Divide arithmetic operation with 2 immediates
+// Results:
+//    10
+//
+// History:
+//    Created on 10/01/2025
+
+{       
+        int x = 20 / 2;
+}

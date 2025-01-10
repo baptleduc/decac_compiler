@@ -1,0 +1,12 @@
+// Description:
+//    Minimalistic program making Divide arithmetic operation with one variable and one immediate integer at left
+// Results:
+//    10
+//
+// History:
+//    Created on 10/01/2025
+
+{       
+        int y = 2;
+        int x = 20 / y;
+}
