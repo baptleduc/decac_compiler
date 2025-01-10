@@ -95,9 +95,9 @@ public abstract class AbstractExpr extends AbstractInst {
             setType(rvalueType);
             return this;
         } else if (expectedType.isFloat() && rvalueType.isInt()) {
-            // TODO: add a ConvFloat ?
-            setType(rvalueType);
-            return this;
+            AbstractExpr rValueConv = new ConvFloat(this);
+            rValueConv.verifyExpr(compiler, localEnv, currentClass);
+            return rValueConv;
         }
         throw new ContextualError("Expected type " + expectedType + " but found type " + rvalueType, getLocation());
     }
@@ -106,7 +106,7 @@ public abstract class AbstractExpr extends AbstractInst {
     protected void verifyInst(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass, Type returnType)
             throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
+        verifyExpr(compiler, localEnv, currentClass);
     }
 
     /**
