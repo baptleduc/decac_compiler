@@ -38,9 +38,9 @@ public class IfThenElse extends AbstractInst {
     protected void verifyInst(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass, Type returnType)
             throws ContextualError {
-	condition.verifyCondition(compiler,localEnv,currentClass);
-	thenBranch.verifListInst(compiler,localEnv,currentClass,returnType);
-	elseBranch.verifListInst(compiler,localEnv,currentClass,returnType);
+        condition.verifyCondition(compiler, localEnv, currentClass);
+        thenBranch.verifListInst(compiler, localEnv, currentClass, returnType);
+        elseBranch.verifListInst(compiler, localEnv, currentClass, returnType);
     }
 
     @Override
