@@ -35,13 +35,9 @@ public class ConvFloat extends AbstractUnaryExpr {
         return;
     }
 
-    @Override
-    protected DVal getDVal(DecacCompiler compiler) {
-        throw new UnsupportedOperationException("Not supposed to be called");
-    }
 
     @Override
-    protected boolean isDVal() {
+    protected boolean isImmediate() {
         return false;
     }
 }

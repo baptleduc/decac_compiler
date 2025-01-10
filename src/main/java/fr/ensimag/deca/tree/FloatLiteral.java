@@ -75,7 +75,7 @@ public class FloatLiteral extends AbstractExpr {
     }
 
     @Override
-    protected boolean isDVal() {
+    protected boolean isImmediate() {
         return true;
     }
 

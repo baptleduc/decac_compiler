@@ -3,6 +3,11 @@ package fr.ensimag.deca.tree;
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.ima.pseudocode.DVal;
 import fr.ensimag.ima.pseudocode.GPRegister;
+
+import static org.mockito.ArgumentMatchers.longThat;
+
+import org.apache.log4j.Logger;
+
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
@@ -15,6 +20,7 @@ import fr.ensimag.deca.context.EnvironmentExp;
  * @date 01/01/2025
  */
 public abstract class AbstractOpArith extends AbstractBinaryExpr {
+    private static final Logger LOG = Logger.getLogger(AbstractOpArith.class);
 
     public AbstractOpArith(AbstractExpr leftOperand, AbstractExpr rightOperand) {
         super(leftOperand, rightOperand);
@@ -23,11 +29,11 @@ public abstract class AbstractOpArith extends AbstractBinaryExpr {
     /**
      * Generate assembly code for the operation between left and right operands
      * 
-     * @param left
-     * @param right
+     * @param dest
+     * @param source
      * @param compiler
      */
-    abstract protected void codeGenOperationInst(GPRegister left, DVal right, DecacCompiler compiler);
+    abstract protected void codeGenOperationInst(GPRegister dest, DVal source, DecacCompiler compiler);
 
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
@@ -70,19 +76,23 @@ public abstract class AbstractOpArith extends AbstractBinaryExpr {
     protected void codeGenInst(DecacCompiler compiler) {
 
         getLeftOperand().codeGenInst(compiler);
-        GPRegister regLeft = compiler.popUsedRegister();
+        getRightOperand().codeGenInst(compiler);
 
-        AbstractExpr rightOperand = getRightOperand();
-        if (rightOperand.isDVal()) {
-            DVal dval = getRightOperand().getDVal(compiler);
-            codeGenOperationInst(regLeft, dval, compiler);
-        } else {
-            rightOperand.codeGenInst(compiler);
-            GPRegister regRight = compiler.popUsedRegister();
-            codeGenOperationInst(regLeft, regRight, compiler);
-            compiler.pushAvailableRegister(regRight); // Free the register
-        }
+        // boolean leftIsImmediate = getLeftOperand().isImmediate();
+        // boolean rightIsImmediate = getRightOperand().isImmediate();
 
-        compiler.pushUsedRegister(regLeft); // The result is in regLeft
+        DVal leftDVal = getLeftOperand().getDVal(compiler);
+        DVal rightDVal = getRightOperand().getDVal(compiler);
+        LOG.debug("Left DVal: " + leftDVal.toString());
+        LOG.debug("Right DVal: " + rightDVal.toString());
+        assert(leftDVal != null && rightDVal != null);
+
+        GPRegister regDest = rightDVal.codeGenToGPRegister(compiler);
+        
+        
+        codeGenOperationInst(regDest, leftDVal, compiler);
+        assert(regDest != null);
+        setDVal(regDest);
+        compiler.pushUsedRegister(regDest); // The result is in regLeft
     }
 }

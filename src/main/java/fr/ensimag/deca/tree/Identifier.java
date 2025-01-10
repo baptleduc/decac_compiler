@@ -15,7 +15,10 @@ import fr.ensimag.deca.context.VariableDefinition;
 import fr.ensimag.deca.tools.DecacInternalError;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.deca.tools.SymbolTable.Symbol;
+import fr.ensimag.ima.pseudocode.DAddr;
 import fr.ensimag.ima.pseudocode.DVal;
+import fr.ensimag.ima.pseudocode.GPRegister;
+import fr.ensimag.ima.pseudocode.ImmediateInteger;
 
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
@@ -240,14 +243,13 @@ public class Identifier extends AbstractIdentifier {
             s.println();
         }
     }
-
     @Override
-    protected DVal getDVal(DecacCompiler compiler) {
-        return getVariableDefinition().getOperand();
+    protected void codeGenInst(DecacCompiler compiler) {
+        setDVal(((VariableDefinition) getDefinition()).getOperand());
     }
 
     @Override
-    protected boolean isDVal() {
+    protected boolean isImmediate() {
         return false;
     }
 

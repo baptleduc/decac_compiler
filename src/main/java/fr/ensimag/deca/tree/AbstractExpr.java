@@ -44,8 +44,11 @@ public abstract class AbstractExpr extends AbstractInst {
         Validate.notNull(type);
         this.type = type;
     }
-
+    protected void setDVal(DVal dval) {
+        this.dval = dval;
+    }
     private Type type;
+    private DVal dval = null; // Register, Immediate or d(XX)
 
     @Override
     protected void checkDecoration() {
@@ -137,10 +140,14 @@ public abstract class AbstractExpr extends AbstractInst {
     protected void codeGenPrint(DecacCompiler compiler) {
 
         if (getType().isInt()) {
-            compiler.addInstruction(new LOAD(getDVal(compiler), compiler.getRegister1())); // TODO Change to get DAddr
+            codeGenInst(compiler);
+            DVal dval = getDVal(compiler);
+            compiler.addInstruction(new LOAD(dval, compiler.getRegister1())); // TODO Change to get DAddr
             compiler.addInstruction(new WINT());
         } else if (getType().isFloat()) {
-            compiler.addInstruction(new LOAD(getDVal(compiler), compiler.getRegister1())); // TODO Change to get DAddr
+            codeGenInst(compiler);
+            DVal dval = getDVal(compiler);
+            compiler.addInstruction(new LOAD(dval, compiler.getRegister1())); // TODO Change to get DAddr
             compiler.addInstruction(new WFLOAT());
         } else {
             throw new DecacInternalError("Type of expression is not int or float");
@@ -148,9 +155,11 @@ public abstract class AbstractExpr extends AbstractInst {
 
     }
 
-    protected abstract DVal getDVal(DecacCompiler compiler);
+    protected DVal getDVal(DecacCompiler compiler){
+        return dval;
+    }
 
-    protected boolean isDVal() {
+    protected boolean isImmediate() {
         return false;
     }
 

@@ -1,5 +1,7 @@
 package fr.ensimag.deca.tree;
 
+import org.apache.log4j.Logger;
+
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.ima.pseudocode.DVal;
 import fr.ensimag.ima.pseudocode.GPRegister;
@@ -11,6 +13,7 @@ import fr.ensimag.ima.pseudocode.instructions.DIV;
  * @date 01/01/2025
  */
 public class Divide extends AbstractOpArith {
+    private static final Logger LOG = Logger.getLogger(Divide.class);
     public Divide(AbstractExpr leftOperand, AbstractExpr rightOperand) {
         super(leftOperand, rightOperand);
     }
@@ -22,16 +25,12 @@ public class Divide extends AbstractOpArith {
 
     @Override
     protected void codeGenOperationInst(GPRegister left, DVal right, DecacCompiler compiler) {
+        LOG.debug("DIV: " + left + "," + right);
         compiler.addInstruction(new DIV(right, left));
     }
 
     @Override
-    protected DVal getDVal(DecacCompiler compiler) {
-        throw new UnsupportedOperationException("Not supposed to be called");
-    }
-
-    @Override
-    protected boolean isDVal() {
+    protected boolean isImmediate() {
         return false;
     }
 }

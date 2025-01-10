@@ -25,16 +25,13 @@ public class Plus extends AbstractOpArith {
 
     @Override
     protected void codeGenOperationInst(GPRegister left, DVal right, DecacCompiler compiler) {
+        LOG.debug("ADD:  " + left + "," + right);
         compiler.addInstruction(new ADD(right, left));
     }
 
-    @Override
-    protected DVal getDVal(DecacCompiler compiler) {
-        throw new UnsupportedOperationException("Not supposed to be called");
-    }
 
     @Override
-    protected boolean isDVal() {
+    protected boolean isImmediate() {
         return false;
     }
 }

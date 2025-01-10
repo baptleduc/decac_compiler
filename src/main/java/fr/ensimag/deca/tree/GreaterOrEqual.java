@@ -20,13 +20,9 @@ public class GreaterOrEqual extends AbstractOpIneq {
         return ">=";
     }
 
-    @Override
-    protected DVal getDVal(DecacCompiler compiler) {
-        throw new UnsupportedOperationException("Not supposed to be called");
-    }
 
     @Override
-    protected boolean isDVal() {
+    protected boolean isImmediate() {
         return false;
     }
 

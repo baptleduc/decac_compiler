@@ -71,7 +71,7 @@ public class IntLiteral extends AbstractExpr {
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
-        compiler.loadImmediateValue(immediate);
+        setDVal(immediate);
     }
 
     @Override
@@ -80,7 +80,7 @@ public class IntLiteral extends AbstractExpr {
     }
 
     @Override
-    protected boolean isDVal() {
+    protected boolean isImmediate() {
         return true;
     }
 

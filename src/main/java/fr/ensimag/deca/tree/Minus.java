@@ -24,13 +24,9 @@ public class Minus extends AbstractOpArith {
         compiler.addInstruction(new SUB(right, left));
     }
 
-    @Override
-    protected DVal getDVal(DecacCompiler compiler) {
-        throw new UnsupportedOperationException("Not supposed to be called");
-    }
 
     @Override
-    protected boolean isDVal() {
+    protected boolean isImmediate() {
         return false;
     }
 

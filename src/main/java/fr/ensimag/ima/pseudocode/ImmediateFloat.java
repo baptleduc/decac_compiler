@@ -1,5 +1,8 @@
 package fr.ensimag.ima.pseudocode;
 
+import fr.ensimag.deca.DecacCompiler;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
+
 /**
  * Immediate operand containing a float value.
  * 
@@ -12,6 +15,13 @@ public class ImmediateFloat extends DVal {
     public ImmediateFloat(float value) {
         super();
         this.value = value;
+    }
+
+    @Override
+    public GPRegister codeGenToGPRegister(DecacCompiler compiler) {
+        GPRegister reg = compiler.getAvailableGPRegister();
+        compiler.addInstruction(new LOAD(this, reg));
+        return reg;
     }
 
     @Override

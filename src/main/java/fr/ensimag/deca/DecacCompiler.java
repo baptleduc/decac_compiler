@@ -235,7 +235,7 @@ public class DecacCompiler {
         stackManager.pushUsedGPRegister(reg);
     }
 
-    public void pushAvailableRegister(GPRegister reg) {
+    public void freeRegister(GPRegister reg) {
         stackManager.pushAvailableGPRegister(reg);
     }
 
@@ -262,9 +262,8 @@ public class DecacCompiler {
      * @param value
      *            the immediate value to be loaded into the register
      */
-    public void loadImmediateValue(DVal value) {
-        GPRegister gpReg = getAvailableGPRegister();
-        program.addInstruction(new LOAD(value, gpReg));
+    public void loadDVal(GPRegister dest, DVal dval) {
+        program.addInstruction(new LOAD(dval, dest));
     }
 
     /**
