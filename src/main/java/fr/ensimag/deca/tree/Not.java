@@ -26,7 +26,7 @@ public class Not extends AbstractUnaryExpr {
                     "Var " + operandType.getName() + " can't be used for 'Not'",
                     this.getOperand().getLocation());
         }
-	setType(operandType);
+        setType(operandType);
         return operandType;
     }
 

@@ -21,11 +21,11 @@ public class UnaryMinus extends AbstractUnaryExpr {
             ClassDefinition currentClass) throws ContextualError {
         Type operandType = this.getOperand().verifyExpr(compiler, localEnv, currentClass);
         if (operandType.isFloat()) {
-	    setType(operandType);
+            setType(operandType);
             return operandType;
         } else if (operandType.isInt()) {
             setType(operandType);
-	    return operandType;
+            return operandType;
         }
         throw new ContextualError(
                 "Var " + operandType.getName() + " can't be used for 'UnaryMinus'",
