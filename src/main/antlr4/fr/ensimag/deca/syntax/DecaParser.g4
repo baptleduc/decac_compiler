@@ -180,8 +180,13 @@ if_then_else returns[IfThenElse tree]
       )*
       (ELSE OBRACE li_else=list_inst CBRACE {
         assert($li_else.tree != null);
-        ((IfThenElse)(else_tree.getLast())).setElseBranch($li_else.tree);
-        $tree.setElseBranch(else_tree);
+        if(else_tree.getLast() == null){
+                $tree.setElseBranch($li_else.tree);
+            }
+            else{
+                ((IfThenElse)(else_tree.getLast())).setElseBranch($li_else.tree);
+                $tree.setElseBranch(else_tree);
+            }
         }
       )?
     ;
