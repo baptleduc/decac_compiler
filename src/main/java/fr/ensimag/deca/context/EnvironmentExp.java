@@ -1,7 +1,7 @@
 package fr.ensimag.deca.context;
 
 import java.util.HashMap;
-
+import java.util.Map;
 import fr.ensimag.deca.tools.SymbolTable.Symbol;
 
 /**
@@ -26,6 +26,38 @@ public class EnvironmentExp {
 
     EnvironmentExp parentEnvironment;
     HashMap<Symbol, ExpDefinition> currentEnvironment;
+
+    public EnvironmentExp getParent() {
+        return parentEnvironment;
+    }
+
+    public HashMap<Symbol, ExpDefinition> getCurrentEnvironment() {
+        return currentEnvironment;
+    }
+
+    public EnvironmentExp empile(EnvironmentExp env2) {
+        if (env2 == null) {
+            return this;
+        }
+        EnvironmentExp empiledEnv = this;
+
+        for (Map.Entry<Symbol, ExpDefinition> entry : env2.currentEnvironment.entrySet()) {
+            Symbol var = entry.getKey();
+            ExpDefinition definition = entry.getValue();
+
+            try {
+                // Verify is the key is not in the current environment
+                if (!this.currentEnvironment.containsKey(var)) {
+                    empiledEnv.declare(var, definition); // add the key-value
+                }
+            } catch (DoubleDefException e) {
+                // nothing to do
+            }
+
+        }
+
+        return empiledEnv;
+    }
 
     public EnvironmentExp(EnvironmentExp parentEnvironment) {
         this.parentEnvironment = parentEnvironment;

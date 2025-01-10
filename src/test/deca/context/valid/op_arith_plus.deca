@@ -1,0 +1,12 @@
+// Description:
+//    Program using simple addition in declVar
+//
+// Results:
+//    Hello
+//
+// History:
+//    Created on 08/01/2025
+
+{
+        int x = 1+2+3;
+}

@@ -1,0 +1,12 @@
+// Description:
+//    Program testing op mod
+//
+// Results:
+//    ok
+//
+// History:
+//    Created on 9/01/2025
+
+{
+    int a = 3 % 5;
+}

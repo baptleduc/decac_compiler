@@ -1,0 +1,12 @@
+// Description:
+//    Program testing that you can not print a non printable variable 
+//
+// Results:
+//    error
+//
+// History:
+//    Created on 9/01/2025
+
+{
+    println(true);
+}

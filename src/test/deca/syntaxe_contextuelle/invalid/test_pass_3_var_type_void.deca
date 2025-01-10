@@ -1,0 +1,12 @@
+// Description:
+//    Program testing var declare with type void 
+//
+// Results:
+//    error
+//
+// History:
+//    Created on 9/01/2025
+
+{
+    void x;
+}

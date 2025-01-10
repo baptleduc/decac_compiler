@@ -31,15 +31,30 @@ public abstract class AbstractOpArith extends AbstractBinaryExpr {
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-
-        // TODO: Check
-        Type leftOp = this.getLeftOperand().verifyExpr(compiler, localEnv, currentClass);
-        Type rightOp = this.getRightOperand().verifyExpr(compiler, localEnv, currentClass);
-        if (!leftOp.isInt() || !rightOp.isInt()) {
-            throw new ContextualError("Operands of arithmetic operation must be of type int", this.getLocation());
+        Type rightType = this.getRightOperand().verifyExpr(compiler, localEnv, currentClass);
+        Type leftType = this.getLeftOperand().verifyExpr(compiler, localEnv, currentClass);
+        // Throw exception if the var has an unadapted type
+        if (!(leftType.isInt() || leftType.isFloat())) {
+            throw new ContextualError(
+                    "Var" + leftType.getName() + " can't be used for arithmetical operation",
+                    this.getLeftOperand().getLocation());
+        } else if (!(rightType.isInt() || rightType.isFloat())) {
+            throw new ContextualError(
+                    "Var" + rightType.getName() + " can't be used for arithmetical operation",
+                    this.getRightOperand().getLocation());
         }
-        this.setType(leftOp);
-        return leftOp;
+        Type opType;
+        if (rightType.isInt()) {
+            if (leftType.isInt()) {
+                opType = rightType; // int
+            } else {
+                opType = leftType; // float
+            }
+        } else {
+            opType = rightType; // float
+        }
+        setType(opType);
+        return opType;
     }
 
     @Override

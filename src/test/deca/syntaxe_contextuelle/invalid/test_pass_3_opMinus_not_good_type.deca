@@ -1,0 +1,12 @@
+// Description:
+//    Program testing that you can not do a minus unary operation with an operand that is not type float or int
+//
+// Results:
+//    error
+//
+// History:
+//    Created on 10/01/2025
+
+{
+    int a = -true;
+}

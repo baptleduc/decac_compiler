@@ -22,7 +22,19 @@ public class Modulo extends AbstractOpArith {
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
+        Type rightType = this.getRightOperand().verifyExpr(compiler, localEnv, currentClass);
+        Type leftType = this.getLeftOperand().verifyExpr(compiler, localEnv, currentClass);
+        if (!rightType.isInt()) {
+            throw new ContextualError(
+                    "Var" + rightType.getName() + " it not an int : modulo impossible",
+                    this.getRightOperand().getLocation());
+        } else if (!leftType.isInt()) {
+            throw new ContextualError(
+                    "Var" + leftType.getName() + " it not an int : modulo impossible",
+                    this.getLeftOperand().getLocation());
+        }
+        setType(compiler.environmentType.INT);
+        return compiler.environmentType.INT;
     }
 
     @Override
