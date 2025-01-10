@@ -110,6 +110,8 @@
                         <eclipse>
                             <file>config/formatter/eclipse-formatter.xml</file>
                         </eclipse>
+                        <removeUnusedImports/>
+                        <importOrder/>
                     </java>
                 </configuration>
             </plugin>
