@@ -20,8 +20,8 @@ public class ConvFloat extends AbstractUnaryExpr {
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) {
-            setType(compiler.environmentType.FLOAT);
-            return compiler.environmentType.FLOAT;
+        setType(compiler.environmentType.FLOAT);
+        return compiler.environmentType.FLOAT;
     }
 
     @Override

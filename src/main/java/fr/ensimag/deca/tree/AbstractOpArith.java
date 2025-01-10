@@ -54,7 +54,7 @@ public abstract class AbstractOpArith extends AbstractBinaryExpr {
                 this.getRightOperand().verifyExpr(compiler, localEnv, currentClass);
             }
         } else {
-            if(leftType.isInt()){
+            if (leftType.isInt()) {
                 AbstractExpr leftFloat = new ConvFloat(this.getLeftOperand());
                 this.setLeftOperand(leftFloat);
                 this.getLeftOperand().verifyExpr(compiler, localEnv, currentClass);
