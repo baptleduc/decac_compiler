@@ -1,0 +1,15 @@
+// Description:
+//    Program testing pass 3 while
+//
+// Results:
+//    ok
+//
+// History:
+//    Created on 10/01/2025
+
+{
+    int x = 2;
+    while (true){
+	
+    }
+}
