@@ -21,12 +21,14 @@ public class UnaryMinus extends AbstractUnaryExpr {
             ClassDefinition currentClass) throws ContextualError {
         Type operandType = this.getOperand().verifyExpr(compiler, localEnv, currentClass);
         if (operandType.isFloat()) {
+	    setType(operandType);
             return operandType;
         } else if (operandType.isInt()) {
-            return operandType;
+            setType(operandType);
+	    return operandType;
         }
         throw new ContextualError(
-                "Var" + operandType.getName() + " can't be used for 'UnaryMinus'",
+                "Var " + operandType.getName() + " can't be used for 'UnaryMinus'",
                 this.getOperand().getLocation());
     }
 

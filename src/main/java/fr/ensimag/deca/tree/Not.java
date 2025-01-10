@@ -23,9 +23,10 @@ public class Not extends AbstractUnaryExpr {
         Type operandType = this.getOperand().verifyExpr(compiler, localEnv, currentClass);
         if (!operandType.isBoolean()) {
             throw new ContextualError(
-                    "Var" + operandType.getName() + " can't be used for 'Not'",
+                    "Var " + operandType.getName() + " can't be used for 'Not'",
                     this.getOperand().getLocation());
         }
+	setType(operandType);
         return operandType;
     }
 
