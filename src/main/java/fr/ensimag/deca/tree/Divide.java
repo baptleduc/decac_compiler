@@ -6,6 +6,7 @@ import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.ima.pseudocode.DVal;
 import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.instructions.DIV;
+import fr.ensimag.ima.pseudocode.instructions.QUO;
 
 /**
  *
@@ -26,7 +27,12 @@ public class Divide extends AbstractOpArith {
     @Override
     protected void codeGenOperationInst(GPRegister left, DVal right, DecacCompiler compiler) {
         LOG.debug("DIV: " + left + "," + right);
-        compiler.addInstruction(new DIV(right, left));
+        if (getLeftOperand().getType().isInt()) {
+            compiler.addInstruction(new QUO(right, left));
+        }
+        else {
+            compiler.addInstruction(new DIV(right, left));
+        }
     }
 
     @Override

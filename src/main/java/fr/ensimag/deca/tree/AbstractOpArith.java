@@ -88,13 +88,13 @@ public abstract class AbstractOpArith extends AbstractBinaryExpr {
         assert(leftDVal != null && rightDVal != null);
 
         GPRegister regDest = null;
-        if(leftIsImmediate){
-            regDest = rightDVal.codeGenToGPRegister(compiler);
-            codeGenOperationInst(regDest, leftDVal, compiler);
-        }
-        else if(rightIsImmediate){
+        if(rightIsImmediate){
             regDest = leftDVal.codeGenToGPRegister(compiler);
             codeGenOperationInst(regDest, rightDVal, compiler);
+        }
+        else if(leftIsImmediate){
+            regDest = rightDVal.codeGenToGPRegister(compiler);
+            codeGenOperationInst(regDest, leftDVal, compiler);
         }
         else{
             regDest = leftDVal.codeGenToGPRegister(compiler);
