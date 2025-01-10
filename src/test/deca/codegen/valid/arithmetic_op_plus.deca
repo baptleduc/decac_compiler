@@ -9,6 +9,6 @@
 
 {       
         int y = 1;
-        int x = y + 2 ;
+        int x = y + 4/2 + 1 ;
         println(x);
 }

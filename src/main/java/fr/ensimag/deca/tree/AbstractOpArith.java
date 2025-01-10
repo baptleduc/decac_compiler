@@ -1,6 +1,7 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.context.Type;
+import fr.ensimag.deca.tools.DecacInternalError;
 import fr.ensimag.ima.pseudocode.DVal;
 import fr.ensimag.ima.pseudocode.GPRegister;
 
@@ -74,12 +75,11 @@ public abstract class AbstractOpArith extends AbstractBinaryExpr {
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
-
         getLeftOperand().codeGenInst(compiler);
         getRightOperand().codeGenInst(compiler);
 
-        // boolean leftIsImmediate = getLeftOperand().isImmediate();
-        // boolean rightIsImmediate = getRightOperand().isImmediate();
+        boolean leftIsImmediate = getLeftOperand().isImmediate();
+        boolean rightIsImmediate = getRightOperand().isImmediate();
 
         DVal leftDVal = getLeftOperand().getDVal(compiler);
         DVal rightDVal = getRightOperand().getDVal(compiler);
@@ -87,12 +87,22 @@ public abstract class AbstractOpArith extends AbstractBinaryExpr {
         LOG.debug("Right DVal: " + rightDVal.toString());
         assert(leftDVal != null && rightDVal != null);
 
-        GPRegister regDest = rightDVal.codeGenToGPRegister(compiler);
-        
-        
-        codeGenOperationInst(regDest, leftDVal, compiler);
-        assert(regDest != null);
+        GPRegister regDest = null;
+        if(leftIsImmediate){
+            regDest = rightDVal.codeGenToGPRegister(compiler);
+            codeGenOperationInst(regDest, leftDVal, compiler);
+        }
+        else if(rightIsImmediate){
+            regDest = leftDVal.codeGenToGPRegister(compiler);
+            codeGenOperationInst(regDest, rightDVal, compiler);
+        }
+        else{
+            regDest = leftDVal.codeGenToGPRegister(compiler);
+            GPRegister regRight = rightDVal.codeGenToGPRegister(compiler);
+            codeGenOperationInst(regDest, regRight, compiler);
+            compiler.freeRegister(regRight);
+        }
         setDVal(regDest);
-        compiler.pushUsedRegister(regDest); // The result is in regLeft
+        compiler.pushUsedRegister(regDest);
     }
 }
