@@ -170,7 +170,19 @@ public class Identifier extends AbstractIdentifier {
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
+                ExpDefinition exprDef = localEnv.get(name);
+        if (exprDef == null) {
+            throw new ContextualError("Variable " + name.getName() + " is not declared", getLocation());
+        }
+
+        if (!exprDef.isExpression()) {
+            throw new ContextualError("Variable " + name.getName() + " is not an expression", getLocation());
+        }
+
+        Type type = exprDef.getType();
+        setDefinition(exprDef);
+        setType(type);
+        return type;
     }
 
     /**
