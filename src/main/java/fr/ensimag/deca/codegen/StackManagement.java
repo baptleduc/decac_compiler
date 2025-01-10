@@ -1,12 +1,10 @@
 package fr.ensimag.deca.codegen;
 
-import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.IMAProgram;
+import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.RegisterOffset;
-
 import java.util.LinkedList;
-
 import org.apache.log4j.Logger;
 
 public class StackManagement {

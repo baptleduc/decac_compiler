@@ -1,8 +1,8 @@
 package fr.ensimag.deca.context;
 
+import fr.ensimag.deca.tools.SymbolTable.Symbol;
 import java.util.HashMap;
 import java.util.Map;
-import fr.ensimag.deca.tools.SymbolTable.Symbol;
 
 /**
  * Dictionary associating identifier's ExpDefinition to their names.

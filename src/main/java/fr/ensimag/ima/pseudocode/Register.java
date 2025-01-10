@@ -1,8 +1,7 @@
 package fr.ensimag.ima.pseudocode;
 
-import org.apache.log4j.Logger;
-
 import fr.ensimag.deca.DecacCompiler;
+import org.apache.log4j.Logger;
 
 /**
  * Register operand (including special registers like SP).

@@ -1,11 +1,10 @@
 package fr.ensimag.deca.tree;
 
-import org.apache.log4j.Logger;
-
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.ima.pseudocode.DVal;
 import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.instructions.ADD;
+import org.apache.log4j.Logger;
 
 /**
  * @author gl12

@@ -1,9 +1,8 @@
 package fr.ensimag.ima.pseudocode;
 
-import org.apache.log4j.Logger;
-
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.ima.pseudocode.instructions.LOAD;
+import org.apache.log4j.Logger;
 
 /**
  * Immediate operand representing an integer.

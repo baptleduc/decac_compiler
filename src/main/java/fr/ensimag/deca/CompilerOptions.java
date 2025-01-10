@@ -1,13 +1,10 @@
 package fr.ensimag.deca;
 
 import java.io.File;
-import java.io.PrintStream;
-import java.util.LinkedHashSet;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
-
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 

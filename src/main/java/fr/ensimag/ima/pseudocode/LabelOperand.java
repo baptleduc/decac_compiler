@@ -1,8 +1,7 @@
 package fr.ensimag.ima.pseudocode;
 
-import org.apache.commons.lang.Validate;
-
 import fr.ensimag.deca.DecacCompiler;
+import org.apache.commons.lang.Validate;
 
 /**
  * Label used as operand

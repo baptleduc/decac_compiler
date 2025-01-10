@@ -1,7 +1,5 @@
 package fr.ensimag.deca.tree;
 
-import fr.ensimag.deca.tools.IndentPrintStream;
-
 /**
  * @author gl12
  * @date 01/01/2025
