@@ -1,0 +1,14 @@
+; start main program
+	TSTO #0	; 0 (variables) + 0 (saved registers) + 0 (temporaries) + 0 (method parameters x 2)
+	BOV stack_overflow_error
+	ADDSP #1
+; Main program
+; Beginning of main instructions:
+	WSTR "Hello"
+	WNL
+stack_overflow_error:
+	WSTR "Error: Stack Overflow"
+	WNL
+	ERROR
+	HALT
+; end main program

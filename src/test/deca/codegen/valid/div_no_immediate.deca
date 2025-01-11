@@ -10,4 +10,5 @@
         int y = 2;
         int z = 20;
         int x = z / y;
+        println(10);
 }

@@ -10,4 +10,5 @@
         int y = 1;
         int z = 11;
         int x = z - y;
+        println(x);
 }

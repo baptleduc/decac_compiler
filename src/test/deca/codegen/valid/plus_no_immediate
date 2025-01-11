@@ -1,5 +1,5 @@
 // Description:
-//    Minimalistic program making Plus operation with variable and immediate integer at right
+//    Minimalistic program making Plus operation with two variables
 // Results:
 //    10
 //
@@ -8,6 +8,7 @@
 
 {       
         int y = 1;
-        int x = y + 9;
+        int z = 9;
+        int x = y + z;
         println(x);
 }

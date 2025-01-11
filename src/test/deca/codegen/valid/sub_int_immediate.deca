@@ -8,4 +8,5 @@
 
 {       
         int x = 11 - 1;
+        println(x);
 }

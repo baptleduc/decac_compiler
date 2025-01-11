@@ -9,4 +9,5 @@
 {       
         int y = 1;
         int x = 11 - y;
+        println(x);
 }

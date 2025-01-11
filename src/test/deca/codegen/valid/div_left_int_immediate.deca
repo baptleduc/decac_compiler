@@ -9,4 +9,5 @@
 {       
         int y = 2;
         int x = 20 / y;
+        println(10);
 }

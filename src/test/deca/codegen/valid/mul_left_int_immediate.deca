@@ -9,4 +9,5 @@
 {       
         int y = 5;
         int x = 2 * y;
+        println(x);
 }
