@@ -1,5 +1,10 @@
 package fr.ensimag.deca.tree;
 
+import fr.ensimag.ima.pseudocode.BranchInstruction;
+import fr.ensimag.ima.pseudocode.Label;
+import fr.ensimag.ima.pseudocode.instructions.BGT;
+import fr.ensimag.ima.pseudocode.instructions.BNE;
+
 /**
  *
  * @author gl12
@@ -14,6 +19,11 @@ public class NotEquals extends AbstractOpExactCmp {
     @Override
     protected String getOperatorName() {
         return "!=";
+    }
+
+    @Override
+    protected BranchInstruction getBranchInstruction(Label setTrueLabel) {
+        return new BNE(setTrueLabel);
     }
 
     @Override
