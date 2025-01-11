@@ -1,5 +1,5 @@
 // Description:
-//    Program testing that we can use readFloat 
+//    Program testing that we can use readInt 
 //
 // Results:
 //    ok
@@ -8,5 +8,5 @@
 //    Created on 9/01/2025
 
 {
-    float = readFloat();
+    int a = readInt();
 }

@@ -18,7 +18,7 @@ public class ReadInt extends AbstractReadExpr {
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-        return compiler.environmentType.FLOAT;
+        return compiler.environmentType.INT;
     }
 
     @Override

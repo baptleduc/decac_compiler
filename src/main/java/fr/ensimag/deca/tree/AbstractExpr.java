@@ -129,6 +129,7 @@ public abstract class AbstractExpr extends AbstractInst {
     void verifyCondition(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
         setType(compiler.environmentType.BOOLEAN);
+        verifyExpr(compiler, localEnv, currentClass);
     }
 
     /**
