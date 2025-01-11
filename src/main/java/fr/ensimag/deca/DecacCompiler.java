@@ -5,17 +5,20 @@ import fr.ensimag.deca.context.EnvironmentType;
 import fr.ensimag.deca.syntax.DecaLexer;
 import fr.ensimag.deca.syntax.DecaParser;
 import fr.ensimag.deca.tools.DecacInternalError;
+import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.deca.tools.SymbolTable;
 import fr.ensimag.deca.tools.SymbolTable.Symbol;
 import fr.ensimag.deca.tree.AbstractProgram;
 import fr.ensimag.deca.tree.LocationException;
 import fr.ensimag.ima.pseudocode.AbstractLine;
 import fr.ensimag.ima.pseudocode.DAddr;
+import fr.ensimag.ima.pseudocode.DVal;
 import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.IMAProgram;
 import fr.ensimag.ima.pseudocode.ImmediateInteger;
 import fr.ensimag.ima.pseudocode.Instruction;
 import fr.ensimag.ima.pseudocode.Label;
+import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.RegisterOffset;
 import fr.ensimag.ima.pseudocode.instructions.ADDSP;
 import fr.ensimag.ima.pseudocode.instructions.BOV;
@@ -26,7 +29,6 @@ import fr.ensimag.ima.pseudocode.instructions.STORE;
 import fr.ensimag.ima.pseudocode.instructions.TSTO;
 import fr.ensimag.ima.pseudocode.instructions.WNL;
 import fr.ensimag.ima.pseudocode.instructions.WSTR;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -35,7 +37,6 @@ import java.io.PrintStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.apache.log4j.Logger;
-import fr.ensimag.deca.tools.IndentPrintStream;
 
 /**
  * Decac compiler instance.
@@ -63,7 +64,11 @@ public class DecacCompiler {
     public DecacCompiler(CompilerOptions compilerOptions, File source) {
         super();
         this.compilerOptions = compilerOptions;
-        this.stackManager = new StackManagement(program, this.compilerOptions.getRegisters());
+        if (compilerOptions == null || this.compilerOptions.getRegisters() == -1) {
+            this.stackManager = new StackManagement(program, Register.getMaxGPRegisters());
+        } else {
+            this.stackManager = new StackManagement(program, this.compilerOptions.getRegisters());
+        }
         this.source = source;
     }
 
@@ -234,7 +239,7 @@ public class DecacCompiler {
         stackManager.pushUsedGPRegister(reg);
     }
 
-    public void pushAvailableRegister(GPRegister reg) {
+    public void freeRegister(GPRegister reg) {
         stackManager.pushAvailableGPRegister(reg);
     }
 
@@ -246,6 +251,14 @@ public class DecacCompiler {
         return stackManager.debugUsedRegister();
     }
 
+    public GPRegister getRegister1() {
+        return stackManager.getRegister1();
+    }
+
+    public GPRegister getRegister0() {
+        return stackManager.getRegister0();
+    }
+
     /**
      * Adds a LOAD instruction to load an immediate value into an available
      * register.
@@ -253,9 +266,8 @@ public class DecacCompiler {
      * @param value
      *            the immediate value to be loaded into the register
      */
-    public void loadImmediateValue(int value) {
-        GPRegister gpReg = getAvailableGPRegister();
-        program.addInstruction(new LOAD(value, gpReg));
+    public void loadDVal(GPRegister dest, DVal dval) {
+        program.addInstruction(new LOAD(dval, dest));
     }
 
     /**

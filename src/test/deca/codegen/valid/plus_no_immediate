@@ -1,0 +1,14 @@
+// Description:
+//    Minimalistic program making Plus operation with two variables
+// Results:
+//    10
+//
+// History:
+//    Created on 08/01/2025
+
+{       
+        int y = 1;
+        int z = 9;
+        int x = y + z;
+        println(x);
+}

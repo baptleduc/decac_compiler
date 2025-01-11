@@ -1,14 +1,14 @@
 package fr.ensimag.deca.tree;
 
-import fr.ensimag.deca.context.Type;
-import fr.ensimag.deca.context.TypeDefinition;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
+import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.ima.pseudocode.DVal;
+import fr.ensimag.ima.pseudocode.ImmediateInteger;
 import java.io.PrintStream;
-import fr.ensimag.deca.tools.SymbolTable.Symbol;
 import org.apache.log4j.Logger;
 
 /**
@@ -25,9 +25,12 @@ public class IntLiteral extends AbstractExpr {
     }
 
     private int value;
+    private ImmediateInteger immediate;
 
     public IntLiteral(int value) {
         this.value = value;
+        this.immediate = new ImmediateInteger(value);
+
     }
 
     @Override
@@ -65,7 +68,17 @@ public class IntLiteral extends AbstractExpr {
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
-        compiler.loadImmediateValue(value);
+        setDVal(immediate);
+    }
+
+    @Override
+    protected DVal getDVal(DecacCompiler compiler) {
+        return immediate;
+    }
+
+    @Override
+    protected boolean isImmediate() {
+        return true;
     }
 
 }

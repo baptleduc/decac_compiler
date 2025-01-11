@@ -1,11 +1,13 @@
 package fr.ensimag.deca.tree;
 
-import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
+import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.ima.pseudocode.DVal;
+import fr.ensimag.ima.pseudocode.ImmediateFloat;
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
 
@@ -22,6 +24,7 @@ public class FloatLiteral extends AbstractExpr {
     }
 
     private float value;
+    private ImmediateFloat immediate;
 
     public FloatLiteral(float value) {
         Validate.isTrue(!Float.isInfinite(value),
@@ -29,6 +32,7 @@ public class FloatLiteral extends AbstractExpr {
         Validate.isTrue(!Float.isNaN(value),
                 "literal values cannot be NaN");
         this.value = value;
+        this.immediate = new ImmediateFloat(value);
     }
 
     @Override
@@ -62,6 +66,16 @@ public class FloatLiteral extends AbstractExpr {
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
         // leaf node => nothing to do
+    }
+
+    @Override
+    protected DVal getDVal(DecacCompiler compiler) {
+        return immediate;
+    }
+
+    @Override
+    protected boolean isImmediate() {
+        return true;
     }
 
 }

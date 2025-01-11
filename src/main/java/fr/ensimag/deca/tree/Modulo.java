@@ -1,12 +1,13 @@
 package fr.ensimag.deca.tree;
 
-import fr.ensimag.deca.context.Type;
-import fr.ensimag.ima.pseudocode.GPRegister;
-import fr.ensimag.ima.pseudocode.instructions.REM;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
+import fr.ensimag.deca.context.Type;
+import fr.ensimag.ima.pseudocode.DVal;
+import fr.ensimag.ima.pseudocode.GPRegister;
+import fr.ensimag.ima.pseudocode.instructions.REM;
 
 /**
  *
@@ -43,8 +44,13 @@ public class Modulo extends AbstractOpArith {
     }
 
     @Override
-    protected void codeGenOperationInst(GPRegister left, GPRegister right, DecacCompiler compiler) {
+    protected void codeGenOperationInst(GPRegister left, DVal right, DecacCompiler compiler) {
         compiler.addInstruction(new REM(right, left));
+    }
+
+    @Override
+    protected boolean isImmediate() {
+        return false;
     }
 
 }

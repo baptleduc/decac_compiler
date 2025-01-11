@@ -1,0 +1,12 @@
+// Description:
+//    Minimalistic program making Mul arithmetic operation with 2 immediates integer
+// Results:
+//    10
+//
+// History:
+//    Created on 10/01/2025
+
+{       
+        int x = 2 * 5;
+        println(x);
+}

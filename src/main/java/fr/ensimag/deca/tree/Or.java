@@ -16,4 +16,9 @@ public class Or extends AbstractOpBool {
         return "||";
     }
 
+    @Override
+    protected boolean isImmediate() {
+        return false;
+    }
+
 }

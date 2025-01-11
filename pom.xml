@@ -110,6 +110,8 @@
                         <eclipse>
                             <file>config/formatter/eclipse-formatter.xml</file>
                         </eclipse>
+                        <removeUnusedImports/>
+                        <importOrder/>
                     </java>
                 </configuration>
             </plugin>
@@ -228,6 +230,16 @@
                         <id>non-regression</id>
                         <configuration>
                             <executable>./src/test/script/non-regression.sh</executable>
+                        </configuration>
+                    <phase>test</phase>
+                    <goals>
+                        <goal>exec</goal>
+                    </goals>
+                    </execution>
+                    <execution>
+                        <id>decac-verif</id>
+                        <configuration>
+                            <executable>./src/test/script/decac-verif.sh</executable>
                         </configuration>
                     <phase>test</phase>
                     <goals>

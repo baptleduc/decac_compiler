@@ -1,0 +1,13 @@
+// Description:
+//    Minimalistic program printing simple variable
+//
+// Results:
+//    10
+//
+// History:
+//    Created on 08/01/2025
+
+{
+        int x = 10;
+        println(x);
+}

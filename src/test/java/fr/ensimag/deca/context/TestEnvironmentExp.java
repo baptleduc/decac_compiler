@@ -1,10 +1,10 @@
 package fr.ensimag.deca.context;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import fr.ensimag.deca.tools.SymbolTable;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Unit tests for the EnvironmentExp class.

@@ -1,7 +1,8 @@
 package fr.ensimag.deca.tools;
 
-import fr.ensimag.deca.tools.SymbolTable.Symbol;
 import static org.junit.jupiter.api.Assertions.*;
+
+import fr.ensimag.deca.tools.SymbolTable.Symbol;
 import org.junit.jupiter.api.Test;
 
 /**

@@ -1,14 +1,16 @@
 package fr.ensimag.deca.tree;
 
-import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
+import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.DecacInternalError;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.DVal;
-import fr.ensimag.ima.pseudocode.Label;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
+import fr.ensimag.ima.pseudocode.instructions.WFLOAT;
+import fr.ensimag.ima.pseudocode.instructions.WINT;
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
 
@@ -40,7 +42,12 @@ public abstract class AbstractExpr extends AbstractInst {
         this.type = type;
     }
 
+    protected void setDVal(DVal dval) {
+        this.dval = dval;
+    }
+
     private Type type;
+    private DVal dval = null; // Register, Immediate or d(XX)
 
     @Override
     protected void checkDecoration() {
@@ -130,7 +137,29 @@ public abstract class AbstractExpr extends AbstractInst {
      * @param compiler
      */
     protected void codeGenPrint(DecacCompiler compiler) {
-        throw new UnsupportedOperationException("not yet implemented");
+
+        if (getType().isInt()) {
+            codeGenInst(compiler);
+            DVal dval = getDVal(compiler);
+            compiler.addInstruction(new LOAD(dval, compiler.getRegister1())); // TODO Change to get DAddr
+            compiler.addInstruction(new WINT());
+        } else if (getType().isFloat()) {
+            codeGenInst(compiler);
+            DVal dval = getDVal(compiler);
+            compiler.addInstruction(new LOAD(dval, compiler.getRegister1())); // TODO Change to get DAddr
+            compiler.addInstruction(new WFLOAT());
+        } else {
+            throw new DecacInternalError("Type of expression is not int or float");
+        }
+
+    }
+
+    protected DVal getDVal(DecacCompiler compiler) {
+        return dval;
+    }
+
+    protected boolean isImmediate() {
+        return false;
     }
 
     @Override

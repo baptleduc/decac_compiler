@@ -1,23 +1,25 @@
 package fr.ensimag.deca.tree;
 
-import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
+import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.DAddr;
-import fr.ensimag.ima.pseudocode.instructions.STORE;
+import fr.ensimag.ima.pseudocode.DVal;
 import fr.ensimag.ima.pseudocode.GPRegister;
-
+import fr.ensimag.ima.pseudocode.instructions.STORE;
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
+import org.apache.log4j.Logger;
 
 /**
  * @author gl12
  * @date 01/01/2025
  */
 public class Initialization extends AbstractInitialization {
+    private static final Logger LOG = Logger.getLogger(Initialization.class);
 
     public AbstractExpr getExpression() {
         return expression;
@@ -62,6 +64,10 @@ public class Initialization extends AbstractInitialization {
     @Override
     public void codeGenInitialization(DecacCompiler compiler, DAddr addr) {
         expression.codeGenInst(compiler);
-        compiler.storeLastUsedRegister(addr);
+        DVal dval = expression.getDVal(compiler);
+        GPRegister regDest = dval.codeGenToGPRegister(compiler);
+
+        compiler.addInstruction(new STORE(regDest, addr));
+        LOG.debug("STORE " + regDest + "," + addr);
     }
 }

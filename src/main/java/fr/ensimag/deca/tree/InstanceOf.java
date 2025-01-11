@@ -16,4 +16,9 @@ public class InstanceOf extends AbstractOpIneq {
         return "instanceof";
     }
 
+    @Override
+    protected boolean isImmediate() {
+        return false;
+    }
+
 }

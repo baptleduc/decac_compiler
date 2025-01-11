@@ -1,10 +1,10 @@
 package fr.ensimag.deca.tree;
 
-import org.apache.log4j.Logger;
-
 import fr.ensimag.deca.DecacCompiler;
+import fr.ensimag.ima.pseudocode.DVal;
 import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.instructions.ADD;
+import org.apache.log4j.Logger;
 
 /**
  * @author gl12
@@ -23,7 +23,13 @@ public class Plus extends AbstractOpArith {
     }
 
     @Override
-    protected void codeGenOperationInst(GPRegister left, GPRegister right, DecacCompiler compiler) {
+    protected void codeGenOperationInst(GPRegister left, DVal right, DecacCompiler compiler) {
+        LOG.debug("ADD:  " + left + "," + right);
         compiler.addInstruction(new ADD(right, left));
+    }
+
+    @Override
+    protected boolean isImmediate() {
+        return false;
     }
 }

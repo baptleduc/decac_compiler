@@ -16,4 +16,9 @@ public class Equals extends AbstractOpExactCmp {
         return "==";
     }
 
+    @Override
+    protected boolean isImmediate() {
+        return false;
+    }
+
 }

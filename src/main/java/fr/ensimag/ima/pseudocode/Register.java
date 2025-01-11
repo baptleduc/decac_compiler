@@ -1,5 +1,8 @@
 package fr.ensimag.ima.pseudocode;
 
+import fr.ensimag.deca.DecacCompiler;
+import org.apache.log4j.Logger;
+
 /**
  * Register operand (including special registers like SP).
  * 
@@ -7,6 +10,7 @@ package fr.ensimag.ima.pseudocode;
  * @date 01/01/2025
  */
 public class Register extends DVal {
+    private static final Logger LOG = Logger.getLogger(Register.class);
     private String name;
     private static final int MAX_GP_REGISTERS = 16;
 
@@ -17,6 +21,11 @@ public class Register extends DVal {
     @Override
     public String toString() {
         return name;
+    }
+
+    public GPRegister codeGenToGPRegister(DecacCompiler compiler) {
+        LOG.error("Call on Register:" + name);
+        return null;
     }
 
     /**

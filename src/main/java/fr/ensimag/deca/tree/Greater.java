@@ -16,4 +16,9 @@ public class Greater extends AbstractOpIneq {
         return ">";
     }
 
+    @Override
+    protected boolean isImmediate() {
+        return false;
+    }
+
 }
