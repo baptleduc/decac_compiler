@@ -37,11 +37,6 @@ public class And extends AbstractOpBool {
     }
 
     @Override
-    protected void codeGenOpBool(GPRegister dest, DVal source, DecacCompiler compiler){
-
-    }
-
-    @Override
     protected void codeGenInst(DecacCompiler compiler){
         getLeftOperand().codeGenInst(compiler);
         getRightOperand().codeGenInst(compiler);
@@ -56,10 +51,10 @@ public class And extends AbstractOpBool {
         
         
         compiler.addInstruction(new CMP(new ImmediateInteger(0), regLeft));
-        compiler.addInstruction(new BEQ(setFalse));
+        compiler.addInstruction(new BEQ(setFalse), "If " + regLeft.toString() + " is false, branch to " + setFalse.toString());
         GPRegister regRight = rightDVal.codeGenToGPRegister(compiler);
         compiler.addInstruction(new CMP(0, regRight));
-        compiler.addInstruction(new BEQ(setFalse));
+        compiler.addInstruction(new BEQ(setFalse), "If " + regRight.toString() + " is false, branch to " + setFalse.toString());
         
         compiler.addInstruction(new LOAD(new ImmediateInteger(1), regLeft));
         compiler.addInstruction(new BRA(end));

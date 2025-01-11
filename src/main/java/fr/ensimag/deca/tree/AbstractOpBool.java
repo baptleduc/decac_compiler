@@ -23,7 +23,6 @@ public abstract class AbstractOpBool extends AbstractBinaryExpr {
         super(leftOperand, rightOperand);
     }
 
-    abstract protected void codeGenOpBool(GPRegister dest, DVal source, DecacCompiler compiler);
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
