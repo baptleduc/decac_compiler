@@ -34,13 +34,7 @@ public class StackManagement {
         idxUsedGPRegisters = new LinkedList<>();
         this.program = program;
 
-        int numberOfRegisters;
-        if (numRegisters == -1) { // No limitations on the registers to be used
-            numberOfRegisters = Register.getMaxGPRegisters();
-        } else {
-            numberOfRegisters = numRegisters;
-        }
-        for (int i = 2; i < numberOfRegisters; i++) { // R0 and R1 are scratch registers
+        for (int i = 2; i < numRegisters; i++) { // R0 and R1 are scratch registers
             idxAvailableGPRegisters.add(i);
         }
     }

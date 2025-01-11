@@ -18,6 +18,7 @@ import fr.ensimag.ima.pseudocode.IMAProgram;
 import fr.ensimag.ima.pseudocode.ImmediateInteger;
 import fr.ensimag.ima.pseudocode.Instruction;
 import fr.ensimag.ima.pseudocode.Label;
+import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.RegisterOffset;
 import fr.ensimag.ima.pseudocode.instructions.ADDSP;
 import fr.ensimag.ima.pseudocode.instructions.BOV;
@@ -63,7 +64,12 @@ public class DecacCompiler {
     public DecacCompiler(CompilerOptions compilerOptions, File source) {
         super();
         this.compilerOptions = compilerOptions;
-        this.stackManager = new StackManagement(program, this.compilerOptions.getRegisters());
+        if (compilerOptions == null || this.compilerOptions.getRegisters() == -1) {
+            this.stackManager = new StackManagement(program, Register.getMaxGPRegisters());
+        } 
+        else{
+            this.stackManager = new StackManagement(program, this.compilerOptions.getRegisters());
+        }
         this.source = source;
     }
 
