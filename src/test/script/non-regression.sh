@@ -1,44 +1,45 @@
 #!/bin/sh
 : '
-Script de tests pour la phase de lexique, de syntaxe, et de décompilation du compilateur Deca.
-Auteur : Baptiste LE DUC
+Test script for the lexicon, syntax, and decompilation phases of the Deca compiler.
+Author: Baptiste LE DUC
 
-Description :
-Ce script exécute des tests pour vérifier la conformité des phases de lexique (`test_lex`), de syntaxe (`test_synt`), 
-et de décompilation (`decac -p`) en comparant les résultats générés avec des fichiers de référence. 
+Description:
+This script runs tests to validate the lexical (`test_lex`), syntax (`test_synt`), decompilation (`decac -p`)  and codegen (`decac`) phases 
+by comparing the generated outputs to reference files.
 
-Répertoires :
-- Les fichiers de test pour lexique et syntaxe sont recherchés dans : ./src/test/deca/syntax/valid/ et ./src/test/deca/syntax/valid/provided/
-- Les fichiers de test pour décompilation sont recherchés dans : ./src/test/deca/decompile/
-- Les résultats attendus pour lexique et syntaxe sont situés dans : ./src/test/results/deca/syntax/
-- Les résultats attendus pour décompilation sont situés dans : ./src/test/results/deca/decompile/
-- les résultats attendus pour les tests de vérification contextuelle sont situés dans : ./src/test/results/deca/contex/
-- Les fichiers temporaires sont stockés dans : ./src/test/results/tmp/
+Directories:
+- Test files for lexicon and syntax: ./src/test/deca/syntax/valid/ and ./src/test/deca/syntax/valid/provided/
+- Test files for decompilation: ./src/test/deca/decompile/
+- Expected results for lexicon and syntax: ./src/test/results/deca/syntax/
+- Expected results for decompilation: ./src/test/results/deca/decompile/
+- Expected results for contextual verification tests: ./src/test/results/deca/contex/
+- Temporary files: ./src/test/results/tmp/
 
-Ajout de fichiers de référence pour la comparaison :
-- Pour `test_lex`, ajoutez un fichier `.lex` dans ./src/test/results/deca/syntax/lex/.
-- Pour `test_synt`, ajoutez un fichier `.synt` dans ./src/test/results/deca/syntax/synt/.
-- Pour `decac -p`, ajoutez un fichier `.synt` dans ./src/test/results/deca/decompile/.
-- Pour `decac`, ajoutez un fichier `.deca` dans ./src/test/results/deca/codegen.
+Adding reference files for comparison:
+- For `test_lex`, add `.lex` files to ./src/test/results/deca/syntax/lex/.
+- For `test_synt`, add `.synt` files to ./src/test/results/deca/syntax/synt/.
+- For `decac -p`, add `.synt` files to ./src/test/results/deca/decompile/.
+- For `decac`, add `.ass` files to ./src/test/results/deca/codegen/.
 
-Usage :
-Le script :
-1. Exécute les tests avec les exécutables `test_lex`, `test_synt`, et `decac -p`.
-2. Compare les résultats générés avec les fichiers de référence.
-3. Affiche les différences en cas d'incohérence et arrête l'exécution.
+Usage:
+1. Executes tests using `test_lex`, `test_synt`, and `decac -p`.
+2. Compares generated outputs with reference files.
+3. Displays differences and stops execution on failure.
 
-Le script s’arrête automatiquement si une erreur survient.
+The script stops immediately if an error occurs.
 '
-# Arrête le script en cas d'echec d'une commande
+# Stop script on any command failure
 set -e 
 
+# Temporary directory for intermediate files
 TMP_DIR="./src/test/results/tmp/"
 
-# Répertoires contenant les fichiers de tests
+# Directories containing test files
 INPUT_DIRS_SYNTAX="./src/test/deca/syntax/valid/ ./src/test/deca/syntax/valid/provided/"
 INPUT_DIR_DECOMPILE="./src/test/deca/decompile/"
 INPUT_DIR_CODEGEN="./src/test/deca/codegen/valid/"
 
+# SYNTAX TESTS CONFIGURATION
 NAME_TEST_LEX="testlex"
 EXEC_LEX="./src/test/script/launchers/test_lex"
 EXTENSION_TEST_LEX="lex"
@@ -52,21 +53,25 @@ OUTPUT_DIR_TEST_SYNT="./src/test/results/deca/syntax/synt/"
 OPTIONS_TEST_SYNT=""
 
 
+# DECOMPILE TESTS CONFIGURATION
 NAME_TEST_DECOMPILE="decompile"
 EXEC_DECOMPILE="./src/main/bin/decac"
 EXTENSION_TEST_DECOMPILE="synt"
 OUTPUT_DIR_TEST_DECOMPILE="./src/test/results/deca/decompile/"
 OPTIONS_DECOMPILE="-p"
 
+# CODEGEN TESTS CONFIGURATION
 NAME_TEST_CODEGEN="codegen"
 EXEC_CODEGEN="./src/main/bin/decac"
 EXTENSION_TEST_CODEGEN="ass"
 OUTPUT_DIR_TEST_CODEGEN="./src/test/results/deca/codegen/"
 OPTIONS_TEST_CODEGEN=""
 
+
 ALL_TESTS="$NAME_TEST_LEX $NAME_TEST_SYNT $NAME_TEST_DECOMPILE $NAME_TEST_CODEGEN"
 
 
+# Retrieve output directory based on the test name
 get_output_dir() {
     case $1 in
         $NAME_TEST_LEX)
@@ -82,12 +87,13 @@ get_output_dir() {
             echo $OUTPUT_DIR_TEST_CODEGEN
             ;;
         *)
-            echo "Erreur : répertoire de sortie non trouvé pour $1."
+            echo "Error: output directory not found for $1."
             exit 1
             ;;
     esac
 }
 
+# Retrieve input directory based on the test name
 get_input_dir() {
     case $1 in
         $NAME_TEST_LEX)
@@ -103,12 +109,13 @@ get_input_dir() {
             echo $INPUT_DIR_CODEGEN
             ;;
         *)
-            echo "Erreur : répertoire d'entré non trouvé pour $1."
+            echo "Error: input directory not found for $1."
             exit 1
             ;;
     esac
 }
 
+# Retrieve executable command based on the test name
 get_exec() {
     case $1 in
         $NAME_TEST_LEX)
@@ -124,11 +131,13 @@ get_exec() {
             echo $EXEC_CODEGEN
             ;;
         *)
-            echo "Erreur : exécutable non trouvé pour $1."
+            echo "Error: executable not found for $1."
             exit 1
             ;;
     esac
 }
+
+# Retrieve output file extension based on the test name
 get_extension() {
     case $1 in
         $NAME_TEST_LEX)
@@ -150,6 +159,7 @@ get_extension() {
     esac
 }
 
+# Retrieve options based on the test name
 get_options() {
     case $1 in
         $NAME_TEST_LEX)
@@ -170,6 +180,8 @@ get_options() {
             ;;
     esac
 }
+
+# Execute syntax-related tests (test_lex, test_synt) and save output to a temporary file for comparison (ex : test_lex file.deca > tmp_file.lex) 
 exec_test_syntax(){
     executable=$1
     options=$2
@@ -179,6 +191,7 @@ exec_test_syntax(){
     $executable $options "$file" > "$tmp_file"
 }
 
+# Execute decompilation tests and save output to a temporary file for comparison (ex : decac -p file.deca > tmp_file.synt)
 exec_test_decompile(){
     executable=$1
     options=$2
@@ -188,6 +201,7 @@ exec_test_decompile(){
     $executable $options "$file" > "$tmp_file" 2>&1
 }
 
+# Execute codegen tests and save output to a temporary file for comparison (ex : decac file.deca > tmp_file.ass)
 exec_test_codegen(){
     executable=$1
     options=$2
@@ -198,6 +212,7 @@ exec_test_codegen(){
     mv "$input_dir$(basename "${file%.deca}").$EXTENSION_TEST_CODEGEN" "$tmp_file"
 }
 
+# Generic execution function for tests
 exec_test(){
     name_test=$1
     executable=$2
@@ -227,11 +242,18 @@ exec_test(){
 }
 
 
-# Fonction pour exécuter les tests de lexique et de syntaxe
-# Arguments :
-#   $1 : Répertoire d'entrée (contenant les fichiers .deca)
-#   $2 : Répertoire de sortie (où les résultats seront sauvegardés)
-#   $3 : Exécutable (test_lex ou test_synt)
+# Function to execute a non-regression test.
+#
+# Parameters:
+#   $1 : Input directory containing `.deca` test files.
+#   $2 : Output directory for saving and comparing results.
+#   #3 : Options for the executable (e.g., `-p` for `decac -p`).
+#   $4 : Executable (e.g., `test_lex` or `test_synt` or `decac -p`).
+#   $5 : Name of the test (e.g., `test_lex` or `test_synt` or `decompile` or `codegen`).
+#
+# Description:
+#   Runs tests on `.deca` files, saves outputs temporarily, and compares them to expected results.
+#   Displays differences if mismatched and stops on errors. Cleans up temporary files after comparison
 run_non_regression_tests() {
     
     input_dir=$1
@@ -241,12 +263,12 @@ run_non_regression_tests() {
     name_test=$5
 
     if [ ! -d "$output_dir" ]; then
-        echo "Erreur : le répertoire de sortie $output_dir n'existe pas."
+        echo "Error: output directory $output_dir does not exist."
         exit 1
     fi
 
     if [ ! -d "$input_dir" ]; then
-        echo "Erreur : le répertoire d'entrée $input_dir n'existe pas."
+        echo "Error: input directory $input_dir does not exist."
         exit 1
     fi
     # Détermine l'extension des fichiers de sortie (lex ou synt)
@@ -255,7 +277,7 @@ run_non_regression_tests() {
     for file in "$input_dir"*.deca
     do
         if [ -f "$file" ]; then
-            echo "Traitement du fichier : $file"
+            echo "Processing file: $file"
             output_file="$output_dir$(basename "${file%.deca}").$extension"
             tmp_file=$TMP_DIR$(basename "${file%.deca}").$extension
 
@@ -264,14 +286,13 @@ run_non_regression_tests() {
             if [ -f "$output_file" ]; then
                 # Compare les résultats avec le fichier existant
                 if ! diff "$output_file" "$tmp_file" > /dev/null; then
-                    echo "Erreur : $output_file et $tmp_file non identiques."
+                    echo "Error: $output_file and $tmp_file differ."
                     diff "$output_file" "$tmp_file"
-                    # rm "$tmp_file"
                     exit 1
                 fi
                 rm "$tmp_file"
             else
-                # Si le fichier de sortie n'existe pas, supprime la sortie temporaire
+                # If the output file does not exist, remove the temporary output
                 rm "$tmp_file"
             fi
         fi
@@ -281,7 +302,7 @@ run_non_regression_tests() {
 
 
 
-# Fonction principale
+# Main function to execute all tests
 main() {
     for test_name in $ALL_TESTS; do
         echo "[BEGIN] : $test_name"
