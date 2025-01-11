@@ -152,16 +152,16 @@ get_extension() {
 
 get_options() {
     case $1 in
-        $TEST_LEX)
+        $NAME_TEST_LEX)
             echo $OPTIONS_TEST_LEX
             ;;
-        $TEST_SYNT)
+        $NAME_TEST_SYNT)
             echo $OPTIONS_TEST_SYNT
             ;;
-        $TEST_DECOMPILE)
+        $NAME_TEST_DECOMPILE)
             echo $OPTIONS_DECOMPILE
             ;;
-        $TEST_CODEGEN)
+        $NAME_TEST_CODEGEN)
             echo $OPTIONS_TEST_CODEGEN
             ;;
         *)
@@ -185,7 +185,9 @@ run_non_regression_tests() {
 
     echo "input_dir : $input_dir"
     echo "output_dir : $output_dir"
+    echo "options : $options"
     echo "executable : $executable"
+    echo "name_test : $name_test"
 
     if [ ! -d "$output_dir" ]; then
         echo "Erreur : le répertoire de sortie $output_dir n'existe pas."
@@ -207,10 +209,13 @@ run_non_regression_tests() {
             tmp_file=$TMP_DIR$(basename "${file%.deca}").$extension
 
             if [ "$name_test" = "$NAME_TEST_CODEGEN" ]; then
-                $executable $option "$file"
+                $executable $options "$file"
                 mv "$input_dir$(basename "${file%.deca}").$extension" "$tmp_file"
+            elif [ "$name_test" = "$NAME_TEST_DECOMPILE" ]; then
+                echo "$executable $options $file > $tmp_file 2>&1"
+                $executable $options "$file" > "$tmp_file" 2>&1
             else
-                $executable $option "$file" > "$tmp_file"
+                $executable $options "$file" > "$tmp_file"
             fi
 
             if [ -f "$output_file" ]; then
@@ -218,7 +223,7 @@ run_non_regression_tests() {
                 if ! diff "$output_file" "$tmp_file" > /dev/null; then
                     echo "Erreur : $output_file et $tmp_file non identiques."
                     diff "$output_file" "$tmp_file"
-                    rm "$tmp_file"
+                    # rm "$tmp_file"
                     exit 1
                 fi
                 rm "$tmp_file"
