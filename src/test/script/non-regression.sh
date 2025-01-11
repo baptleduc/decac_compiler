@@ -170,6 +170,63 @@ get_options() {
             ;;
     esac
 }
+exec_test_syntax(){
+    executable=$1
+    options=$2
+    file=$3
+    tmp_file=$4
+
+    $executable $options "$file" > "$tmp_file"
+}
+
+exec_test_decompile(){
+    executable=$1
+    options=$2
+    file=$3
+    tmp_file=$4
+
+    $executable $options "$file" > "$tmp_file" 2>&1
+}
+
+exec_test_codegen(){
+    executable=$1
+    options=$2
+    file=$3
+    tmp_file=$4
+
+    $executable $options "$file"
+    mv "$input_dir$(basename "${file%.deca}").$EXTENSION_TEST_CODEGEN" "$tmp_file"
+}
+
+exec_test(){
+    name_test=$1
+    executable=$2
+    options=$3
+    file=$4
+    tmp_file=$5
+
+    case $1 in
+        $NAME_TEST_LEX)
+            exec_test_syntax "$executable" "$options" "$file" "$tmp_file"
+            ;;
+        $NAME_TEST_SYNT)
+            exec_test_syntax "$executable" "$options" "$file" "$tmp_file"
+            ;;
+        $NAME_TEST_DECOMPILE)
+            exec_test_decompile "$executable" "$options" "$file" "$tmp_file"
+            ;;
+        $NAME_TEST_CODEGEN)
+            exec_test_codegen "$executable" "$options" "$file" "$tmp_file"
+            ;;
+        *)
+            echo "Erreur : test exec non trouvé pour $1."
+            exit 1
+            ;;
+    esac
+
+}
+
+
 # Fonction pour exécuter les tests de lexique et de syntaxe
 # Arguments :
 #   $1 : Répertoire d'entrée (contenant les fichiers .deca)
@@ -182,12 +239,6 @@ run_non_regression_tests() {
     options=$3
     executable=$4
     name_test=$5
-
-    echo "input_dir : $input_dir"
-    echo "output_dir : $output_dir"
-    echo "options : $options"
-    echo "executable : $executable"
-    echo "name_test : $name_test"
 
     if [ ! -d "$output_dir" ]; then
         echo "Erreur : le répertoire de sortie $output_dir n'existe pas."
@@ -208,15 +259,7 @@ run_non_regression_tests() {
             output_file="$output_dir$(basename "${file%.deca}").$extension"
             tmp_file=$TMP_DIR$(basename "${file%.deca}").$extension
 
-            if [ "$name_test" = "$NAME_TEST_CODEGEN" ]; then
-                $executable $options "$file"
-                mv "$input_dir$(basename "${file%.deca}").$extension" "$tmp_file"
-            elif [ "$name_test" = "$NAME_TEST_DECOMPILE" ]; then
-                echo "$executable $options $file > $tmp_file 2>&1"
-                $executable $options "$file" > "$tmp_file" 2>&1
-            else
-                $executable $options "$file" > "$tmp_file"
-            fi
+            exec_test $name_test "$executable" "$options" "$file" "$tmp_file"
 
             if [ -f "$output_file" ]; then
                 # Compare les résultats avec le fichier existant
