@@ -1,0 +1,11 @@
+// Description:
+//    A minimal program demonstrating a lower or equal than comparison between two immediate integers.
+// Results:
+//    None
+//
+// History:
+//    Created on 11/01/2025
+
+{       
+        boolean x = 3 <= 2;
+}
