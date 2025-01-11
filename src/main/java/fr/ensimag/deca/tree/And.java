@@ -50,7 +50,7 @@ public class And extends AbstractOpBool {
         DVal rightDVal = getRightOperand().getDVal(compiler);
 
         GPRegister regLeft = leftDVal.codeGenToGPRegister(compiler);
-
+        
         Label setFalse = new Label("set_false");
         Label end = new Label("end");
         

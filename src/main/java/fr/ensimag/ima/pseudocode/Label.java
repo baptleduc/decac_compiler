@@ -11,6 +11,8 @@ import org.apache.commons.lang.Validate;
  */
 public class Label extends Operand {
 
+    private static int counter = 0;
+
     @Override
     public String toString() {
         return name;
@@ -18,6 +20,7 @@ public class Label extends Operand {
 
     public Label(String name) {
         super();
+        name = name + "_" + counter++;
         Validate.isTrue(name.length() <= 1024, "Label name too long, not supported by IMA");
         Validate.isTrue(name.matches("^[a-zA-Z][a-zA-Z0-9_.]*$"), "Invalid label name " + name);
         this.name = name;
