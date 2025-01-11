@@ -237,6 +237,16 @@
                     </goals>
                     </execution>
                     <execution>
+                        <id>decac-verif</id>
+                        <configuration>
+                            <executable>./src/test/script/decac-verif.sh</executable>
+                        </configuration>
+                    <phase>test</phase>
+                    <goals>
+                        <goal>exec</goal>
+                    </goals>
+                    </execution>
+                    <execution>
                         <id>basic-synt</id>
                         <configuration>
                             <executable>./src/test/script/basic-synt.sh</executable>

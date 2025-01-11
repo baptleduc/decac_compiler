@@ -41,6 +41,14 @@ non_regression_tests:
     - echo "Running non-regression tests..."
     - mvn exec:exec@non-regression
 
+decac_verif_tests:
+  stage: test
+  dependencies:
+    - maven_build
+  script:
+    - echo "Running decac verification tests..."
+    - mvn exec:exec@decac-verif
+  
 spotless_check:
   stage: format-check
   script:
