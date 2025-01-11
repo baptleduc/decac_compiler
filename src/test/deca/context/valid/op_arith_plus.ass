@@ -1,0 +1,11 @@
+; start main program
+; Main program
+; Beginning of main instructions:
+	LOAD #1, R2
+	LOAD #2, R3
+	ADD R3, R2
+	LOAD #3, R3
+	ADD R3, R2
+	STORE R2, 2(GB)
+	HALT
+; end main program
