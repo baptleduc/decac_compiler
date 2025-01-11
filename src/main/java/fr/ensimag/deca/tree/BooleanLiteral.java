@@ -7,7 +7,6 @@ import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.ImmediateInteger;
-
 import java.io.PrintStream;
 
 /**
@@ -22,13 +21,12 @@ public class BooleanLiteral extends AbstractExpr {
 
     public BooleanLiteral(boolean value) {
         this.value = value;
-        if (value){
+        if (value) {
             this.immediate = new ImmediateInteger(1);
-        }
-        else {
+        } else {
             this.immediate = new ImmediateInteger(0);
         }
-        
+
     }
 
     public boolean getValue() {
@@ -74,7 +72,7 @@ public class BooleanLiteral extends AbstractExpr {
     }
 
     @Override
-    protected void codeGenInst(DecacCompiler compiler){
+    protected void codeGenInst(DecacCompiler compiler) {
         setDVal(immediate);
     }
 

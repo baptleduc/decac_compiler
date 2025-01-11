@@ -1,9 +1,8 @@
 package fr.ensimag.deca.tree;
 
-import org.apache.log4j.Logger;
-
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.ima.pseudocode.Label;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -13,7 +12,6 @@ import fr.ensimag.ima.pseudocode.Label;
 public class And extends AbstractOpBool {
     private static final Logger LOG = Logger.getLogger(And.class);
 
-    
     public And(AbstractExpr leftOperand, AbstractExpr rightOperand) {
         super(leftOperand, rightOperand);
     }
@@ -29,7 +27,7 @@ public class And extends AbstractOpBool {
     }
 
     @Override
-    protected void codeGenInst(DecacCompiler compiler){
+    protected void codeGenInst(DecacCompiler compiler) {
         Label setFalse = new Label("set_false");
         codeGenBooleanOperation(compiler, false, setFalse);
     }

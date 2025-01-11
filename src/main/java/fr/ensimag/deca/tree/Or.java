@@ -25,7 +25,7 @@ public class Or extends AbstractOpBool {
     }
 
     @Override
-    protected void codeGenInst(DecacCompiler compiler){
+    protected void codeGenInst(DecacCompiler compiler) {
         Label setFalse = new Label("set_true");
         codeGenBooleanOperation(compiler, true, setFalse);
     }
