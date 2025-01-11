@@ -66,8 +66,7 @@ public class DecacCompiler {
         this.compilerOptions = compilerOptions;
         if (compilerOptions == null || this.compilerOptions.getRegisters() == -1) {
             this.stackManager = new StackManagement(program, Register.getMaxGPRegisters());
-        } 
-        else{
+        } else {
             this.stackManager = new StackManagement(program, this.compilerOptions.getRegisters());
         }
         this.source = source;
