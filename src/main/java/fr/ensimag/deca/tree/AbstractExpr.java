@@ -105,7 +105,7 @@ public abstract class AbstractExpr extends AbstractInst {
             AbstractExpr rValueConv = new ConvFloat(this);
             rValueConv.verifyExpr(compiler, localEnv, currentClass);
             return rValueConv;
-        }
+        }	
         throw new ContextualError("Expected type " + expectedType + " but found type " + rvalueType, getLocation());
     }
 
@@ -129,6 +129,7 @@ public abstract class AbstractExpr extends AbstractInst {
     void verifyCondition(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
         setType(compiler.environmentType.BOOLEAN);
+	verifyExpr(compiler,localEnv,currentClass);
     }
 
     /**
