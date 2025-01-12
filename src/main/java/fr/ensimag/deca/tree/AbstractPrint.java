@@ -6,6 +6,10 @@ import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.ima.pseudocode.DVal;
+import fr.ensimag.ima.pseudocode.instructions.FLOAT;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
+import fr.ensimag.ima.pseudocode.instructions.WFLOATX;
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
 
@@ -50,7 +54,18 @@ public abstract class AbstractPrint extends AbstractInst {
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
         for (AbstractExpr a : getArguments().getList()) {
-            a.codeGenPrint(compiler);
+            if (printHex && (a.getType().isInt() || a.getType().isFloat())) {
+                a.codeGenInst(compiler);
+                DVal dval = a.getDVal(compiler);
+                if (a.getType().isInt()) {
+                    compiler.addInstruction(new FLOAT(dval, compiler.getRegister1()));
+                } else {
+                    compiler.addInstruction(new LOAD(dval, compiler.getRegister1()));
+                }
+                compiler.addInstruction(new WFLOATX());
+            } else {
+                a.codeGenPrint(compiler);
+            }
         }
     }
 

@@ -31,7 +31,7 @@ public class ConvFloat extends AbstractUnaryExpr {
 
     @Override
     public void decompile(IndentPrintStream s) {
-        return;
+        this.decompile(s);
     }
 
     @Override

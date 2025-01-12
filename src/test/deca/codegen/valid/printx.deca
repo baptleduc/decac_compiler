@@ -1,0 +1,15 @@
+// Description:
+//    Minimalistic program testing printx on float, int and string
+//
+// Results:
+//    0x1.4p+3 testing
+//    0x1.7p+30x1p+2
+//
+// History:
+//    Created on 12/01/2025
+
+{
+    printlnx(10," testing");
+    printx(11.5);
+    printx(4);
+}
