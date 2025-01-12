@@ -19,7 +19,8 @@ public class EmptyMain extends AbstractMain {
 
     @Override
     protected void codeGenMain(DecacCompiler compiler) {
-        throw new UnsupportedOperationException("not yet implemented");
+        compiler.addComment("Main program");
+        compiler.addComment("Beginning of main instructions:");
     }
 
     /**
