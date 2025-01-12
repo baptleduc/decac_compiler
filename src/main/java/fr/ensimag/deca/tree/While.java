@@ -11,10 +11,8 @@ import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.ImmediateInteger;
 import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.instructions.BEQ;
-import fr.ensimag.ima.pseudocode.instructions.BNE;
 import fr.ensimag.ima.pseudocode.instructions.BRA;
 import fr.ensimag.ima.pseudocode.instructions.CMP;
-
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
 
@@ -82,9 +80,6 @@ public class While extends AbstractInst {
         condition.codeGenInst(compiler);
         DVal resultDVal = condition.getDVal(compiler);
         GPRegister resultRegister = resultDVal.codeGenToGPRegister(compiler);
-        
-
-        
 
         // If condition is false, branch to end
         compiler.addInstruction(new CMP(new ImmediateInteger(0), resultRegister));
