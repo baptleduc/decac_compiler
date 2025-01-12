@@ -13,7 +13,6 @@ import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.instructions.BEQ;
 import fr.ensimag.ima.pseudocode.instructions.BRA;
 import fr.ensimag.ima.pseudocode.instructions.CMP;
-
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
 
@@ -54,7 +53,7 @@ public class IfThenElse extends AbstractInst {
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
         condition.codeGenInst(compiler);
-        
+
         DVal resultDVal = condition.getDVal(compiler);
         GPRegister resultRegister = resultDVal.codeGenToGPRegister(compiler);
         Label elseLabel = new Label("else");
@@ -71,7 +70,7 @@ public class IfThenElse extends AbstractInst {
         // Do the else branch
         compiler.addLabel(elseLabel);
         elseBranch.codeGenListInst(compiler);
-        
+
         compiler.addLabel(endLabel);
     }
 
