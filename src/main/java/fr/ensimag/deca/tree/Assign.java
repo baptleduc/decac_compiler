@@ -1,10 +1,22 @@
 package fr.ensimag.deca.tree;
 
+import org.apache.log4j.Logger;
+
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.Type;
+import fr.ensimag.deca.tools.DecacInternalError;
+import fr.ensimag.ima.pseudocode.DAddr;
+import fr.ensimag.ima.pseudocode.DVal;
+import fr.ensimag.ima.pseudocode.GPRegister;
+import fr.ensimag.ima.pseudocode.ImmediateInteger;
+import fr.ensimag.ima.pseudocode.instructions.BEQ;
+import fr.ensimag.ima.pseudocode.instructions.BRA;
+import fr.ensimag.ima.pseudocode.instructions.CMP;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
+import fr.ensimag.ima.pseudocode.instructions.STORE;
 
 /**
  * Assignment, i.e. lvalue = expr.
@@ -13,6 +25,8 @@ import fr.ensimag.deca.context.Type;
  * @date 01/01/2025
  */
 public class Assign extends AbstractBinaryExpr {
+    private static final Logger LOG = Logger.getLogger(DecacCompiler.class);
+
 
     @Override
     public AbstractLValue getLeftOperand() {
@@ -43,6 +57,27 @@ public class Assign extends AbstractBinaryExpr {
     @Override
     protected boolean isImmediate() {
         return false;
+    }
+
+    @Override
+    protected void codeGenInst(DecacCompiler compiler) {
+        getLeftOperand().codeGenInst(compiler);
+        getRightOperand().codeGenInst(compiler);
+        
+        DVal leftDVal = getLeftOperand().getDVal(compiler);
+        DVal rightDVal = getRightOperand().getDVal(compiler);
+        GPRegister regRight = rightDVal.codeGenToGPRegister(compiler);
+        
+        DAddr destAddr;
+        try{
+            destAddr = (DAddr) leftDVal;
+        }
+        catch(ClassCastException e){
+            throw new DecacInternalError("Left operand should be an address");
+        }
+
+        compiler.addInstruction(new STORE(regRight, destAddr));
+        setDVal(leftDVal);
     }
 
 }
