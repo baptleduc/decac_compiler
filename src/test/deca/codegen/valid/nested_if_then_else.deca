@@ -1,0 +1,27 @@
+// Description:
+//    Minimalistic program making a nested If-Then-Else. 
+// Results:
+//    10
+//
+// History:
+//    Created on 12/01/2025
+
+{       
+        int x = 10;
+        if (x > 0) {
+            if(x < 12 && x > 8){
+                if(x==10){
+                    println(x);
+                }
+                else{
+                    println("x is either 9 or 11");
+                }
+            }
+            else{
+                println("x is outside the range (8, 12)");
+            }
+        }
+        else {
+            println("x is negative");
+        }
+}

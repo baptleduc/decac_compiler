@@ -1,0 +1,11 @@
+// Description:
+//    A minimal program test that an arith operation can be printed 
+// Results:
+//    1.32000e+01
+//
+// History:
+//    Created on 12/01/2025
+
+{
+    print(10.2 + 3);
+}

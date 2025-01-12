@@ -1,0 +1,12 @@
+// Description:
+//    Minimalistic program making bool operation with two bool immediates
+// Results:
+//    None
+//
+// History:
+//    Created on 11/01/2025
+
+{       
+        boolean x = true && false;
+}
+

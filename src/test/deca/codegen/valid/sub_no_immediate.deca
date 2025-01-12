@@ -1,0 +1,14 @@
+// Description:
+//    Minimalistic program making Sub arithmetic operation with 2 variables
+// Results:
+//    10
+//
+// History:
+//    Created on 10/01/2025
+
+{       
+        int y = 1;
+        int z = 11;
+        int x = z - y;
+        println(x);
+}

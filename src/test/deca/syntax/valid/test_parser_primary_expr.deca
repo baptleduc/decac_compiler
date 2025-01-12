@@ -1,0 +1,18 @@
+// Description:
+//    Minimalistic program to test non-terminal primary_expr.
+//
+// Results:
+//    None
+//
+// History:
+//    Created on 6/1/2025
+{
+    print(readFloat(),
+	  false,
+	  1,
+	  42.5f,
+	  "drrs",
+	  (s||a&&3),
+	  readInt()
+	  );
+}

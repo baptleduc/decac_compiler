@@ -1,0 +1,132 @@
+V "GNAT Lib v9"
+A -gnato
+A -fstack-check=specific
+P ZX
+
+RN
+RV NO_DIRECT_BOOLEAN_OPERATORS
+RV NO_IO
+RV NO_SECONDARY_STACK
+RV NO_DEFAULT_INITIALIZATION
+RV NO_IMPLICIT_LOOPS
+RV NO_ELABORATION_CODE
+RV SPARK_05
+
+U skeleton_manager%b	skeleton_manager.adb	28d81293 OO PK IU
+W ada%s			ada.ads			ada.ali
+Z ada.tags%s		a-tags.adb		a-tags.ali
+W ada.text_io%s		a-textio.adb		a-textio.ali
+W file_string%s		file_string.ads		file_string.ali
+W misc_defs%s		misc_defs.adb		misc_defs.ali
+Z system.secondary_stack%s  s-secsta.adb	s-secsta.ali
+
+U skeleton_manager%s	skeleton_manager.ads	cb8c4a86 EE NE OO PK IU
+W tstring%s		tstring.ads		tstring.ali
+
+D ada.ads		20220527072110 76789da1 ada%s
+D a-except.ads		20220527072110 291912d5 ada.exceptions%s
+D a-ioexce.ads		20220527072110 e4a01f64 ada.io_exceptions%s
+D a-stream.ads		20220527072110 119b8fb3 ada.streams%s
+D a-tags.ads		20220527072110 491b781d ada.tags%s
+D a-textio.ads		20220527072110 881db35a ada.text_io%s
+D a-unccon.ads		20220527072110 0e9b276f ada.unchecked_conversion%s
+D file_string.ads	20221217092829 72835c8f file_string%s
+D interfac.ads		20220527072110 5ab55268 interfaces%s
+D i-cstrea.ads		20220527072110 e53d8b8e interfaces.c_streams%s
+D misc_defs.ads		20221217092829 f17ec461 misc_defs%s
+D skeleton_manager.ads	20221217092829 746bbbfc skeleton_manager%s
+D skeleton_manager.adb	20221217092829 575382db skeleton_manager%b
+D system.ads		20220527072110 4635ec04 system%s
+D s-crtl.ads		20220527072110 0ebbdb71 system.crtl%s
+D s-exctab.ads		20220527072110 54135002 system.exception_table%s
+D s-ficobl.ads		20220527072110 078245e4 system.file_control_block%s
+D s-parame.ads		20220527072110 48ec542b system.parameters%s
+D s-secsta.ads		20220527072110 20bbe636 system.secondary_stack%s
+D s-soflin.ads		20220527072110 a7318a92 system.soft_links%s
+D s-stache.ads		20220527072110 a37c21ec system.stack_checking%s
+D s-stalib.ads		20220527072110 09bd3940 system.standard_library%s
+D s-stoele.ads		20220527072110 2dc34a04 system.storage_elements%s
+D s-traent.ads		20220527072110 005bf670 system.traceback_entries%s
+D s-unstyp.ads		20220527072110 34867c83 system.unsigned_types%s
+D s-wchcon.ads		20220527072110 1b7d22d2 system.wch_con%s
+D tstring.ads		20221217092829 bfe7f17a tstring%s
+D vstrings.ads		20221217092829 90607e37 vstrings%s
+X 1 ada.ads
+16K9*Ada 20e8 13|25r17 291r14
+X 6 a-textio.ads
+49K13*Text_IO 471e16 13|25w21 291r18
+52P9*File_Type
+183V13*End_Of_File{boolean} 13|291s26
+X 8 file_string.ads
+26K9*FILE_STRING[28|164] 13|25w30 27r7 31r50 270r42 276r42 278r5 299r43 317r16
+. 327r12 328r22 329r27 337r12 343r11 346r12
+X 11 misc_defs.ads
+32K9*MISC_DEFS 587e14 13|25w6 278r26 291r38 342r12
+35b3*Ayacc_Extension_Flag{boolean} 13|342r22
+356p3*SKELFILE{6|52P9} 13|278r36 291r48
+X 12 skeleton_manager.ads
+26K9*SKELETON_MANAGER 29l5 29e21 13|26b14 359l5 359t21
+27U13*SKELOUT 13|316b13 357l7 357t14
+28U13*SET_EXTERNAL_SKELETON 13|265b13 268l7 268t28
+X 13 skeleton_manager.adb
+28b3 USE_EXTERNAL_SKELETON{boolean} 267m5 288r9 301r9
+30i3 CURRENT_LINE{integer} 272r29 273m5 273r21 295r14
+31A8 FILE_ARRAY(28|168R8[8|26])<integer> 32r28
+32a3 SKEL_TEMPLATE{31A8} 272r15 295r29
+270U13 GET_INTERNAL 270b13 270=26 274l7 274t19 304s7
+270r26 BUFFER{28|168R8[8|26]} 272m5
+276U13 GET_EXTERNAL 276b13 276=26 279l7 279t19 302s7
+276r26 BUFFER{28|168R8[8|26]} 278m46
+286V12 END_OF_SKELETON{boolean} 286b12 297l7 297t22 325s16
+299U13 GET_FILE_LINE 299b13 299=27 306l7 306t20 326s7
+299r27 BUFFER{28|168R8[8|26]} 302m20 304m20
+317r5 BUF{28|168R8[8|26]} 326m21 326r21 327r28 328r39 329r44 337r28 343r32
+. 346r28
+318i5 LINE_LEN{integer}
+320b5 Umass_Codes{boolean} 338m11 341r16 347m11
+X 27 tstring.ads
+25K9*TSTRING[28|164] 12|25w6 25r19
+X 28 vstrings.ads
+166I11*STRINDEX{natural}
+168R8*VSTRING 13|31r62[8|26] 270r54[8|26] 276r54[8|26] 299r55[8|26] 317r28[8|26]
+173V12*LEN{166I11[8|26]} 13|327s24[8|26]
+175V12*STR{string} 13|337s24[8|26] 346s24[8|26]
+176V12*CHAR{character} 13|328s34[8|26] 329s39[8|26]
+193U13*PUT_LINE 13|343s23[8|26]
+199U13*GET_LINE 13|278s17[8|26]
+262V12*VSTR{168R8[8|26]} 13|35s1[8|26] 36s1[8|26] 37s1[8|26] 39s1[8|26] 43s1[8|26]
+. 44s1[8|26] 45s1[8|26] 46s1[8|26] 47s1[8|26] 48s1[8|26] 50s1[8|26] 51s1[8|26]
+. 52s1[8|26] 53s1[8|26] 54s1[8|26] 55s1[8|26] 56s1[8|26] 57s1[8|26] 58s1[8|26]
+. 59s1[8|26] 60s1[8|26] 61s1[8|26] 62s1[8|26] 63s1[8|26] 64s1[8|26] 65s1[8|26]
+. 66s1[8|26] 67s1[8|26] 68s1[8|26] 69s1[8|26] 70s1[8|26] 71s1[8|26] 72s1[8|26]
+. 73s1[8|26] 74s1[8|26] 75s1[8|26] 76s1[8|26] 77s1[8|26] 78s1[8|26] 79s1[8|26]
+. 80s1[8|26] 81s1[8|26] 82s1[8|26] 83s1[8|26] 84s1[8|26] 85s1[8|26] 86s1[8|26]
+. 87s1[8|26] 88s1[8|26] 89s1[8|26] 90s1[8|26] 91s1[8|26] 92s1[8|26] 93s1[8|26]
+. 94s1[8|26] 95s1[8|26] 96s1[8|26] 97s1[8|26] 98s1[8|26] 99s1[8|26] 101s1[8|26]
+. 102s1[8|26] 103s1[8|26] 105s1[8|26] 106s1[8|26] 107s1[8|26] 108s1[8|26]
+. 109s1[8|26] 110s1[8|26] 111s1[8|26] 112s1[8|26] 113s1[8|26] 114s1[8|26]
+. 115s1[8|26] 116s1[8|26] 117s1[8|26] 118s1[8|26] 119s1[8|26] 120s1[8|26]
+. 121s1[8|26] 122s1[8|26] 123s1[8|26] 124s1[8|26] 125s1[8|26] 126s1[8|26]
+. 127s1[8|26] 128s1[8|26] 129s1[8|26] 130s1[8|26] 131s1[8|26] 132s1[8|26]
+. 133s1[8|26] 134s1[8|26] 135s1[8|26] 136s1[8|26] 137s1[8|26] 138s1[8|26]
+. 139s1[8|26] 140s1[8|26] 141s1[8|26] 142s1[8|26] 143s1[8|26] 144s1[8|26]
+. 145s1[8|26] 146s1[8|26] 147s1[8|26] 148s1[8|26] 149s1[8|26] 150s1[8|26]
+. 151s1[8|26] 152s1[8|26] 153s1[8|26] 154s1[8|26] 155s1[8|26] 156s1[8|26]
+. 157s1[8|26] 158s1[8|26] 159s1[8|26] 160s1[8|26] 161s1[8|26] 162s1[8|26]
+. 163s1[8|26] 164s1[8|26] 165s1[8|26] 166s1[8|26] 167s1[8|26] 168s1[8|26]
+. 169s1[8|26] 170s1[8|26] 171s1[8|26] 172s1[8|26] 173s1[8|26] 174s1[8|26]
+. 175s1[8|26] 177s1[8|26] 178s1[8|26] 179s1[8|26] 181s1[8|26] 182s1[8|26]
+. 183s1[8|26] 184s1[8|26] 185s1[8|26] 186s1[8|26] 187s1[8|26] 188s1[8|26]
+. 189s1[8|26] 190s1[8|26] 191s1[8|26] 192s1[8|26] 193s1[8|26] 194s1[8|26]
+. 195s1[8|26] 196s1[8|26] 197s1[8|26] 198s1[8|26] 199s1[8|26] 200s1[8|26]
+. 201s1[8|26] 202s1[8|26] 203s1[8|26] 204s1[8|26] 205s1[8|26] 205s37[8|26]
+. 207s1[8|26] 208s1[8|26] 209s1[8|26] 210s1[8|26] 211s1[8|26] 211s51[8|26]
+. 212s1[8|26] 213s1[8|26] 214s1[8|26] 215s1[8|26] 216s1[8|26] 217s1[8|26]
+. 218s1[8|26] 219s1[8|26] 220s1[8|26] 221s1[8|26] 222s1[8|26] 223s1[8|26]
+. 224s1[8|26] 225s1[8|26] 226s1[8|26] 227s1[8|26] 228s1[8|26] 229s1[8|26]
+. 230s1[8|26] 231s1[8|26] 232s1[8|26] 233s1[8|26] 234s1[8|26] 235s1[8|26]
+. 236s1[8|26] 237s1[8|26] 238s1[8|26] 239s1[8|26] 240s1[8|26] 241s1[8|26]
+. 242s1[8|26] 243s1[8|26] 244s1[8|26] 245s1[8|26] 246s1[8|26] 247s1[8|26]
+. 248s1[8|26] 249s1[8|26] 250s1[8|26] 251s1[8|26] 252s1[8|26] 253s1[8|26]
+. 254s1[8|26] 255s1[8|26] 256s1[8|26]
+

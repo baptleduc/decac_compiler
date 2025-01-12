@@ -1,0 +1,82 @@
+V "GNAT Lib v9"
+M P W=b
+A -gnatf
+A -gnatyM115
+A -gnatwl
+A -g
+A -gnato
+A -fstack-check=specific
+A -g
+A -fstack-check=specific
+P ZX
+
+RN
+RV NO_IO
+RV NO_DEFAULT_INITIALIZATION
+RV SPARK_05
+
+U test_affichage%b	test_affichage.adb	08aed15e NE OO SU
+W ada%s			ada.ads			ada.ali
+W ada.text_io%s		a-textio.adb		a-textio.ali
+W pseudo_code%s		pseudo_code.adb		pseudo_code.ali
+
+D ada.ads		20220527072110 76789da1 ada%s
+D a-except.ads		20220527072110 291912d5 ada.exceptions%s
+D a-ioexce.ads		20220527072110 e4a01f64 ada.io_exceptions%s
+D a-stream.ads		20220527072110 119b8fb3 ada.streams%s
+D a-tags.ads		20220527072110 491b781d ada.tags%s
+D a-textio.ads		20220527072110 881db35a ada.text_io%s
+D a-unccon.ads		20220527072110 0e9b276f ada.unchecked_conversion%s
+D interfac.ads		20220527072110 5ab55268 interfaces%s
+D i-cstrea.ads		20220527072110 e53d8b8e interfaces.c_streams%s
+D pseudo_code.ads	20221217092829 b9d57959 pseudo_code%s
+D system.ads		20220527072110 4635ec04 system%s
+D s-crtl.ads		20220527072110 0ebbdb71 system.crtl%s
+D s-exctab.ads		20220527072110 54135002 system.exception_table%s
+D s-ficobl.ads		20220527072110 078245e4 system.file_control_block%s
+D s-parame.ads		20220527072110 48ec542b system.parameters%s
+D s-secsta.ads		20220527072110 20bbe636 system.secondary_stack%s
+D s-soflin.ads		20220527072110 a7318a92 system.soft_links%s
+D s-stache.ads		20220527072110 a37c21ec system.stack_checking%s
+D s-stalib.ads		20220527072110 09bd3940 system.standard_library%s
+D s-stoele.ads		20220527072110 2dc34a04 system.storage_elements%s
+D s-traent.ads		20220527072110 005bf670 system.traceback_entries%s
+D s-unstyp.ads		20220527072110 34867c83 system.unsigned_types%s
+D s-wchcon.ads		20220527072110 1b7d22d2 system.wch_con%s
+D test_affichage.adb	20221217092829 39661b5d test_affichage%b
+D types_base.ads	20221217092829 bb86ef9c types_base%s
+X 1 ada.ads
+16K9*Ada 20e8 24|1r6 2r6
+X 6 a-textio.ads
+49K13*Text_IO 471e16 24|1w10 2r10
+X 10 pseudo_code.ads
+49K9*Pseudo_Code 349e16 24|4w6 5r6
+55n44*R2{55E9} 24|30r64
+55n49*R3{55E9} 24|31r64
+73P9*Operande(72R9)
+79n42*Code_WINT{77E9} 24|14r52
+80n21*Code_WFLOATX{77E9} 24|34r52
+82n8*Code_SETROUND_TONEAREST{77E9} 24|17r52
+83n8*Code_SETROUND_UPWARD{77E9} 24|23r52
+84n8*Code_SETROUND_DOWNWARD{77E9} 24|20r52
+85n8*Code_SETROUND_TOWARDZERO{77E9} 24|26r52
+97n68*Code_FMA{77E9} 24|29r52
+101P9*Inst(100R9)
+106P9*Ligne(105R9) 24|8r8 9r12
+134V13*Le_Registre{73P9} 24|30s52 31s52
+206V13*Creation_Inst0{101P9} 24|14s37 17s37 20s37 23s37 26s37 34s37
+211V13*Creation_Inst2{101P9} 24|29s37
+231V13*Creation{106P9} 24|11s13 14s23 17s23 20s23 23s23 26s23 29s23 34s23
+. 37s23
+232p23 I{101P9} 24|14r32 17r32 20r32 23r32 26r32 29r32 34r32
+233a23 Com{string} 24|11r22 37r32
+244V13*Acces_Suivant{106P9} 24|15s9 18s9 21s9 24s9 27s9 32s9 35s9 38s9
+257U14*Changer_Suivant 24|14s4 17s4 20s4 23s4 26s4 29s4 34s4 37s4
+269U14*Afficher_Programme 24|40s4
+X 24 test_affichage.adb
+7U11*Test_Affichage 7b11 42l5 42t19
+8p4 L{10|106P9} 12m4 14r20 15m4 15r23 17r20 18m4 18r23 20r20 21m4 21r23 23r20
+. 24m4 24r23 26r20 27m4 27r23 29r20 32m4 32r23 34r20 35m4 35r23 37r20 38m4
+. 38r23
+9p4 Debut{10|106P9} 11m4 12r9 40r23
+

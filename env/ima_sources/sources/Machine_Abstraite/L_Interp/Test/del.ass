@@ -1,0 +1,14 @@
+; Test d'allocation dynamique
+; Boucle infinie si NEW/DEL fonctionne correctement, message d'erreur sinon
+start:
+       new #10, R1
+       bov overflow
+       del R1
+       bov invalid
+       bra start
+overflow:
+       wstr "Heap Overflow"
+       ERROR 
+invalid:
+       wstr "Invalid Del"
+       ERROR

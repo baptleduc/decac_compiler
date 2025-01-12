@@ -8,7 +8,6 @@ stages:
   - build
   - test
   - format-check
-  #- sonarqube # Uncomment when SonarQube is ready to be used
 
 cache:
   paths:
@@ -41,6 +40,22 @@ non_regression_tests:
     - echo "Running non-regression tests..."
     - mvn exec:exec@non-regression
 
+decac_verif_tests:
+  stage: test
+  dependencies:
+    - maven_build
+  script:
+    - echo "Running decac verification tests..."
+    - mvn exec:exec@decac-verif
+
+verify-ima-output:
+  stage: test
+  dependencies:
+    - maven_build
+  script:
+    - echo "Running IMA output verification tests..."
+    - mvn exec:exec@verify-ima-output
+    
 spotless_check:
   stage: format-check
   script:

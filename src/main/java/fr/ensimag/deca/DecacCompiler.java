@@ -1,17 +1,30 @@
 package fr.ensimag.deca;
 
+import fr.ensimag.deca.codegen.StackManagement;
 import fr.ensimag.deca.context.EnvironmentType;
 import fr.ensimag.deca.syntax.DecaLexer;
 import fr.ensimag.deca.syntax.DecaParser;
 import fr.ensimag.deca.tools.DecacInternalError;
+import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.deca.tools.SymbolTable;
 import fr.ensimag.deca.tools.SymbolTable.Symbol;
 import fr.ensimag.deca.tree.AbstractProgram;
 import fr.ensimag.deca.tree.LocationException;
 import fr.ensimag.ima.pseudocode.AbstractLine;
+import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.IMAProgram;
+import fr.ensimag.ima.pseudocode.ImmediateInteger;
 import fr.ensimag.ima.pseudocode.Instruction;
 import fr.ensimag.ima.pseudocode.Label;
+import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.RegisterOffset;
+import fr.ensimag.ima.pseudocode.instructions.ADDSP;
+import fr.ensimag.ima.pseudocode.instructions.BOV;
+import fr.ensimag.ima.pseudocode.instructions.ERROR;
+import fr.ensimag.ima.pseudocode.instructions.PUSH;
+import fr.ensimag.ima.pseudocode.instructions.TSTO;
+import fr.ensimag.ima.pseudocode.instructions.WNL;
+import fr.ensimag.ima.pseudocode.instructions.WSTR;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -47,6 +60,11 @@ public class DecacCompiler {
     public DecacCompiler(CompilerOptions compilerOptions, File source) {
         super();
         this.compilerOptions = compilerOptions;
+        if (compilerOptions == null || this.compilerOptions.getRegisters() == -1) {
+            this.stackManager = new StackManagement(program, Register.getMaxGPRegisters());
+        } else {
+            this.stackManager = new StackManagement(program, this.compilerOptions.getRegisters());
+        }
         this.source = source;
     }
 
@@ -63,6 +81,48 @@ public class DecacCompiler {
      */
     public CompilerOptions getCompilerOptions() {
         return compilerOptions;
+    }
+
+    public StackManagement getStackManager() {
+        return stackManager;
+    }
+
+    private final CompilerOptions compilerOptions;
+    private final File source;
+    /**
+     * The main program. Every instruction generated will eventually end up here.
+     */
+    private IMAProgram program = new IMAProgram();
+
+    /**
+     * Stack management to handle registers and stack.
+     */
+    private final StackManagement stackManager;
+
+    /** The global environment for types (and the symbolTable) */
+    public final SymbolTable symbolTable = new SymbolTable();
+    public final EnvironmentType environmentType = new EnvironmentType(this);
+
+    public Symbol createSymbol(String name) {
+        return symbolTable.create(name);
+    }
+
+    /**
+     * Temporarily switches the current IMAProgram to the specified program
+     * for the duration of the provided runnable task. After the task is executed,
+     * the previous program is restored.
+     *
+     * @param program
+     *            the temporary IMAProgram to use during the execution of the
+     *            runnable
+     * @param r
+     *            the task to be executed with the temporary program
+     */
+    public void withProgram(IMAProgram program, Runnable r) {
+        IMAProgram oldProgram = this.program;
+        this.program = program;
+        r.run();
+        this.program = oldProgram;
     }
 
     /**
@@ -98,6 +158,22 @@ public class DecacCompiler {
 
     /**
      * @see
+     *      fr.ensimag.ima.pseudocode.IMAProgram#addFirst(fr.ensimag.ima.pseudocode.Instruction,,java.lang.String)
+     */
+    public void addFirst(Instruction i, String comment) {
+        program.addFirst(i, comment);
+    }
+
+    /**
+     * @see
+     *      fr.ensimag.ima.pseudocode.IMAProgram#addFirst(fr.ensimag.ima.pseudocode.AbstractLine)
+     */
+    public void addFirst(Instruction i) {
+        program.addFirst(i);
+    }
+
+    /**
+     * @see
      *      fr.ensimag.ima.pseudocode.IMAProgram#addInstruction(fr.ensimag.ima.pseudocode.Instruction,
      *      java.lang.String)
      */
@@ -113,19 +189,94 @@ public class DecacCompiler {
         return program.display();
     }
 
-    private final CompilerOptions compilerOptions;
-    private final File source;
     /**
-     * The main program. Every instruction generated will eventually end up here.
+     * Inserts a TSTO instruction to test for stack overflow and calculates
+     * the required stack size. If 'noVerify' is false, it adds a block to handle
+     * stack overflow errors.
+     *
+     * @param noVerify
+     *            if true, skips adding the stack overflow error-handling block
      */
-    private final IMAProgram program = new IMAProgram();
+    public void stackOverflowCheck(boolean noVerify) {
+        if (noVerify) {
+            return;
+        }
+        LOG.debug("Inserting TSTO instruction");
+        LOG.debug(noVerify);
+        int d = stackManager.getNeededStackFrame();
+        Label label = new Label("stack_overflow_error");
+        ImmediateInteger imm = new ImmediateInteger(stackManager.getOffsetGB());
+        addFirst(new ADDSP(imm)); // Increment SP by offsetGB
+        addFirst(new BOV(label));
+        addFirst(new TSTO(d), stackManager.getCommentTSTO());
+        addLabel(label);
+        addInstruction(new WSTR("Error: Stack Overflow"));
+        addInstruction(new WNL());
+        addInstruction(new ERROR());
+    }
 
-    /** The global environment for types (and the symbolTable) */
-    public final SymbolTable symbolTable = new SymbolTable();
-    public final EnvironmentType environmentType = new EnvironmentType(this);
+    /**
+     * @see
+     *      fr.ensimag.deca.codegen.StackManagement#addGlobalVariable()
+     */
+    public RegisterOffset addGlobalVariable() {
+        return stackManager.addGlobalVariable();
+    }
 
-    public Symbol createSymbol(String name) {
-        return symbolTable.create(name);
+    public GPRegister getLastUsedRegister() {
+        return stackManager.getLastUsedRegister();
+    }
+
+    public void freeRegister(GPRegister reg) {
+        stackManager.pushAvailableGPRegister(reg);
+    }
+
+    public String debugAvailableRegister() {
+        return stackManager.debugAvailableRegister();
+    }
+
+    public String debugUsedRegister() {
+        return stackManager.debugUsedRegister();
+    }
+
+    public GPRegister getRegister1() {
+        return stackManager.getRegister1();
+    }
+
+    public GPRegister getRegister0() {
+        return stackManager.getRegister0();
+    }
+
+    /*
+     * Allocates a general-purpose register (GPRegister) for use by the compiler.
+     * If there are no available registers, it saves the last used register onto
+     * the stack and returns it.
+     */
+    public GPRegister allocGPRegister() {
+        if (stackManager.isAvailableGPRegisterEmpty()) {
+            GPRegister reg = stackManager.getLastUsedRegister();
+            saveRegister(reg);
+            return reg;
+        }
+        GPRegister reg = stackManager.popAvailableGPRegister();
+        stackManager.pushUsedGPRegister(reg);
+        return reg;
+    }
+
+    /**
+     * Saves the given register onto the stack by pushing it and marks it as
+     * available for reuse.
+     * Updates the list of available and used registers index.
+     * NOTE:
+     *
+     * @param reg
+     *            the register to be saved onto the stack
+     */
+    private void saveRegister(GPRegister reg) {
+        LOG.debug("Saving register " + reg.toString());
+        stackManager.incrementNumSavedRegisters();
+        stackManager.pushAvailableGPRegister(stackManager.popUsedRegister());
+        addInstruction(new PUSH(reg), "Save register " + reg.toString());
     }
 
     /**
@@ -183,15 +334,23 @@ public class DecacCompiler {
             PrintStream out, PrintStream err)
             throws DecacFatalError, LocationException {
         AbstractProgram prog = doLexingAndParsing(sourceName, err);
-
         if (prog == null) {
             LOG.info("Parsing failed");
             return true;
         }
         assert (prog.checkAllLocations());
 
+        if (this.compilerOptions.getParse()) {
+            // PrintStream printDecompile = new PrintStream();
+            IndentPrintStream indentPrintDecompile = new IndentPrintStream(err);
+            prog.decompile(indentPrintDecompile);
+            return false;
+        }
         prog.verifyProgram(this);
         assert (prog.checkAllDecorations());
+        if (getCompilerOptions().getVerify() == true) {
+            return false;
+        }
 
         addComment("start main program");
         prog.codeGenProgram(this);

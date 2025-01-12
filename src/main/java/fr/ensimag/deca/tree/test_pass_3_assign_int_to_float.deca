@@ -1,0 +1,12 @@
+// Description:
+//    Program testing pass 3 that we can assign a int to a float variable
+//
+// Results:
+//    ok
+//
+// History:
+//    Created on 10/01/2025
+
+{
+    float a = 4;
+}

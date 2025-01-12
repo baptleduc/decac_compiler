@@ -1,0 +1,288 @@
+V "GNAT Lib v9"
+A -gnato
+A -fstack-check=specific
+P ZX
+
+RN
+RV NO_ALLOCATORS
+RV NO_EXCEPTION_HANDLERS
+RV NO_EXCEPTION_PROPAGATION
+RV NO_EXCEPTIONS
+RV NO_IO
+RV NO_IMPLICIT_CONDITIONALS
+RV NO_LOCAL_ALLOCATORS
+RV NO_NESTED_FINALIZATION
+RV NO_RECURSION
+RV NO_STANDARD_STORAGE_POOLS
+RV NO_DEFAULT_INITIALIZATION
+RV NO_DYNAMIC_SIZED_OBJECTS
+RV NO_IMPLICIT_LOOPS
+RV NO_ELABORATION_CODE
+RV SPARK_05
+
+U lalr_symbol_info%b	lalr_symbol_info.adb	c28096e6 OO PK
+Z ada.exceptions%s	a-except.adb		a-except.ali
+Z ada.tags%s		a-tags.adb		a-tags.ali
+Z ragged%s		ragged.adb		ragged.ali  ED
+Z system%s		system.ads		system.ali
+Z system.exception_table%s  s-exctab.adb	s-exctab.ali
+Z system.finalization_masters%s  s-finmas.adb	s-finmas.ali
+Z system.pool_global%s	s-pooglo.adb		s-pooglo.ali
+Z system.soft_links%s	s-soflin.adb		s-soflin.ali
+Z system.standard_library%s  s-stalib.adb	s-stalib.ali
+Z unchecked_deallocation%s
+
+U lalr_symbol_info%s	lalr_symbol_info.ads	07c6934c EE NE OO PK
+W ada%s			ada.ads			ada.ali
+W ada.text_io%s		a-textio.adb		a-textio.ali
+W lr0_machine%s		lr0_machine.adb		lr0_machine.ali
+W ragged%s		ragged.adb		ragged.ali
+W rule_table%s		rule_table.adb		rule_table.ali
+W set_pack%s		set_pack.adb		set_pack.ali
+W stack_pack%s		stack_pack.adb		stack_pack.ali
+W symbol_info%s		symbol_info.adb		symbol_info.ali
+W symbol_table%s	symbol_table.adb	symbol_table.ali
+
+D ada.ads		20220527072110 76789da1 ada%s
+D a-except.ads		20220527072110 291912d5 ada.exceptions%s
+D a-finali.ads		20220527072110 bf4f806b ada.finalization%s
+D a-ioexce.ads		20220527072110 e4a01f64 ada.io_exceptions%s
+D a-stream.ads		20220527072110 119b8fb3 ada.streams%s
+D a-tags.ads		20220527072110 491b781d ada.tags%s
+D a-textio.ads		20220527072110 881db35a ada.text_io%s
+D a-unccon.ads		20220527072110 0e9b276f ada.unchecked_conversion%s
+D interfac.ads		20220527072110 5ab55268 interfaces%s
+D i-cstrea.ads		20220527072110 e53d8b8e interfaces.c_streams%s
+D lalr_symbol_info.ads	20221217092829 1ff5b0a8 lalr_symbol_info%s
+D lalr_symbol_info.adb	20221217092829 dd75264e lalr_symbol_info%b
+D lr0_machine.ads	20221217092829 01653459 lr0_machine%s
+D ragged.ads		20221217092829 1cd54b86 ragged%s
+D ragged.adb		20221217092829 883717bf ragged%b
+D rule_table.ads	20221217092829 d24be121 rule_table%s
+D set_pack.ads		20221217092829 f5071b73 set_pack%s
+D stack_pack.ads	20221217092829 c17c9a04 stack_pack%s
+D stack_pack.adb	20221217092829 1fee3300 stack_pack%b
+D symbol_info.ads	20221217092829 6d39562e symbol_info%s
+D symbol_table.ads	20221217092829 0697d919 symbol_table%s
+D system.ads		20220527072110 4635ec04 system%s
+D s-crtl.ads		20220527072110 0ebbdb71 system.crtl%s
+D s-exctab.ads		20220527072110 54135002 system.exception_table%s
+D s-ficobl.ads		20220527072110 078245e4 system.file_control_block%s
+D s-finmas.ads		20220527072110 7811a767 system.finalization_masters%s
+D s-finroo.ads		20220527072110 4ff27390 system.finalization_root%s
+D s-memory.ads		20220527072110 597d6634 system.memory%s
+D s-parame.ads		20220527072110 48ec542b system.parameters%s
+D s-pooglo.ads		20220527072110 ede33ef8 system.pool_global%s
+D s-secsta.ads		20220527072110 20bbe636 system.secondary_stack%s
+D s-soflin.ads		20220527072110 a7318a92 system.soft_links%s
+D s-stache.ads		20220527072110 a37c21ec system.stack_checking%s
+D s-stalib.ads		20220527072110 09bd3940 system.standard_library%s
+D s-stalib.adb		20220527072110 f2fe2716 system.standard_library%b
+D s-stoele.ads		20220527072110 2dc34a04 system.storage_elements%s
+D s-stopoo.ads		20220527072110 b16154c2 system.storage_pools%s
+D s-stposu.ads		20220527072110 97a6219c system.storage_pools.subpools%s
+D s-traent.ads		20220527072110 005bf670 system.traceback_entries%s
+D s-unstyp.ads		20220527072110 34867c83 system.unsigned_types%s
+D s-wchcon.ads		20220527072110 1b7d22d2 system.wch_con%s
+D unchdeal.ads		20220527072110 214516a4 unchecked_deallocation%s
+X 1 ada.ads
+16K9*Ada 20e8 11|64r6 64r23
+X 7 a-textio.ads
+49K13*Text_IO 471e16 11|64w10 64r27
+263U14*Put_Line 12|345s23 348s23 351s23 383s23 386s23 389s23
+X 11 lalr_symbol_info.ads
+65K9*LALR_Symbol_Info 73l5 73e21 12|50b14 471l5 471t21
+67U15*Make_LALR_Sets 12|434b15 441l9 441t23
+69U15*Get_LA 69>22 70>22 71=22 12|447b15 469l9 469t15
+69i22 State_ID{13|51I10} 12|447b22 459r22
+70r22 Item_ID{13|54R10} 12|448b22 456r32 459r32
+71r22 Look_Aheads{13|78R13} 12|449b22 455m19 464m37
+X 12 lalr_symbol_info.adb
+52a3 SCCS_ID{string}
+57K13 Relation 69l9 69e17 71b18 196l9 196t17 198r9 433r9
+59U19 Make_Reads_Relation 82b19 86l13 86t32 437s9
+61U19 Make_Includes_Relation 97b19 155l13 155t35 439s9
+63U19 Reads 63>28 63=46 165b19 184l13 184t18 305s21
+63r28 LHS{13|60R10} 165b26 171r39 171r53
+63r46 RHS{13|77R13} 165b44 170m23 178m42
+65U19 Includes 65>28 65=46 188b19 194l13 194t21 307s21
+65r28 LHS{13|60R10} 188b29 193r48 193r61
+65r46 RHS{13|77R13} 188b47 191m23 193m20
+67U19 Free_Includes 158b19 161l13 161t26 404s13
+73a3 SCCS_ID{string}
+77K17 Includes_Relation[14|56] 94r13 146r46 160r13 187r13 193r25
+98r13 Preds{13|75R13} 139m31 139r31 140m38 140r38 141r43 153m23 153r23
+99p13 Pred_Loop{13|80P13} 141m32 141r32 142r32 143m30 143r30
+100r13 Temp{13|60R10} 144m25 145m25 146r32
+102i13 A{21|52I11} 130m21 132r36 146r71
+102i17 B{21|52I11} 131m21 145r42
+103i13 R{13|51I10} 143m41 144r42
+105r13 I{13|54R10} 121m37 125r24 125r51 127r27 127r62 130r34 130r45 131r34
+. 140r36
+106r13 Items{13|76R13} 117m31 117r31 118m25 118r25 119r40 154m23 154r23
+107p13 Item_Index{13|81P13} 119m28 119r28 120r28 121m26 121r26
+112i17 Q<short_integer> 117r28 140r34 146r69
+149L22 Continue 126r30 128r30 133r30
+166r13 Temp{13|60R10} 171m13 173r36 176m29 176r29 177r32 178r28
+167r13 Gotos{13|78R13} 173m65 173r65 174r31 183m23 183r23
+168p13 Index{13|83P13} 174m24 174r24 175r24 176m22 176r22
+199K13 LALR_Sets_Pack 211l9 211e23 213b18 427l9 427t23 433r19
+200U19 Make_Dr_Sets 229b19 263l13 263t25 436s9
+201U19 Make_Read_Sets 395b19 398l13 398t27 438s9
+202U19 Make_Follow_Sets 401b19 405l13 405t29 440s9
+203U19 Follow 204>13 205=13 408b19 416l13 416t19
+204r13 Trans{13|60R10} 409b13 414r35 414r50
+205r13 Follow_Set{13|78R13} 410b13 412m23 413m20
+207U19 Union_Follow_Sets 208>13 209=13 418b19 424l13 424t30 464s13
+208r13 Trans{13|60R10} 419b13 422r35 422r50
+209r13 Follow_Set{13|78R13} 420b13 423m28
+215a3 SCCS_ID{string}
+222E10 Relation_Type 222e52 274r31
+222n28 Use_Reads{222E10} 304r24 397r21
+222n39 Use_Includes{222E10} 403r21
+224K13 LALR_Sets[14|56] 228r13 239r13 256r40 292r40 321r28 322r33 331r45
+. 333r28 414r20 422r20
+230r13 Trans{13|60R10} 249m38 250r44 256r57
+232r13 Goto_Index{13|145R10} 247m28 247r28 248r28 249m26 249r26
+233i13 Term_Sym{21|52I11} 254m42 255r32
+234r13 Terms{13|78R13} 250m71 250r71 251r44 262m23 262r23
+235p13 Term_Index{13|83P13} 251m32 251r32 253r32 254m30 254r30
+242i17 P<short_integer> 247r40 256r55
+266U19 Initialize_N 266b19 266=32 269l13 269t25 277r37
+266i32 X{integer} 268m13
+274U19 Digraph 274b19 274>27 391l13 391t20 397s13 403s13
+274e27 R{222E10} 304r20
+276K21 N[14|56] 301r17 313r24 317r32 318r34 319r25 326r20 329r21 357r13 368r24
+. 377r13
+279K21 Transition_Stack[18|63] 280r17
+282r13 Trans_Stack{18|65R10[279]} 299m22 299r22 300r41 328r38 334m25 334r25
+. 356m24 376m24 376r24
+283i13 Symbol{21|52I11} 367m38 368r38 370r43
+284r13 Gotos{13|78R13} 363m61 363r61 364r40 379m23 379r23
+285p13 Goto_Index{13|83P13} 364m28 364r28 366r28 367m26 367r26
+286r13 Trans{13|60R10} 369m25 370m25 371r34
+289U23 Traverse 289b23 289>32 314s25 353l17 353t25 371s25
+289r32 X{13|60R10} 299r34 301r24 301r35 305r27 307r30 318r41 318r53 319r32
+. 319r44 322r48 322r59 326r27 326r39 333r43 333r55 335r37
+290i17 Infinity{integer} 329r61
+291i17 Depth{integer} 300m17 301r54 326r57
+292p17 LALR_Sets_lval_Index{14|63P10[224]} 331m21 332r28
+293i17 Minimum{integer} 317m21 318r24 319r63
+294r17 Y{13|60R10} 312m35 313r31 313r43 314r34 317r39 317r51 321r43 321r54
+294r20 Top{13|60R10} 328m21 329r28 329r41 331r60 331r74 334m38 335r31
+295p17 RHS_Set{13|82P13} 310m28 310r28 311r28 312m26 312r26
+296r17 Related{13|77R13} 305m30 305r30 307m33 307r33 310r37 341m27 341r27
+362i17 State<short_integer> 363r40 368r31 369r43
+451r9 Predecessors{13|75R13} 458m19 458r19 459m41 459r41 460r31 468m19 468r19
+452p9 Pred_Loop{13|80P13} 460m20 460r20 462r20 463m18 463r18
+453r9 Temp{13|60R10} 456m9 463m29 463r29 464r31
+X 13 lr0_machine.ads
+49K9*LR0_Machine 11|60w6 62r6 13|203e16
+51I10*Parse_State<short_integer> 11|69r36 12|78r24 103r21 225r16 276r37 447r36
+54R10*Item 11|70r36 12|105r26 448r36 13|58e19
+56i13*Rule_ID{16|58I10} 12|125r53 127r64 130r36 131r36 456r40
+57i13*Dot_Position{natural} 12|125r26 127r29 130r47
+60R10*Transition 12|63r34 65r34 100r25 165r32 166r21 188r35 204r25 208r26
+. 230r26 279r56 286r27 289r35 294r28 409r26 419r25 453r24 13|64e19
+62i13*Symbol{21|52I11} 12|145m30 171r57 176m34 177r37 193r65 256r63 301r37
+. 313r45 317r53 318r55 319r46 321r56 322r61 326r41 329r45 331r78 333r57 370m31
+. 414r56 422r56 456m14
+63i13*State_ID{51I10} 12|144m30 171m18 171r43 173r41 193r52 250r50 301r26
+. 313r33 317r41 318r43 319r34 321r45 322r50 326r29 329r32 331r64 333r45 369m31
+. 414r41 422r41 463m34
+70K13*Parse_State_Set_Pack[17|53] 12|95r13 445r34
+71K13*Item_Set_Pack[17|53] 12|94r32
+72K13*Transition_Set_Pack[17|53] 12|79r24 95r35 164r39 187r32 228r49 280r35
+73K13*Grammar_Symbol_Set_Pack[17|53] 12|164r14 226r36 228r24 445r9
+75R13*Parse_State_Set{17|55R10[70]} 12|98r25 451r24
+76R13*Item_Set{17|55R10[71]} 12|106r26
+77R13*Transition_Set{17|55R10[72]} 12|63r59 65r59 78r53 165r57 188r60 296r28
+78R13*Grammar_Symbol_Set{17|55R10[73]} 11|71r43 12|167r21 205r32 209r33 226r16
+. 234r26 284r27 410r33 420r32 449r43
+80P13*Parse_State_Iterator{17|74P10[70]} 12|99r25 452r24
+81P13*Item_Iterator{17|74P10[71]} 12|107r26
+82P13*Transition_Iterator{17|74P10[72]} 12|295r28
+83P13*Grammar_Symbol_Iterator{17|74P10[73]} 12|168r21 235r26 285r27
+88V14*First_Parse_State{51I10} 12|110s24 112s22 239s34 242s22 357s26 362s26
+89V14*Last_Parse_State{51I10} 12|110s42 112s43 239s53 242s41 357s45 362s47
+92V14*Get_Goto{51I10} 12|171s30
+99U15*Get_Pred_Set 12|140s21 459s9
+107n30*Terminals{107E10} 12|250r60
+107n41*Nonterminals{107E10} 12|173r51 363r47
+114U15*Get_Transition_Symbols 12|173s13 250s21 363s17
+119U15*Get_Kernel 12|117s17
+123U15*Closure 12|118s17
+145R10*Nt_Transition_Iterator 12|232r26 13|195e19
+146U15*Initialize 12|247s17
+150V15*More{boolean} 12|248s23
+151U15*Next 12|249s21
+X 14 ragged.ads
+56k9*Ragged 11|60w19 12|78r17 225r9 276r30 14|110e11
+62R10 Cell
+63P10 Index(62R10[12|276]) 12|292r50[224]
+70r13*Value{17|55R10[13|72]} 12|146m74[77] 193r73[77] 256m71[224] 301m45[276]
+. 313r53[276] 317r61[276] 318r63[276] 319m54[276] 321r64[224] 322m69[224]
+. 326r49[276] 329m53[276] 332m49[224] 333r65[224] 368r46[276] 414r64[224]
+. 422r64[224]
+78V15 Rval{63P10[12|276]} 12|317s34[276] 318s36[276] 326s22[276] 333s38[224]
+. 422s30[224]
+87V15*Lval{63P10[12|77]} 12|146s64[77] 193s43[77] 256s50[224] 301s19[276]
+. 313s26[276] 319s27[276] 321s38[224] 322s43[224] 329s23[276] 331s55[224]
+. 368s26[276] 414s30[224]
+90U15*Make_Array 12|110s13[77] 239s23[224] 357s15[276]
+99U15*Free_Array 12|160s31[77] 377s15[276]
+101X5*Value_Range_Error 12|344r26[224] 382r26[224]
+X 16 rule_table.ads
+49K9*Rule_Table 11|60w27 62r19 16|87e15
+58I10*Rule<short_integer>
+65V15*Get_LHS{21|52I11} 12|131s26 456s24
+66V15*Get_RHS{21|52I11} 12|130s26
+68V15*Get_Null_Pos{natural} 12|127s49
+71V15*Length_of{natural} 12|125s41
+X 17 set_pack.ads
+53k9*Set_Pack 11|60w66 17|100e13
+55R10*Set
+57U15*Make_Null 12|79r44[13|72] 139s21[13|70] 153s13[13|70] 154s13[13|71]
+. 170s13[13|72] 183s13[13|73] 191s13[13|72] 226r60[13|73] 262s13[13|73] 341s17[13|72]
+. 379s13[13|73] 412s13[13|73] 455s9[13|73] 458s9[13|70] 468s9[13|70]
+59U15*Insert 12|146s25[13|72] 178s21[13|72] 255s25[13|73]
+59r46 Into{55R10[13|72]} 12|146r38[13|72] 178r34[13|72] 256r32[13|73]
+60U15*Insert 12|321s21[13|73] 422s13[13|73]
+60r46 Into{55R10[13|73]} 12|322r25[13|73] 423r20[13|73]
+62U15*Assign 12|193s13[13|72] 332s21[13|73] 413s13[13|73]
+74P10*Set_Iterator<90P10[13|70]>
+76U15*Initialize 12|119s17[13|71] 141s21[13|70] 174s13[13|73] 251s21[13|73]
+. 310s17[13|72] 364s17[13|73] 460s9[13|70]
+77V15*More{boolean} 12|120s23[13|71] 142s27[13|70] 175s19[13|73] 253s27[13|73]
+. 311s23[13|72] 366s23[13|73] 462s15[13|70]
+78U15*Next 12|121s21[13|71] 143s25[13|70] 176s17[13|73] 254s25[13|73] 312s21[13|72]
+. 367s21[13|73] 463s13[13|70]
+89+10*Cell
+90P10 Link(89+10[13|70])
+X 18 stack_pack.ads
+63k9*Stack_Pack 11|61w6 12|279r45 18|95e15
+65R10 Stack 12|282r27[279]
+67X5 Stack_Underflow 12|347r26[279] 385r26[279]
+69V14 Top_Value{13|60R10} 12|328s28[279]
+71V14 Depth_of_Stack{natural} 12|300s26[279]
+73U15 Make_Stack 12|356s13[279]
+75U15 Push 12|299s17[279]
+77U15 Pop 12|334s21[279]
+79U15 Free_Stack 12|376s13[279]
+X 20 symbol_info.ads
+50K9*Symbol_Info 11|60w53 62r45 20|83e16
+75V14*Is_Nullable{boolean} 12|177s20
+X 21 symbol_table.ads
+48K9*Symbol_Table 11|60w39 62r31 21|82e17
+52I11*Grammar_Symbol<short_integer> 12|78r37 102r21 225r29 233r26 276r50
+. 283r27
+75V14*Is_Terminal{boolean} 12|132s24
+X 22 system.ads
+67M9*Address
+X 28 s-memory.ads
+53V13*Alloc{22|67M9} 103i<c,__gnat_malloc>22
+68U14*Free 104i<c,__gnat_free>22
+76V13*Realloc{22|67M9} 105i<c,__gnat_realloc>22
+X 35 s-stalib.adb
+93U14 Break_Start 94i<c,__gnat_break_start>22
+

@@ -1,0 +1,33 @@
+V "GNAT Lib v9"
+A -gnatf
+A -gnatyM115
+A -gnatwl
+A -g
+A -gnato
+A -fstack-check=specific
+A -g
+A -fstack-check=specific
+P ZX
+
+RN
+RV SPARK_05
+
+U ma_syntax_goto%s	ma_syntax_goto.ads	84a1c37b NE OO PK
+
+D ma_syntax_goto.ads	20241206131835 84a1c37b ma_syntax_goto%s
+D system.ads		20220527072110 4635ec04 system%s
+X 1 ma_syntax_goto.ads
+1K9*Ma_Syntax_Goto 327l5 327e19
+3I10*Small_Integer<short_integer> 6r20 7r20
+5R10*Goto_Entry 8e15 14r54
+6i9*Nonterm{3I10}
+7i9*Newstate{3I10}
+12I13*Row{integer} 14r37
+14A10*Goto_Parse_Table(5R10)<integer> 16r28
+16a5*Goto_Matrix{14A10}
+282a1*GOTO_OFFSET(integer)
+298I9*Rule{natural} 301r25 314r25
+299I9*Nonterminal{integer} 314r50
+301a4*Rule_Length(natural)
+314a4*Get_LHS_Rule(299I9)
+

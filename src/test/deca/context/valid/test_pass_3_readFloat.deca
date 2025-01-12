@@ -1,0 +1,12 @@
+// Description:
+//    Program testing that we can use readFloat 
+//
+// Results:
+//    ok
+//
+// History:
+//    Created on 9/01/2025
+
+{
+    float a = readFloat();
+}

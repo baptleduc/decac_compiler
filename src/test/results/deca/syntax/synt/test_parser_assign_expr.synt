@@ -1,0 +1,17 @@
+`> [9, 0] Program
+   +> ListDeclClass [List with 0 elements]
+   `> [9, 0] Main
+      +> ListDeclVar [List with 0 elements]
+      `> ListInst [List with 1 elements]
+         []> [10, 4] Print
+             `> ListExpr [List with 3 elements]
+                []> [10, 15] And
+                ||  +> [10, 10] BooleanLiteral (true)
+                ||  `> [10, 18] BooleanLiteral (false)
+                []> [10, 30] And
+                ||  +> [10, 25] BooleanLiteral (true)
+                ||  `> [10, 33] Int (1)
+                []> [10, 39] Plus
+                    +> [10, 37] Not
+                    |  `> [10, 38] Identifier (a)
+                    `> [10, 40] Int (3)

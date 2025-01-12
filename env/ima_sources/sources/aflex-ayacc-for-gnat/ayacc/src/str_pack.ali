@@ -1,0 +1,81 @@
+V "GNAT Lib v9"
+A -gnato
+A -fstack-check=specific
+P SS ZX
+
+RN
+RV NO_SECONDARY_STACK
+RV NO_STANDARD_STORAGE_POOLS
+RV NO_DYNAMIC_SIZED_OBJECTS
+RV SPARK_05
+
+U str_pack%b		str_pack.adb		f1987de2 NE OO PK
+Z interfaces%s		interfac.ads		interfac.ali
+Z system.secondary_stack%s  s-secsta.adb	s-secsta.ali
+
+U str_pack%s		str_pack.ads		16be565b BN EE NE OO PK
+
+D interfac.ads		20220527072110 5ab55268 interfaces%s
+D str_pack.ads		20221217092829 16be565b str_pack%s
+D str_pack.adb		20221217092829 e7262bb9 str_pack%b
+D system.ads		20220527072110 4635ec04 system%s
+D s-parame.ads		20220527072110 48ec542b system.parameters%s
+D s-secsta.ads		20220527072110 20bbe636 system.secondary_stack%s
+D s-stoele.ads		20220527072110 2dc34a04 system.storage_elements%s
+X 2 str_pack.ads
+48K9*STR_Pack 82E10 88l5 88e13 3|1b14 101l5 101t13
+52N5*Maximum 53r41
+53I13*Index{integer} 55r31 82r31 85r22
+55R10*STR 55d14 57r29 58r29 59r29 61r33 61r55 62r55 63r55 65r54 66r54 67r32
+. 67r54 69r36 70r36 72r34 72r46 73r34 73r46 82c10 86e19 3|10r33 10r45 11r19
+. 22r33 22r45 23r19 34r36 39r36 44r33 44r49 49r52 55r55 61r32 61r48 70r51
+. 79r54 86r27 91r26 96r26
+55i14 Maximum_Length{53I13} 82r14 84r32
+57V15*Length_of{integer} 57>26 76r20 3|86b14 89l9 89t18
+57r26 S{55R10} 3|86b24 88r16
+58V15*Value_of{string} 58>26 3|91b14 94l9 94t17
+58r26 S{55R10} 3|91b23 93r16 93r26
+59V15*Is_Empty{boolean} 59>26 77r20 3|96b14 99l9 99t17
+59r26 S{55R10} 3|96b23 98r16
+61U15*Assign 61>23 61=44 3|44b15 47l9 47t15
+61r23 Value{55R10} 3|44b23 46r15
+61r44 To{55R10} 3|44b38 46m9
+62U15*Assign 62>23 62=44 3|49b15 53l9 53t15
+62a23 Value{string} 3|49b23 51r20 51r37 52r22
+62r44 To{55R10} 3|49b41 51m9 52m9
+63U15*Assign 63>23 63=44 3|55b15 59l9 59t15
+63e23 Value{character} 3|55b23 57r23
+63r44 To{55R10} 3|55b44 57m9 58m9
+65U15*Append 65>23 65=43 3|79b15 83l9 83t15
+65e23 Tail{character} 3|79b23 82r31
+65r43 To{55R10} 3|79b43 81m9 81r22 82m9 82r17
+66U15*Append 66>23 66=43 3|70b15 77l9 77t15
+66a23 Tail{string} 3|70b23 74r18 75r28
+66r43 To{55R10} 3|70b40 73r14 75m9 76m9
+67U15*Append 67>23 67=43 3|61b15 68l9 68t15
+67r23 Tail{55R10} 3|61b23 65r18 66r26 66r39
+67r43 To{55R10} 3|61b37 64r14 66m9 67m9
+69U15*Upper_Case 69=26 3|34b15 37l9 37t19
+69r26 S{55R10} 3|34b26 36m9 36r26
+70U15*Lower_Case 70=26 3|39b15 42l9 42t19
+70r26 S{55R10} 3|39b26 41m9 41r26
+72V15*Upper_Case{55R10} 72>27 3|10b14 20l9 20t19 36s14
+72r27 S{55R10} 3|10b26 11r24 11r42 13r21 14r16 15r66
+73V15*Lower_Case{55R10} 73>27 3|22b14 32l9 32t19 41s14
+73r27 S{55R10} 3|22b26 23r24 23r42 25r21 26r16 27r66
+84a13*Name{string} 3|11r26 14r18 15m27 15r68 23r26 26r18 27m27 27r68 51m12
+. 57m12 66m12 66r31 75m12 82m12 93r18
+85i13*Length{53I13} 3|13r23 25r23 52m12 58m12 64r17 65r23 66r44 67m12 73r17
+. 76m12 81m12 81r25 82r20 88r18 93r28 98r18
+X 3 str_pack.adb
+3a3 SCCS_ID{string}
+7a3 Rcs_ID{string}
+11r7 Upper_STR{2|55R10} 15m17 19r16
+13i13 I{integer} 14r23 15r32 15r73
+23r7 Lower_STR{2|55R10} 27m17 31r16
+25i13 I{integer} 26r23 27r32 27r73
+62i9 F{natural} 64m9 65r14 66r17
+62i12 L{natural} 65m9 66r20 67r22
+71i9 F{natural} 73m9 74r14 75r17
+71i12 L{natural} 74m9 75r22 76r22
+

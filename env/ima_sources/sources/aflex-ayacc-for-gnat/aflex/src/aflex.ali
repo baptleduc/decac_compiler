@@ -1,0 +1,97 @@
+V "GNAT Lib v9"
+M F W=b
+A -gnato
+A -fstack-check=specific
+P ZX
+
+RN
+RV NO_EXCEPTION_HANDLERS
+RV NO_EXCEPTIONS
+RV NO_IO
+RV SPARK_05
+
+U aflex%b		aflex.adb		2981bfd7 NE OO SU IU
+W ada%s			ada.ads			ada.ali
+W ada.text_io%s		a-textio.adb		a-textio.ali
+W dfa%s			dfa.adb			dfa.ali
+W external_file_manager%s  external_file_manager.adb  external_file_manager.ali
+W gen%s			gen.adb			gen.ali
+W main_body%s		main_body.adb		main_body.ali
+W misc%s		misc.adb		misc.ali
+W misc_defs%s		misc_defs.adb		misc_defs.ali
+W template_manager%s	template_manager.adb	template_manager.ali
+W tstring%s		tstring.ads		tstring.ali
+
+D ada.ads		20220527072110 76789da1 ada%s
+D a-except.ads		20220527072110 291912d5 ada.exceptions%s
+D a-ioexce.ads		20220527072110 e4a01f64 ada.io_exceptions%s
+D a-stream.ads		20220527072110 119b8fb3 ada.streams%s
+D a-tags.ads		20220527072110 491b781d ada.tags%s
+D a-textio.ads		20220527072110 881db35a ada.text_io%s
+D a-unccon.ads		20220527072110 0e9b276f ada.unchecked_conversion%s
+D aflex.adb		20221217092829 c0c272d6 aflex%b
+D dfa.ads		20221217092829 b6f6eac5 dfa%s
+D external_file_manager.ads  20221217092829 7b810f3b external_file_manager%s
+D gen.ads		20221217092829 90529f08 gen%s
+D interfac.ads		20220527072110 5ab55268 interfaces%s
+D i-cstrea.ads		20220527072110 e53d8b8e interfaces.c_streams%s
+D main_body.ads		20221217092829 89c9c342 main_body%s
+D misc.ads		20221217092829 8442d4ab misc%s
+D misc_defs.ads		20221217092829 f17ec461 misc_defs%s
+D system.ads		20220527072110 4635ec04 system%s
+D s-crtl.ads		20220527072110 0ebbdb71 system.crtl%s
+D s-exctab.ads		20220527072110 54135002 system.exception_table%s
+D s-ficobl.ads		20220527072110 078245e4 system.file_control_block%s
+D s-parame.ads		20220527072110 48ec542b system.parameters%s
+D s-secsta.ads		20220527072110 20bbe636 system.secondary_stack%s
+D s-soflin.ads		20220527072110 a7318a92 system.soft_links%s
+D s-stache.ads		20220527072110 a37c21ec system.stack_checking%s
+D s-stalib.ads		20220527072110 09bd3940 system.standard_library%s
+D s-stoele.ads		20220527072110 2dc34a04 system.storage_elements%s
+D s-traent.ads		20220527072110 005bf670 system.traceback_entries%s
+D s-unstyp.ads		20220527072110 34867c83 system.unsigned_types%s
+D s-wchcon.ads		20220527072110 1b7d22d2 system.wch_con%s
+D template_manager.ads	20221217092829 7f69265f template_manager%s
+D tstring.ads		20221217092829 bfe7f17a tstring%s
+D vstrings.ads		20221217092829 90607e37 vstrings%s
+X 1 ada.ads
+16K9*Ada 20e8 8|67r38 69r4 86r7
+X 6 a-textio.ads
+49K13*Text_IO 471e16 8|67w42 69r8 86r11
+52P9*File_Type
+119V13*Standard_Error{52P9} 8|86s28
+259U14*Put_Line 8|86s19
+X 8 aflex.adb
+70V10*AFLEX{integer} 70b10 112l5 112t10
+71a4 copyright{string}
+73a4 copyright2{string}
+X 9 dfa.ads
+26K9*DFA 8|67w17 98r3 9|66e8
+49U13*NTOD 8|98s7
+X 10 external_file_manager.ads
+28K9*EXTERNAL_FILE_MANAGER 8|68w33 69r26 10|36e26
+X 11 gen.ads
+29K9*GEN 8|67w22 11|54e8
+X 14 main_body.ads
+26K9*MAIN_BODY 8|67w6 76r3 78r3 81r5 107r3 110r8 111r12 14|33e14
+27U13*AFLEXEND 8|81s15 107s13
+28U13*AFLEXINIT 8|76s13
+29U13*READIN 8|78s13
+31X3*AFLEX_TERMINATE 8|110r18
+32i3*TERMINATION_STATUS{integer} 8|111r22
+X 15 misc.ads
+26K9*MISC 8|67w51 94r5 15|73e9
+44U13*AFLEXERROR 8|94s10
+X 16 misc_defs.ads
+32K9*MISC_DEFS 8|67w27 68r60 16|587e14
+337b3*INTERACTIVE{boolean} 8|85r9
+338b18*PERFORMANCE_REPORT{boolean} 8|84r7
+341b3*SYNTAXERROR{boolean} 8|80r7
+409b3*VARIABLE_TRAILING_CONTEXT_RULES{boolean} 8|93r7
+X 30 template_manager.ads
+30K9*TEMPLATE_MANAGER 8|68w15 105r3 106r3 30|33e21
+31U13*GENERATE_DFA_FILE 8|106s20
+32U13*GENERATE_IO_FILE 8|105s20
+X 31 tstring.ads
+25K9*TSTRING[32|164] 8|68w6 69r17
+

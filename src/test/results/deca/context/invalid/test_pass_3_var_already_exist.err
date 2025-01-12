@@ -1,0 +1,1 @@
+./src/test/deca/context/invalid/test_pass_3_var_already_exist.deca:12:8: Variable x already declared in this context

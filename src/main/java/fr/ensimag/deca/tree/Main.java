@@ -38,17 +38,22 @@ public class Main extends AbstractMain {
 
         declVariables.verifyListDeclVariable(compiler, localEnv, null);
 
+        EnvironmentExp empiledEnv = localEnv.empile(localEnv.getParent());
         // Verification of statements
-        insts.verifyListInst(compiler, null, null, compiler.environmentType.VOID);
+        insts.verifyListInst(compiler, empiledEnv, null, compiler.environmentType.VOID);
 
         LOG.debug("verify Main: end");
     }
 
     @Override
     protected void codeGenMain(DecacCompiler compiler) {
-        // A FAIRE: traiter les déclarations de variables.
+        compiler.addComment("Main program");
         compiler.addComment("Beginning of main instructions:");
+        // Generate code for global variables
+        declVariables.codeGenListDeclVar(compiler);
+        // Generate code for instructions
         insts.codeGenListInst(compiler);
+
     }
 
     @Override
@@ -59,6 +64,7 @@ public class Main extends AbstractMain {
         insts.decompile(s);
         s.unindent();
         s.println("}");
+        s.println();
     }
 
     @Override

@@ -1,0 +1,118 @@
+V "GNAT Lib v9"
+A -gnatf
+A -gnatyM115
+A -gnatwl
+A -g
+A -gnato
+A -fstack-check=specific
+A -g
+A -fstack-check=specific
+P ZX
+
+RN
+RV NO_DIRECT_BOOLEAN_OPERATORS
+RV NO_EXCEPTION_HANDLERS
+RV NO_EXCEPTIONS
+RV NO_IO
+RV NO_SECONDARY_STACK
+RV NO_STANDARD_STORAGE_POOLS
+RV NO_DYNAMIC_SIZED_OBJECTS
+RV NO_ELABORATION_CODE
+RV SPARK_05
+
+U options%b		options.adb		551526e8 OO PK
+W ada%s			ada.ads			ada.ali
+W ada.command_line%s	a-comlin.adb		a-comlin.ali
+Z ada.exceptions%s	a-except.adb		a-except.ali
+Z ada.tags%s		a-tags.adb		a-tags.ali
+W ada.text_io%s		a-textio.adb		a-textio.ali
+W config_machine%s	config_machine.ads	config_machine.ali
+Z system%s		system.ads		system.ali
+Z system.concat_2%s	s-conca2.adb		s-conca2.ali
+Z system.concat_3%s	s-conca3.adb		s-conca3.ali
+Z system.exception_table%s  s-exctab.adb	s-exctab.ali
+Z system.secondary_stack%s  s-secsta.adb	s-secsta.ali
+Z system.standard_library%s  s-stalib.adb	s-stalib.ali
+Z system.val_int%s	s-valint.adb		s-valint.ali
+
+U options%s		options.ads		583280c6 EE NE OO PK
+W types_base%s		types_base.adb		types_base.ali
+
+D ada.ads		20220527072110 76789da1 ada%s
+D a-comlin.ads		20220527072110 4aa66568 ada.command_line%s
+D a-except.ads		20220527072110 291912d5 ada.exceptions%s
+D a-ioexce.ads		20220527072110 e4a01f64 ada.io_exceptions%s
+D a-stream.ads		20220527072110 119b8fb3 ada.streams%s
+D a-tags.ads		20220527072110 491b781d ada.tags%s
+D a-textio.ads		20220527072110 881db35a ada.text_io%s
+D a-unccon.ads		20220527072110 0e9b276f ada.unchecked_conversion%s
+D config_machine.ads	20221217092829 ec10f679 config_machine%s
+D interfac.ads		20220527072110 5ab55268 interfaces%s
+D i-cstrea.ads		20220527072110 e53d8b8e interfaces.c_streams%s
+D options.ads		20221217092829 e3b46f5a options%s
+D options.adb		20241114165650 980a69f9 options%b
+D system.ads		20220527072110 4635ec04 system%s
+D s-conca2.ads		20220527072110 02a0d7d0 system.concat_2%s
+D s-conca3.ads		20220527072110 0b705ca5 system.concat_3%s
+D s-crtl.ads		20220527072110 0ebbdb71 system.crtl%s
+D s-exctab.ads		20220527072110 54135002 system.exception_table%s
+D s-ficobl.ads		20220527072110 078245e4 system.file_control_block%s
+D s-parame.ads		20220527072110 48ec542b system.parameters%s
+D s-secsta.ads		20220527072110 20bbe636 system.secondary_stack%s
+D s-soflin.ads		20220527072110 a7318a92 system.soft_links%s
+D s-stache.ads		20220527072110 a37c21ec system.stack_checking%s
+D s-stalib.ads		20220527072110 09bd3940 system.standard_library%s
+D s-stoele.ads		20220527072110 2dc34a04 system.storage_elements%s
+D s-traent.ads		20220527072110 005bf670 system.traceback_entries%s
+D s-unstyp.ads		20220527072110 34867c83 system.unsigned_types%s
+D s-valint.ads		20220527072110 48a52a3f system.val_int%s
+D s-wchcon.ads		20220527072110 1b7d22d2 system.wch_con%s
+D types_base.ads	20221217092829 bb86ef9c types_base%s
+X 1 ada.ads
+16K9*Ada 20e8 13|10r6 10r24 11r6 11r24
+X 2 a-comlin.ads
+36K13*Command_Line 144e21 13|10w10 11r10
+39V13*Argument_Count{natural} 13|79s8 82s16 86s17 110s23 121s23 132s23
+52V13*Argument{string} 13|83s13 84s13 85s10 87s59 94s19 95s19 96s19 97s19
+. 99s55 102s15 114s40 125s40 136s40
+62V13*Command_Name{string} 13|149s30
+X 7 a-textio.ads
+49K13*Text_IO 471e16 13|10w28 11r28
+263U14*Put_Line 13|28s6 87s13 99s13 149s7 150s7 151s7 152s7 153s7 154s7 155s7
+. 156s7
+X 9 config_machine.ads
+9K9*Config_Machine 74e19 13|13w6 13r26
+71N4*Defaut_Taille_Pile 13|21r19
+72N4*Defaut_Taille_Tas 13|22r19
+X 12 options.ads
+12K9*Options 41l5 41e12 13|15b14 158l5 158t12
+14V12*debug{boolean} 13|31b12 34l7 34t12
+17V12*aff_stats{boolean} 13|36b12 39l7 39t16
+21V12*beautify{boolean} 13|41b12 44l7 44t15
+24V12*Taille_Pile{30|26I9} 13|46b13 49l8 49t19
+27V12*Taille_Tas{30|26I9} 13|51b13 54l8 54t18
+30V12*Limite_Temps{30|26I9} 13|56b13 59l8 59t20
+33V12*Mauvaise_Option{boolean} 13|64b13 67l8 67t23
+36V12*Must_Exit_Immediately{boolean} 13|69b13 72l8 72t29
+X 13 options.adb
+17b3 stats{boolean} 38r12 106m25
+18b3 deb{boolean} 33r12 105m25
+19b3 ret{boolean} 43r12 107m25
+21i3 TP{natural} 48r22 114m19
+22i3 TT{natural} 53r22 125m19
+23i3 LT{natural} 58r22 136m19
+25U13 Display_Version 25b13 29t6 103s25
+61b4 Err_Option{boolean} 66r14 157m7
+62b4 Exit_Immediate{boolean} 71r14 104m16
+74i5 i1{integer} 83m7 85r23 91r16 92r19
+74i9 i2{integer} 84m7 91r13 92r16 94r31 95r31 96r31 97r31 102r29
+75X5 mauv_opt 80r13 88r19 100r19 111r25 117r28 122r25 128r28 133r25 139r28
+. 142r22 148r10
+76i5 i{positive} 82r11 83r22 84r22 85r20 86r13 87r69 94r28 95r28 96r28 97r28
+. 99r64 102r25 109m16 109r21 110r19 114r50 120m16 120r21 121r19 125r50 131m16
+. 131r21 132r19 136r50 145m7 145r12
+X 30 types_base.ads
+17K9*Types_Base 12|10w6 10r22 30|65e15
+26I9*Entier<integer> 12|24r31 27r30 30r32 13|46r32 48r14 51r31 53r14 56r33
+. 58r14
+

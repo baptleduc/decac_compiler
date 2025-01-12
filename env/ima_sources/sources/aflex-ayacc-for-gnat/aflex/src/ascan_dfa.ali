@@ -1,0 +1,49 @@
+V "GNAT Lib v9"
+A -gnato
+A -fstack-check=specific
+P SS ZX
+
+RN
+RV NO_SECONDARY_STACK
+RV NO_OBSOLESCENT_FEATURES
+RV SPARK_05
+
+U ascan_dfa%b		ascan_dfa.adb		bbefa8e4 NE OO PK IL
+W ascan_dfa%s		ascan_dfa.adb		ascan_dfa.ali
+Z system.secondary_stack%s  s-secsta.adb	s-secsta.ali
+
+U ascan_dfa%s		ascan_dfa.ads		fcb1823a EE NE OO PK IL
+
+D ascan_dfa.ads		20221217092829 fcb1823a ascan_dfa%s
+D ascan_dfa.adb		20221217092829 bbefa8e4 ascan_dfa%b
+D system.ads		20220527072110 4635ec04 system%s
+D s-parame.ads		20220527072110 48ec542b system.parameters%s
+D s-secsta.ads		20220527072110 20bbe636 system.secondary_stack%s
+D s-stoele.ads		20220527072110 2dc34a04 system.storage_elements%s
+X 1 ascan_dfa.ads
+1K9*ascan_dfa 28l5 28e14 2|1w6 1r21 2b14 43l5 43t14
+2b1*aflex_debug{boolean}
+3i1*yytext_ptr{integer} 2|10r10 37m5
+8i1*YY_READ_BUF_SIZE{integer} 9r35
+9i1*YY_BUF_SIZE{integer} 11r53
+10A6*unbounded_character_array(character)<integer> 11r24
+11A9*ch_buf_type{10A6}<integer> 12r13
+12a1*yy_ch_buf{11A9} 2|11r13 12r25 38r21 39m5
+13i1*yy_cp{integer} 2|29r12 38r31 39r15 40r19
+13i8*yy_bp{integer} 2|29r20 37r19
+16e1*yy_hold_char{character} 2|38m5
+17i1*yy_c_buf_p{integer} 2|40m5
+19V10*YYText{string} 2|3b10 24t4
+20V10*YYLength{integer} 2|27b10 30l5 30t13
+21U11*YY_DO_BEFORE_ACTION 2|35b11 41l5 41t24
+23b1*yy_init{boolean}
+24i1*yy_start{integer}
+25I9*yy_state_type{integer} 26r27
+26i1*yy_last_accepting_state{25I9}
+27i1*yy_last_accepting_cpos{integer}
+X 2 ascan_dfa.adb
+4i5 i{integer} 10m5 11r23 12r35 13m9 13r14
+5i5 str_loc{integer} 12r12 14m5 14r16 18r9 21r24
+6a5 buffer{string} 12m5 21r14
+7a5 EMPTY_STRING{string} 19r16
+

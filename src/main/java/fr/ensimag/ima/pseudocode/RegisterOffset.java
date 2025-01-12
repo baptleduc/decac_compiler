@@ -1,5 +1,8 @@
 package fr.ensimag.ima.pseudocode;
 
+import fr.ensimag.deca.DecacCompiler;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
+
 /**
  * Operand representing a register indirection with offset, e.g. 42(R3).
  *
@@ -22,6 +25,18 @@ public class RegisterOffset extends DAddr {
         super();
         this.offset = offset;
         this.register = register;
+    }
+
+    @Override
+    public GPRegister codeGenToGPRegister(DecacCompiler compiler) {
+        GPRegister reg = compiler.allocGPRegister();
+        compiler.addInstruction(new LOAD(this, reg));
+        return reg;
+    }
+
+    @Override
+    public void freeGPRegister(DecacCompiler compiler) {
+        // Do nothing
     }
 
     @Override

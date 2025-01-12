@@ -1,11 +1,10 @@
 package fr.ensimag.deca;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.ArrayList;
-
 import org.apache.log4j.Logger;
 
 /**
@@ -44,8 +43,9 @@ public class DecacMain {
         }
         if (options.getPrintBanner()) {
             System.out.println(BANNER);
+
         }
-        if (options.getSourceFiles().isEmpty()) {
+        if (!options.getPrintBanner() && options.getSourceFiles().isEmpty()) {
             System.err.println("No file to compile");
             options.displayUsage();
             System.exit(1);

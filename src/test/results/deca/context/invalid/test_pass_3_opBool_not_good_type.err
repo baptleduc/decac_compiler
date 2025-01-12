@@ -1,0 +1,1 @@
+./src/test/deca/context/invalid/test_pass_3_opBool_not_good_type.deca:11:20: Vars boolean and int can't be compared

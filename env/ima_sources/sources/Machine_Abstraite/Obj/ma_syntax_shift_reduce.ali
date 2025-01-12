@@ -1,0 +1,66 @@
+V "GNAT Lib v9"
+A -gnatf
+A -gnatyM115
+A -gnatwl
+A -g
+A -gnato
+A -fstack-check=specific
+A -g
+A -fstack-check=specific
+P ZX
+
+RN
+RV NO_DEFAULT_INITIALIZATION
+RV NO_IMPLICIT_LOOPS
+RV NO_ELABORATION_CODE
+RV SPARK_05
+
+U ma_syntax_shift_reduce%s  ma_syntax_shift_reduce.ads  cfd37fb8 EE OO PK
+W ma_syntax_goto%s	ma_syntax_goto.ads	ma_syntax_goto.ali
+W ma_syntax_tokens%s	ma_syntax_tokens.ads	ma_syntax_tokens.ali
+
+D ada.ads		20220527072110 76789da1 ada%s
+D a-unccon.ads		20220527072110 0e9b276f ada.unchecked_conversion%s
+D ma_syntax_goto.ads	20241206131835 84a1c37b ma_syntax_goto%s
+D ma_syntax_shift_reduce.ads  20241206131835 8815e0ad ma_syntax_shift_reduce%s
+D ma_syntax_tokens.ads	20241206131835 c3675c6e ma_syntax_tokens%s
+D pseudo_code.ads	20221217092829 b9d57959 pseudo_code%s
+D system.ads		20220527072110 4635ec04 system%s
+D s-exctab.ads		20220527072110 54135002 system.exception_table%s
+D s-stalib.ads		20220527072110 09bd3940 system.standard_library%s
+D types_base.ads	20221217092829 bb86ef9c types_base%s
+X 3 ma_syntax_goto.ads
+1K9*Ma_Syntax_Goto 327e19 4|2w6 381r29
+298I9*Rule{natural} 4|381r44
+X 4 ma_syntax_shift_reduce.ads
+3K9*Ma_Syntax_Shift_Reduce 394l5 394e27
+5I10*Small_Integer<short_integer> 8r15 9r15
+7R10*Shift_Reduce_Entry 10e15 11r17 17r57
+8i9*T{5I10}
+9i9*Act{5I10}
+13I13*Row{integer} 17r39
+17A10*Shift_Reduce_Array(7R10)<integer> 19r36
+19a5*Shift_Reduce_Matrix{17A10}
+341a1*SHIFT_REDUCE_OFFSET(integer)
+357K12*yy 392l9 392e11
+360i8*stack_size{natural} 376r38 377r38
+363I16*parse_state{natural} 377r53
+367N8*default
+368N8*first_shift_entry
+369N8*accept_code
+370N8*error_code
+373i8*tos{natural}
+374K13*yy_tokens=375:7 376r53 382r29
+376a8*value_stack(5|15R8)
+377a8*state_stack(363I16)
+380i8*action{integer}
+381i8*rule_id{3|298I9}
+382e8*input_symbol{5|51E10}
+386i8*error_flag{natural}
+389b8*look_ahead{boolean}
+390i8*index{integer}
+X 5 ma_syntax_tokens.ads
+3K9*Ma_Syntax_Tokens 4|1w6 375r7 5|80e21
+15R8*yystype 4|376r63 5|48e13
+51E10*Token 4|382r39 5|76e25
+

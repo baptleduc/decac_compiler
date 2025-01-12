@@ -1,20 +1,23 @@
 package fr.ensimag.deca.tree;
 
-import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
+import fr.ensimag.deca.context.Type;
+import fr.ensimag.deca.context.VariableDefinition;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.ima.pseudocode.DAddr;
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
-import fr.ensimag.deca.context.VariableDefinition;
+import org.apache.log4j.Logger;
 
 /**
  * @author gl12
  * @date 01/01/2025
  */
 public class DeclVar extends AbstractDeclVar {
+    private static final Logger LOG = Logger.getLogger(DeclVar.class);
 
     final private AbstractIdentifier type;
     final private AbstractIdentifier varName;
@@ -36,6 +39,11 @@ public class DeclVar extends AbstractDeclVar {
         // Verified that type is correct
         Type varType = type.verifyType(compiler);
 
+        if (varType.isVoid()) {
+            throw new ContextualError(varName.getName() + " : can't declare var with type void",
+                    varName.getLocation());
+        }
+
         if (localEnv.get(varName.getName()) != null) {
             throw new ContextualError("Variable " + varName.getName() + " already declared in this context",
                     varName.getLocation());
@@ -43,6 +51,7 @@ public class DeclVar extends AbstractDeclVar {
 
         // Add the variable to the environment
         VariableDefinition varDef = new VariableDefinition(varType, varName.getLocation());
+        varDef.setOperand(compiler.addGlobalVariable());
         varName.setDefinition(varDef);
         try {
             localEnv.declare(varName.getName(), varDef);
@@ -50,12 +59,25 @@ public class DeclVar extends AbstractDeclVar {
             throw new ContextualError("Variable " + varName.getName() + " already declared in this context",
                     varName.getLocation());
         }
+        EnvironmentExp empiledEnv = localEnv.empile(localEnv.getParent());
+        initialization.verifyInitialization(compiler, varType, empiledEnv, currentClass);
+
+    }
+
+    @Override
+    protected void codeGenDeclVar(DecacCompiler compiler) {
+        DAddr addr = ((VariableDefinition) varName.getDefinition()).getOperand();
+        initialization.codeGenInitialization(compiler, addr);
 
     }
 
     @Override
     public void decompile(IndentPrintStream s) {
-        throw new UnsupportedOperationException("not yet implemented");
+        this.type.decompile(s);
+        s.print(" ");
+        this.varName.decompile(s);
+        this.initialization.decompile(s);
+        s.print(";");
     }
 
     @Override

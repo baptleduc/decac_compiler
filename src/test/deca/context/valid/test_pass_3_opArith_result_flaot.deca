@@ -1,0 +1,14 @@
+// Description:
+//    Program testing that after an arith operation with a float operand (right of left), the result is a float
+//
+// Results:
+//    error
+//
+// History:
+//    Created on 9/01/2025
+
+{
+    float x = 1.4+1.4;
+    float y = 1.3 + 1;
+    float z = 1+2.3;
+}

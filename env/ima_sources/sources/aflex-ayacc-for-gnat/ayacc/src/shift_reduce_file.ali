@@ -1,0 +1,95 @@
+V "GNAT Lib v9"
+A -gnato
+A -fstack-check=specific
+P ZX
+
+RN
+RV NO_EXCEPTION_HANDLERS
+RV NO_EXCEPTION_PROPAGATION
+RV NO_EXCEPTIONS
+RV NO_IO
+RV NO_SECONDARY_STACK
+RV NO_STANDARD_STORAGE_POOLS
+RV NO_DEFAULT_INITIALIZATION
+RV NO_DYNAMIC_SIZED_OBJECTS
+RV SPARK_05
+
+U shift_reduce_file%b	shift_reduce_file.adb	b24ff5f2 NE OO PK
+W ada%s			ada.ads			ada.ali
+Z ada.tags%s		a-tags.adb		a-tags.ali
+W ada.text_io%s		a-textio.adb		a-textio.ali
+W ayacc_file_names%s	ayacc_file_names.adb	ayacc_file_names.ali
+Z system.concat_3%s	s-conca3.adb		s-conca3.ali
+Z system.secondary_stack%s  s-secsta.adb	s-secsta.ali
+
+U shift_reduce_file%s	shift_reduce_file.ads	cd32e9ac EE NE OO PK
+
+D ada.ads		20220527072110 76789da1 ada%s
+D a-except.ads		20220527072110 291912d5 ada.exceptions%s
+D a-ioexce.ads		20220527072110 e4a01f64 ada.io_exceptions%s
+D a-stream.ads		20220527072110 119b8fb3 ada.streams%s
+D a-tags.ads		20220527072110 491b781d ada.tags%s
+D a-textio.ads		20220527072110 881db35a ada.text_io%s
+D a-unccon.ads		20220527072110 0e9b276f ada.unchecked_conversion%s
+D ayacc_file_names.ads	20221217092829 a6c3e0e9 ayacc_file_names%s
+D interfac.ads		20220527072110 5ab55268 interfaces%s
+D i-cstrea.ads		20220527072110 e53d8b8e interfaces.c_streams%s
+D shift_reduce_file.ads	20221217092829 cd32e9ac shift_reduce_file%s
+D shift_reduce_file.adb	20221217092829 51a34fed shift_reduce_file%b
+D system.ads		20220527072110 4635ec04 system%s
+D s-conca3.ads		20220527072110 0b705ca5 system.concat_3%s
+D s-crtl.ads		20220527072110 0ebbdb71 system.crtl%s
+D s-exctab.ads		20220527072110 54135002 system.exception_table%s
+D s-ficobl.ads		20220527072110 078245e4 system.file_control_block%s
+D s-parame.ads		20220527072110 48ec542b system.parameters%s
+D s-secsta.ads		20220527072110 20bbe636 system.secondary_stack%s
+D s-soflin.ads		20220527072110 a7318a92 system.soft_links%s
+D s-stache.ads		20220527072110 a37c21ec system.stack_checking%s
+D s-stalib.ads		20220527072110 09bd3940 system.standard_library%s
+D s-stoele.ads		20220527072110 2dc34a04 system.storage_elements%s
+D s-traent.ads		20220527072110 005bf670 system.traceback_entries%s
+D s-unstyp.ads		20220527072110 34867c83 system.unsigned_types%s
+D s-wchcon.ads		20220527072110 1b7d22d2 system.wch_con%s
+X 1 ada.ads
+16K9*Ada 20e8 12|1r6 2r6
+X 6 a-textio.ads
+49K13*Text_IO 471e16 12|1w10 2r10
+52P9*File_Type 12|11r16
+53n32*Out_File{53E9} 12|15r26
+86U14*Create 12|15s9
+98U14*Close 12|98s9
+99U14*Delete 12|48s8
+165U14*New_Line 12|39s9
+207U14*Put 12|113s9
+241U14*Put 12|103s9
+259U14*Put_Line 12|108s9
+263U14*Put_Line 12|42s19
+294X4*Name_Error 12|41r19
+295X4*Use_Error 12|41r32
+X 8 ayacc_file_names.ads
+61K9*Ayacc_File_Names 98e21 12|1w19 2r19
+72V15*Get_Shift_Reduce_File_Name{string} 12|15s36 42s56
+86V12*Goto_Tables_Unit_Name{string} 12|18s30 82s18
+87V12*Shift_Reduce_Tables_Unit_Name{string} 12|20s33 97s29
+88V12*Tokens_Unit_Name{string} 12|17s30 74s29
+X 11 shift_reduce_file.ads
+59K9*Shift_Reduce_File 68l5 68e22 12|3b14 116l5 116t22
+61U15*Open_Write 12|13b15 44l9 44t19
+62U15*Write 62>21 12|101b15 104t8
+62a21 S{string} 12|101b21 103r23
+63U15*Write_Line 63>26 12|17s9 18s9 20s9 21s9 22s9 23s9 24s9 25s9 26s9 27s9
+. 28s9 29s9 30s9 31s9 32s9 33s9 34s9 36s9 37s9 38s9 55s6 56s6 57s6 58s6 59s6
+. 60s6 61s6 62s6 63s6 64s6 65s6 66s6 67s6 68s6 69s6 70s6 71s6 72s6 73s6 74s6
+. 76s6 77s6 78s6 79s6 80s6 81s6 83s6 84s6 85s6 86s6 87s6 88s6 89s6 90s6 91s6
+. 92s6 93s6 94s6 97s9 106b15 109l9 109t19
+63a26 S{string} 12|106b26 108r28
+64U15*Write 64>21 12|111b15 114t8
+64e21 C{character} 12|111b21 113r22
+65U15*Close_Write 12|51b15 99l9 99t20
+X 12 shift_reduce_file.adb
+5a3 SCCS_ID{string}
+9a3 Rcs_ID{string}
+11p5 The_File{6|52P9} 15m16 15r16 39r18 48m15 48r15 98m15 98r15 103r13 108r18
+. 113r13
+46U15 Close_Read 46b15 49l9 49t19
+

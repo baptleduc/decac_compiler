@@ -1,0 +1,12 @@
+// Description:
+//    Program testing that you can not do a boolean operation with a right or left operand that can not be operated
+//
+// Results:
+//    error
+//
+// History:
+//    Created on 9/01/2025
+
+{
+    boolean x = 4 > true;
+}

@@ -1,0 +1,17 @@
+// Description:
+//    decompilation de champs avec propagation de la visibilité
+//
+// Resultats:
+// class Test {
+//     protected int x;
+//     protected int y = x;
+// }
+//
+// Historique:
+//    cree le 07/01/2025
+
+// Chaque champ est déclaré individuellement avec propagation de la visibilité
+// Test de transformation des champs
+class Test {
+    protected int x, y = x;
+}

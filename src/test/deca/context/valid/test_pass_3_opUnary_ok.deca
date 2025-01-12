@@ -1,0 +1,15 @@
+// Description:
+//    Program testing that you can do an unary operation specified in the document
+//
+// Results:
+//    ok
+//
+// History:
+//    Created on 10/01/2025
+
+{
+    int a = - 3;
+    float b = -5.4;
+    boolean c = !true;
+    boolean d = !false;
+}

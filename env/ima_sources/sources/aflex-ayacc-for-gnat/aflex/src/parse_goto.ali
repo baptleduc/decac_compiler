@@ -1,0 +1,27 @@
+V "GNAT Lib v9"
+A -gnato
+A -fstack-check=specific
+P ZX
+
+RN
+RV SPARK_05
+
+U parse_goto%s		parse_goto.ads		24207b67 NE OO PK
+
+D parse_goto.ads	20221217092829 24207b67 parse_goto%s
+D system.ads		20220527072110 4635ec04 system%s
+X 1 parse_goto.ads
+1K9*Parse_Goto 230l5 230e15
+3I10*Small_Integer<short_integer> 6r20 7r20
+5R10*Goto_Entry 8e15 14r54
+6i9*Nonterm{3I10}
+7i9*Newstate{3I10}
+12I13*Row{integer} 14r37
+14A10*Goto_Parse_Table(5R10)<integer> 16r28
+16a5*Goto_Matrix{14A10}
+199a1*GOTO_OFFSET(integer)
+211I9*Rule{natural} 214r25 222r25
+212I9*Nonterminal{integer} 222r50
+214a4*Rule_Length(natural)
+222a4*Get_LHS_Rule(212I9)
+

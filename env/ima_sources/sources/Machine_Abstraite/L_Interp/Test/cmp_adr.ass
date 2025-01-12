@@ -1,0 +1,45 @@
+   LEA 1(GB), R0
+   STORE R0, 1(GB)
+   CMP 1(GB), R0
+   BEQ ok_1_BEQ
+   WSTR "ko 1 BEQ"
+ok_1_BEQ :
+   BNE ko_1_BNE
+   BRA suite_1
+ko_1_BNE :
+   WSTR "ko1 BNE"
+suite_1 :
+   LOAD #0, R1
+   CMP 1(GB, R1), R0
+   BEQ ok_2_BEQ
+   WSTR "ko 2 BEQ"
+ok_2_BEQ :
+   BNE ko_2_BNE
+   BRA suite_2
+ko_2_BNE :
+   WSTR "ko2 BNE"
+suite_2 :
+   NEW #4, R3
+   LOAD R3, R4
+   LEA 2(R4), R4
+   STORE R4, 2(R3)
+   CMP 2(R3), R4
+   BEQ ok_3_BEQ
+   WSTR "ko 3 BEQ"
+ok_3_BEQ :
+   BNE ko_3_BNE
+   BRA suite_3
+ko_3_BNE :
+   WSTR "ko3 BNE"
+suite_3 :
+   LOAD #2, R5
+   CMP 0(R3, R5), R4
+   BEQ ok_4_BEQ
+   WSTR "ko 4 BEQ"
+ok_4_BEQ :
+   BNE ko_4_BNE
+   BRA suite_4
+ko_4_BNE :
+   WSTR "ko4 BNE"
+suite_4 :
+   HALT

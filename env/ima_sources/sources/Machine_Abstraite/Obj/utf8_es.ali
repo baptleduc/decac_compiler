@@ -1,0 +1,87 @@
+V "GNAT Lib v9"
+A -gnatf
+A -gnatyM115
+A -gnatwl
+A -g
+A -gnato
+A -fstack-check=specific
+A -g
+A -fstack-check=specific
+P ZX
+
+RN
+RV NO_EXCEPTION_HANDLERS
+RV NO_EXCEPTIONS
+RV NO_IO
+RV NO_RECURSION
+RV NO_UNCHECKED_CONVERSION
+RV SPARK_05
+
+U utf8_es%b		utf8_es.adb		c65e3fd5 NE OO PK
+W ada%s			ada.ads			ada.ali
+W ada.text_io%s		a-textio.adb		a-textio.ali
+W ada.unchecked_conversion%s
+W interfaces%s		interfac.ads		interfac.ali
+W types_base%s		types_base.adb		types_base.ali
+
+U utf8_es%s		utf8_es.ads		6b8a2e70 EE NE OO PK
+W types_base%s		types_base.adb		types_base.ali
+
+D ada.ads		20220527072110 76789da1 ada%s
+D a-except.ads		20220527072110 291912d5 ada.exceptions%s
+D a-ioexce.ads		20220527072110 e4a01f64 ada.io_exceptions%s
+D a-stream.ads		20220527072110 119b8fb3 ada.streams%s
+D a-tags.ads		20220527072110 491b781d ada.tags%s
+D a-textio.ads		20220527072110 881db35a ada.text_io%s
+D a-unccon.ads		20220527072110 0e9b276f ada.unchecked_conversion%s
+D interfac.ads		20220527072110 5ab55268 interfaces%s
+D i-cstrea.ads		20220527072110 e53d8b8e interfaces.c_streams%s
+D system.ads		20220527072110 4635ec04 system%s
+D s-crtl.ads		20220527072110 0ebbdb71 system.crtl%s
+D s-exctab.ads		20220527072110 54135002 system.exception_table%s
+D s-ficobl.ads		20220527072110 078245e4 system.file_control_block%s
+D s-parame.ads		20220527072110 48ec542b system.parameters%s
+D s-secsta.ads		20220527072110 20bbe636 system.secondary_stack%s
+D s-soflin.ads		20220527072110 a7318a92 system.soft_links%s
+D s-stache.ads		20220527072110 a37c21ec system.stack_checking%s
+D s-stalib.ads		20220527072110 09bd3940 system.standard_library%s
+D s-stoele.ads		20220527072110 2dc34a04 system.storage_elements%s
+D s-traent.ads		20220527072110 005bf670 system.traceback_entries%s
+D s-unstyp.ads		20220527072110 34867c83 system.unsigned_types%s
+D s-wchcon.ads		20220527072110 1b7d22d2 system.wch_con%s
+D types_base.ads	20221217092829 bb86ef9c types_base%s
+D utf8_es.ads		20221217092829 d00cc1ec utf8_es%s
+D utf8_es.adb		20221217092829 71e7d7f8 utf8_es%b
+X 1 ada.ads
+16K9*Ada 20e8 25|5r6 5r23 8r6 11r41 21r41
+X 6 a-textio.ads
+49K13*Text_IO 471e16 25|5w10 5r27
+208U14*Put 25|75s10
+223U14*Get_Immediate 25|36s7 44s7 51s7 58s7
+297X4*End_Error 25|61r12
+X 7 a-unccon.ads
+20v14*Unchecked_Conversion 25|8w10 11r45 21r45
+X 8 interfac.ads
+38K9*Interfaces 184e15 25|4w6 4r22
+74M9*Unsigned_32 25|11r66 21r74 33r14 34r10 68r27
+121V13*Shift_Left{74M9} 25|45s12 52s12 59s33
+125V13*Shift_Right{74M9} 25|38s16 74s17
+X 23 types_base.ads
+17K9*Types_Base 65e15 24|20w6 20r22 25|6w6 6r22
+26I9*Entier<integer> 24|24r30 28r26 25|11r79 21r66 30r30 41r13 48r15 55r15
+. 67r26
+X 24 utf8_es.ads
+22K9*Utf8_Es 30e4 25|9b14 81t4
+24U14*Get_Utf8 24<23 25|30b14 64t7
+24i23 R{23|26I9} 25|30b23 41m10 48m10 55m10 59m7 62m10
+28U14*Put_Utf8 28>23 25|67b14 79t7
+28i23 N{23|26I9} 25|67b23 78r35
+X 25 utf8_es.adb
+11V13 Entier_From_Unsigned[7|20]{23|26I9} 59s12
+21V13 Unsigned_From_Entier[7|20]{8|74M9} 78s14
+32e7 C{character} 36m21 37r26 44m21 45r46 51m21 52r46 58m21 59r67
+33m7 Index{8|74M9} 38m7 39r10 46r10 53r10
+34m7 W{8|74M9} 37m7 38r28 41r20 45m7 45r23 48r22 52m7 52r23 55r22 59r44
+68U17 Decode 68b17 68>24 74s10 76t10 78s7
+68m24 W{8|74M9} 70r13 74r29 75r28
+

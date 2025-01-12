@@ -1,0 +1,27 @@
+; Wendelin Serwe selon une suggestion de gl50 (janvier 2016)
+; test que les conversions des flottants decimaux sont les memes
+; pour les operandes directes et les entrees
+	WSTR "type 100002.0 : "
+	RFLOAT
+	BOV io_error
+	WSTR "read: "
+	WFLOATX
+	WNL
+	LOAD R1, R0
+	LOAD #100002.0, R1
+	WSTR "dval: "
+	WFLOATX
+	WNL
+	CMP R0, R1
+	BNE error_1
+	WSTR "ok"
+	WNL
+	HALT
+error_1:
+	WSTR "ko"
+	WNL
+	ERROR
+io_error:
+	WSTR "Error: Input/Output error"
+	WNL
+	ERROR

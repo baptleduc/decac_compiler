@@ -1,0 +1,235 @@
+V "GNAT Lib v9"
+M P W=b
+A -gnato
+A -fstack-check=specific
+P ZX
+
+RN
+RV NO_ENUMERATION_MAPS
+RV NO_EXCEPTION_HANDLERS
+RV NO_EXCEPTIONS
+RV NO_IO
+RV NO_IMPLICIT_CONDITIONALS
+RV NO_SECONDARY_STACK
+RV NO_STANDARD_STORAGE_POOLS
+RV NO_DEFAULT_INITIALIZATION
+RV NO_DYNAMIC_SIZED_OBJECTS
+RV SPARK_05
+
+U ayacc%b		ayacc.adb		44791be1 NE OO SU
+W ada%s			ada.ads			ada.ali
+W ada.command_line%s	a-comlin.adb		a-comlin.ali
+Z ada.exceptions%s	a-except.adb		a-except.ali
+Z ada.tags%s		a-tags.adb		a-tags.ali
+W ada.text_io%s		a-textio.adb		a-textio.ali
+W ayacc_file_names%s	ayacc_file_names.adb	ayacc_file_names.ali
+W command_line_interface%s  command_line_interface.adb  command_line_interface.ali
+W error_report_file%s	error_report_file.adb	error_report_file.ali
+Z interfaces%s		interfac.ads		interfac.ali
+W options%s		options.adb		options.ali
+W output_file%s		output_file.adb		output_file.ali
+W parse_table%s		parse_table.adb		parse_table.ali
+W parser%s		parser.adb		parser.ali
+W rule_table%s		rule_table.adb		rule_table.ali
+W source_file%s		source_file.adb		source_file.ali
+W string_pkg%s		string_pkg.adb		string_pkg.ali
+W symbol_table%s	symbol_table.adb	symbol_table.ali
+Z system%s		system.ads		system.ali
+Z system.concat_2%s	s-conca2.adb		s-conca2.ali
+Z system.concat_3%s	s-conca3.adb		s-conca3.ali
+Z system.exception_table%s  s-exctab.adb	s-exctab.ali
+Z system.img_enum_new%s	s-imenne.adb		s-imenne.ali
+Z system.img_int%s	s-imgint.adb		s-imgint.ali
+Z system.secondary_stack%s  s-secsta.adb	s-secsta.ali
+Z system.standard_library%s  s-stalib.adb	s-stalib.ali
+Z system.val_enum%s	s-valenu.adb		s-valenu.ali
+W tokens_file%s		tokens_file.adb		tokens_file.ali
+
+D ada.ads		20220527072110 76789da1 ada%s
+D a-comlin.ads		20220527072110 4aa66568 ada.command_line%s
+D a-except.ads		20220527072110 291912d5 ada.exceptions%s
+D a-ioexce.ads		20220527072110 e4a01f64 ada.io_exceptions%s
+D a-stream.ads		20220527072110 119b8fb3 ada.streams%s
+D a-tags.ads		20220527072110 491b781d ada.tags%s
+D a-textio.ads		20220527072110 881db35a ada.text_io%s
+D a-unccon.ads		20220527072110 0e9b276f ada.unchecked_conversion%s
+D ayacc.adb		20221217092829 0244d11c ayacc%b
+D ayacc-initialize.adb	20221217092829 c3932733 ayacc.initialize
+D ayacc-initialize-get_arguments.adb  20221217092829 38da14aa ayacc.initialize.get_arguments
+D ayacc-print_statistics.adb  20221217092829 d705ba4f ayacc.print_statistics
+D ayacc_file_names.ads	20221217092829 a6c3e0e9 ayacc_file_names%s
+D command_line_interface.ads  20221217092829 cb085bb7 command_line_interface%s
+D error_report_file.ads	20221217092829 a2a95570 error_report_file%s
+D interfac.ads		20220527072110 5ab55268 interfaces%s
+D i-cstrea.ads		20220527072110 e53d8b8e interfaces.c_streams%s
+D lists.ads		20221217092829 0f2f111c lists%s
+D options.ads		20221217092829 d66de997 options%s
+D output_file.ads	20221217092829 d747e4a2 output_file%s
+D parse_table.ads	20221217092829 0f7f9f9f parse_table%s
+D parser.ads		20221217092829 01bbe7d5 parser%s
+D rule_table.ads	20221217092829 d24be121 rule_table%s
+D source_file.ads	20221217092829 07b08ce7 source_file%s
+D string_lists.ads	20221217092829 1e44dcf3 string_lists%s
+D string_pkg.ads	20221217092829 e0c323f4 string_pkg%s
+D symbol_table.ads	20221217092829 0697d919 symbol_table%s
+D system.ads		20220527072110 4635ec04 system%s
+D s-conca2.ads		20220527072110 02a0d7d0 system.concat_2%s
+D s-conca3.ads		20220527072110 0b705ca5 system.concat_3%s
+D s-crtl.ads		20220527072110 0ebbdb71 system.crtl%s
+D s-exctab.ads		20220527072110 54135002 system.exception_table%s
+D s-ficobl.ads		20220527072110 078245e4 system.file_control_block%s
+D s-imenne.ads		20220527072110 614c06c0 system.img_enum_new%s
+D s-imgint.ads		20220527072110 02dbe0c2 system.img_int%s
+D s-parame.ads		20220527072110 48ec542b system.parameters%s
+D s-secsta.ads		20220527072110 20bbe636 system.secondary_stack%s
+D s-soflin.ads		20220527072110 a7318a92 system.soft_links%s
+D s-stache.ads		20220527072110 a37c21ec system.stack_checking%s
+D s-stalib.ads		20220527072110 09bd3940 system.standard_library%s
+D s-stoele.ads		20220527072110 2dc34a04 system.storage_elements%s
+D s-traent.ads		20220527072110 005bf670 system.traceback_entries%s
+D s-unstyp.ads		20220527072110 34867c83 system.unsigned_types%s
+D s-valenu.ads		20220527072110 bb1a4295 system.val_enum%s
+D s-wchcon.ads		20220527072110 1b7d22d2 system.wch_con%s
+D tokens_file.ads	20221217092829 7022e120 tokens_file%s
+X 1 ada.ads
+16K9*Ada 20e8 9|64r6 74r6 94r9 134r9 134r43 140r9 140r43 146r9 146r43 149r10
+. 149r35 152r9 152r43 158r9 158r43 12|3r9
+X 2 a-comlin.ads
+36K13*Command_Line 144e21 9|64w10 134r13 134r47 140r13 140r47 146r13 146r47
+. 152r13 152r47 158r13 158r47
+70I9*Exit_Status<integer>
+73i4*Failure{70I9} 9|134r60 140r60 146r60 152r60 158r60
+75U14*Set_Exit_Status 9|134s26 140s26 146s26 152s26 158s26
+X 7 a-textio.ads
+49K13*Text_IO 471e16 9|74w10 94r13 149r14 149r39 12|3r13
+166U14*New_Line 10|91s3 106s3 11|54s5 56s5 58s5 68s5 83s5
+263U14*Put_Line 9|132s9 156s9 10|92s3 93s3 95s3 97s3 99s3 102s3 105s3 11|55s5
+. 57s5 59s5 60s5 61s5 62s5 63s5 65s5 67s5 69s5 70s5 71s5 72s5 73s5 74s5 75s5
+. 76s5 78s5 79s5 81s5 82s5 97s5 12|8s9 10s9 14s9 18s9 20s9 23s9 29s13 33s13
+294X4*Name_Error 9|149r22
+295X4*Use_Error 9|149r47
+X 9 ayacc.adb
+84U11*Ayacc 84b11 160l5 160t10 10|51r11 11|6r11 12|1r10
+86a5 Rcs_ID{string}
+88a5 copyright{string}
+90a5 copyright2{string}
+92X5 Illegal_Argument_List 137r35 10|135r11
+95U15 Initialize 100s5 10|52b11 136l5 136t15 11|6r17
+96U15 Print_Statistics 126s5 12|2b11 39l5 39t21
+X 10 ayacc-initialize.adb
+55p3 Input_File{26|95P10} 81m18 81r18 92r54 130r26
+55p15 Extension{26|95P10} 89m18 89r18 105r54 130r45
+55p26 Options{26|95P10} 109m5 109r16 113m5 113r16 117m5 117r16 121m5 121r16
+. 126m5 126r16 131r26
+57E8 Switch 57e30 65r18 70r49 71r49 72r49 73r49 75r49 94r39 96r39 98r39 100r39
+. 103r39 11|8r47 9r47 10r47 11r47 13r47 39r49 41r16
+57n20 On{57E8} 108r19 112r19 116r21 120r21 125r28
+57n25 Off{57E8}
+59e3 C_Lex_Flag{57E8} 82m18 94r52 108r6
+60e3 Debug_Flag{57E8} 83m18 96r52 112r6
+61e3 Summary_Flag{57E8} 84m18 98r52 116r6
+63e3 Error_Recovery_Flag{57E8} 87m18 103r52 125r6
+65e3 Verbose_Flag{57E8} 85m18 100r52 120r6
+67X3 Invalid_Command_Line 134r8 11|157r11
+69U13 Get_Arguments 69<28 70<28 71<28 72<28 73<28 75<28 77<28 81s3 11|7b11
+. 159l5 159t18
+69p28 File{26|95P10} 11|7b26 102m3 114m5
+70e28 C_Lex{57E8} 11|8b26 141m3
+71e28 Debug{57E8} 11|9b26 142m3
+72e28 Summary{57E8} 11|10b26 143m3
+73e28 Verbose{57E8} 11|11b26 144m3
+75e28 Error_Recovery{57E8} 11|13b26 146m3
+77p28 Extension{26|95P10} 11|15b26 110m3 128m17
+X 11 ayacc-initialize-get_arguments.adb
+17p3 C_Lex_Argument{26|95P10} 103m3 116m7 141r37
+18p3 Debug_Argument{26|95P10} 104m3 118m9 142r37
+19p3 Summary_Argument{26|95P10} 105m3 120m11 143r37
+20p3 Verbose_Argument{26|95P10} 106m3 122m13 144r37
+22p3 Error_Recovery_Argument{26|95P10} 108m3 125m15 146r44
+25i3 Positional{natural} 91m3 92r30 113r6 115r8 117r10 119r12 121r14 124r16
+. 127r18
+28i3 Total{natural} 92m3 94r6 96r9
+31N3 Max_Parameters 96r17 127r31 128r52
+33X3 Incorrect_Call 95r11 98r11 151r8
+39V12 Convert_Switch{10|57E8} 39b12 39>28 49l7 49t21 141s14 142s14 143s14
+. 144s14 146s21
+39a28 P{string} 41r31
+52U13 Put_Help_Message 52b13 84l7 84t23 156s5
+X 13 ayacc_file_names.ads
+61K9*Ayacc_File_Names 9|68w6 131r10 10|53r7 13|98e21
+63U15*Set_File_Names 10|130s3
+95X5*Illegal_File_Name 9|131r27
+X 14 command_line_interface.ads
+33K9*command_line_interface 11|2w6 2r34 89r3 139r3 14|212e27
+72I9*Argument_count{integer}
+80X1*missing_positional_arg 11|152r34
+83X1*invalid_named_association 11|153r34
+86X1*unreferenced_named_arg 11|153r8
+89X1*invalid_parameter_order 11|152r8
+97X1*Unbalanced_Parentheses 11|154r8
+101X1*Invalid_Parameter 11|48r13 151r34
+107U11*Initialize 11|89s26
+107a23 Tool_Name{string} 11|89r38
+113V10*Named_arg_count{72I9} 11|92s12
+118V10*Positional_arg_count{72I9} 11|91s17
+135V10*Positional_arg_value{26|95P10} 11|114s13 116s25 118s27 120s31 122s33
+. 125s42 128s30
+156V10*Named_arg_value{26|95P10} 11|102s23 103s23 104s23 105s23 106s23 108s30
+. 110s23
+206U11*Finalize 11|139s26
+X 15 error_report_file.ads
+10K9*Error_Report_File 9|81w6 115r7 15|31e22
+29U19*Write_File 9|115s25
+X 19 options.ads
+47K9*Options 9|69w6 114r8 122r8 137r10 10|53r25 12|6r8 19|94e12
+49U15*Set_Options 10|131s3
+76V14*Summary{boolean} 12|6s16
+80V14*Interface_to_C{boolean} 9|122s16
+87V14*Error_Recovery_Extension{boolean} 9|114s16
+92X5*Illegal_Option 9|137r18
+X 20 output_file.ads
+47K9*Output_File 9|72w6 108r5 20|51e16
+49U14*Make_Output_File 9|108s17
+X 21 parse_table.ads
+56K9*Parse_Table 9|73w6 107r5 12|3r22 21|68e16
+58U15*Make_Parse_Table 9|107s17
+62V15*Shift_Reduce_Conflicts{natural} 12|20s33 28s12 29s37
+63V15*Reduce_Reduce_Conflicts{natural} 12|23s33 32s12 33s37
+64V15*Number_of_States{natural} 12|18s32
+X 22 parser.ads
+51K9*Parser 9|70w6 105r5 106r5 143r10 22|62e4
+54U13*Parse_Declarations 9|105s12
+57U13*Parse_Rules 9|106s12
+60X3*Syntax_Error 9|143r17
+X 23 rule_table.ads
+49K9*Rule_Table 9|78w6 12|3r35 23|87e15
+58I10*Rule<short_integer> 12|8r18
+73V15*First_Rule{58I10} 12|8s41
+74V15*Last_Rule{58I10} 12|8s29
+X 24 source_file.ads
+48K9*Source_File 9|67w6 102r5 119r5 144r9 24|93e16
+60U16*Open 9|102s17
+61U16*Close 9|119s17 144s21
+X 26 string_pkg.ads
+14K9*string_pkg 10|49w6 49r23 11|3w6 3r34 26|597e15
+95P10*string_type 10|55r36 69r49 77r49 11|7r47 15r47 17r22 18r22 19r22 20r22
+. 22r29
+111V14*create{95P10} 10|55s51 109s26 113s26 117s26 121s26 126s26
+121V15*"&"{95P10} 10|109s24 113s24 117s24 121s24 126s24
+255V14*Mixed{95P10} 10|94s32 96s32 98s32 100s32 103s32
+390V14*value{string} 10|92s47 94s25 96s25 98s25 100s25 103s25 105s47 130s19
+. 130s39 131s19 11|141s30 142s30 143s30 144s30 146s37
+X 27 symbol_table.ads
+48K9*Symbol_Table 9|77w6 12|3r47 27|82e17
+50n38*Nonterminal{50E11} 12|11r24 11r52
+50n51*Terminal{50E11} 12|15r24 15r49
+52I11*Grammar_Symbol<short_integer> 12|10r18 14r18
+69V14*First_Symbol{52I11} 12|11s39 15s36
+70V14*Last_Symbol{52I11} 12|11s12 15s12
+X 46 tokens_file.ads
+48K9*Tokens_File 9|71w6 103r5 109r5 120r5 123r9 46|65e16
+50U15*Open 9|103s17
+56U15*Complete_Tokens_Package 9|109s17
+58U15*Make_C_Lex_Package 9|123s21
+60U15*Close 9|120s17
+

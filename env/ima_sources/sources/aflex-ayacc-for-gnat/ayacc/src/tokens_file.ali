@@ -1,0 +1,139 @@
+V "GNAT Lib v9"
+A -gnato
+A -fstack-check=specific
+P ZX
+
+RN
+RV NO_EXCEPTION_HANDLERS
+RV NO_EXCEPTION_PROPAGATION
+RV NO_EXCEPTIONS
+RV NO_IO
+RV NO_SECONDARY_STACK
+RV NO_STANDARD_STORAGE_POOLS
+RV NO_DEFAULT_INITIALIZATION
+RV NO_DYNAMIC_SIZED_OBJECTS
+RV SPARK_05
+
+U tokens_file%b		tokens_file.adb		a21c2a80 NE OO PK
+W ada%s			ada.ads			ada.ali
+Z ada.tags%s		a-tags.adb		a-tags.ali
+W ada.text_io%s		a-textio.adb		a-textio.ali
+W ayacc_file_names%s	ayacc_file_names.adb	ayacc_file_names.ali
+W source_file%s		source_file.adb		source_file.ali
+W string_pkg%s		string_pkg.adb		string_pkg.ali
+W symbol_table%s	symbol_table.adb	symbol_table.ali
+Z system.concat_2%s	s-conca2.adb		s-conca2.ali
+Z system.concat_3%s	s-conca3.adb		s-conca3.ali
+Z system.concat_5%s	s-conca5.adb		s-conca5.ali
+Z system.img_int%s	s-imgint.adb		s-imgint.ali
+Z system.secondary_stack%s  s-secsta.adb	s-secsta.ali
+
+U tokens_file%s		tokens_file.ads		7022e120 EE NE OO PK
+
+D ada.ads		20220527072110 76789da1 ada%s
+D a-except.ads		20220527072110 291912d5 ada.exceptions%s
+D a-ioexce.ads		20220527072110 e4a01f64 ada.io_exceptions%s
+D a-stream.ads		20220527072110 119b8fb3 ada.streams%s
+D a-tags.ads		20220527072110 491b781d ada.tags%s
+D a-textio.ads		20220527072110 881db35a ada.text_io%s
+D a-unccon.ads		20220527072110 0e9b276f ada.unchecked_conversion%s
+D ayacc_file_names.ads	20221217092829 a6c3e0e9 ayacc_file_names%s
+D interfac.ads		20220527072110 5ab55268 interfaces%s
+D i-cstrea.ads		20220527072110 e53d8b8e interfaces.c_streams%s
+D source_file.ads	20221217092829 07b08ce7 source_file%s
+D string_pkg.ads	20221217092829 e0c323f4 string_pkg%s
+D symbol_table.ads	20221217092829 0697d919 symbol_table%s
+D system.ads		20220527072110 4635ec04 system%s
+D s-conca2.ads		20220527072110 02a0d7d0 system.concat_2%s
+D s-conca3.ads		20220527072110 0b705ca5 system.concat_3%s
+D s-conca5.ads		20220527072110 875e432e system.concat_5%s
+D s-crtl.ads		20220527072110 0ebbdb71 system.crtl%s
+D s-exctab.ads		20220527072110 54135002 system.exception_table%s
+D s-ficobl.ads		20220527072110 078245e4 system.file_control_block%s
+D s-imgint.ads		20220527072110 02dbe0c2 system.img_int%s
+D s-parame.ads		20220527072110 48ec542b system.parameters%s
+D s-secsta.ads		20220527072110 20bbe636 system.secondary_stack%s
+D s-soflin.ads		20220527072110 a7318a92 system.soft_links%s
+D s-stache.ads		20220527072110 a37c21ec system.stack_checking%s
+D s-stalib.ads		20220527072110 09bd3940 system.standard_library%s
+D s-stoele.ads		20220527072110 2dc34a04 system.storage_elements%s
+D s-traent.ads		20220527072110 005bf670 system.traceback_entries%s
+D s-unstyp.ads		20220527072110 34867c83 system.unsigned_types%s
+D s-wchcon.ads		20220527072110 1b7d22d2 system.wch_con%s
+D tokens_file.ads	20221217092829 7022e120 tokens_file%s
+D tokens_file.adb	20221217092829 1d04ee19 tokens_file%b
+X 1 ada.ads
+16K9*Ada 20e8 32|59r51 73r13 76r13 102r13 108r13 114r13 161r27
+X 6 a-textio.ads
+49K13*Text_IO 471e16 32|59w55 73r17 76r17 102r17 108r17 114r17 161r31
+52P9*File_Type 32|73r25 163r27 164r27
+53n32*Out_File{53E9} 32|78r24 184r30 203r33
+86U14*Create 32|78s9 184s9 203s9
+98U14*Close 32|104s9 241s9 242s9
+165U14*New_Line 32|191s9 192s9 194s9 196s9 198s9 207s9 219s17 224s9
+241U14*Put 32|110s9 212s17 213s17 216s17 218s17
+259U14*Put_Line 32|116s9 186s9 188s9 189s9 190s9 193s9 195s9 197s9 199s9
+. 200s9 201s9 205s9 214s17 223s9 226s9 227s9 228s9 229s9 230s9 231s9 232s9
+. 233s9 234s9 235s9 240s9
+263U14*Put_Line 32|81s19
+294X4*Name_Error 32|80r19
+295X4*Use_Error 32|80r32
+X 8 ayacc_file_names.ads
+61K9*Ayacc_File_Names 98e21 32|59w6 78r34 81r56 94r30 155r26 184r40 186r43
+. 187r44 188r45 190r41 193r50 203r43 206r35 240r41
+74V15*Get_Tokens_File_Name{string} 32|78s51 81s73
+79V15*Get_C_Lex_File_Name{string} 32|184s57
+80V15*Get_Include_File_Name{string} 32|203s60
+85V12*C_Lex_Unit_Name{string} 32|188s62 190s58 193s67 240s58
+88V12*Tokens_Unit_Name{string} 32|94s47 155s43 186s60 187s61 206s52
+X 11 source_file.ads
+48K9*Source_File 93e16 32|59w24 168r36
+72V14*Maximum_Line_Length{natural} 32|168s48
+X 12 string_pkg.ads
+14K9*string_pkg 597e15 32|61w6 124r13
+95P10*string_type
+255V14*Mixed{95P10} 32|139s30 144s30 150s22
+390V14*value{string} 32|139s23 144s23 150s15
+X 13 symbol_table.ads
+48K9*Symbol_Table 82e17 32|59w37 125r13 161r13
+50n51*Terminal{50E11} 32|137r31 137r54 150r57 209r31 209r54
+52I11*Grammar_Symbol<short_integer> 32|214r50
+67V14*Get_Symbol_Name{string} 32|139s37 144s37 150s29 210s33
+69V14*First_Symbol{52I11} 32|137s18 209s18
+70V14*Last_Symbol{52I11} 32|137s42 150s45 209s42
+X 31 tokens_file.ads
+48K9*Tokens_File 65l5 65e16 32|62b14 245l5 245t16
+50U15*Open 32|75b15 83l9 83t13
+52U15*Start_Tokens_Package 32|91b15 98l9 98t29 130s9
+53V14*Tokens_Package_Header_Has_Been_Generated{boolean} 32|86b14 89l9 89t49
+56U15*Complete_Tokens_Package 32|121b15 157l9 157t32
+58U15*Make_C_Lex_Package 32|160b15 243t8
+60U15*Close 32|101b15 105l9 105t14
+62U15*Write 62>22 32|107b15 111l9 111t14 135s9 139s17 141s17 144s17 145s17
+. 150s9
+62a22 S{string} 32|107b21 110r20
+63U15*Writeln 63>23 32|94s9 95s9 113b15 117l9 117t16 133s9 134s9 140s17 151s9
+. 152s9 153s9 154s9 155s9
+63a23 S{string} 32|113b23 116r25
+X 32 tokens_file.adb
+64a3 SCCS_ID{string}
+68a3 Rcs_ID{string}
+70b3 Package_Header_Generated{boolean} 88r14 93r14 96m9 129r14
+73p5 T_File{6|52P9} 78m16 78r16 104m15 104r15 110r13 116r18
+123i9 Tokens_On_Line{natural} 138r16 142m17 147m13 147r31
+137i13 I<short_integer> 139r53 144r53
+163p9 The_Define_File{6|52P9} 203m16 203r16 205r18 207r19 212r21 213r21 214r26
+. 242m15 242r15
+164p9 The_Ada_File{6|52P9} 184m16 184r16 186r18 188r18 189r18 190r18 191r18
+. 192r18 193r18 194r18 195r18 196r18 197r18 198r18 199r18 200r18 201r18 216r21
+. 218r21 219r26 223r18 224r18 226r18 227r18 228r18 229r18 230r18 231r18 232r18
+. 233r18 234r18 235r18 240r18 241m15 241r15
+166R14 Symbol_Rec 170e23 172r20 174r45 175r22
+168a17 Name{string} 177m20 211r25 213r47 217r58 218r44
+169i17 Length{natural} 178m20 213r64 218r61
+172r9 Sym_Name{166R14} 210m13 211r16 213r38 213r55 217r49 218r35 218r52
+174V18 Convert{166R14} 174b18 174>26 180t12 210s25
+174a26 S{string} 177r28 177r41 178r30
+175r13 Result{166R14} 177m13 178m13 179r20
+209i13 I<short_integer> 210r49 214r71
+

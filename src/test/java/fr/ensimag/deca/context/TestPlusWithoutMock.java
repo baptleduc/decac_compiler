@@ -1,5 +1,7 @@
 package fr.ensimag.deca.context;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.deca.tree.AbstractExpr;
@@ -7,7 +9,6 @@ import fr.ensimag.deca.tree.Plus;
 import fr.ensimag.deca.tree.TreeFunction;
 import java.io.PrintStream;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Test for the Plus node in a manual way. The same test would be much easier to

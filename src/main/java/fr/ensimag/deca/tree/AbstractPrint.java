@@ -1,14 +1,15 @@
 package fr.ensimag.deca.tree;
 
-import fr.ensimag.deca.context.Type;
-import fr.ensimag.deca.context.FloatType;
-import fr.ensimag.deca.context.IntType;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
+import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.IndentPrintStream;
-import fr.ensimag.ima.pseudocode.Label;
+import fr.ensimag.ima.pseudocode.DVal;
+import fr.ensimag.ima.pseudocode.instructions.FLOAT;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
+import fr.ensimag.ima.pseudocode.instructions.WFLOATX;
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
 
@@ -42,13 +43,29 @@ public abstract class AbstractPrint extends AbstractInst {
         // Check the arguments passed to print
         for (AbstractExpr arg : this.getArguments().getList()) { // getArguments() returns the list of arguments
             arg.verifyExpr(compiler, localEnv, currentClass);
+            if (!(arg.getType().sameType(compiler.environmentType.INT) ||
+                    arg.getType().sameType(compiler.environmentType.FLOAT) ||
+                    arg.getType().sameType(compiler.environmentType.STRING))) {
+                throw new ContextualError("Var " + arg.getType().getName() + " can't be printed", arg.getLocation());
+            }
         }
     }
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
         for (AbstractExpr a : getArguments().getList()) {
-            a.codeGenPrint(compiler);
+            if (printHex && (a.getType().isInt() || a.getType().isFloat())) {
+                a.codeGenInst(compiler);
+                DVal dval = a.getDVal(compiler);
+                if (a.getType().isInt()) {
+                    compiler.addInstruction(new FLOAT(dval, compiler.getRegister1()));
+                } else {
+                    compiler.addInstruction(new LOAD(dval, compiler.getRegister1()));
+                }
+                compiler.addInstruction(new WFLOATX());
+            } else {
+                a.codeGenPrint(compiler);
+            }
         }
     }
 
@@ -58,7 +75,14 @@ public abstract class AbstractPrint extends AbstractInst {
 
     @Override
     public void decompile(IndentPrintStream s) {
-        throw new UnsupportedOperationException("not yet implemented");
+        s.print("print");
+        s.print(getSuffix());
+        if (printHex) {
+            s.print("x");
+        }
+        s.print("(");
+        arguments.decompile(s);
+        s.print(");");
     }
 
     @Override

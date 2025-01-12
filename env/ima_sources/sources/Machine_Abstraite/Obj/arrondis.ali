@@ -1,0 +1,55 @@
+V "GNAT Lib v9"
+A -gnatf
+A -gnatyM115
+A -gnatwl
+A -g
+A -gnato
+A -fstack-check=specific
+A -g
+A -fstack-check=specific
+P ZX
+
+RN
+RV NO_EXCEPTIONS
+RV NO_STANDARD_STORAGE_POOLS
+RV NO_ELABORATION_CODE
+RV SPARK_05
+
+U arrondis%b		arrondis.adb		b82c9e23 NE OO PK
+Z ada.exceptions%s	a-except.adb		a-except.ali
+Z interfaces%s		interfac.ads		interfac.ali
+
+U arrondis%s		arrondis.ads		746a376a EE OO PK
+Z system%s		system.ads		system.ali
+Z system.exception_table%s  s-exctab.adb	s-exctab.ali
+Z system.standard_library%s  s-stalib.adb	s-stalib.ali
+
+D ada.ads		20220527072110 76789da1 ada%s
+D a-except.ads		20220527072110 291912d5 ada.exceptions%s
+D a-unccon.ads		20220527072110 0e9b276f ada.unchecked_conversion%s
+D arrondis.ads		20221217092829 746a376a arrondis%s
+D arrondis.adb		20221217092829 cc46a949 arrondis%b
+D interfac.ads		20220527072110 5ab55268 interfaces%s
+D system.ads		20220527072110 4635ec04 system%s
+D s-exctab.ads		20220527072110 54135002 system.exception_table%s
+D s-parame.ads		20220527072110 48ec542b system.parameters%s
+D s-stalib.ads		20220527072110 09bd3940 system.standard_library%s
+D s-traent.ads		20220527072110 005bf670 system.traceback_entries%s
+X 4 arrondis.ads
+1K9*Arrondis 5l5 5e13 5|1b14 39l5 39t13
+2E9*Mode_Arrondi 2e78 3r50 5|26r50
+2n26*FE_TONEAREST{2E9} 5|30r15
+2n40*FE_UPWARD{2E9} 5|32r15
+2n51*FE_DOWNWARD{2E9} 5|31r15
+2n64*FE_TOWARDZERO{2E9} 5|33r15
+3U14*Positionner_Arrondi_Flottant 3>43 5|26b14 38t7
+3e43 Mode{2E9} 5|26b43 29r12
+4X4*Fe_Error 5|36r16
+X 5 arrondis.adb
+2V13 Fesetround_FE_TONEAREST{integer} 5b<c,fesetround_FE_TONEAREST>24 30s39
+8V13 Fesetround_FE_UPWARD{integer} 11b<c,fesetround_FE_UPWARD>24 32s39
+14V13 Fesetround_FE_DOWNWARD{integer} 17b<c,fesetround_FE_DOWNWARD>24 31s39
+20V13 Fesetround_FE_TOWARDZERO{integer} 23b<c,fesetround_FE_TOWARDZERO>24
+. 33s39
+27i7 Res{integer} 30m32 31m32 32m32 33m32 35r10
+

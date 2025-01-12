@@ -1,2 +1,2 @@
 // Test: Including a file located in the same directory
-#include "decl.deca"
+#include "test_parser_block.deca"

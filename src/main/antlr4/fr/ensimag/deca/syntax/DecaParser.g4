@@ -90,12 +90,14 @@ decl_var[AbstractIdentifier t] returns[AbstractDeclVar tree]
             AbstractInitialization init_tree = new NoInitialization();
         }
     : i=ident {;
+        setLocation(init_tree, $i.start);
         $tree = new DeclVar(t, $i.tree, init_tree);
         setLocation($tree, $i.start);
         }
       (EQUALS e=expr {
         assert($e.tree != null);
         init_tree = new Initialization($e.tree);
+        setLocation(init_tree, $e.start);
         $tree = new DeclVar(t, $i.tree, init_tree);
         setLocation($tree, $e.start);
         }
@@ -171,13 +173,20 @@ if_then_else returns[IfThenElse tree]
         }
       (ELSE elsif=IF OPARENT elsif_cond=expr CPARENT OBRACE elsif_li=list_inst CBRACE {
         assert($elsif_cond.tree != null);
-        $tree = new IfThenElse($elsif_cond.tree, $list_inst.tree, else_tree);
-        setLocation($tree, $elsif);
+        IfThenElse treeElseIf = new IfThenElse($elsif_cond.tree, $list_inst.tree, new ListInst());     
+        setLocation(treeElseIf, $elsif);
+        else_tree.add(treeElseIf);
         }
       )*
       (ELSE OBRACE li_else=list_inst CBRACE {
         assert($li_else.tree != null);
-        $tree.setElseBranch($li_else.tree);
+        if(else_tree.getLast() == null){
+                $tree.setElseBranch($li_else.tree);
+            }
+            else{
+                ((IfThenElse)(else_tree.getLast())).setElseBranch($li_else.tree);
+                $tree.setElseBranch(else_tree);
+            }
         }
       )?
     ;
@@ -301,9 +310,11 @@ inequality_expr returns[AbstractExpr tree]
             setLocation($tree, $LT);
         }
     | e1=inequality_expr INSTANCEOF type {
-            assert($e1.tree != null);
-            assert($type.tree != null);
-            //TODO
+            // assert($e1.tree != null);
+            // assert($type.tree != null);
+            // $tree = new InstanceOf($e1.tree, type.tree);
+            // setLocation($tree, INSTANCEOF);
+            //TODO not finished
         }
     ;
 
@@ -489,9 +500,9 @@ list_classes returns[ListDeclClass tree]
         $tree = new ListDeclClass();
     }
     :
-      (c1=class_decl {
-        }
-      )*
+        (c1=class_decl {
+            }
+        )*
     ;
 
 class_decl
@@ -557,7 +568,7 @@ list_params
         }
       )*)?
     ;
-    
+
 multi_line_string returns[String text, Location location]
     : s=STRING {
             $text = $s.text;

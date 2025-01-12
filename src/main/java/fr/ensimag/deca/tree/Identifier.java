@@ -1,16 +1,15 @@
 package fr.ensimag.deca.tree;
 
-import fr.ensimag.deca.context.Type;
-import fr.ensimag.deca.context.TypeDefinition;
-import fr.ensimag.deca.context.ClassType;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.Definition;
 import fr.ensimag.deca.context.EnvironmentExp;
+import fr.ensimag.deca.context.ExpDefinition;
 import fr.ensimag.deca.context.FieldDefinition;
 import fr.ensimag.deca.context.MethodDefinition;
-import fr.ensimag.deca.context.ExpDefinition;
+import fr.ensimag.deca.context.Type;
+import fr.ensimag.deca.context.TypeDefinition;
 import fr.ensimag.deca.context.VariableDefinition;
 import fr.ensimag.deca.tools.DecacInternalError;
 import fr.ensimag.deca.tools.IndentPrintStream;
@@ -170,7 +169,19 @@ public class Identifier extends AbstractIdentifier {
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
+        ExpDefinition exprDef = localEnv.get(name);
+        if (exprDef == null) {
+            throw new ContextualError("Variable " + name.getName() + " is not declared", getLocation());
+        }
+
+        if (!exprDef.isExpression()) {
+            throw new ContextualError("Variable " + name.getName() + " is not an expression", getLocation());
+        }
+
+        Type type = exprDef.getType();
+        setDefinition(exprDef);
+        setType(type);
+        return type;
     }
 
     /**
@@ -182,10 +193,10 @@ public class Identifier extends AbstractIdentifier {
     @Override
     public Type verifyType(DecacCompiler compiler) throws ContextualError {
         LOG.debug("verifyType : start");
-        Symbol integer = compiler.createSymbol("int");
-        TypeDefinition typeDef = compiler.environmentType.defOfType(integer);
+        Symbol symbol = compiler.createSymbol(name.getName());
+        TypeDefinition typeDef = compiler.environmentType.defOfType(symbol);
         if (typeDef == null) {
-            throw new ContextualError("Type " + name + " is not defined", getLocation());
+            throw new ContextualError("Type " + name.getName() + " is not defined", getLocation());
         }
         Type type = typeDef.getType();
         setType(type);
@@ -225,6 +236,16 @@ public class Identifier extends AbstractIdentifier {
             s.print(d);
             s.println();
         }
+    }
+
+    @Override
+    protected void codeGenInst(DecacCompiler compiler) {
+        setDVal(((VariableDefinition) getDefinition()).getOperand());
+    }
+
+    @Override
+    protected boolean isImmediate() {
+        return false;
     }
 
 }

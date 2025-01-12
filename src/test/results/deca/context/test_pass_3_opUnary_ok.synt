@@ -1,0 +1,45 @@
+`> [10, 0] Program
+   +> ListDeclClass [List with 0 elements]
+   `> [10, 0] Main
+      +> ListDeclVar [List with 4 elements]
+      |  []> [11, 12] DeclVar
+      |  ||  +> [11, 4] Identifier (int)
+      |  ||  |  definition: type (builtin), type=int
+      |  ||  +> [11, 8] Identifier (a)
+      |  ||  |  definition: variable defined at [11, 8], type=int
+      |  ||  `> [11, 12] Initialization
+      |  ||     `> [11, 12] UnaryMinus
+      |  ||        type: int
+      |  ||        `> [11, 14] Int (3)
+      |  ||           type: int
+      |  []> [12, 14] DeclVar
+      |  ||  +> [12, 4] Identifier (float)
+      |  ||  |  definition: type (builtin), type=float
+      |  ||  +> [12, 10] Identifier (b)
+      |  ||  |  definition: variable defined at [12, 10], type=float
+      |  ||  `> [12, 14] Initialization
+      |  ||     `> [12, 14] UnaryMinus
+      |  ||        type: float
+      |  ||        `> [12, 15] Float (5.4)
+      |  ||           type: float
+      |  []> [13, 16] DeclVar
+      |  ||  +> [13, 4] Identifier (boolean)
+      |  ||  |  definition: type (builtin), type=boolean
+      |  ||  +> [13, 12] Identifier (c)
+      |  ||  |  definition: variable defined at [13, 12], type=boolean
+      |  ||  `> [13, 16] Initialization
+      |  ||     `> [13, 16] Not
+      |  ||        type: boolean
+      |  ||        `> [13, 17] BooleanLiteral (true)
+      |  ||           type: boolean
+      |  []> [14, 16] DeclVar
+      |      +> [14, 4] Identifier (boolean)
+      |      |  definition: type (builtin), type=boolean
+      |      +> [14, 12] Identifier (d)
+      |      |  definition: variable defined at [14, 12], type=boolean
+      |      `> [14, 16] Initialization
+      |         `> [14, 16] Not
+      |            type: boolean
+      |            `> [14, 17] BooleanLiteral (false)
+      |               type: boolean
+      `> ListInst [List with 0 elements]

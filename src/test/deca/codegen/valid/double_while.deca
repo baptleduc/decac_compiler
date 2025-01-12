@@ -1,0 +1,19 @@
+// Description:
+//    Minimalistic program making a double while statement.
+// Results:
+//    20
+//
+// History:
+//    Created on 12/01/2025
+
+{       
+        int x = 5;
+	int y = 5;
+        while (x < 10 && y < 10) {
+	    while (x < 10){
+		x = x + 1;
+		y = y + 1;
+	    }
+        }
+        println(x + y);
+}

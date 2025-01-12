@@ -1,5 +1,6 @@
 package fr.ensimag.ima.pseudocode;
 
+import fr.ensimag.deca.DecacCompiler;
 import org.apache.commons.lang.Validate;
 
 /**
@@ -24,6 +25,16 @@ public class LabelOperand extends DVal {
     @Override
     public String toString() {
         return label.toString();
+    }
+
+    @Override
+    public GPRegister codeGenToGPRegister(DecacCompiler compiler) {
+        throw new UnsupportedOperationException("Not supposed to be called");
+    }
+
+    @Override
+    public void freeGPRegister(DecacCompiler compiler) {
+        throw new UnsupportedOperationException("Not supposed to be called");
     }
 
 }

@@ -1,0 +1,11 @@
+// Description:
+//    Minimalistic program testing printlnx on int
+// Results:
+//    0x1.4p+3 testing
+//
+// History:
+//    Created on 12/01/2025
+
+{
+    printlnx(10," testing");
+}

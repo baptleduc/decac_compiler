@@ -1,0 +1,12 @@
+// Description:
+//    Program testing that after an arith operation with a int right and  a intleft operand, the resulat is a type int
+//
+// Results:
+//    error
+//
+// History:
+//    Created on 9/01/2025
+
+{
+    int x = 1 + 1;
+}

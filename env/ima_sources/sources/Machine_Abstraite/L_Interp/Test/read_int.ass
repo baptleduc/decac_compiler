@@ -1,0 +1,9 @@
+; read int, and print it.
+start:
+	RINT
+	BOV dontprint
+	WINT
+	WNL
+	BRA start
+dontprint:
+	HALT

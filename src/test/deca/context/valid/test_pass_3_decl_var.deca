@@ -1,0 +1,13 @@
+// Description:
+//    Program testing that we can declar a var and a list of var  
+//
+// Results:
+//    ok
+//
+// History:
+//    Created on 9/01/2025
+
+
+{
+    int x = 5;
+}

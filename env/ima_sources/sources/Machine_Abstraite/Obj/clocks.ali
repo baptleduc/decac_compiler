@@ -1,0 +1,57 @@
+V "GNAT Lib v9"
+A -gnatf
+A -gnatyM115
+A -gnatwl
+A -g
+A -gnato
+A -fstack-check=specific
+A -g
+A -fstack-check=specific
+P ZX
+
+RN
+RV NO_CALENDAR
+RV NO_DELAY
+RV NO_FIXED_POINT
+RV NO_FLOATING_POINT
+RV NO_ELABORATION_CODE
+RV SPARK_05
+
+U clocks%b		clocks.adb		d86b564b OO PK
+W ada%s			ada.ads			ada.ali
+W ada.calendar%s	a-calend.adb		a-calend.ali
+
+U clocks%s		clocks.ads		22e3510f EB EE NE OO PK
+W types_base%s		types_base.adb		types_base.ali
+
+D ada.ads		20220527072110 76789da1 ada%s
+D a-calend.ads		20220527072110 b288ede8 ada.calendar%s
+D a-unccon.ads		20220527072110 0e9b276f ada.unchecked_conversion%s
+D clocks.ads		20221217092829 9965be93 clocks%s
+D clocks.adb		20221217092829 f3860530 clocks%b
+D system.ads		20220527072110 4635ec04 system%s
+D s-exctab.ads		20220527072110 54135002 system.exception_table%s
+D s-stalib.ads		20220527072110 09bd3940 system.standard_library%s
+D types_base.ads	20221217092829 bb86ef9c types_base%s
+X 1 ada.ads
+16K9*Ada 20e8 5|1r6 1r24
+X 2 a-calend.ads
+36K13*Calendar 410e17 5|1w10 1r28
+42I9*Time<223I9> 5|5r24 7r20
+56V13*Clock{42I9} 5|7s28 17s22
+82V13*Time_Of{42I9} 5|5s32
+113V14*"-"{duration} 5|8s49 17s28
+223I9 Time_Rep<long_long_integer>
+X 4 clocks.ads
+15K9*Clocks 17r26 28l5 28e11 5|3b14 20l5 20t11
+19V13*Start_Clk{9|26I9} 5|10b13 13t7
+24V13*Clk{9|41F9} 5|15b13 18t7
+X 5 clocks.adb
+5i4 Year_2001{2|42I9} 8r51
+7i4 Start{2|42I9} 8r43 17r30
+8i4 Start_Clock{9|26I9} 12r14
+X 9 types_base.ads
+17K9*Types_Base 4|13w6 13r22 9|65e15
+26I9*Entier<integer> 4|19r30 5|8r26 8r36 10r30
+41F9*Flot_MA<short_float> 4|24r24 5|15r24 17r14
+

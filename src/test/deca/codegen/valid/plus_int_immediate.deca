@@ -1,0 +1,12 @@
+// Description:
+//    Minimalistic program making Plus arithmetic operation with 2 immediates integers
+// Results:
+//    3
+//
+// History:
+//    Created on 08/01/2025
+
+{       
+        int x = 1 +2;
+        println(x);
+}

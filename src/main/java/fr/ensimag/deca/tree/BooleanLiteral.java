@@ -1,11 +1,12 @@
 package fr.ensimag.deca.tree;
 
-import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
+import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.ima.pseudocode.ImmediateInteger;
 import java.io.PrintStream;
 
 /**
@@ -16,9 +17,16 @@ import java.io.PrintStream;
 public class BooleanLiteral extends AbstractExpr {
 
     private boolean value;
+    private ImmediateInteger immediate;
 
     public BooleanLiteral(boolean value) {
         this.value = value;
+        if (value) {
+            this.immediate = new ImmediateInteger(1);
+        } else {
+            this.immediate = new ImmediateInteger(0);
+        }
+
     }
 
     public boolean getValue() {
@@ -28,7 +36,14 @@ public class BooleanLiteral extends AbstractExpr {
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
+        // Retrieve the 'boolean' type from the predefined environment
+        Type booleanType = compiler.environmentType.BOOLEAN;
+
+        // Decorate the node with the 'boolean' type
+        this.setType(booleanType);
+
+        // Return the type of the expression
+        return booleanType;
     }
 
     @Override
@@ -49,6 +64,16 @@ public class BooleanLiteral extends AbstractExpr {
     @Override
     String prettyPrintNode() {
         return "BooleanLiteral (" + value + ")";
+    }
+
+    @Override
+    protected boolean isImmediate() {
+        return true;
+    }
+
+    @Override
+    protected void codeGenInst(DecacCompiler compiler) {
+        setDVal(immediate);
     }
 
 }
