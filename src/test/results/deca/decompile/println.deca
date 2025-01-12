@@ -1,0 +1,6 @@
+{
+	println(12);
+	println("Hello World");
+	println(0x1.0p-1);
+}
+
