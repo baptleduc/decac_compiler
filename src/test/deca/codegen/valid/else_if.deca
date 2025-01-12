@@ -1,0 +1,20 @@
+// Description:
+//    Minimalistic program making a if else if else statement, passing the else if block.
+// Results:
+//    right result
+//
+// History:
+//    Created on 12/01/2025
+
+{
+    int x = 0;
+    if (x == 3){
+	println("wrong result");
+    }
+    else if (x == 0 ){
+	println("right result");
+    }
+    else{
+	println("wrong result");
+    }
+}

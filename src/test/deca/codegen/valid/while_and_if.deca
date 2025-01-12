@@ -1,0 +1,17 @@
+// Description:
+//    Minimalistic program making a while and a if then else statement.
+// Results:
+//    10
+//
+// History:
+//    Created on 12/01/2025
+
+{
+    int x = 4;
+    while (x < 20){
+	x= x+1;
+	if (x == 10){
+	    println(x);
+	}
+    }
+}
