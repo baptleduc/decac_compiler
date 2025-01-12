@@ -54,8 +54,6 @@ public class Main extends AbstractMain {
         // Generate code for instructions
         insts.codeGenListInst(compiler);
 
-        // Add the TSTO instruction
-        compiler.stackOverflowCheck(compiler.getCompilerOptions().getVerify());
     }
 
     @Override
