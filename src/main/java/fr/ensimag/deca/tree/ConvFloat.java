@@ -5,6 +5,9 @@ import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.ima.pseudocode.DVal;
+import fr.ensimag.ima.pseudocode.GPRegister;
+import fr.ensimag.ima.pseudocode.instructions.FLOAT;
 
 /**
  * Conversion of an int into a float. Used for implicit conversions.
@@ -37,5 +40,14 @@ public class ConvFloat extends AbstractUnaryExpr {
     @Override
     protected boolean isImmediate() {
         return false;
+    }
+
+    @Override 
+    protected void codeGenInst(DecacCompiler compiler) {
+        getOperand().codeGenInst(compiler);
+        DVal reg = getOperand().getDVal(compiler);
+        GPRegister regDest = reg.codeGenToGPRegister(compiler);
+        compiler.addInstruction(new FLOAT(reg, regDest));
+        setDVal(regDest);
     }
 }
