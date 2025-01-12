@@ -27,4 +27,9 @@ public class GPRegister extends Register {
     public GPRegister codeGenToGPRegister(DecacCompiler compiler) {
         return this;
     }
+
+    @Override
+    public void free(DecacCompiler compiler) {
+        compiler.freeRegister(this);
+    }
 }

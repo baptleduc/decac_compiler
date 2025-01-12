@@ -11,8 +11,6 @@ import fr.ensimag.deca.tools.SymbolTable.Symbol;
 import fr.ensimag.deca.tree.AbstractProgram;
 import fr.ensimag.deca.tree.LocationException;
 import fr.ensimag.ima.pseudocode.AbstractLine;
-import fr.ensimag.ima.pseudocode.DAddr;
-import fr.ensimag.ima.pseudocode.DVal;
 import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.IMAProgram;
 import fr.ensimag.ima.pseudocode.ImmediateInteger;
@@ -23,9 +21,7 @@ import fr.ensimag.ima.pseudocode.RegisterOffset;
 import fr.ensimag.ima.pseudocode.instructions.ADDSP;
 import fr.ensimag.ima.pseudocode.instructions.BOV;
 import fr.ensimag.ima.pseudocode.instructions.ERROR;
-import fr.ensimag.ima.pseudocode.instructions.LOAD;
 import fr.ensimag.ima.pseudocode.instructions.PUSH;
-import fr.ensimag.ima.pseudocode.instructions.STORE;
 import fr.ensimag.ima.pseudocode.instructions.TSTO;
 import fr.ensimag.ima.pseudocode.instructions.WNL;
 import fr.ensimag.ima.pseudocode.instructions.WSTR;
@@ -231,14 +227,6 @@ public class DecacCompiler {
         return stackManager.getLastUsedRegister();
     }
 
-    public GPRegister popUsedRegister() {
-        return stackManager.popUsedRegister();
-    }
-
-    public void pushUsedRegister(GPRegister reg) {
-        stackManager.pushUsedGPRegister(reg);
-    }
-
     public void freeRegister(GPRegister reg) {
         stackManager.pushAvailableGPRegister(reg);
     }
@@ -259,39 +247,12 @@ public class DecacCompiler {
         return stackManager.getRegister0();
     }
 
-    /**
-     * Adds a LOAD instruction to load an immediate value into an available
-     * register.
-     *
-     * @param value
-     *            the immediate value to be loaded into the register
-     */
-    public void loadDVal(GPRegister dest, DVal dval) {
-        program.addInstruction(new LOAD(dval, dest));
-    }
-
-    /**
-     * Stores the value of the last used register into the specified memory address
-     * and releases the register for future use.
-     *
-     * @param addr
-     *            the memory address where the last used register's value will be
-     *            stored
-     */
-    public void storeLastUsedRegister(DAddr addr) {
-        GPRegister lastUsedRegister = stackManager.getLastUsedRegister();
-        addInstruction(new STORE(lastUsedRegister, addr));
-        // Release the register because its value is stored in memory
-        stackManager.pushAvailableGPRegister(lastUsedRegister);
-    }
-
     /*
-     * Retrieves the next available general-purpose register (GPRegister) from the
-     * list of available registers index. If there are no available registers, it
-     * saves the last used register onto the stack and marks it as available for
-     * reuse.
+     * Allocates a general-purpose register (GPRegister) for use by the compiler.
+     * If there are no available registers, it saves the last used register onto
+     * the stack and returns it.
      */
-    public GPRegister getAvailableGPRegister() {
+    public GPRegister allocGPRegister() {
         GPRegister reg = stackManager.popAvailableGPRegister(); // Get the next available register
         if (stackManager.isAvailableGPRegisterEmpty()) {
             saveRegister(reg);

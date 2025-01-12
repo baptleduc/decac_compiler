@@ -67,6 +67,9 @@ public class Program extends AbstractProgram {
         stackManager.getProgram().append(mainIMAProgram);
 
         compiler.addInstruction(new HALT());
+
+        // Error management
+        compiler.stackOverflowCheck(compiler.getCompilerOptions().getVerify());
     }
 
     @Override

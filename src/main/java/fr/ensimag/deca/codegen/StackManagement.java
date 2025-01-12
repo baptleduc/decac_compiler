@@ -85,8 +85,9 @@ public class StackManagement {
      * @return the size of the stack frame needed for the TSTO instruction
      */
     public int getNeededStackFrame() {
-        return numSavedRegisters + numVariables + numTemporaries + numMethodParams; // 2 * numMethodParams because BSR
-                                                                                    // makes 2 pushes
+        return numSavedRegisters + numVariables + numTemporaries + 2 * numMethodParams; // 2 * numMethodParams because
+                                                                                        // BSR
+        // makes 2 pushes
     }
 
     /**

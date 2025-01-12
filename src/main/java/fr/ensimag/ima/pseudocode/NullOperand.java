@@ -20,4 +20,9 @@ public class NullOperand extends DVal {
         throw new UnsupportedOperationException("Not supposed to be called");
     }
 
+    @Override
+    public void free(DecacCompiler compiler) {
+        throw new UnsupportedOperationException("Not supposed to be called");
+    }
+
 }
