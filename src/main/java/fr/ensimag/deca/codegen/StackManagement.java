@@ -4,6 +4,8 @@ import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.IMAProgram;
 import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.RegisterOffset;
+
+import java.lang.reflect.Type;
 import java.util.LinkedList;
 import org.apache.log4j.Logger;
 
@@ -19,13 +21,12 @@ public class StackManagement {
     private LinkedList<Integer> idxAvailableGPRegisters;
     private LinkedList<Integer> idxUsedGPRegisters;
 
-    private int offsetGB = 1;
-    private int offsetLB = 1;
-    private int offsetSP = 1;
+    private int offsetGB = 0;
+    private int offsetLB = 0;
+    private int offsetSP = 0;
 
     // Add counters to calculate "d"
     private int numSavedRegisters = 0;
-    private int numVariables = 0;
     private int numTemporaries = 0;
     private int numMethodParams = 0;
 
@@ -52,7 +53,7 @@ public class StackManagement {
     }
 
     public String getCommentTSTO() {
-        return numVariables + " (variables) + " + numSavedRegisters + " (saved registers) + " + numTemporaries
+        return (offsetGB+ offsetLB) + " (variables) + " + numSavedRegisters + " (saved registers) + " + numTemporaries
                 + " (temporaries) + " + 2 * numMethodParams + " (method parameters x 2)";
     }
 
@@ -69,9 +70,9 @@ public class StackManagement {
     }
 
     public RegisterOffset addGlobalVariable() {
-        offsetGB++;
-        numVariables++;
-        return new RegisterOffset(offsetGB, GB);
+
+        //TODO: switch case to determine the size of the offset and add type in arg
+        return new RegisterOffset(++offsetGB, GB);
     }
 
     public IMAProgram getProgram() {
@@ -85,7 +86,7 @@ public class StackManagement {
      * @return the size of the stack frame needed for the TSTO instruction
      */
     public int getNeededStackFrame() {
-        return numSavedRegisters + numVariables + numTemporaries + 2 * numMethodParams; // 2 * numMethodParams because
+        return numSavedRegisters + (offsetGB+ offsetLB) + numTemporaries + 2 * numMethodParams; // 2 * numMethodParams because
                                                                                         // BSR
         // makes 2 pushes
     }

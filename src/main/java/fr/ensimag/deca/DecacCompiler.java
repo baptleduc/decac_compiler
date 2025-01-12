@@ -30,6 +30,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.lang.reflect.Type;
+
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.apache.log4j.Logger;
@@ -253,12 +255,13 @@ public class DecacCompiler {
      * the stack and returns it.
      */
     public GPRegister allocGPRegister() {
-        GPRegister reg = stackManager.popAvailableGPRegister(); // Get the next available register
         if (stackManager.isAvailableGPRegisterEmpty()) {
+            GPRegister reg = stackManager.getLastUsedRegister();
             saveRegister(reg);
-            stackManager.pushAvailableGPRegister(reg);
+            return reg ;
         }
-        stackManager.pushUsedGPRegister(reg); // Mark the register as used
+        GPRegister reg =stackManager.popAvailableGPRegister();
+        stackManager.pushUsedGPRegister(reg);
         return reg;
     }
 
@@ -266,6 +269,7 @@ public class DecacCompiler {
      * Saves the given register onto the stack by pushing it and marks it as
      * available for reuse.
      * Updates the list of available and used registers index.
+     * NOTE: 
      *
      * @param reg
      *            the register to be saved onto the stack

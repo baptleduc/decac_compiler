@@ -33,7 +33,7 @@ public class LabelOperand extends DVal {
     }
 
     @Override
-    public void free(DecacCompiler compiler) {
+    public void freeGPRegister(DecacCompiler compiler) {
         throw new UnsupportedOperationException("Not supposed to be called");
     }
 

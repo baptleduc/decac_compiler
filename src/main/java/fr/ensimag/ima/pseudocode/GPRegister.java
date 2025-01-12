@@ -29,7 +29,7 @@ public class GPRegister extends Register {
     }
 
     @Override
-    public void free(DecacCompiler compiler) {
+    public void freeGPRegister(DecacCompiler compiler) {
         compiler.freeRegister(this);
     }
 }

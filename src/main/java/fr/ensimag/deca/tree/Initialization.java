@@ -68,6 +68,7 @@ public class Initialization extends AbstractInitialization {
         GPRegister regDest = dval.codeGenToGPRegister(compiler);
 
         compiler.addInstruction(new STORE(regDest, addr));
+        regDest.freeGPRegister(compiler);
         LOG.debug("STORE " + regDest + "," + addr);
     }
 }

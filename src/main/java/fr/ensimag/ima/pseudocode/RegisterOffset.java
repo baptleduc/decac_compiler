@@ -35,7 +35,7 @@ public class RegisterOffset extends DAddr {
     }
 
     @Override
-    public void free(DecacCompiler compiler) {
+    public void freeGPRegister(DecacCompiler compiler) {
         // Do nothing
     }
 
