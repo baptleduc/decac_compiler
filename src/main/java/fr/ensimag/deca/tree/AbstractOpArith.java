@@ -18,8 +18,19 @@ import org.apache.log4j.Logger;
 public abstract class AbstractOpArith extends AbstractBinaryExpr {
     private static final Logger LOG = Logger.getLogger(AbstractOpArith.class);
 
+    private GPRegister regDest;
+    private DVal sourceDVal; // source register or immediate value or Register Offset
+
     public AbstractOpArith(AbstractExpr leftOperand, AbstractExpr rightOperand) {
         super(leftOperand, rightOperand);
+    }
+
+    protected void setRegDest(GPRegister newRegDest) {
+        regDest = newRegDest;
+    }
+
+    protected void setSourceDVal(DVal newSourceDVal) {
+        sourceDVal = newSourceDVal;
     }
 
     /**
@@ -68,34 +79,63 @@ public abstract class AbstractOpArith extends AbstractBinaryExpr {
         return opType;
     }
 
-    @Override
-    protected void codeGenInst(DecacCompiler compiler) {
-        getLeftOperand().codeGenInst(compiler);
-        getRightOperand().codeGenInst(compiler);
+    /**
+     * Optimizes the case where the left operand is an immediate value.
+     * Only used for commutative operations, override for non-commutative
+     * operations.
+     * 
+     * @param compiler
+     *            The compiler used for code generation.
+     * @param leftDVal
+     *            The left operand.
+     * @param rightDVal
+     *            The right operand.
+     */
+    protected void optimizeLeftImmediate(DecacCompiler compiler, DVal leftDVal, DVal rightDVal) {
+        regDest = rightDVal.codeGenToGPRegister(compiler);
+        sourceDVal = leftDVal;
+    }
 
+    /**
+     * Initializes the destination register and source operand.
+     * 
+     * @param compiler
+     *            The compiler used for code generation.
+     */
+    private void initializeRegisters(DecacCompiler compiler) {
         boolean leftIsImmediate = getLeftOperand().isImmediate();
         boolean rightIsImmediate = getRightOperand().isImmediate();
 
         DVal leftDVal = getLeftOperand().getDVal(compiler);
         DVal rightDVal = getRightOperand().getDVal(compiler);
-        LOG.debug("Left DVal: " + leftDVal.toString());
-        LOG.debug("Right DVal: " + rightDVal.toString());
-        assert (leftDVal != null && rightDVal != null);
 
-        GPRegister regDest = null;
-        if (rightIsImmediate) {
+        if (rightIsImmediate) { // Right operand is immediate
             regDest = leftDVal.codeGenToGPRegister(compiler);
-            codeGenOperationInst(regDest, rightDVal, compiler);
-        } else if (leftIsImmediate) {
-            regDest = rightDVal.codeGenToGPRegister(compiler);
-            codeGenOperationInst(regDest, leftDVal, compiler);
-        } else {
+            sourceDVal = rightDVal;
+        } else if (leftIsImmediate) { // Left operand is immediate, optimize
+            optimizeLeftImmediate(compiler, leftDVal, rightDVal);
+        } else { // Both operands are registers
             regDest = leftDVal.codeGenToGPRegister(compiler);
-            GPRegister regRight = rightDVal.codeGenToGPRegister(compiler);
-            codeGenOperationInst(regDest, regRight, compiler);
-            compiler.freeRegister(regRight);
+            sourceDVal = rightDVal.codeGenToGPRegister(compiler);
         }
+    }
+
+    @Override
+    protected void codeGenInst(DecacCompiler compiler) {
+        // Generate code for the left and right operands
+        getLeftOperand().codeGenInst(compiler);
+        getRightOperand().codeGenInst(compiler);
+
+        // Initialize registers and operands for the operation
+        initializeRegisters(compiler);
+
+        // Generate the operation instruction
+        codeGenOperationInst(regDest, sourceDVal, compiler);
+
+        // Free the source operand if necessary
+        sourceDVal.free(compiler);
+
+        // Store the result in the destination DVal
         setDVal(regDest);
-        compiler.pushUsedRegister(regDest);
     }
 }

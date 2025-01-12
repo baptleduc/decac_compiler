@@ -38,4 +38,13 @@ public class Divide extends AbstractOpArith {
     protected boolean isImmediate() {
         return false;
     }
+
+    @Override
+    protected void optimizeLeftImmediate(DecacCompiler compiler, DVal leftDVal, DVal rightDVal) {
+        // Divide does not have a commutative property so we cannot optimize
+        GPRegister regDest = leftDVal.codeGenToGPRegister(compiler);
+        DVal sourceDVal = rightDVal.codeGenToGPRegister(compiler);
+        setRegDest(regDest);
+        setSourceDVal(sourceDVal);
+    }
 }

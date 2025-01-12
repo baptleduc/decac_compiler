@@ -19,9 +19,14 @@ public class ImmediateFloat extends DVal {
 
     @Override
     public GPRegister codeGenToGPRegister(DecacCompiler compiler) {
-        GPRegister reg = compiler.getAvailableGPRegister();
+        GPRegister reg = compiler.allocGPRegister();
         compiler.addInstruction(new LOAD(this, reg));
         return reg;
+    }
+
+    @Override
+    public void free(DecacCompiler compiler) {
+        // Do nothing
     }
 
     @Override

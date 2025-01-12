@@ -1,6 +1,7 @@
 package fr.ensimag.ima.pseudocode;
 
 import fr.ensimag.deca.DecacCompiler;
+import fr.ensimag.deca.tools.DecacInternalError;
 import org.apache.log4j.Logger;
 
 /**
@@ -24,8 +25,11 @@ public class Register extends DVal {
     }
 
     public GPRegister codeGenToGPRegister(DecacCompiler compiler) {
-        LOG.error("Call on Register:" + name);
-        return null;
+        throw new DecacInternalError("Should not be called");
+    }
+
+    public void free(DecacCompiler compiler) {
+        throw new DecacInternalError("Should not be called");
     }
 
     /**
