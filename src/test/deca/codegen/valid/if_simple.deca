@@ -1,0 +1,17 @@
+// Description:
+//    Minimalistic program making a If-then-else statement, passing through the if branch.
+// Results:
+//    10
+//
+// History:
+//    Created on 12/01/2025
+
+{       
+        int x = 10;
+        if (x == 10) {
+            println(x);
+        }
+        else {
+            println(0);
+        }
+}
