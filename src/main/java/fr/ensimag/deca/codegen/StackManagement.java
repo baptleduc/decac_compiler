@@ -4,8 +4,6 @@ import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.IMAProgram;
 import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.RegisterOffset;
-
-import java.lang.reflect.Type;
 import java.util.LinkedList;
 import org.apache.log4j.Logger;
 
@@ -53,7 +51,7 @@ public class StackManagement {
     }
 
     public String getCommentTSTO() {
-        return (offsetGB+ offsetLB) + " (variables) + " + numSavedRegisters + " (saved registers) + " + numTemporaries
+        return (offsetGB + offsetLB) + " (variables) + " + numSavedRegisters + " (saved registers) + " + numTemporaries
                 + " (temporaries) + " + 2 * numMethodParams + " (method parameters x 2)";
     }
 
@@ -71,7 +69,7 @@ public class StackManagement {
 
     public RegisterOffset addGlobalVariable() {
 
-        //TODO: switch case to determine the size of the offset and add type in arg
+        // TODO: switch case to determine the size of the offset and add type in arg
         return new RegisterOffset(++offsetGB, GB);
     }
 
@@ -86,8 +84,9 @@ public class StackManagement {
      * @return the size of the stack frame needed for the TSTO instruction
      */
     public int getNeededStackFrame() {
-        return numSavedRegisters + (offsetGB+ offsetLB) + numTemporaries + 2 * numMethodParams; // 2 * numMethodParams because
-                                                                                        // BSR
+        return numSavedRegisters + (offsetGB + offsetLB) + numTemporaries + 2 * numMethodParams; // 2 * numMethodParams
+                                                                                                 // because
+        // BSR
         // makes 2 pushes
     }
 
