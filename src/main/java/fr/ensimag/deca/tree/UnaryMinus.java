@@ -5,6 +5,9 @@ import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.Type;
+import fr.ensimag.ima.pseudocode.DVal;
+import fr.ensimag.ima.pseudocode.GPRegister;
+import fr.ensimag.ima.pseudocode.instructions.OPP;
 
 /**
  * @author gl12
@@ -42,4 +45,8 @@ public class UnaryMinus extends AbstractUnaryExpr {
         return false;
     }
 
+    @Override
+    protected void codeGenUnaryExpr(GPRegister regDest, DVal sourceDVal, DecacCompiler compiler) {
+        compiler.addInstruction(new OPP(sourceDVal, regDest));
+    }
 }

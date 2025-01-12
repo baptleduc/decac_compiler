@@ -1,0 +1,17 @@
+	TSTO #0	; 0 (variables) + 0 (saved registers) + 0 (temporaries) + 0 (method parameters x 2)
+	BOV stack_overflow_error_0
+	ADDSP #0
+; start main program
+; Main program
+; Beginning of main instructions:
+	LOAD #3, R2
+	FLOAT #3, R2
+	ADD #0x1.466666p3, R2
+	LOAD R2, R1
+	WFLOAT
+	HALT
+stack_overflow_error_0:
+	WSTR "Error: Stack Overflow"
+	WNL
+	ERROR
+; end main program
