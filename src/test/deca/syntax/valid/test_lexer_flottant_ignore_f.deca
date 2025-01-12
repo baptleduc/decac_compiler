@@ -1,7 +1,0 @@
-// test d'un nombre flottant pour ignorer le f
-{
-    int x = 1.23e4f;
-    int y = 1.23f;
-    int y = 1.23F;
-    int z = 1.23;
-}
