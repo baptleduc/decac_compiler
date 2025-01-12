@@ -247,6 +247,16 @@
                     </goals>
                     </execution>
                     <execution>
+                        <id>verify-ima-output</id>
+                        <configuration>
+                            <executable>./src/test/script/verify-ima-output.sh</executable>
+                        </configuration>
+                    <phase>test</phase>
+                    <goals>
+                        <goal>exec</goal>
+                    </goals>
+                    </execution>
+                    <execution>
                         <id>basic-synt</id>
                         <configuration>
                             <executable>./src/test/script/basic-synt.sh</executable>
