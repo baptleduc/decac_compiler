@@ -5,17 +5,17 @@
 ; Main program
 ; Beginning of main instructions:
 	LOAD #0x1.666666p0, R2
-	STORE R2, 2(GB)
-	LOAD 2(GB), R3
-	CMP #0x1.266666p1, R3
+	STORE R2, 1(GB)
+	LOAD 1(GB), R2
+	CMP #0x1.266666p1, R2
 	BLT set_true_1
-	LOAD #0, R3
+	LOAD #0, R2
 	BRA end_0
 set_true_1:
-	LOAD #1, R3
+	LOAD #1, R2
 	BRA end_0
 end_0:
-	CMP #0, R3
+	CMP #0, R2
 	BEQ else_2
 	LOAD #10, R1
 	WINT

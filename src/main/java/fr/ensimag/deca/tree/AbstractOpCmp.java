@@ -74,6 +74,7 @@ public abstract class AbstractOpCmp extends AbstractBinaryExpr {
 
         // End
         compiler.addLabel(endLabel);
+        rightDVal.freeGPRegister(compiler);
         setDVal(regLeft);
 
     }

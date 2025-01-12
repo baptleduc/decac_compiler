@@ -15,7 +15,7 @@
 set_false_0:
 	LOAD #0, R2
 end_1:
-	STORE R2, 2(GB)
+	STORE R2, 1(GB)
 	HALT
 stack_overflow_error_2:
 	WSTR "Error: Stack Overflow"

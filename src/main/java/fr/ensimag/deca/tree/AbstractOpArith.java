@@ -114,9 +114,9 @@ public abstract class AbstractOpArith extends AbstractBinaryExpr {
             sourceDVal = rightDVal;
         } else if (leftIsImmediate) { // Left operand is immediate, optimize
             optimizeLeftImmediate(compiler, leftDVal, rightDVal);
-        } else { // Both operands are registers
+        } else { // Both operands are not immediate, choose left operand as destination
             regDest = leftDVal.codeGenToGPRegister(compiler);
-            sourceDVal = rightDVal.codeGenToGPRegister(compiler);
+            sourceDVal = rightDVal;
         }
     }
 
@@ -133,7 +133,7 @@ public abstract class AbstractOpArith extends AbstractBinaryExpr {
         codeGenOperationInst(regDest, sourceDVal, compiler);
 
         // Free the source operand if necessary
-        sourceDVal.free(compiler);
+        sourceDVal.freeGPRegister(compiler);
 
         // Store the result in the destination DVal
         setDVal(regDest);

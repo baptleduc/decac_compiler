@@ -62,6 +62,7 @@ public class IfThenElse extends AbstractInst {
         // If condition is false, branch to else branch
         compiler.addInstruction(new CMP(new ImmediateInteger(0), resultRegister));
         compiler.addInstruction(new BEQ(elseLabel));
+        resultRegister.freeGPRegister(compiler); // Free for then branch
 
         // Do the then branch
         thenBranch.codeGenListInst(compiler);
@@ -72,6 +73,7 @@ public class IfThenElse extends AbstractInst {
         elseBranch.codeGenListInst(compiler);
 
         compiler.addLabel(endLabel);
+
     }
 
     @Override

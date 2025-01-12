@@ -205,8 +205,8 @@ public class DecacCompiler {
         LOG.debug(noVerify);
         int d = stackManager.getNeededStackFrame();
         Label label = new Label("stack_overflow_error");
-        ImmediateInteger imm = new ImmediateInteger(stackManager.getOffsetSP());
-        addFirst(new ADDSP(imm));
+        ImmediateInteger imm = new ImmediateInteger(stackManager.getOffsetGB());
+        addFirst(new ADDSP(imm)); // Increment SP by offsetGB
         addFirst(new BOV(label));
         addFirst(new TSTO(d), stackManager.getCommentTSTO());
         addLabel(label);
@@ -253,12 +253,13 @@ public class DecacCompiler {
      * the stack and returns it.
      */
     public GPRegister allocGPRegister() {
-        GPRegister reg = stackManager.popAvailableGPRegister(); // Get the next available register
         if (stackManager.isAvailableGPRegisterEmpty()) {
+            GPRegister reg = stackManager.getLastUsedRegister();
             saveRegister(reg);
-            stackManager.pushAvailableGPRegister(reg);
+            return reg;
         }
-        stackManager.pushUsedGPRegister(reg); // Mark the register as used
+        GPRegister reg = stackManager.popAvailableGPRegister();
+        stackManager.pushUsedGPRegister(reg);
         return reg;
     }
 
@@ -266,6 +267,7 @@ public class DecacCompiler {
      * Saves the given register onto the stack by pushing it and marks it as
      * available for reuse.
      * Updates the list of available and used registers index.
+     * NOTE:
      *
      * @param reg
      *            the register to be saved onto the stack

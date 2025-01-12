@@ -1,69 +1,68 @@
 	TSTO #2	; 2 (variables) + 0 (saved registers) + 0 (temporaries) + 0 (method parameters x 2)
 	BOV stack_overflow_error_12
-	ADDSP #1
+	ADDSP #2
 ; start main program
 ; Main program
 ; Beginning of main instructions:
 	LOAD #5, R2
+	STORE R2, 1(GB)
+	LOAD #5, R2
 	STORE R2, 2(GB)
-	LOAD #5, R3
-	STORE R3, 3(GB)
 start_while_0:
-	LOAD 2(GB), R4
-	CMP #10, R4
+	LOAD 1(GB), R2
+	CMP #10, R2
 	BLT set_true_4
-	LOAD #0, R4
+	LOAD #0, R2
 	BRA end_3
 set_true_4:
-	LOAD #1, R4
+	LOAD #1, R2
 	BRA end_3
 end_3:
-	LOAD 3(GB), R5
-	CMP #10, R5
+	LOAD 2(GB), R3
+	CMP #10, R3
 	BLT set_true_6
-	LOAD #0, R5
+	LOAD #0, R3
 	BRA end_5
 set_true_6:
-	LOAD #1, R5
+	LOAD #1, R3
 	BRA end_5
 end_5:
-	CMP #0, R4
-	BEQ set_false_2	; If R4 is false, branch to set_false_2
-	CMP #0, R5
-	BEQ set_false_2	; If R5 is false, branch to set_false_2
-	LOAD #1, R4
+	CMP #0, R2
+	BEQ set_false_2	; If R2 is false, branch to set_false_2
+	CMP #0, R3
+	BEQ set_false_2	; If R3 is false, branch to set_false_2
+	LOAD #1, R2
 	BRA end_7
 set_false_2:
-	LOAD #0, R4
+	LOAD #0, R2
 end_7:
-	CMP #0, R4
+	CMP #0, R2
 	BEQ end_1
 start_while_8:
-	LOAD 2(GB), R6
-	CMP #10, R6
+	LOAD 1(GB), R4
+	CMP #10, R4
 	BLT set_true_11
-	LOAD #0, R6
+	LOAD #0, R4
 	BRA end_10
 set_true_11:
-	LOAD #1, R6
+	LOAD #1, R4
 	BRA end_10
 end_10:
-	CMP #0, R6
+	CMP #0, R4
 	BEQ end_9
-	LOAD 2(GB), R7
-	ADD #1, R7
-	STORE R7, 2(GB)
-	LOAD 3(GB), R8
-	ADD #1, R8
-	STORE R8, 3(GB)
+	LOAD 1(GB), R5
+	ADD #1, R5
+	STORE R5, 1(GB)
+	LOAD 2(GB), R6
+	ADD #1, R6
+	STORE R6, 2(GB)
 	BRA start_while_8
 end_9:
 	BRA start_while_0
 end_1:
-	LOAD 2(GB), R9
-	LOAD 3(GB), R10
-	ADD R10, R9
-	LOAD R9, R1
+	LOAD 1(GB), R7
+	ADD 2(GB), R7
+	LOAD R7, R1
 	WINT
 	WNL
 	HALT

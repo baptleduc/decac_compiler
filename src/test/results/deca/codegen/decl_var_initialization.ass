@@ -5,7 +5,7 @@
 ; Main program
 ; Beginning of main instructions:
 	LOAD #1, R2
-	STORE R2, 2(GB)
+	STORE R2, 1(GB)
 	HALT
 stack_overflow_error_0:
 	WSTR "Error: Stack Overflow"

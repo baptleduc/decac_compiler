@@ -28,7 +28,7 @@ public class Register extends DVal {
         throw new DecacInternalError("Should not be called");
     }
 
-    public void free(DecacCompiler compiler) {
+    public void freeGPRegister(DecacCompiler compiler) {
         throw new DecacInternalError("Should not be called");
     }
 

@@ -6,8 +6,8 @@
 ; Beginning of main instructions:
 	LOAD #11, R2
 	SUB #1, R2
-	STORE R2, 2(GB)
-	LOAD 2(GB), R1
+	STORE R2, 1(GB)
+	LOAD 1(GB), R1
 	WINT
 	WNL
 	HALT

@@ -12,6 +12,6 @@ public abstract class DVal extends Operand {
 
     public abstract GPRegister codeGenToGPRegister(DecacCompiler compiler);
 
-    public abstract void free(DecacCompiler compiler);
+    public abstract void freeGPRegister(DecacCompiler compiler);
 
 }
