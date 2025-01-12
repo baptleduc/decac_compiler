@@ -1,7 +1,7 @@
 // Description:
 //    Minimalistic program testing a condition with a float.
 // Results:
-//    ok
+//    10
 //
 // History:
 //    Created on 12/01/2025
@@ -9,6 +9,6 @@
 {
     float x = 1.4;
     if (x < 2.3){
-	println("ok");
+	println(10);
     }
 }
