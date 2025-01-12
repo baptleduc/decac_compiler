@@ -1,0 +1,12 @@
+// Description:
+//    Minimalistic program testing modulo op
+// Results:
+//    0
+//
+// History:
+//    Created on 12/01/2025
+
+{
+    int x = 10 % 2;
+    println(x);
+}

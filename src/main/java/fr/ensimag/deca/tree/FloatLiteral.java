@@ -74,6 +74,11 @@ public class FloatLiteral extends AbstractExpr {
     }
 
     @Override
+    protected void codeGenInst(DecacCompiler compiler) {
+        setDVal(immediate);
+    }
+
+    @Override
     protected boolean isImmediate() {
         return true;
     }

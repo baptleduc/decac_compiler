@@ -1,0 +1,12 @@
+// Description:
+//    Minimalistic program testing printx
+//
+// Results:
+//    A
+//
+// History:
+//    Created on 08/01/2025
+
+{
+    printx(11);
+}
