@@ -1,0 +1,54 @@
+V "GNAT Lib v9"
+A -gnato
+A -fstack-check=specific
+P ZX
+
+RN
+RV NO_ALLOCATORS
+RV NO_EXCEPTIONS
+RV NO_IMPLICIT_CONDITIONALS
+RV NO_LOCAL_ALLOCATORS
+RV NO_STANDARD_STORAGE_POOLS
+RV NO_DEFAULT_INITIALIZATION
+RV NO_ELABORATION_CODE
+RV SPARK_05
+
+U string_lists%b	string_lists.ads	1e44dcf3 NE OO PK
+Z ada.exceptions%s	a-except.adb		a-except.ali
+W lists%s		lists.adb		lists.ali  ED
+W string_pkg%s		string_pkg.adb		string_pkg.ali
+Z system%s		system.ads		system.ali
+Z system.exception_table%s  s-exctab.adb	s-exctab.ali
+Z system.standard_library%s  s-stalib.adb	s-stalib.ali
+Z unchecked_deallocation%s
+
+U string_lists%s	string_lists.ads	f1a8ee1b EB EE OO PK
+W lists%s		lists.adb		lists.ali
+W string_pkg%s		string_pkg.adb		string_pkg.ali
+Z system%s		system.ads		system.ali
+Z system.exception_table%s  s-exctab.adb	s-exctab.ali
+Z system.standard_library%s  s-stalib.adb	s-stalib.ali
+
+D ada.ads		20220527072110 76789da1 ada%s
+D a-except.ads		20220527072110 291912d5 ada.exceptions%s
+D a-unccon.ads		20220527072110 0e9b276f ada.unchecked_conversion%s
+D lists.ads		20221217092829 0f2f111c lists%s
+D lists.adb		20221217092829 cb81d4f2 lists%b
+D string_lists.ads	20221217092829 1e44dcf3 string_lists%s
+D string_lists.ads	20221217092829 1e44dcf3 string_lists%b
+D string_pkg.ads	20221217092829 e0c323f4 string_pkg%s
+D system.ads		20220527072110 4635ec04 system%s
+D s-exctab.ads		20220527072110 54135002 system.exception_table%s
+D s-parame.ads		20220527072110 48ec542b system.parameters%s
+D s-stalib.ads		20220527072110 09bd3940 system.standard_library%s
+D s-traent.ads		20220527072110 005bf670 system.traceback_entries%s
+D unchdeal.ads		20220527072110 214516a4 unchecked_deallocation%s
+X 4 lists.ads
+13k9*Lists 500e10 7|9w6 11r29
+X 7 string_lists.ads
+11K9*String_Lists[4|13]
+X 8 string_pkg.ads
+14K9*string_pkg 7|8w6 11r35 11r59 8|597e15
+95P10*string_type 7|11r46
+410V14*equal{boolean} 7|11r70
+

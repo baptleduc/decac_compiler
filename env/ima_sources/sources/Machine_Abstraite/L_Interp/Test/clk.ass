@@ -1,0 +1,12 @@
+; affichage du résultat de SCLK
+; + attente active de 2 secondes via CLK
+  SCLK
+  WINT
+  WNL
+loop:
+  CLK
+  CMP #2.1, R1
+  BGE exit
+  BRA loop
+exit:
+  HALT

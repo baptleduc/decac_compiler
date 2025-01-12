@@ -1,0 +1,82 @@
+V "GNAT Lib v9"
+A -gnatf
+A -gnatyM115
+A -gnatwl
+A -g
+A -gnato
+A -fstack-check=specific
+A -g
+A -fstack-check=specific
+P ZX
+
+RN
+RV NO_ENUMERATION_MAPS
+RV NO_EXCEPTION_HANDLERS
+RV NO_EXCEPTIONS
+RV NO_IO
+RV NO_STANDARD_STORAGE_POOLS
+RV NO_DYNAMIC_SIZED_OBJECTS
+RV SPARK_05
+
+U ma_token_io%b		ma_token_io.ads		e3126c05 NE OO PK
+W ada%s			ada.ads			ada.ali
+Z ada.exceptions%s	a-except.adb		a-except.ali
+W ada.text_io%s		a-textio.adb		a-textio.ali
+Z ada.text_io.enumeration_aux%s  a-tienau.adb	a-tienau.ali
+Z ada.text_io.enumeration_io%s
+Z interfaces%s		interfac.ads		interfac.ali
+W ma_syntax_tokens%s	ma_syntax_tokens.ads	ma_syntax_tokens.ali
+Z system%s		system.ads		system.ali
+Z system.img_enum_new%s	s-imenne.adb		s-imenne.ali
+Z system.val_enum%s	s-valenu.adb		s-valenu.ali
+
+U ma_token_io%s		ma_token_io.ads		a8688331 EB NE OO PK
+W ada%s			ada.ads			ada.ali
+W ada.text_io%s		a-textio.adb		a-textio.ali
+Z ada.text_io.enumeration_io%s
+W ma_syntax_tokens%s	ma_syntax_tokens.ads	ma_syntax_tokens.ali
+
+D ada.ads		20220527072110 76789da1 ada%s
+D a-except.ads		20220527072110 291912d5 ada.exceptions%s
+D a-ioexce.ads		20220527072110 e4a01f64 ada.io_exceptions%s
+D a-stream.ads		20220527072110 119b8fb3 ada.streams%s
+D a-tags.ads		20220527072110 491b781d ada.tags%s
+D a-textio.ads		20220527072110 881db35a ada.text_io%s
+D a-tienau.ads		20220527072110 6a9c157b ada.text_io.enumeration_aux%s
+D a-tienio.ads		20220527072110 fc618ae6 ada.text_io.enumeration_io%s
+D a-tienio.adb		20220527072110 c9e6b5af ada.text_io.enumeration_io%b
+D a-unccon.ads		20220527072110 0e9b276f ada.unchecked_conversion%s
+D interfac.ads		20220527072110 5ab55268 interfaces%s
+D i-cstrea.ads		20220527072110 e53d8b8e interfaces.c_streams%s
+D ma_syntax_tokens.ads	20241206131835 c3675c6e ma_syntax_tokens%s
+D ma_token_io.ads	20221217092829 e3126c05 ma_token_io%s
+D ma_token_io.ads	20221217092829 e3126c05 ma_token_io%b
+D pseudo_code.ads	20221217092829 b9d57959 pseudo_code%s
+D system.ads		20220527072110 4635ec04 system%s
+D s-crtl.ads		20220527072110 0ebbdb71 system.crtl%s
+D s-exctab.ads		20220527072110 54135002 system.exception_table%s
+D s-ficobl.ads		20220527072110 078245e4 system.file_control_block%s
+D s-imenne.ads		20220527072110 614c06c0 system.img_enum_new%s
+D s-parame.ads		20220527072110 48ec542b system.parameters%s
+D s-secsta.ads		20220527072110 20bbe636 system.secondary_stack%s
+D s-soflin.ads		20220527072110 a7318a92 system.soft_links%s
+D s-stache.ads		20220527072110 a37c21ec system.stack_checking%s
+D s-stalib.ads		20220527072110 09bd3940 system.standard_library%s
+D s-stoele.ads		20220527072110 2dc34a04 system.storage_elements%s
+D s-traent.ads		20220527072110 005bf670 system.traceback_entries%s
+D s-unstyp.ads		20220527072110 34867c83 system.unsigned_types%s
+D s-valenu.ads		20220527072110 bb1a4295 system.val_enum%s
+D s-wchcon.ads		20220527072110 1b7d22d2 system.wch_con%s
+D types_base.ads	20221217092829 bb86ef9c types_base%s
+X 1 ada.ads
+16K9*Ada 20e8 15|10r6 11r6
+X 6 a-textio.ads
+49K13*Text_IO 471e16 15|10w10 11r10
+X 8 a-tienio.ads
+26k21*Enumeration_IO 55e31 15|13r28
+X 13 ma_syntax_tokens.ads
+3K9*Ma_Syntax_Tokens 80e21 15|10w19 11r19
+51E10*Token 76e25 15|13r43
+X 15 ma_token_io.ads
+13K9*MA_Token_IO[8|26]
+

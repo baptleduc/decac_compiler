@@ -1,0 +1,91 @@
+; qq tests sur WUTF8 (respect du codage)
+; utile pour déboguer WUTF8 éventuellement...
+;;;;;;;
+
+WSTR "-- 1 BYTE TESTS --"
+WNL
+;
+WSTR "$ = "
+LOAD #36, R1
+WUTF8
+WSTR " !"
+WNL
+;
+WSTR "A = "
+LOAD #65, R1
+WUTF8
+WSTR " !"
+WNL
+;
+WSTR "a = "
+LOAD #97, R1
+WUTF8
+WSTR " !"
+WNL
+;
+WNL
+WSTR "-- 2 BYTES TESTS --"
+WNL
+;
+WSTR "¢ = "
+LOAD #49826, R1
+WUTF8
+WSTR " !"
+WNL
+;
+WSTR "à = "
+LOAD #50080, R1
+WUTF8
+WSTR " !"
+WNL
+;
+WSTR "π = "
+LOAD #53120, R1
+WUTF8
+WSTR " !"
+WNL
+;
+WNL
+WSTR "-- 3 BYTES TESTS --"
+WNL
+;
+WSTR "€ = " 
+LOAD #14844588, R1
+WUTF8
+WSTR " !"
+WNL
+;
+WSTR "⡷ = "
+LOAD #14852535, R1
+WUTF8
+WSTR " !"
+WNL
+;
+WSTR "语 = "
+LOAD #15249325, R1
+WUTF8
+WSTR " !"
+WNL
+;
+WSTR "� = "
+LOAD #15712189, R1
+WUTF8
+WSTR " !"
+WNL
+;
+WNL
+WSTR "-- 4 BYTES TESTS --"
+WNL
+;
+WSTR "𐍈 = "
+LOAD #-258962040, R1
+WUTF8
+WSTR " !"
+WNL
+;
+WSTR "𐍆 = "
+LOAD #-258962042, R1
+WUTF8
+WSTR " !"
+;;;;;;;
+HALT

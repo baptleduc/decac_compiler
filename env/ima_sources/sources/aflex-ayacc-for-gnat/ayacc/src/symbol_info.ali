@@ -1,0 +1,143 @@
+V "GNAT Lib v9"
+A -gnato
+A -fstack-check=specific
+P ZX
+
+RN
+RV NO_ALLOCATORS
+RV NO_EXCEPTIONS
+RV NO_IO
+RV NO_IMPLICIT_CONDITIONALS
+RV NO_LOCAL_ALLOCATORS
+RV NO_STANDARD_STORAGE_POOLS
+RV NO_DEFAULT_INITIALIZATION
+RV NO_DYNAMIC_SIZED_OBJECTS
+RV NO_ELABORATION_CODE
+RV SPARK_05
+
+U symbol_info%b		symbol_info.adb		6043d144 NE OO PK
+W ada%s			ada.ads			ada.ali
+Z ada.exceptions%s	a-except.adb		a-except.ali
+Z ada.tags%s		a-tags.adb		a-tags.ali
+W ada.text_io%s		a-textio.adb		a-textio.ali
+Z interfaces%s		interfac.ads		interfac.ali
+Z system%s		system.ads		system.ali
+Z system.concat_3%s	s-conca3.adb		s-conca3.ali
+Z system.concat_4%s	s-conca4.adb		s-conca4.ali
+Z system.exception_table%s  s-exctab.adb	s-exctab.ali
+Z system.secondary_stack%s  s-secsta.adb	s-secsta.ali
+Z system.standard_library%s  s-stalib.adb	s-stalib.ali
+
+U symbol_info%s		symbol_info.ads		b9e56e16 EE OO PK
+Z ada.tags%s		a-tags.adb		a-tags.ali
+W rule_table%s		rule_table.adb		rule_table.ali
+W symbol_table%s	symbol_table.adb	symbol_table.ali
+Z system%s		system.ads		system.ali
+Z system.exception_table%s  s-exctab.adb	s-exctab.ali
+Z system.standard_library%s  s-stalib.adb	s-stalib.ali
+
+D ada.ads		20220527072110 76789da1 ada%s
+D a-except.ads		20220527072110 291912d5 ada.exceptions%s
+D a-ioexce.ads		20220527072110 e4a01f64 ada.io_exceptions%s
+D a-stream.ads		20220527072110 119b8fb3 ada.streams%s
+D a-tags.ads		20220527072110 491b781d ada.tags%s
+D a-textio.ads		20220527072110 881db35a ada.text_io%s
+D a-unccon.ads		20220527072110 0e9b276f ada.unchecked_conversion%s
+D interfac.ads		20220527072110 5ab55268 interfaces%s
+D i-cstrea.ads		20220527072110 e53d8b8e interfaces.c_streams%s
+D rule_table.ads	20221217092829 d24be121 rule_table%s
+D symbol_info.ads	20221217092829 6d39562e symbol_info%s
+D symbol_info.adb	20221217092829 85673430 symbol_info%b
+D symbol_table.ads	20221217092829 0697d919 symbol_table%s
+D system.ads		20220527072110 4635ec04 system%s
+D s-conca3.ads		20220527072110 0b705ca5 system.concat_3%s
+D s-conca4.ads		20220527072110 7e642b20 system.concat_4%s
+D s-crtl.ads		20220527072110 0ebbdb71 system.crtl%s
+D s-exctab.ads		20220527072110 54135002 system.exception_table%s
+D s-ficobl.ads		20220527072110 078245e4 system.file_control_block%s
+D s-parame.ads		20220527072110 48ec542b system.parameters%s
+D s-secsta.ads		20220527072110 20bbe636 system.secondary_stack%s
+D s-soflin.ads		20220527072110 a7318a92 system.soft_links%s
+D s-stache.ads		20220527072110 a37c21ec system.stack_checking%s
+D s-stalib.ads		20220527072110 09bd3940 system.standard_library%s
+D s-stoele.ads		20220527072110 2dc34a04 system.storage_elements%s
+D s-traent.ads		20220527072110 005bf670 system.traceback_entries%s
+D s-unstyp.ads		20220527072110 34867c83 system.unsigned_types%s
+D s-wchcon.ads		20220527072110 1b7d22d2 system.wch_con%s
+X 1 ada.ads
+16K9*Ada 20e8 12|48r6 145r13 192r13
+X 6 a-textio.ads
+49K13*Text_IO 471e16 12|48w10 145r17 192r17
+263U14*Put_Line 12|169s17 252s17
+X 10 rule_table.ads
+49K9*Rule_Table 87e15 11|48w20 49r20
+58I10*Rule<short_integer> 11|62r66
+65V15*Get_LHS{13|52I11} 12|86s27 93s36 162s20 229s28
+66V15*Get_RHS{13|52I11} 12|98s36 130s28 234s36
+71V15*Length_of{natural} 12|85s16 96s36 127s30 232s36
+73V15*First_Rule{58I10} 12|84s18 92s22 125s18 153s26 158s38 161s22 228s22
+74V15*Last_Rule{58I10} 12|84s30 92s34 125s30 153s51 161s34 228s34
+79U15*Set_Null_Pos 12|137s13
+X 11 symbol_info.ads
+50K9*Symbol_Info 83l5 83e16 12|49b14 280l5 280t16
+61I10*Yield_Index<integer> 62r38 63r66 12|148r25 153r14 153r39 158r26
+62A10*Rule_Array(10|58I10)<61I10> 65r41 12|152r34
+63A10*Offset_Array(61I10)<13|52I11> 66r41 12|155r40
+65P10*Rule_Array_Pointer(62A10) 68r35
+66P10*Offset_Array_Pointer(63A10) 69r35
+68p5*Nonterminal_Yield{65P10} 12|152m9 163r21
+69p5*Nonterminal_Yield_Index{66P10} 12|155m9 160r13 167r16 175r9
+73U15*Initialize 12|266b15 277l9 277t19
+75V14*Is_Nullable{boolean} 75>26 12|115b14 118l9 118t20
+75i26 Sym{13|52I11} 12|115b26 117r26
+77X5*Undefined_Nonterminal 12|180r19
+X 12 symbol_info.adb
+51a3 SCCS_ID{string}
+55a3 Rcs_ID{string}
+57A10 Nullables_Array(boolean)<13|52I11> 58r44 269r26
+58P10 Nullables_Array_Pointer(57A10) 60r17
+60p5 Nullables{58P10} 78r18 79r13 86r17 94r24 100r39 104r25 117r16 131r53
+. 269m9
+67U15 Find_Nullables 67b15 112l9 112t23 274s9
+68i9 Sym_Position{natural} 95m21 97r27 98r47 101m25 101r41 103r24
+69i9 Nonterminal_Sym{13|52I11} 93m17 94r34 104r35
+70i9 RHS_Sym{13|52I11} 98m25 99r47 100r49
+71b9 No_More_Added{boolean} 91m13 105m25 109r23
+72i9 Rule_Length{natural} 96m21 97r43 103r39
+78i13 S<short_integer> 79r23
+84i13 R<short_integer> 85r26 86r35
+92i17 R<short_integer> 93r44 96r46 98r44
+120U15 Make_Rules_Null_Position 120b15 141l9 141t33 275s9
+121i9 Null_Position{integer} 127m13 129r19 130r39 134m17 134r34 137r29
+122i9 RHS_Sym{13|52I11} 130m17 131r32 131r63
+125i13 R<short_integer> 127r40 130r36 137r26
+144U15 Find_Rule_Yields 144b15 183l9 183t25 272s9
+147b9 Found_Undefined_Nonterminal{boolean} 168m17 179r12
+148i9 Current_Index{11|61I10} 158m9 160r45 163r39 164m21 164r38 167r47 175r66
+159i13 Sym<short_integer> 160r37 162r33 167r40 169r67
+161i17 R<short_integer> 162r28 163r57
+191U15 Check_Grammar 191b15 262l9 262t22 273s9
+194A14 Nonterminal_Array(boolean)<13|52I11> 196r14
+196a9 Ok{194A14} 220r18 221m13 230r24 236r33 243m25 250r18 251r20
+199b9 More{boolean} 225m9 226r15 227m13 244m25
+200i9 I{natural} 231m21 233r27 234r47 240m25 240r30 242r24
+201i9 Rule_Length{natural} 232m21 233r32 242r28
+202b9 Found_Error{boolean} 254m17 258r12
+204i9 RHS_Sym{13|52I11} 234m25 235r43 236r36
+204i18 LHS_Sym{13|52I11} 229m17 230r27 243r28
+206X9 Bad_Grammar 259r19
+220i13 S<short_integer> 221r16
+228i17 R<short_integer> 229r36 232r46 234r44
+250i13 J<short_integer> 251r23 252r67
+X 13 symbol_table.ads
+48K9*Symbol_Table 11|48w6 49r6 13|82e17
+50n38*Nonterminal{50E11} 12|156r27 156r53 159r33 159r59 175r45 197r27 197r53
+. 270r27 270r55
+52I11*Grammar_Symbol<short_integer> 11|63r38 75r31 12|57r36 69r29 70r29 115r31
+. 122r25 194r42 204r27
+67V14*Get_Symbol_Name{string} 12|169s51 252s51
+69V14*First_Symbol{52I11} 12|156s14 159s20 197s14 270s14
+70V14*Last_Symbol{52I11} 12|156s41 159s47 175s33 197s41 270s43
+75V14*Is_Terminal{boolean} 12|99s35 131s20
+76V14*Is_Nonterminal{boolean} 12|235s28
+

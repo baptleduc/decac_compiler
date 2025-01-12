@@ -1,0 +1,11 @@
+// Description:
+//    Minimalistic program testing printx on int
+// Results:
+//    0x1p+2
+//
+// History:
+//    Created on 12/01/2025
+
+{
+    printx(4);
+}

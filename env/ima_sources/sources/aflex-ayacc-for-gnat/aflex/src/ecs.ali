@@ -1,0 +1,112 @@
+V "GNAT Lib v9"
+A -gnato
+A -fstack-check=specific
+P ZX
+
+RN
+RV NO_ALLOCATORS
+RV NO_DIRECT_BOOLEAN_OPERATORS
+RV NO_EXCEPTION_HANDLERS
+RV NO_EXCEPTIONS
+RV NO_LOCAL_ALLOCATORS
+RV NO_DEFAULT_INITIALIZATION
+RV NO_DYNAMIC_SIZED_OBJECTS
+RV SPARK_05
+
+U ecs%b			ecs.adb			ffea08fb NE OO PK IU
+Z ada.tags%s		a-tags.adb		a-tags.ali
+W misc%s		misc.adb		misc.ali
+W misc_defs%s		misc_defs.adb		misc_defs.ali
+
+U ecs%s			ecs.ads			67f6fcaf EE NE OO PK IU
+W misc_defs%s		misc_defs.adb		misc_defs.ali
+
+D ada.ads		20220527072110 76789da1 ada%s
+D a-except.ads		20220527072110 291912d5 ada.exceptions%s
+D a-ioexce.ads		20220527072110 e4a01f64 ada.io_exceptions%s
+D a-stream.ads		20220527072110 119b8fb3 ada.streams%s
+D a-tags.ads		20220527072110 491b781d ada.tags%s
+D a-textio.ads		20220527072110 881db35a ada.text_io%s
+D a-unccon.ads		20220527072110 0e9b276f ada.unchecked_conversion%s
+D ecs.ads		20221217092829 968838ce ecs%s
+D ecs.adb		20221217092829 1c5e20ff ecs%b
+D interfac.ads		20220527072110 5ab55268 interfaces%s
+D i-cstrea.ads		20220527072110 e53d8b8e interfaces.c_streams%s
+D misc.ads		20221217092829 8442d4ab misc%s
+D misc_defs.ads		20221217092829 f17ec461 misc_defs%s
+D system.ads		20220527072110 4635ec04 system%s
+D s-crtl.ads		20220527072110 0ebbdb71 system.crtl%s
+D s-exctab.ads		20220527072110 54135002 system.exception_table%s
+D s-ficobl.ads		20220527072110 078245e4 system.file_control_block%s
+D s-parame.ads		20220527072110 48ec542b system.parameters%s
+D s-secsta.ads		20220527072110 20bbe636 system.secondary_stack%s
+D s-soflin.ads		20220527072110 a7318a92 system.soft_links%s
+D s-stache.ads		20220527072110 a37c21ec system.stack_checking%s
+D s-stalib.ads		20220527072110 09bd3940 system.standard_library%s
+D s-stoele.ads		20220527072110 2dc34a04 system.storage_elements%s
+D s-traent.ads		20220527072110 005bf670 system.traceback_entries%s
+D s-unstyp.ads		20220527072110 34867c83 system.unsigned_types%s
+D s-wchcon.ads		20220527072110 1b7d22d2 system.wch_con%s
+D tstring.ads		20221217092829 bfe7f17a tstring%s
+D vstrings.ads		20221217092829 90607e37 vstrings%s
+X 8 ecs.ads
+25K9*ECS 36l5 36e8 9|26b14 201l5 201t8
+26U13*CCL2ECL 9|30b13 55l7 55t14
+27U13*CRE8ECS 27=21 27=26 28>21 29<21 9|63b13 87l7 87t14
+27a21 FWD{13|438A11} 9|63b21 78r14 81r16
+27a26 BCK{13|438A11} 9|63b26 75r11 77m9 80m11
+28i21 NUM{integer} 9|64b21 74r19
+29i21 RESULT{integer} 9|65b21 85m5
+30U13*MKECCL 30=20 31>20 32=20 32=25 33>20 9|95b13 178l7 178t13
+30a20 CCLS{13|64A8} 9|95b20 106r13 109r37 109r51 110r22 110r36 114r28 115r29
+. 125r30 125r48 127r15 168r31
+31i20 LENCCL{integer} 9|96b20 114r19 125r21 168r22
+32a20 FWD{13|55A8} 9|97b20 121r12 133m13 151m11 155r26 160m9 163m7
+32a25 BCK{13|55A8} 9|97b25 116r16 132m13 148m9 158r12 158r43 159m9
+33i20 LLSIZ{integer} 9|98b20 122r35
+34U13*MKECHAR 34>21 35=21 35=26 9|183b13 199l7 199t14
+34i21 TCH{integer} 9|183b21 189r13 190r15 190r28 193r13 194r15 194r28 197r9
+. 198r9
+35a21 FWD{13|438A11} 9|184b21 189r9 190r11 194m7 194r24 197m5
+35a26 BCK{13|438A11} 9|184b26 190m7 190r24 193r9 194r11 198m5
+X 9 ecs.adb
+32i5 ICH{integer} 45m9 46r27
+32i10 NEWLEN{integer} 41m7 48r25 49m11 49r21 53r20
+32i18 CCLP{integer} 42m7 45r37 48r18
+32i24 CCLMEC{integer} 46m9 47r13 48r50
+34i9 I{integer} 42r22 44r31 53r14
+44i11 CCLS{integer} 45r44
+66i5 J{integer} 78m9 79r16 80r15 81m11 81r20
+66i8 NUMCL{integer} 68m5 76m9 76r18 77r19 80r23 85r15
+74i9 I{integer} 75r15 77r13 78r18
+100i5 CCLP{integer} 106m5 114r12 115r34 119r12 166m7 166r15 168r15 168r58
+. 171r20 172m9 172r17
+100i11 OLDEC{integer} 116m7 148r19 150r13 151r15 154m9 158r34 160r13
+100i18 NEWEC{integer} 117m7 132r23 133r17 134m13 163r11
+100i25 CCLM{integer} 115m7 116r20 117r16 121r16 158r16 158r47 159r13
+100i31 I{integer} 121m7 122r15 122r30 125r73 127r39 132r17 133r27 134r22
+. 148r13 151r25 154r18 155m21 155r30
+100i34 J{integer} 119m7 125r17 125r53 126r22 127r20 135r24 143m11 143r16
+101p5 PROC_ARRAY{13|63P8} 109m5 111r7 126r11 135r13 168r47 171r9
+110i9 CCL_INDEX{integer} 111r18
+155L11 NEXT_PT 141r18
+X 12 misc.ads
+26K9*MISC 9|25w6 99r20 177r7 12|73e9
+48U13*AFLEXFATAL 9|177s12
+X 13 misc_defs.ads
+32K9*MISC_DEFS 8|24w6 24r21 9|24w6 25r16 31r9 99r9 13|587e14
+55A8*UNBOUNDED_INT_ARRAY(integer)<integer> 8|32r38 9|97r38
+56P8*INT_PTR(55A8)
+62A8*BOOLEAN_ARRAY(boolean)<integer> 9|109r23
+63P8*BOOLEAN_PTR(62A8) 9|101r38
+64A8*CHAR_ARRAY(character)<integer> 8|30r38 9|95r38
+65P8*CHAR_PTR(64A8)
+154i3*NIL{integer} 9|75r20 79r21 122r20 150r22 158r25 159r22 160r23 163r21
+. 189r21 193r21 197r17 198r17
+438A11*C_SIZE_ARRAY{55A8}<integer> 8|27r39 35r39 9|63r39 184r39
+440a12*ECGROUP{438A11} 9|46r19
+512i29*LASTCCL{integer} 9|34r19
+513p3*CCLMAP{56P8} 9|42r15
+513p11*CCLLEN{56P8} 9|44r24 53r7
+515p3*CCLTBL{65P8} 9|45r30 48r11
+

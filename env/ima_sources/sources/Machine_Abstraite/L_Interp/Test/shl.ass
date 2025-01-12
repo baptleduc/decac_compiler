@@ -1,0 +1,64 @@
+  LOAD #1,R2			
+  LOAD #30,R5			; 15 rotations
+
+boucle.1 :
+  CMP #0, R5
+  BLT fin_boucle.1
+
+  SHL R2
+
+  LOAD R2,R1
+  WINT
+  WNL
+	
+  SUB #1, R5
+  BRA boucle.1
+fin_boucle.1 :
+
+
+;; test du débordement
+  LOAD #1073741824, R2
+  SHL R2
+  BOV ov_ok.1
+  WSTR "KO"
+  BRA suite.1
+ov_ok.1 :
+  WSTR "OK"
+suite.1 :
+  WNL  
+
+;; test sur un nombre négatif
+  LOAD #-1, R2
+  SHL R2
+  LOAD R2,R1
+  WINT 
+  WNL
+
+;; test sur de postionnement de CP
+  LOAD #1073741824, R2
+  SHL R2
+  BEQ ov_ok.2
+  WSTR "KO"
+  BRA suite.2
+ov_ok.2 :
+  WSTR "OK"
+suite.2 :
+  WNL  
+
+  LOAD #10, R2
+  SHL R2
+  BEQ ov_ko.1
+  WSTR "OK"
+  BRA suite.3
+ov_ko.1 :
+  WSTR "KO"
+suite.3 :
+  WNL  
+
+
+ 
+;; test sur un nombre réel
+  LOAD #1.0, R2
+  SHL R2
+
+  HALT

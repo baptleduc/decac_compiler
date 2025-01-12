@@ -1,0 +1,143 @@
+V "GNAT Lib v9"
+A -gnato
+A -fstack-check=specific
+P ZX
+
+RN
+RV NO_EXCEPTION_HANDLERS
+RV NO_EXCEPTION_PROPAGATION
+RV NO_EXCEPTIONS
+RV NO_IO
+RV NO_STANDARD_STORAGE_POOLS
+RV NO_DEFAULT_INITIALIZATION
+RV NO_DYNAMIC_SIZED_OBJECTS
+RV SPARK_05
+
+U output_file%b		output_file.adb		e32d3761 NE OO PK
+W actions_file%s	actions_file.adb	actions_file.ali
+W ada%s			ada.ads			ada.ali
+Z ada.tags%s		a-tags.adb		a-tags.ali
+W ada.text_io%s		a-textio.adb		a-textio.ali
+W ayacc_file_names%s	ayacc_file_names.adb	ayacc_file_names.ali
+W lexical_analyzer%s	lexical_analyzer.adb	lexical_analyzer.ali
+W options%s		options.adb		options.ali
+W parse_table%s		parse_table.adb		parse_table.ali
+W parse_template_file%s	parse_template_file.adb	parse_template_file.ali
+W source_file%s		source_file.adb		source_file.ali
+Z system.concat_2%s	s-conca2.adb		s-conca2.ali
+Z system.concat_3%s	s-conca3.adb		s-conca3.ali
+Z system.img_bool%s	s-imgboo.adb		s-imgboo.ali
+Z system.secondary_stack%s  s-secsta.adb	s-secsta.ali
+
+U output_file%s		output_file.ads		d747e4a2 EE NE OO PK
+
+D actions_file.ads	20221217092829 3fe1550d actions_file%s
+D ada.ads		20220527072110 76789da1 ada%s
+D a-except.ads		20220527072110 291912d5 ada.exceptions%s
+D a-ioexce.ads		20220527072110 e4a01f64 ada.io_exceptions%s
+D a-stream.ads		20220527072110 119b8fb3 ada.streams%s
+D a-tags.ads		20220527072110 491b781d ada.tags%s
+D a-textio.ads		20220527072110 881db35a ada.text_io%s
+D a-unccon.ads		20220527072110 0e9b276f ada.unchecked_conversion%s
+D ayacc_file_names.ads	20221217092829 a6c3e0e9 ayacc_file_names%s
+D interfac.ads		20220527072110 5ab55268 interfaces%s
+D i-cstrea.ads		20220527072110 e53d8b8e interfaces.c_streams%s
+D lexical_analyzer.ads	20221217092829 6ade6f66 lexical_analyzer%s
+D options.ads		20221217092829 d66de997 options%s
+D output_file.ads	20221217092829 d747e4a2 output_file%s
+D output_file.adb	20221217092829 81fb8ca8 output_file%b
+D parse_table.ads	20221217092829 0f7f9f9f parse_table%s
+D parse_template_file.ads  20221217092829 10d2cc5c parse_template_file%s
+D source_file.ads	20221217092829 07b08ce7 source_file%s
+D system.ads		20220527072110 4635ec04 system%s
+D s-conca2.ads		20220527072110 02a0d7d0 system.concat_2%s
+D s-conca3.ads		20220527072110 0b705ca5 system.concat_3%s
+D s-crtl.ads		20220527072110 0ebbdb71 system.crtl%s
+D s-exctab.ads		20220527072110 54135002 system.exception_table%s
+D s-ficobl.ads		20220527072110 078245e4 system.file_control_block%s
+D s-imgboo.ads		20220527072110 f5d971eb system.img_bool%s
+D s-parame.ads		20220527072110 48ec542b system.parameters%s
+D s-secsta.ads		20220527072110 20bbe636 system.secondary_stack%s
+D s-soflin.ads		20220527072110 a7318a92 system.soft_links%s
+D s-stache.ads		20220527072110 a37c21ec system.stack_checking%s
+D s-stalib.ads		20220527072110 09bd3940 system.standard_library%s
+D s-stoele.ads		20220527072110 2dc34a04 system.storage_elements%s
+D s-traent.ads		20220527072110 005bf670 system.traceback_entries%s
+D s-unstyp.ads		20220527072110 34867c83 system.unsigned_types%s
+D s-wchcon.ads		20220527072110 1b7d22d2 system.wch_con%s
+X 1 actions_file.ads
+51K9*Actions_File 80e17 15|58w6 61r6 325r9 325r27 327r23 328r13 331r9
+62n24*Read_File{62E10} 15|325r40
+64U15*Open 15|325s22
+68U15*Read_Line 15|328s26
+70U15*Delete 15|331s22
+78V14*Is_End_of_File{boolean} 15|327s36
+X 2 ada.ads
+16K9*Ada 20e8 15|59r40 62r40
+X 7 a-textio.ads
+49K13*Text_IO 471e16 15|59w44 62r44
+52P9*File_Type 15|70r15
+53n32*Out_File{53E9} 15|80r24
+86U14*Create 15|80s8
+98U14*Close 15|89s8
+259U14*Put_Line 15|124s13 165s21 170s21 187s9 188s9 190s9 191s9 193s9 194s9
+. 198s11 199s11 200s11 201s11 241s21 246s21 264s9 303s21 308s21 329s13 367s17
+. 372s17 402s13
+263U14*Put_Line 15|83s13
+294X4*Name_Error 15|82r13
+295X4*Use_Error 15|82r26
+X 9 ayacc_file_names.ads
+61K9*Ayacc_File_Names 98e21 15|58w20 61r20
+68V15*Get_Out_File_Name{string} 15|80s34 83s50
+86V12*Goto_Tables_Unit_Name{string} 15|188s39
+87V12*Shift_Reduce_Tables_Unit_Name{string} 15|191s39
+88V12*Tokens_Unit_Name{string} 15|194s39
+90V12*Error_Report_Unit_Name{string} 15|200s41
+X 12 lexical_analyzer.ads
+48K9*Lexical_Analyzer 81e21 15|58w38 61r38
+X 13 options.ads
+47K9*Options 94e12 15|58w56 61r56 162r20 197r12 238r20 265r42 300r20 364r16
+. 396r16
+72V14*Debug{boolean} 15|265s50
+87V14*Error_Recovery_Extension{boolean} 15|162s28 197s20 238s28 300s28 364s24
+. 396s24
+X 14 output_file.ads
+47K9*Output_File 51l5 51e16 15|64b14 407l5 407t16
+49U14*Make_Output_File 15|96b15 406l9 406t25
+X 15 output_file.adb
+66a3 SCCS_ID{string}
+70p5 Outfile{7|52P9} 80m15 80r15 89m14 89r14 124r22 165r30 170r30 187r19
+. 188r19 190r19 191r19 193r19 194r19 198r21 199r21 200r21 201r21 241r30 246r30
+. 264r19 303r30 308r30 329r22 367r26 372r26 402r22
+72U15 Open 72b15 85l9 85t13 109s9
+87U15 Close 87b15 90l9 90t14 405s9
+97a9 Text{string} 114m35 117r48 120r20 124r31 131m38 132r36 146r41 150r41
+. 152m44 155r44 157m44 165r38 170r38 174r41 207m38 208r36 222r41 226r41 228m44
+. 231r44 233m44 241r38 246r38 250r41 269m38 270r36 284r41 288r41 290m44 293r44
+. 295m44 303r38 308r38 312r41 328m36 329r31 336m38 348r37 352r37 354m40 357r40
+. 359m40 367r34 372r34 376r37 391m34 397r38 402r31
+98i9 Length{natural} 114m41 115r16 117r28 124r39 131m43 132r16 146r20 150r20
+. 152m49 155r23 157m49 165r46 170r46 174r20 207m43 208r16 222r20 226r20 228m49
+. 231r23 233m49 241r46 246r46 250r20 269m43 270r16 284r20 288r20 290m49 293r23
+. 295m49 303r46 308r46 312r20 328m41 329r39 336m43 348r16 352r16 354m45 357r19
+. 359m45 367r42 372r42 376r16 391m40 397r18 402r39
+99i9 I{integer} 116m17 117r24 117r53 118m21 118r26 120r25 120r28
+101b5 Umass_Codes{boolean} 147m19 169r26 175m19 223m19 245r26 251m19 285m19
+. 307r26 313m19 349m15 371r22 377m15
+104b5 UCI_Codes_Deleted{boolean} 151m19 156m19 164r26 227m19 232m19 240r26
+. 289m19 294m19 302r26 353m15 358m15 366r22
+X 16 parse_table.ads
+56K9*Parse_Table 15|58w65 61r65 16|68e16
+X 17 parse_template_file.ads
+47K9*Parse_Template_File 15|59w6 62r6 127r9 131r13 152r19 157r19 207r13 228r19
+. 233r19 269r13 290r19 295r19 335r23 336r13 354r15 359r15 387r9 17|56e24
+51U15*Open 15|127s29
+52U15*Read 15|131s33 152s39 157s39 207s33 228s39 233s39 269s33 290s39 295s39
+. 336s33 354s35 359s35
+53U15*Close 15|387s29
+54V15*Is_End_of_File{boolean} 15|335s43
+X 18 source_file.ads
+48K9*Source_File 15|59w27 62r27 113r19 114r13 390r19 391r12 18|93e16
+67V16*Is_End_of_File{boolean} 15|113s31 390s31
+83U15*Read_Line 15|114s25 391s24
+

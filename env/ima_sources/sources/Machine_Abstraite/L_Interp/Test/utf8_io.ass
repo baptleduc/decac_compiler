@@ -1,0 +1,12 @@
+; test sur RUTF8/WUTF8
+loop:
+	RUTF8
+	BEQ end
+        WUTF8
+        ; debug
+;       WSTR " "
+;       WINT
+;       WNL
+	BRA loop
+end:
+	HALT

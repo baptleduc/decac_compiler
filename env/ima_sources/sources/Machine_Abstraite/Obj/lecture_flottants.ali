@@ -1,0 +1,96 @@
+V "GNAT Lib v9"
+A -gnatf
+A -gnatyM115
+A -gnatwl
+A -g
+A -gnato
+A -fstack-check=specific
+A -g
+A -fstack-check=specific
+P ZX
+
+RN
+RV NO_DIRECT_BOOLEAN_OPERATORS
+RV NO_EXCEPTION_HANDLERS
+RV NO_EXCEPTIONS
+RV NO_FLOATING_POINT
+RV NO_IO
+RV NO_STANDARD_STORAGE_POOLS
+RV SPARK_05
+
+U lecture_flottants%b	lecture_flottants.adb	3a147135 NE OO PK
+W ada%s			ada.ads			ada.ali
+Z ada.exceptions%s	a-except.adb		a-except.ali
+W ada.text_io%s		a-textio.adb		a-textio.ali
+W flottant_es%s		flottant_es.ads		flottant_es.ali
+Z interfaces%s		interfac.ads		interfac.ali
+
+U lecture_flottants%s	lecture_flottants.ads	1ac5c741 EE NE OO PK
+W types_base%s		types_base.adb		types_base.ali
+
+D ada.ads		20220527072110 76789da1 ada%s
+D a-except.ads		20220527072110 291912d5 ada.exceptions%s
+D a-ioexce.ads		20220527072110 e4a01f64 ada.io_exceptions%s
+D a-stream.ads		20220527072110 119b8fb3 ada.streams%s
+D a-tags.ads		20220527072110 491b781d ada.tags%s
+D a-textio.ads		20220527072110 881db35a ada.text_io%s
+D a-tiflio.ads		20220527072110 56fbda09 ada.text_io.float_io%s
+D a-unccon.ads		20220527072110 0e9b276f ada.unchecked_conversion%s
+D flottant_es.ads	20221217092829 e04da326 flottant_es%s
+D interfac.ads		20220527072110 5ab55268 interfaces%s
+D i-cstrea.ads		20220527072110 e53d8b8e interfaces.c_streams%s
+D lecture_flottants.ads	20221217092829 a14328dd lecture_flottants%s
+D lecture_flottants.adb	20221217092829 f3074994 lecture_flottants%b
+D system.ads		20220527072110 4635ec04 system%s
+D s-crtl.ads		20220527072110 0ebbdb71 system.crtl%s
+D s-exctab.ads		20220527072110 54135002 system.exception_table%s
+D s-ficobl.ads		20220527072110 078245e4 system.file_control_block%s
+D s-parame.ads		20220527072110 48ec542b system.parameters%s
+D s-secsta.ads		20220527072110 20bbe636 system.secondary_stack%s
+D s-soflin.ads		20220527072110 a7318a92 system.soft_links%s
+D s-stache.ads		20220527072110 a37c21ec system.stack_checking%s
+D s-stalib.ads		20220527072110 09bd3940 system.standard_library%s
+D s-stoele.ads		20220527072110 2dc34a04 system.storage_elements%s
+D s-traent.ads		20220527072110 005bf670 system.traceback_entries%s
+D s-unstyp.ads		20220527072110 34867c83 system.unsigned_types%s
+D s-wchcon.ads		20220527072110 1b7d22d2 system.wch_con%s
+D types_base.ads	20221217092829 bb86ef9c types_base%s
+X 1 ada.ads
+16K9*Ada 20e8 13|13r6 14r6
+X 6 a-textio.ads
+49K13*Text_IO 471e16 13|13w10 14r10
+169U14*Skip_Line 13|38s9
+172V13*End_Of_Line{boolean} 13|36s10 49s10
+206U14*Get 13|40s9 52s9
+298X4*Data_Error 13|93r21 102r21 116r23 125r23 128r21 144r14 147r13
+X 7 a-tiflio.ads
+74U14*Get 13|141s9[9|17]
+X 9 flottant_es.ads
+17K9*Flottant_ES[7|46] 13|13w19 14r19
+X 12 lecture_flottants.ads
+12K9*Lecture_Flottants 36l5 36e22 13|16b14 151l5 151t22
+14U13*lire_flottant 14<28 13|20b13 149l7 149t20
+14f28 x{27|41F9} 13|20b27 142m9
+X 13 lecture_flottants.adb
+18a3 S{string} 86m15 90m15 99m15 108m15 112m17 122m17 141r13
+22E10 Etat 22e45 26r16
+22n19 debut{22E10} 26r24 82r14 123r29
+22n26 apsigne{22E10} 87r27 95r14 114r29
+22n35 apchiffre{22E10} 91r27 100r27 104r14 139r19
+23E13 Chiffre{character} 88r18 97r18 106r18
+24b5 dansmantisse{boolean} 119r18 120m17
+25b5 avantpoint{boolean} 110r18 113m17 139r37
+26e5 etatcour{22E10} 81r12 87m15 91m15 100m15 114m17 123m17 139r8
+27e5 carcour{character} 37m9 40m13 50m9 52m13 60r13 80r11 83r16 86r36 90r36
+. 96r16 99r36 105r16 108r36 112r38 122r38
+28i5 indice_dernier{natural} 85m15 85r33 86r17 89m15 89r33 90r17 98m15 98r33
+. 99r17 107m15 107r33 108r17 111m17 111r35 112r19 121m17 121r35 122r19 141r20
+29i5 pos{positive} 141m40
+30f5 f{float} 141m37 142r22
+34U15 carsuiv1 34b15 42l9 42t17 61s9
+46U15 carsuiv2 46b15 54l9 54t17 131s7
+58U15 passer_espaces1 58b15 63l9 63t24 77s5
+X 27 types_base.ads
+17K9*Types_Base 12|9w6 10r6 27|65e15
+41F9*Flot_MA<short_float> 12|14r36 13|20r35 142r14
+

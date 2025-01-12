@@ -1,0 +1,9 @@
+; read int, and print it.
+start:
+	RFLOAT
+	BOV dontprint
+	WFLOAT
+	WNL
+	BRA start
+dontprint:
+	HALT

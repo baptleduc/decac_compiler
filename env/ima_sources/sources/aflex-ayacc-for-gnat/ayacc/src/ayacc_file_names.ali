@@ -1,0 +1,126 @@
+V "GNAT Lib v9"
+A -gnato
+A -fstack-check=specific
+P SS ZX
+
+RN
+RV NO_EXCEPTIONS
+RV NO_SECONDARY_STACK
+RV NO_STANDARD_STORAGE_POOLS
+RV NO_DEFAULT_INITIALIZATION
+RV NO_DYNAMIC_SIZED_OBJECTS
+RV NO_ELABORATION_CODE
+RV SPARK_05
+
+U ayacc_file_names%b	ayacc_file_names.adb	909c87f3 OO PK
+Z ada.exceptions%s	a-except.adb		a-except.ali
+W str_pack%s		str_pack.adb		str_pack.ali
+W string_pkg%s		string_pkg.adb		string_pkg.ali
+Z system.concat_2%s	s-conca2.adb		s-conca2.ali
+Z system.secondary_stack%s  s-secsta.adb	s-secsta.ali
+
+U ayacc_file_names%s	ayacc_file_names.ads	a6c3e0e9 EE OO PK
+Z system%s		system.ads		system.ali
+Z system.exception_table%s  s-exctab.adb	s-exctab.ali
+Z system.standard_library%s  s-stalib.adb	s-stalib.ali
+
+D ada.ads		20220527072110 76789da1 ada%s
+D a-except.ads		20220527072110 291912d5 ada.exceptions%s
+D a-unccon.ads		20220527072110 0e9b276f ada.unchecked_conversion%s
+D ayacc_file_names.ads	20221217092829 a6c3e0e9 ayacc_file_names%s
+D ayacc_file_names.adb	20221217092829 c02212b5 ayacc_file_names%b
+D str_pack.ads		20221217092829 16be565b str_pack%s
+D string_pkg.ads	20221217092829 e0c323f4 string_pkg%s
+D system.ads		20220527072110 4635ec04 system%s
+D s-conca2.ads		20220527072110 02a0d7d0 system.concat_2%s
+D s-exctab.ads		20220527072110 54135002 system.exception_table%s
+D s-parame.ads		20220527072110 48ec542b system.parameters%s
+D s-secsta.ads		20220527072110 20bbe636 system.secondary_stack%s
+D s-stalib.ads		20220527072110 09bd3940 system.standard_library%s
+D s-stoele.ads		20220527072110 2dc34a04 system.storage_elements%s
+D s-traent.ads		20220527072110 005bf670 system.traceback_entries%s
+X 4 ayacc_file_names.ads
+61K9*Ayacc_File_Names 98l5 98e21 5|5b14 261l5 261t21
+63U15*Set_File_Names 63>30 63>42 5|206b15 259l9 259t23
+63a30 Input_File{string} 5|206b30 210r12 211r13 211r24 212r13 212r24 213r12
+. 213r23 218r16 218r27 218r45 220r16
+63a42 Extension{string} 5|206b42 231r28 248r34 251r26 254r27
+67V15*Get_Source_File_Name{string} 5|136b15 139t8
+68V15*Get_Out_File_Name{string} 5|141b15 150t8
+69V15*Get_Verbose_File_Name{string} 5|152b15 155t8
+70V15*Get_Template_File_Name{string} 5|157b15 160t8
+71V15*Get_Actions_File_Name{string} 5|162b15 165t8
+72V15*Get_Shift_Reduce_File_Name{string} 5|167b15 170t8
+73V15*Get_Goto_File_Name{string} 5|172b15 175t8
+74V15*Get_Tokens_File_Name{string} 5|177b15 180t8
+76V15*Get_Error_Report_File_Name{string} 5|183b15 186t8
+77V15*Get_Listing_File_Name{string} 5|188b15 191t8
+79V15*Get_C_Lex_File_Name{string} 5|194b14 197t8
+80V15*Get_Include_File_Name{string} 5|199b14 202t8
+85V12*C_Lex_Unit_Name{string} 5|98b12 102l7 102t22
+86V12*Goto_Tables_Unit_Name{string} 5|105b12 109l7 109t28
+87V12*Shift_Reduce_Tables_Unit_Name{string} 5|112b12 116l7 116t36
+88V12*Tokens_Unit_Name{string} 5|119b12 123l7 123t23
+90V12*Error_Report_Unit_Name{string} 5|126b12 130l7 130t29
+95X5*Illegal_File_Name 5|215r19
+X 5 ayacc_file_names.adb
+7a3 SCCS_ID{string}
+11a3 Rcs_ID{string}
+13N5 Max_Name_Length 15r34 16r34 17r34 18r34 19r34 20r34 21r34 22r34 24r34
+. 25r34 27r34 28r34 207r19
+15r5 Source_File_Name{6|55R10} 138r25 220m34 220r34
+16r5 Out_File_Name{6|55R10} 147r25 222m28 222r28
+17r5 Verbose_File_Name{6|55R10} 154r25 227m34 227r34 228m34 228r34
+18r5 Template_File_Name{6|55R10} 159r25 242m42 242r42
+19r5 Actions_File_Name{6|55R10} 164r25 244m31 244r31 245m31 245r31
+20r5 Shift_Reduce_File_Name{6|55R10} 113r57 169r25 247m41 247r41 248m51 248r51
+21r5 Goto_File_Name{6|55R10} 106r57 174r25 250m33 250r33 251m43 251r43
+22r5 Tokens_File_Name{6|55R10} 120r57 179r25 230m35 230r35 231m45 231r45
+24r5 Error_Report_File_Name{6|55R10} 127r57 185r25 234m35 234r35 235m40 235r40
+25r5 Listing_File_Name{6|55R10} 190r25 238m35 238r35 239m30 239r30
+27r5 C_Lex_File_Name{6|55R10} 99r57 196r25 253m34 253r34 254m44 254r44
+28r5 Include_File_Name{6|55R10} 201r25 256m28 256r28 257m28 257r28
+33V12 End_of_Unit_Name{natural} 33b12 33>30 42l7 42t23 50s35
+33a30 Name{string} 34r31 36r27 37r11
+34i5 Dot_Position{natural} 36r11 37r17 39m7 39r23 41r12
+45V12 Get_Unit_Name{string} 45b12 45>27 95l7 95t20 101s12 108s12 115s12 122s12
+. 129s12
+45a27 Filename{string} 50r7 50r17 50r53
+49a5 Filename_Without_Extension{string} 52r35 72r24 73r24 74r17 78r28 79r23
+. 82r41 84r44 89r29 90r29
+52i5 End_of_Directory{natural} 75m7 78r8 79r51 82r17 89r57
+55V14 Is_Alphabetic{boolean} 55b14 55>29 59l9 59t22 63s14 79s8
+55e29 Ch{character} 57r14 58r14
+61V14 Is_AlphaNum_or_Underscore{boolean} 61b14 61>41 66l9 66t34 84s17
+61e41 Ch{character} 63r28 64r14 65r14
+72i9 Pos{integer} 74r44 75r27
+81l8 Check_Remaining_Characters 87l17 87e43
+82i12 i{integer} 84r71
+99a5 Filename{string} 101r27
+106a5 Filename{string} 108r27
+113a5 Filename{string} 115r27
+120a5 Filename{string} 122r27
+127a5 Filename{string} 129r27
+207r9 Base{6|55R10} 218m71 218r71 222r16 227r16 230r16 234r16 238r16 244r16
+. 247r16 250r16 253r16 256r16
+X 6 str_pack.ads
+48K9*STR_Pack 5|1w6 2r6 6|88e13
+55R10*STR 5|15r30 16r30 17r30 18r30 19r30 20r30 21r30 22r30 24r30 25r30 27r30
+. 28r30 207r15 6|86e19
+58V15*Value_of{string} 5|99s35 106s35 113s35 120s35 127s35 138s16 147s16
+. 154s16 159s16 164s16 169s16 174s16 179s16 185s16 190s16 196s16 201s16
+61U15*Assign 5|222s9 227s9 230s9 234s9 238s9 244s9 247s9 250s9 253s9 256s9
+61r44 To{55R10} 5|222r22 227r28 230r29 234r29 238r29 244r25 247r35 250r27
+. 253r28 256r22
+62U15*Assign 5|218s9 220s9 242s9
+62r44 To{55R10} 5|218r65 220r28 242r36
+66U15*Append 5|228s9 231s9 235s9 239s9 245s9 248s9 251s9 254s9 257s9
+66r43 To{55R10} 5|228r28 231r39 235r34 239r24 245r25 248r45 251r37 254r38
+. 257r22
+72V15*Upper_Case{55R10} 5|99s45 106s45 113s45 120s45 127s45
+X 7 string_pkg.ads
+14K9*string_pkg 5|4w6 68r7 7|597e15
+95P10*string_type
+255V14*Mixed{95P10} 5|89s22
+390V14*value{string} 5|89s15
+

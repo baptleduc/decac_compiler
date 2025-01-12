@@ -1,0 +1,101 @@
+V "GNAT Lib v9"
+A -gnato
+A -fstack-check=specific
+P ZX
+
+RN
+RV NO_EXCEPTION_HANDLERS
+RV NO_EXCEPTION_PROPAGATION
+RV NO_EXCEPTIONS
+RV NO_IO
+RV NO_SECONDARY_STACK
+RV NO_STANDARD_STORAGE_POOLS
+RV NO_DEFAULT_INITIALIZATION
+RV NO_DYNAMIC_SIZED_OBJECTS
+RV SPARK_05
+
+U actions_file%b	actions_file.adb	2363d189 NE OO PK
+Z ada.tags%s		a-tags.adb		a-tags.ali
+W ayacc_file_names%s	ayacc_file_names.adb	ayacc_file_names.ali
+Z system.concat_3%s	s-conca3.adb		s-conca3.ali
+Z system.secondary_stack%s  s-secsta.adb	s-secsta.ali
+
+U actions_file%s	actions_file.ads	b7fce657 EE NE OO PK
+W ada%s			ada.ads			ada.ali
+W ada.text_io%s		a-textio.adb		a-textio.ali
+
+D actions_file.ads	20221217092829 3fe1550d actions_file%s
+D actions_file.adb	20221217092829 ba41646d actions_file%b
+D ada.ads		20220527072110 76789da1 ada%s
+D a-except.ads		20220527072110 291912d5 ada.exceptions%s
+D a-ioexce.ads		20220527072110 e4a01f64 ada.io_exceptions%s
+D a-stream.ads		20220527072110 119b8fb3 ada.streams%s
+D a-tags.ads		20220527072110 491b781d ada.tags%s
+D a-textio.ads		20220527072110 881db35a ada.text_io%s
+D a-unccon.ads		20220527072110 0e9b276f ada.unchecked_conversion%s
+D ayacc_file_names.ads	20221217092829 a6c3e0e9 ayacc_file_names%s
+D interfac.ads		20220527072110 5ab55268 interfaces%s
+D i-cstrea.ads		20220527072110 e53d8b8e interfaces.c_streams%s
+D system.ads		20220527072110 4635ec04 system%s
+D s-conca3.ads		20220527072110 0b705ca5 system.concat_3%s
+D s-crtl.ads		20220527072110 0ebbdb71 system.crtl%s
+D s-exctab.ads		20220527072110 54135002 system.exception_table%s
+D s-ficobl.ads		20220527072110 078245e4 system.file_control_block%s
+D s-parame.ads		20220527072110 48ec542b system.parameters%s
+D s-secsta.ads		20220527072110 20bbe636 system.secondary_stack%s
+D s-soflin.ads		20220527072110 a7318a92 system.soft_links%s
+D s-stache.ads		20220527072110 a37c21ec system.stack_checking%s
+D s-stalib.ads		20220527072110 09bd3940 system.standard_library%s
+D s-stoele.ads		20220527072110 2dc34a04 system.storage_elements%s
+D s-traent.ads		20220527072110 005bf670 system.traceback_entries%s
+D s-unstyp.ads		20220527072110 34867c83 system.unsigned_types%s
+D s-wchcon.ads		20220527072110 1b7d22d2 system.wch_con%s
+X 1 actions_file.ads
+51K9*Actions_File 80l5 80e17 2|56b14 127l5 127t17
+62E10*File_Mode 62e46 64r29 2|67r29
+62n24*Read_File{62E10} 2|69r19
+62n35*Write_File{62E10} 2|119r13
+64U15*Open 64>20 2|67b15 79l9 79t13 119s8
+64e20 Mode{62E10} 2|67b20 69r12
+65U15*Write 65>21 2|101b15 104t8
+65e21 C{character} 2|101b21 103r23
+66U15*Write 66>21 2|96b15 99t8
+66a21 S{string} 2|96b21 98r23
+67U15*Writeln 2|106b15 109t8
+68U15*Read_Line 68<25 68<40 2|91b15 94t8
+68a25 S{string} 2|91b25 93m28
+68i40 Last{natural} 2|91b40 93m31
+69U15*Close 2|81b15 84l9 84t14 124s8
+70U15*Delete 2|86b15 89l9 89t15
+75U15*Initialize 2|117b15 120l9 120t19
+76U15*Finish 2|122b15 125l9 125t15
+78V14*Is_End_of_File{boolean} 2|112b14 115l9 115t23
+X 2 actions_file.adb
+58a3 SCCS_ID{string}
+63i5 Maximum_Action_Length{8|64I9}
+65p5 The_File{8|52P9} 70m17 70r17 72m19 72r19 83m14 83r14 88m16 88r16 93r18
+. 98r13 103r13 108r18 114r28
+X 3 ada.ads
+16K9*Ada 1|49r6 49r24 3|20e8
+X 8 a-textio.ads
+49K13*Text_IO 1|49w10 49r28 8|471e16
+52P9*File_Type 2|65r16
+53n23*In_File{53E9} 2|70r27
+53n32*Out_File{53E9} 2|72r29
+64I9*Count<integer> 2|63r38
+86U14*Create 2|72s12
+92U14*Open 2|70s12
+98U14*Close 2|83s8
+99U14*Delete 2|88s9
+165U14*New_Line 2|108s9
+183V13*End_Of_File{boolean} 2|114s16
+207U14*Put 2|103s9
+241U14*Put 2|98s9
+244U14*Get_Line 2|93s9
+263U14*Put_Line 2|77s16
+294X4*Name_Error 2|76r17
+295X4*Use_Error 2|76r30
+X 10 ayacc_file_names.ads
+61K9*Ayacc_File_Names 2|54w6 55r6 10|98e21
+71V15*Get_Actions_File_Name{string} 2|70s36 72s39 77s53
+

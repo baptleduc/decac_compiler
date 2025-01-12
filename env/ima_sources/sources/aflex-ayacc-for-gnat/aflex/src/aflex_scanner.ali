@@ -1,0 +1,66 @@
+V "GNAT Lib v9"
+A -gnato
+A -fstack-check=specific
+P ZX
+
+RN
+RV SPARK_05
+
+U aflex_scanner%b	aflex_scanner.adb	5caee51f NE OO PK IU
+W parse_tokens%s	parse_tokens.ads	parse_tokens.ali
+W scanner%s		scanner.adb		scanner.ali
+
+U aflex_scanner%s	aflex_scanner.ads	c99bfb7a EE NE OO PK IU
+W parse_tokens%s	parse_tokens.ads	parse_tokens.ali
+W scanner%s		scanner.adb		scanner.ali
+
+D ada.ads		20220527072110 76789da1 ada%s
+D a-except.ads		20220527072110 291912d5 ada.exceptions%s
+D a-ioexce.ads		20220527072110 e4a01f64 ada.io_exceptions%s
+D a-stream.ads		20220527072110 119b8fb3 ada.streams%s
+D a-tags.ads		20220527072110 491b781d ada.tags%s
+D a-textio.ads		20220527072110 881db35a ada.text_io%s
+D a-tiinio.ads		20220527072110 aa04e5d6 ada.text_io.integer_io%s
+D a-unccon.ads		20220527072110 0e9b276f ada.unchecked_conversion%s
+D aflex_scanner.ads	20221217092829 82aa944c aflex_scanner%s
+D aflex_scanner.adb	20221217092829 95351e65 aflex_scanner%b
+D ascan_dfa.ads		20221217092829 fcb1823a ascan_dfa%s
+D ascan_io.ads		20221217092829 7385cf0d ascan_io%s
+D ccl.ads		20221217092829 96d35f00 ccl%s
+D external_file_manager.ads  20221217092829 7b810f3b external_file_manager%s
+D int_io.ads		20221217092829 81a6c472 int_io%s
+D interfac.ads		20220527072110 5ab55268 interfaces%s
+D i-cstrea.ads		20220527072110 e53d8b8e interfaces.c_streams%s
+D misc.ads		20221217092829 8442d4ab misc%s
+D misc_defs.ads		20221217092829 f17ec461 misc_defs%s
+D nfa.ads		20221217092829 5dda44e6 nfa%s
+D parse_goto.ads	20221217092829 24207b67 parse_goto%s
+D parse_shift_reduce.ads  20221217092829 4704e855 parse_shift_reduce%s
+D parse_tokens.ads	20221217092829 3dad9fd3 parse_tokens%s
+D scanner.ads		20221217092829 769cf0e5 scanner%s
+D sym.ads		20221217092829 b988a6ee sym%s
+D system.ads		20220527072110 4635ec04 system%s
+D s-crtl.ads		20220527072110 0ebbdb71 system.crtl%s
+D s-exctab.ads		20220527072110 54135002 system.exception_table%s
+D s-ficobl.ads		20220527072110 078245e4 system.file_control_block%s
+D s-parame.ads		20220527072110 48ec542b system.parameters%s
+D s-secsta.ads		20220527072110 20bbe636 system.secondary_stack%s
+D s-soflin.ads		20220527072110 a7318a92 system.soft_links%s
+D s-stache.ads		20220527072110 a37c21ec system.stack_checking%s
+D s-stalib.ads		20220527072110 09bd3940 system.standard_library%s
+D s-stoele.ads		20220527072110 2dc34a04 system.storage_elements%s
+D s-traent.ads		20220527072110 005bf670 system.traceback_entries%s
+D s-unstyp.ads		20220527072110 34867c83 system.unsigned_types%s
+D s-wchcon.ads		20220527072110 1b7d22d2 system.wch_con%s
+D tstring.ads		20221217092829 bfe7f17a tstring%s
+D vstrings.ads		20221217092829 90607e37 vstrings%s
+X 9 aflex_scanner.ads
+26K9*AFLEX_SCANNER 28l5 28e18 10|3b14 9l5 9t18
+27V12*YYLEX{23|16E10} 10|4b12 7l7 7t12
+X 23 parse_tokens.ads
+10K9*Parse_Tokens 9|24w6 24r33 10|1w6 1r33 23|30e17
+16E10*Token 9|27r25 10|4r25 23|26e25
+X 24 scanner.ads
+40K9*scanner 9|24w20 24r47 10|1w20 1r47 6r12 24|43e12
+42V14*get_token{23|16E10} 10|6s20
+

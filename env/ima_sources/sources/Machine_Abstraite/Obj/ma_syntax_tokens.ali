@@ -1,0 +1,164 @@
+V "GNAT Lib v9"
+A -gnatf
+A -gnatyM115
+A -gnatwl
+A -g
+A -gnato
+A -fstack-check=specific
+A -g
+A -fstack-check=specific
+P ZX
+
+RN
+RV NO_FLOATING_POINT
+RV NO_IMPLICIT_CONDITIONALS
+RV NO_DEFAULT_INITIALIZATION
+RV NO_ELABORATION_CODE
+RV SPARK_05
+
+U ma_syntax_tokens%s	ma_syntax_tokens.ads	c134caab EE OO PK
+W pseudo_code%s		pseudo_code.adb		pseudo_code.ali
+Z system%s		system.ads		system.ali
+Z system.exception_table%s  s-exctab.adb	s-exctab.ali
+Z system.standard_library%s  s-stalib.adb	s-stalib.ali
+W types_base%s		types_base.adb		types_base.ali
+
+D ada.ads		20220527072110 76789da1 ada%s
+D a-unccon.ads		20220527072110 0e9b276f ada.unchecked_conversion%s
+D ma_syntax_tokens.ads	20241206131835 c3675c6e ma_syntax_tokens%s
+D pseudo_code.ads	20221217092829 b9d57959 pseudo_code%s
+D system.ads		20220527072110 4635ec04 system%s
+D s-exctab.ads		20220527072110 54135002 system.exception_table%s
+D s-stalib.ads		20220527072110 09bd3940 system.standard_library%s
+D types_base.ads	20221217092829 bb86ef9c types_base%s
+X 3 ma_syntax_tokens.ads
+3K9*Ma_Syntax_Tokens 80l5 80e21
+6I11*Num_reg_banalise{natural} 41r20
+10E8*type_valeur 12e74 15r32
+11n6*nt_list_ligne{10E8} 17r12
+11n21*nt_adressage{10E8} 20r12
+11n35*nt_instr{10E8} 22r12
+11n45*nt_codop{10E8} 25r12
+11n55*nt_reg{10E8} 28r12
+12n6*lex_etiq{10E8} 30r12
+12n16*lex_entier{10E8} 33r12
+12n28*lex_flottant{10E8} 36r12
+12n42*lex_regb{10E8} 39r12
+12n52*lex_chaine{10E8} 42r12
+12n64*lex_autre{10E8} 15r47 45r12
+15R8*yystype 15d17 48e13 50r21
+15e17*discriminant{10E8} 16r10
+18p9*val_list_ligne{4|106P9}
+19p9*val_dern_ligne{4|106P9}
+21p9*val_adressage{4|73P9}
+23i9*num_ligne_instr{positive}
+24p9*val_instr{4|101P9}
+26i9*num_ligne_codop{positive}
+27e9*val_code{4|77E9}
+29e9*val_reg{4|55E9}
+31i9*num_ligne_etiq{positive}
+32p9*val_etiq{8|35P9}
+34i9*num_ligne_entier{positive}
+35i9*val_ent{8|26I9}
+37i9*num_ligne_flottant{positive}
+38f9*val_Flot_MA{8|41F9}
+40i9*num_ligne_regb{positive}
+41i9*num_regb{6I11}
+43i9*num_ligne_chaine{positive}
+44p9*val_chaine{8|35P9}
+46i9*num_ligne_autre{positive}
+50r5*YYLVal{15R8}
+50r13*YYVal{15R8}
+51E10*Token 76e25
+52n10*End_Of_Input{51E10}
+52n24*Error{51E10}
+52n31*Nl_Lex{51E10}
+52n39*Etiq_Lex{51E10}
+53n10*Regb_Lex{51E10}
+53n20*Depl_Lex{51E10}
+53n30*Constentpos_Lex{51E10}
+54n10*Constentneg_Lex{51E10}
+54n27*Constfloa_Lex{51E10}
+54n42*Constchaine_Lex{51E10}
+55n10*Null_Lex{51E10}
+55n20*Load_Lex{51E10}
+55n30*Store_Lex{51E10}
+56n10*Lea_Lex{51E10}
+56n19*Pea_Lex{51E10}
+56n28*Push_Lex{51E10}
+57n10*Pop_Lex{51E10}
+57n19*Addsp_Lex{51E10}
+57n30*Subsp_Lex{51E10}
+58n10*Add_Lex{51E10}
+58n19*Sub_Lex{51E10}
+58n28*Opp_Lex{51E10}
+59n10*Mul_Lex{51E10}
+59n19*Quo_Lex{51E10}
+59n28*Cmp_Lex{51E10}
+60n10*Rem_Lex{51E10}
+60n19*Float_Lex{51E10}
+60n30*Seq_Lex{51E10}
+61n10*Sne_Lex{51E10}
+61n19*Sgt_Lex{51E10}
+61n28*Slt_Lex{51E10}
+62n10*New_Lex{51E10}
+62n19*Del_Lex{51E10}
+62n28*Sge_Lex{51E10}
+63n10*Sle_Lex{51E10}
+63n19*Sov_Lex{51E10}
+63n28*Div_Lex{51E10}
+64n10*Int_Lex{51E10}
+64n19*Bra_Lex{51E10}
+64n28*Beq_Lex{51E10}
+65n10*Bne_Lex{51E10}
+65n19*Bgt_Lex{51E10}
+65n28*Blt_Lex{51E10}
+66n10*Bge_Lex{51E10}
+66n19*Ble_Lex{51E10}
+66n28*Bov_Lex{51E10}
+67n10*Bsr_Lex{51E10}
+67n19*Rts_Lex{51E10}
+67n28*Rint_Lex{51E10}
+68n10*Rfloat_Lex{51E10}
+68n22*Wint_Lex{51E10}
+68n32*Wfloat_Lex{51E10}
+69n10*Wfloatx_Lex{51E10}
+69n23*Wstr_Lex{51E10}
+69n33*Wnl_Lex{51E10}
+70n10*Rutf8_Lex{51E10}
+70n21*Wutf8_Lex{51E10}
+70n32*Sclk_Lex{51E10}
+71n10*Clk_Lex{51E10}
+71n19*Tsto_Lex{51E10}
+71n29*Halt_Lex{51E10}
+72n10*Error_Lex{51E10}
+72n21*Lb_Lex{51E10}
+72n29*Gb_Lex{51E10}
+73n10*Setround_Tonearest_Lex{51E10}
+73n34*Setround_Upward_Lex{51E10}
+73n55*Setround_Downward_Lex{51E10}
+74n10*Setround_Towardzero_Lex{51E10}
+74n35*Sp_Lex{51E10}
+74n43*Fma_Lex{51E10}
+75n10*Shr_Lex{51E10}
+75n19*Shl_Lex{51E10}
+75n28*':'{51E10}
+76n10*','{51E10}
+76n15*'('{51E10}
+76n20*')'{51E10}
+78X5*Syntax_Error
+X 4 pseudo_code.ads
+49K9*Pseudo_Code 3|1w19 2r19 4|349e16
+55E9*Registre 3|29r19 4|56e73
+59E12*Banalise{55E9} 3|7r17 7r30 7r47 7r60
+73P9*Operande(72R9) 3|21r25
+77E9*Code_Operation 3|27r20 4|98e39
+101P9*Inst(100R9) 3|24r21
+106P9*Ligne(105R9) 3|18r26 19r26
+X 8 types_base.ads
+17K9*Types_Base 3|1w7 2r7 8|65e15
+26I9*Entier<integer> 3|35r19
+34A9*St_Chaine<string>
+35P9*Chaine(34A9) 3|32r20 44r22
+41F9*Flot_MA<short_float> 3|38r23
+
