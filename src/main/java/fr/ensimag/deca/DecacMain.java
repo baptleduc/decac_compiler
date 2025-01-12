@@ -44,7 +44,7 @@ public class DecacMain {
         if (options.getPrintBanner()) {
             System.out.println(BANNER);
 
-	}
+        }
         if (!options.getPrintBanner() && options.getSourceFiles().isEmpty()) {
             System.err.println("No file to compile");
             options.displayUsage();
