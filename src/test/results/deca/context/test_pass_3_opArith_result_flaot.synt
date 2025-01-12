@@ -24,8 +24,10 @@
       |  ||        type: float
       |  ||        +> [12, 14] Float (1.3)
       |  ||        |  type: float
-      |  ||        `> [12, 20] Int (1)
-      |  ||           type: int
+      |  ||        `> ConvFloat
+      |  ||           type: float
+      |  ||           `> [12, 20] Int (1)
+      |  ||              type: int
       |  []> [13, 14] DeclVar
       |      +> [13, 4] Identifier (float)
       |      |  definition: type (builtin), type=float
@@ -34,8 +36,10 @@
       |      `> [13, 14] Initialization
       |         `> [13, 15] Plus
       |            type: float
-      |            +> [13, 14] Int (1)
-      |            |  type: int
+      |            +> ConvFloat
+      |            |  type: float
+      |            |  `> [13, 14] Int (1)
+      |            |     type: int
       |            `> [13, 16] Float (2.3)
       |               type: float
       `> ListInst [List with 0 elements]

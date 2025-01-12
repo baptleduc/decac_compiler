@@ -1,0 +1,1 @@
+./src/test/deca/context/invalid/test_pass_3_var_type_void.deca:11:9: x : can't declare var with type void
