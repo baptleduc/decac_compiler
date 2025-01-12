@@ -1,0 +1,1 @@
+./src/test/deca/context/invalid/test_pass_3_opNot_no_boolean_operand.deca:11:17: Var int can't be used for 'Not'

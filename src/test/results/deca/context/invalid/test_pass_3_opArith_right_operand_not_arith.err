@@ -1,0 +1,1 @@
+./src/test/deca/context/invalid/test_pass_3_opArith_right_operand_not_arith.deca:11:14: Varboolean can't be used for arithmetical operation

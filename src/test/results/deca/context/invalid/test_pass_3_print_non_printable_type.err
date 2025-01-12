@@ -1,0 +1,1 @@
+./src/test/deca/context/invalid/test_pass_3_print_non_printable_type.deca:11:12: Var boolean can't be printed
