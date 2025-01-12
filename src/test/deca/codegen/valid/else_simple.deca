@@ -1,0 +1,17 @@
+// Description:
+//    Minimalistic program making a if else statement, passing the else block.
+// Results:
+//    10
+//
+// History:
+//    Created on 12/01/2025
+
+{       
+        int x = 0;
+        if (x == 2) {
+            println(x);
+        }
+        else {
+            println(10);
+        }
+}
