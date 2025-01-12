@@ -12,7 +12,6 @@ import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.instructions.BEQ;
 import fr.ensimag.ima.pseudocode.instructions.BRA;
 import fr.ensimag.ima.pseudocode.instructions.CMP;
-import fr.ensimag.ima.pseudocode.instructions.FLOAT;
 import fr.ensimag.ima.pseudocode.instructions.LOAD;
 
 /**
@@ -49,12 +48,8 @@ public class Not extends AbstractUnaryExpr {
         return false;
     }
 
-    @Override 
-    protected void codeGenInst(DecacCompiler compiler) {
-        getOperand().codeGenInst(compiler);
-        DVal reg = getOperand().getDVal(compiler);
-        GPRegister regDest = reg.codeGenToGPRegister(compiler);
-
+    @Override
+    protected void codeGenUnaryExpr(GPRegister regDest, DVal sourceDVal, DecacCompiler compiler) {
         Label endLabel = new Label("end");
         Label setTrueLabel = new Label("set_true");
 
@@ -72,7 +67,5 @@ public class Not extends AbstractUnaryExpr {
         compiler.addInstruction(new BRA(endLabel));
 
         compiler.addLabel(endLabel);
-        setDVal(regDest);
     }
 }
-

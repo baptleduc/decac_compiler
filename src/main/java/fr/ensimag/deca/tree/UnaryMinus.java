@@ -7,9 +7,7 @@ import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.ima.pseudocode.DVal;
 import fr.ensimag.ima.pseudocode.GPRegister;
-import fr.ensimag.ima.pseudocode.instructions.FLOAT;
 import fr.ensimag.ima.pseudocode.instructions.OPP;
-import fr.ensimag.ima.pseudocode.instructions.SUB;
 
 /**
  * @author gl12
@@ -47,13 +45,8 @@ public class UnaryMinus extends AbstractUnaryExpr {
         return false;
     }
 
-    @Override 
-    protected void codeGenInst(DecacCompiler compiler) {
-        getOperand().codeGenInst(compiler);
-        DVal reg = getOperand().getDVal(compiler);
-        GPRegister regDest = reg.codeGenToGPRegister(compiler);
-        compiler.addInstruction(new OPP(reg, regDest));
-        setDVal(regDest);
+    @Override
+    protected void codeGenUnaryExpr(GPRegister regDest, DVal sourceDVal, DecacCompiler compiler) {
+        compiler.addInstruction(new OPP(sourceDVal, regDest));
     }
-
 }
