@@ -1,6 +1,6 @@
 	TSTO #4	; 4 (variables) + 0 (saved registers) + 0 (temporaries) + 0 (method parameters x 2)
 	BOV stack_overflow_error_0
-	ADDSP #0
+	ADDSP #4
 ; start main program
 ; Main program
 ; Beginning of main instructions:

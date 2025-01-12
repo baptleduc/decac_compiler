@@ -205,8 +205,8 @@ public class DecacCompiler {
         LOG.debug(noVerify);
         int d = stackManager.getNeededStackFrame();
         Label label = new Label("stack_overflow_error");
-        ImmediateInteger imm = new ImmediateInteger(stackManager.getOffsetSP());
-        addFirst(new ADDSP(imm));
+        ImmediateInteger imm = new ImmediateInteger(stackManager.getOffsetGB());
+        addFirst(new ADDSP(imm)); // Increment SP by offsetGB
         addFirst(new BOV(label));
         addFirst(new TSTO(d), stackManager.getCommentTSTO());
         addLabel(label);
