@@ -38,6 +38,7 @@ TMP_DIR="./src/test/results/tmp/"
 INPUT_DIRS_SYNTAX="./src/test/deca/syntax/valid/ ./src/test/deca/syntax/valid/provided/"
 INPUT_DIR_DECOMPILE="./src/test/deca/decompile/"
 INPUT_DIR_CODEGEN="./src/test/deca/codegen/valid/"
+INPUT_DIR_CONTEXT="./src/test/deca/context/valid/ ./src/test/deca/context/valid/provided/"
 
 # SYNTAX TESTS CONFIGURATION
 NAME_TEST_LEX="testlex"
@@ -52,6 +53,12 @@ EXTENSION_TEST_SYNT="synt"
 OUTPUT_DIR_TEST_SYNT="./src/test/results/deca/syntax/synt/"
 OPTIONS_TEST_SYNT=""
 
+# CONTEXT TESTS CONFIGURATION
+NAME_TEST_CONTEXT="testcontext"
+EXEC_CONTEXT="./src/test/script/launchers/test_context"
+EXTENSION_TEST_CONTEXT="synt"
+OUTPUT_DIR_TEST_CONTEXT="./src/test/results/deca/context/"
+OPTIONS_TEST_CONTEXT=""
 
 # DECOMPILE TESTS CONFIGURATION
 NAME_TEST_DECOMPILE="decompile"
@@ -68,7 +75,8 @@ OUTPUT_DIR_TEST_CODEGEN="./src/test/results/deca/codegen/"
 OPTIONS_TEST_CODEGEN=""
 
 
-ALL_TESTS="$NAME_TEST_LEX $NAME_TEST_SYNT $NAME_TEST_DECOMPILE $NAME_TEST_CODEGEN"
+
+ALL_TESTS="$NAME_TEST_LEX $NAME_TEST_SYNT $NAME_TEST_CONTEXT $NAME_TEST_DECOMPILE $NAME_TEST_CODEGEN"
 
 
 # Retrieve output directory based on the test name
@@ -79,6 +87,9 @@ get_output_dir() {
             ;;
         $NAME_TEST_SYNT)
             echo $OUTPUT_DIR_TEST_SYNT
+            ;;
+	$NAME_TEST_CONTEXT)
+            echo $OUTPUT_DIR_TEST_CONTEXT
             ;;
         $NAME_TEST_DECOMPILE)
             echo $OUTPUT_DIR_TEST_DECOMPILE
@@ -102,6 +113,9 @@ get_input_dir() {
         $NAME_TEST_SYNT)
             echo $INPUT_DIRS_SYNTAX
             ;;
+	$NAME_TEST_CONTEXT)
+            echo $INPUT_DIR_CONTEXT
+            ;;
         $NAME_TEST_DECOMPILE)
             echo $INPUT_DIR_DECOMPILE
             ;;
@@ -123,6 +137,9 @@ get_exec() {
             ;;
         $NAME_TEST_SYNT)
             echo $EXEC_SYNT
+            ;;
+	$NAME_TEST_CONTEXT)
+            echo $EXEC_CONTEXT
             ;;
         $NAME_TEST_DECOMPILE)
             echo $EXEC_DECOMPILE
@@ -146,6 +163,9 @@ get_extension() {
         $NAME_TEST_SYNT)
             echo $EXTENSION_TEST_SYNT
             ;;
+	$NAME_TEST_CONTEXT)
+            echo $EXTENSION_TEST_CONTEXT
+            ;;
         $NAME_TEST_DECOMPILE)
             echo $EXTENSION_TEST_DECOMPILE
             ;;
@@ -168,6 +188,9 @@ get_options() {
         $NAME_TEST_SYNT)
             echo $OPTIONS_TEST_SYNT
             ;;
+	$NAME_TEST_CONTEXT)
+            echo $OPTIONS_TEST_CONTEXT
+            ;;
         $NAME_TEST_DECOMPILE)
             echo $OPTIONS_DECOMPILE
             ;;
@@ -183,6 +206,16 @@ get_options() {
 
 # Execute syntax-related tests (test_lex, test_synt) and save output to a temporary file for comparison (ex : test_lex file.deca > tmp_file.lex) 
 exec_test_syntax(){
+    executable=$1
+    options=$2
+    file=$3
+    tmp_file=$4
+
+    $executable $options "$file" > "$tmp_file"
+}
+
+# Execute context-related tests and save output to a temporary file for comparison (ex : test_context file.deca > tmp_file.synt) 
+exec_test_context(){
     executable=$1
     options=$2
     file=$3
@@ -226,6 +259,9 @@ exec_test(){
             ;;
         $NAME_TEST_SYNT)
             exec_test_syntax "$executable" "$options" "$file" "$tmp_file"
+            ;;
+	$NAME_TEST_CONTEXT)
+            exec_test_context "$executable" "$options" "$file" "$tmp_file"
             ;;
         $NAME_TEST_DECOMPILE)
             exec_test_decompile "$executable" "$options" "$file" "$tmp_file"
