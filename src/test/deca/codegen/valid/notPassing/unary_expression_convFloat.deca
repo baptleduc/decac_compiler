@@ -1,0 +1,11 @@
+// Description:
+//    A minimal program test unary operation
+// Results:
+//    -3
+//
+// History:
+//    Created on 12/01/2025
+{
+    float a = 5;
+    println(a);
+}

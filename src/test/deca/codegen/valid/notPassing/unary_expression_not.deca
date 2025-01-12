@@ -1,0 +1,13 @@
+// Description:
+//    A minimal program test unary operation
+// Results:
+//    ok
+//
+// History:
+//    Created on 12/01/2025
+{
+    boolean a = !true;
+    if (a){
+	println("ok");
+    }
+}
