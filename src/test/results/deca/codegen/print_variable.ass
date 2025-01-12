@@ -1,6 +1,6 @@
 ; start main program
 	TSTO #1	; 1 (variables) + 0 (saved registers) + 0 (temporaries) + 0 (method parameters x 2)
-	BOV stack_overflow_error
+	BOV stack_overflow_error_0
 	ADDSP #1
 ; Main program
 ; Beginning of main instructions:
@@ -9,7 +9,7 @@
 	LOAD 2(GB), R1
 	WINT
 	WNL
-stack_overflow_error:
+stack_overflow_error_0:
 	WSTR "Error: Stack Overflow"
 	WNL
 	ERROR
