@@ -1,0 +1,92 @@
+V "GNAT Lib v9"
+A -gnatf
+A -gnatyM115
+A -gnatwl
+A -g
+A -gnato
+A -fstack-check=specific
+A -g
+A -fstack-check=specific
+P ZX
+
+RN
+RV NO_EXCEPTION_HANDLERS
+RV NO_EXCEPTIONS
+RV NO_IO
+RV NO_STANDARD_STORAGE_POOLS
+RV SPARK_05
+
+U lecture_entiers%b	lecture_entiers.adb	0070e500 NE OO PK IU
+W ada%s			ada.ads			ada.ali
+Z ada.exceptions%s	a-except.adb		a-except.ali
+W ada.text_io%s		a-textio.adb		a-textio.ali
+W entier_es%s		entier_es.ads		entier_es.ali
+Z interfaces%s		interfac.ads		interfac.ali
+
+U lecture_entiers%s	lecture_entiers.ads	4fd77a89 EE NE OO PK
+W types_base%s		types_base.adb		types_base.ali
+
+D ada.ads		20220527072110 76789da1 ada%s
+D a-except.ads		20220527072110 291912d5 ada.exceptions%s
+D a-ioexce.ads		20220527072110 e4a01f64 ada.io_exceptions%s
+D a-stream.ads		20220527072110 119b8fb3 ada.streams%s
+D a-tags.ads		20220527072110 491b781d ada.tags%s
+D a-textio.ads		20220527072110 881db35a ada.text_io%s
+D a-tiinio.ads		20220527072110 aa04e5d6 ada.text_io.integer_io%s
+D a-unccon.ads		20220527072110 0e9b276f ada.unchecked_conversion%s
+D entier_es.ads		20221217092829 1384aef2 entier_es%s
+D interfac.ads		20220527072110 5ab55268 interfaces%s
+D i-cstrea.ads		20220527072110 e53d8b8e interfaces.c_streams%s
+D lecture_entiers.ads	20221217092829 f4519515 lecture_entiers%s
+D lecture_entiers.adb	20221217092829 6fb86dbd lecture_entiers%b
+D system.ads		20220527072110 4635ec04 system%s
+D s-crtl.ads		20220527072110 0ebbdb71 system.crtl%s
+D s-exctab.ads		20220527072110 54135002 system.exception_table%s
+D s-ficobl.ads		20220527072110 078245e4 system.file_control_block%s
+D s-parame.ads		20220527072110 48ec542b system.parameters%s
+D s-secsta.ads		20220527072110 20bbe636 system.secondary_stack%s
+D s-soflin.ads		20220527072110 a7318a92 system.soft_links%s
+D s-stache.ads		20220527072110 a37c21ec system.stack_checking%s
+D s-stalib.ads		20220527072110 09bd3940 system.standard_library%s
+D s-stoele.ads		20220527072110 2dc34a04 system.storage_elements%s
+D s-traent.ads		20220527072110 005bf670 system.traceback_entries%s
+D s-unstyp.ads		20220527072110 34867c83 system.unsigned_types%s
+D s-wchcon.ads		20220527072110 1b7d22d2 system.wch_con%s
+D types_base.ads	20221217092829 bb86ef9c types_base%s
+X 1 ada.ads
+16K9*Ada 20e8 13|12r6 13r6
+X 6 a-textio.ads
+49K13*Text_IO 471e16 13|12w10 13r10
+169U14*Skip_Line 13|35s9
+172V13*End_Of_Line{boolean} 13|33s10 46s10
+206U14*Get 13|37s9 49s9
+298X4*Data_Error 13|90r21 99r21 113r23 116r21 119r17 132r14 135r13
+X 7 a-tiinio.ads
+71U14*Get 13|130s9[9|17]
+X 9 entier_es.ads
+17K9*Entier_ES[7|46] 13|12w19 13r19
+X 12 lecture_entiers.ads
+13K9*Lecture_Entiers 37l5 37e20 13|15b14 139l5 139t20
+15U13*lire_entier 15<25 13|19b13 137l7 137t18
+15i25 x{27|26I9} 13|19b25 130m37
+X 13 lecture_entiers.adb
+17a3 S{string} 83m15 87m15 96m15 105m15 110m17 130r13
+21E10 Etat 21e45 24r16
+21n19 debut{21E10} 24r24 79r14
+21n26 apsigne{21E10} 84r27 92r14 111r29
+21n35 apchiffre{21E10} 88r27 97r27 101r14 128r19
+22E13 Chiffre{character} 85r18 94r18 103r18
+23b5 dansmantisse{boolean} 107r18 108m17
+24e5 etatcour{21E10} 78r12 84m15 88m15 97m15 111m17 128r8
+25e5 carcour{character} 34m9 37m13 47m9 49m13 57r13 77r11 80r16 83r36 87r36
+. 93r16 96r36 102r16 105r36 110r38
+26i5 indice_dernier{natural} 82m15 82r33 83r17 86m15 86r33 87r17 95m15 95r33
+. 96r17 104m15 104r33 105r17 109m17 109r35 110r19 130r20
+27i5 pos{positive} 130m40
+31U15 carsuiv1 31b15 39l9 39t17 58s9
+43U15 carsuiv2 43b15 51l9 51t17 121s7
+55U15 passer_espaces1 55b15 60l9 60t24 74s5
+X 27 types_base.ads
+17K9*Types_Base 12|10w6 11r6 27|65e15
+26I9*Entier<integer> 12|15r33 13|19r33
+

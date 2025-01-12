@@ -1,0 +1,100 @@
+V "GNAT Lib v9"
+A -gnato
+A -fstack-check=specific
+P ZX
+
+RN
+RV NO_ALLOCATORS
+RV NO_LOCAL_ALLOCATORS
+RV NO_STANDARD_STORAGE_POOLS
+RV NO_DEFAULT_INITIALIZATION
+RV NO_DYNAMIC_SIZED_OBJECTS
+RV NO_IMPLICIT_LOOPS
+RV NO_ELABORATION_CODE
+RV SPARK_05
+
+U rule_table%b		rule_table.adb		825f2104 OO PK
+Z interfaces%s		interfac.ads		interfac.ali
+Z system.concat_2%s	s-conca2.adb		s-conca2.ali
+Z system.img_int%s	s-imgint.adb		s-imgint.ali
+
+U rule_table%s		rule_table.ads		d4dc3838 EE NE OO PK
+W symbol_table%s	symbol_table.adb	symbol_table.ali
+
+D ada.ads		20220527072110 76789da1 ada%s
+D a-unccon.ads		20220527072110 0e9b276f ada.unchecked_conversion%s
+D interfac.ads		20220527072110 5ab55268 interfaces%s
+D rule_table.ads	20221217092829 d24be121 rule_table%s
+D rule_table.adb	20221217092829 5014c025 rule_table%b
+D symbol_table.ads	20221217092829 0697d919 symbol_table%s
+D system.ads		20220527072110 4635ec04 system%s
+D s-conca2.ads		20220527072110 02a0d7d0 system.concat_2%s
+D s-exctab.ads		20220527072110 54135002 system.exception_table%s
+D s-imgint.ads		20220527072110 02dbe0c2 system.img_int%s
+D s-stalib.ads		20220527072110 09bd3940 system.standard_library%s
+X 4 rule_table.ads
+49K9*Rule_Table 87l5 87e15 5|47b14 195l5 195t15
+53N5*Max_Rules 58r27
+58I10*Rule<short_integer> 61r53 63r32 65r27 66r27 68r40 69r40 71r28 73r33
+. 74r33 78r42 79r42 81r57 5|78r22 80r21 84r38 90r52 91r13 100r32 119r26 125r31
+. 130r35 136r26 147r28 153r33 159r32 171r56 174r20 190r41
+61V15*Make_Rule{58I10} 61>25 5|90b14 97l9 97t18 179s21
+61i25 LHS{6|52I11} 5|90b24 94r14
+63U15*Append_RHS 63>26 63>38 5|100b15 116l9 116t19 180s9
+63i26 R{58I10} 5|100b26 104r23 106r22 107r23 109r39 115r19 115r42
+63i38 RHS{6|52I11} 5|100b38 103r24 104r49 107r50 113r51
+65V15*Get_LHS{6|52I11} 65>24 5|119b15 122l9 122t16
+65i24 R{58I10} 5|119b23 121r26
+66V15*Get_RHS{6|52I11} 66>24 66>33 5|136b15 144l9 144t16
+66i24 R{58I10} 5|136b23 139r35
+66i33 Position{positive} 5|136b32 140r21
+68V15*Get_Null_Pos{natural} 68>37 5|125b15 128l9 128t21
+68i37 R{58I10} 5|125b28 127r26
+69V15*Get_Rule_Precedence{6|53I11} 69>37 5|84b14 87l9 87t28
+69i37 R{58I10} 5|84b34 86r26
+71V15*Length_of{natural} 71>25 5|147b15 150l9 150t18
+71i25 R{58I10} 5|147b25 149r26
+73V15*First_Rule{58I10} 5|153b15 156l9 156t19
+74V15*Last_Rule{58I10} 5|159b14 162l9 162t18
+76V15*Number_of_Rules{natural} 5|165b15 168l9 168t24
+78U15*Set_Rule_Precedence 78>36 78>48 5|190b15 193l9 193t28
+78i36 R{58I10} 5|190b35 192r19
+78i48 Prec{6|53I11} 5|190b47 192r30
+79U15*Set_Null_Pos 79>36 79>48 5|130b15 133l9 133t21
+79i36 R{58I10} 5|130b28 132r19
+79i48 Position{natural} 5|130b41 132r34
+81U15*Handle_Nested_Rule 81=35 5|171b15 188l9 188t27
+81i35 Current_Rule{58I10} 5|171b34 180r20 184r27 185r19 187m9
+X 5 rule_table.adb
+49a3 SCCS_ID{string}
+53a3 Rcs_ID{string}
+57i5 Number_of_Nested_Rules{integer} 177m9 177r35 178r55
+60R10 RHS_Element 61r32 63c10 67e19 107r37 113r38
+61P10 RHS_Pointer(60R10) 66r25 72r27 101r23 137r23
+65i13*RHS_Symbol{6|52I11} 143r29
+66p13*Next{61P10} 110r32 111r46 113m26 141r42
+69R10 Rule_Entry 76e19 78r31 172r20
+71i13*LHS_Symbol{6|52I11} 121r29
+72p13*RHS{61P10} 94m19 106r25 107m26 109r42 139r38
+73i13*Length{natural} 94m32 115m22 115r45 149r29
+74i13*Null_Pos{natural} 94m45 127r29 132m22
+75i13*Prec{6|53I11} 86r29 94m60 104m26 192m22
+78a5 Rule_List(69R10) 86r16 93m9 104m13 106r12 107m13 109r29 115m9 115r32
+. 121r16 127r16 132m9 139r25 149r16 184r17 185m9 185r36 186m9 192m9
+80i5 Next_Free_Rule{4|58I10} 91r21 95m9 95r27 161r16 167r24
+91i9 R{4|58I10} 93r19 96r16
+101p9 Temp_Pointer{61P10} 109m13 110r19 111m17 111r33 113r13
+137p9 Temp_Pointer{61P10} 139m9 141m13 141r29 143r16
+140i13 I{integer}
+172r9 Temp{69R10} 184m9 186r36
+173i9 LHS{6|52I11} 178m9 179r31 180r33
+174i9 New_Rule{4|58I10} 179m9 185r46 186r19 187r25
+X 6 symbol_table.ads
+48K9*Symbol_Table 4|47w6 48r6 6|82e17
+52I11*Grammar_Symbol<short_integer> 4|61r30 63r46 65r61 66r61 5|65r25 71r27
+. 90r29 100r46 119r39 136r59 173r20
+53I11*Precedence<short_integer> 4|69r54 78r61 5|75r27 84r51 190r56
+58V14*Insert_Identifier{52I11} 5|178s16
+66V14*Get_Precedence{53I11} 5|104s34
+75V14*Is_Terminal{boolean} 5|103s12
+

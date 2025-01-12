@@ -1,0 +1,9 @@
+; read int, and print it.
+	RINT
+	BOV dontprint
+	WINT
+	WNL
+	HALT
+dontprint:
+	WSTR "error"
+	ERROR

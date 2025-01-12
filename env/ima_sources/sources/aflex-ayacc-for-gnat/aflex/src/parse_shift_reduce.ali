@@ -1,0 +1,23 @@
+V "GNAT Lib v9"
+A -gnato
+A -fstack-check=specific
+P ZX
+
+RN
+RV SPARK_05
+
+U parse_shift_reduce%s	parse_shift_reduce.ads	4704e855 NE OO PK
+
+D parse_shift_reduce.ads  20221217092829 4704e855 parse_shift_reduce%s
+D system.ads		20220527072110 4635ec04 system%s
+X 1 parse_shift_reduce.ads
+1K9*Parse_Shift_Reduce 250l5 250e23
+3I10*Small_Integer<short_integer> 6r15 7r15
+5R10*Shift_Reduce_Entry 8e15 9r17 15r57
+6i9*T{3I10}
+7i9*Act{3I10}
+11I13*Row{integer} 15r39
+15A10*Shift_Reduce_Array(5R10)<integer> 17r36
+17a5*Shift_Reduce_Matrix{15A10}
+239a1*SHIFT_REDUCE_OFFSET(integer)
+

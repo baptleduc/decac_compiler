@@ -1,0 +1,42 @@
+	LOAD #1.0, R2
+	BSR overflow
+	WSTR "Last value before overflow (positive): "
+	WFLOATX
+	WNL
+
+	LOAD #-1.0, R2
+	BSR overflow
+	WSTR "Last value before overflow (negative): "
+	WFLOATX
+	WNL
+
+	LOAD #1.0, R2
+	BSR underflow
+	WSTR "Last value before underflow (positive): "
+	WFLOATX
+	WNL
+
+	LOAD #-1.0, R2
+	BSR underflow
+	WSTR "Last value before underflow (negative): "
+	WFLOATX
+	WNL
+
+	HALT
+
+overflow:
+	LOAD R2, R1
+	MUL #2.0, R2
+	BOV end_overflow
+	BRA overflow
+end_overflow:
+	RTS
+
+underflow:
+	LOAD R2, R1
+	DIV #2.0, R2
+	CMP #0.0, R2
+	BEQ end_underflow
+	BRA underflow
+end_underflow:
+	RTS

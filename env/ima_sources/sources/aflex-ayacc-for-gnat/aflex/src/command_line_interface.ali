@@ -1,0 +1,71 @@
+V "GNAT Lib v9"
+A -gnato
+A -fstack-check=specific
+P ZX
+
+RN
+RV NO_SECONDARY_STACK
+RV NO_DEFAULT_INITIALIZATION
+RV NO_IMPLICIT_LOOPS
+RV NO_ELABORATION_CODE
+RV SPARK_05
+
+U command_line_interface%b  command_line_interface.adb  76844647 NE OO PK IU
+W ada%s			ada.ads			ada.ali
+W ada.command_line%s	a-comlin.adb		a-comlin.ali
+Z interfaces%s		interfac.ads		interfac.ali
+Z system.secondary_stack%s  s-secsta.adb	s-secsta.ali
+W tstring%s		tstring.ads		tstring.ali
+
+U command_line_interface%s  command_line_interface.ads  efb055ce EE OO PK IU
+W tstring%s		tstring.ads		tstring.ali
+
+D ada.ads		20220527072110 76789da1 ada%s
+D a-comlin.ads		20220527072110 4aa66568 ada.command_line%s
+D a-except.ads		20220527072110 291912d5 ada.exceptions%s
+D a-ioexce.ads		20220527072110 e4a01f64 ada.io_exceptions%s
+D a-stream.ads		20220527072110 119b8fb3 ada.streams%s
+D a-tags.ads		20220527072110 491b781d ada.tags%s
+D a-textio.ads		20220527072110 881db35a ada.text_io%s
+D a-unccon.ads		20220527072110 0e9b276f ada.unchecked_conversion%s
+D command_line_interface.ads  20221217092829 5057a4b4 command_line_interface%s
+D command_line_interface.adb  20221217092829 d39276e1 command_line_interface%b
+D interfac.ads		20220527072110 5ab55268 interfaces%s
+D i-cstrea.ads		20220527072110 e53d8b8e interfaces.c_streams%s
+D system.ads		20220527072110 4635ec04 system%s
+D s-crtl.ads		20220527072110 0ebbdb71 system.crtl%s
+D s-exctab.ads		20220527072110 54135002 system.exception_table%s
+D s-ficobl.ads		20220527072110 078245e4 system.file_control_block%s
+D s-parame.ads		20220527072110 48ec542b system.parameters%s
+D s-secsta.ads		20220527072110 20bbe636 system.secondary_stack%s
+D s-soflin.ads		20220527072110 a7318a92 system.soft_links%s
+D s-stache.ads		20220527072110 a37c21ec system.stack_checking%s
+D s-stalib.ads		20220527072110 09bd3940 system.standard_library%s
+D s-stoele.ads		20220527072110 2dc34a04 system.storage_elements%s
+D s-traent.ads		20220527072110 005bf670 system.traceback_entries%s
+D s-unstyp.ads		20220527072110 34867c83 system.unsigned_types%s
+D s-wchcon.ads		20220527072110 1b7d22d2 system.wch_con%s
+D tstring.ads		20221217092829 bfe7f17a tstring%s
+D vstrings.ads		20221217092829 90607e37 vstrings%s
+X 1 ada.ads
+16K9*Ada 20e8 10|26r6 30r21 31r19 32r23 34r13
+X 2 a-comlin.ads
+36K13*Command_Line 144e21 10|26w10 30r25 31r23 32r27 34r17
+39V13*Argument_Count{natural} 10|31s36 34s30
+52V13*Argument{string} 10|32s40
+62V13*Command_Name{string} 10|30s38
+X 9 command_line_interface.ads
+26K9*COMMAND_LINE_INTERFACE 32l5 32e27 10|27b14 36l5 36t27
+27i3*MAX_NUMBER_ARGS{integer} 28r37
+28A8*COMMAND_VECTOR(27|168R8[26|25])<integer> 30r10
+29U13*INITIALIZE_COMMAND_LINE 10|28b13 35l7 35t30
+30a3*ARGV{28A8} 10|30m5 32m7
+31i3*ARGC{integer} 10|34m5
+X 10 command_line_interface.adb
+31i9 I{integer} 32r12 32r49
+X 26 tstring.ads
+25K9*TSTRING[27|164] 9|25w6 25r19 10|25w6 25r19
+X 27 vstrings.ads
+168R8*VSTRING 9|28r57[26|25]
+262V12*VSTR{168R8[26|25]} 10|30s16[26|25] 32s18[26|25]
+

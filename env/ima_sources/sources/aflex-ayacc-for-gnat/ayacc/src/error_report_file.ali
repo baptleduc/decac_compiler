@@ -1,0 +1,137 @@
+V "GNAT Lib v9"
+A -gnato
+A -fstack-check=specific
+P ZX
+
+RN
+RV NO_IO
+RV NO_SECONDARY_STACK
+RV NO_STANDARD_STORAGE_POOLS
+RV NO_DEFAULT_INITIALIZATION
+RV NO_DYNAMIC_SIZED_OBJECTS
+RV NO_ELABORATION_CODE
+RV SPARK_05
+
+U error_report_file%b	error_report_file.adb	213f1f6e OO PK
+W ada%s			ada.ads			ada.ali
+Z ada.tags%s		a-tags.adb		a-tags.ali
+W ada.text_io%s		a-textio.adb		a-textio.ali
+W ayacc_file_names%s	ayacc_file_names.adb	ayacc_file_names.ali
+W source_file%s		source_file.adb		source_file.ali
+W str_pack%s		str_pack.adb		str_pack.ali
+Z system.concat_2%s	s-conca2.adb		s-conca2.ali
+Z system.concat_3%s	s-conca3.adb		s-conca3.ali
+Z system.concat_4%s	s-conca4.adb		s-conca4.ali
+Z system.secondary_stack%s  s-secsta.adb	s-secsta.ali
+
+U error_report_file%s	error_report_file.ads	a2a95570 EE NE OO PK
+
+D ada.ads		20220527072110 76789da1 ada%s
+D a-except.ads		20220527072110 291912d5 ada.exceptions%s
+D a-ioexce.ads		20220527072110 e4a01f64 ada.io_exceptions%s
+D a-stream.ads		20220527072110 119b8fb3 ada.streams%s
+D a-tags.ads		20220527072110 491b781d ada.tags%s
+D a-textio.ads		20220527072110 881db35a ada.text_io%s
+D a-unccon.ads		20220527072110 0e9b276f ada.unchecked_conversion%s
+D ayacc_file_names.ads	20221217092829 a6c3e0e9 ayacc_file_names%s
+D error_report_file.ads	20221217092829 a2a95570 error_report_file%s
+D error_report_file.adb	20221217092829 bc46c311 error_report_file%b
+D interfac.ads		20220527072110 5ab55268 interfaces%s
+D i-cstrea.ads		20220527072110 e53d8b8e interfaces.c_streams%s
+D source_file.ads	20221217092829 07b08ce7 source_file%s
+D str_pack.ads		20221217092829 16be565b str_pack%s
+D system.ads		20220527072110 4635ec04 system%s
+D s-conca2.ads		20220527072110 02a0d7d0 system.concat_2%s
+D s-conca3.ads		20220527072110 0b705ca5 system.concat_3%s
+D s-conca4.ads		20220527072110 7e642b20 system.concat_4%s
+D s-crtl.ads		20220527072110 0ebbdb71 system.crtl%s
+D s-exctab.ads		20220527072110 54135002 system.exception_table%s
+D s-ficobl.ads		20220527072110 078245e4 system.file_control_block%s
+D s-parame.ads		20220527072110 48ec542b system.parameters%s
+D s-secsta.ads		20220527072110 20bbe636 system.secondary_stack%s
+D s-soflin.ads		20220527072110 a7318a92 system.soft_links%s
+D s-stache.ads		20220527072110 a37c21ec system.stack_checking%s
+D s-stalib.ads		20220527072110 09bd3940 system.standard_library%s
+D s-stoele.ads		20220527072110 2dc34a04 system.storage_elements%s
+D s-traent.ads		20220527072110 005bf670 system.traceback_entries%s
+D s-unstyp.ads		20220527072110 34867c83 system.unsigned_types%s
+D s-wchcon.ads		20220527072110 1b7d22d2 system.wch_con%s
+X 1 ada.ads
+16K9*Ada 20e8 10|2r24 3r23
+X 6 a-textio.ads
+49K13*Text_IO 471e16 10|2w28 3r27
+52P9*File_Type 10|31r14
+53n32*Out_File{53E9} 10|239r22 269r22
+86U14*Create 10|239s5 269s5
+98U14*Close 10|268s5 344s5
+259U14*Put_Line 10|126s9
+X 8 ayacc_file_names.ads
+61K9*Ayacc_File_Names 98e21 10|2w6 3r5
+76V15*Get_Error_Report_File_Name{string} 10|239s32 269s32
+77V15*Get_Listing_File_Name{string} 10|317s13
+90V12*Error_Report_Unit_Name{string} 10|240s29 263s25 285s34 343s25
+X 9 error_report_file.ads
+10K9*Error_Report_File 31l5 31e22 10|6b14 351l5 351t22
+29U19*Write_File 10|233b13 345l7 345t17
+X 10 error_report_file.adb
+29i3 max_line_length{integer} 33r22 63r16
+31p3 The_File{6|52P9} 126r18 239m12 239r12 268m11 268r11 269m12 269r12 344m11
+. 344r11
+33a3 Text{string} 70m31 72r19 76m17 76r36 82r19 86m17 86r36 92r19 99r19 106r19
+. 144r22 275r30 277r29
+34i3 Length{natural} 70m37 71r12 75m17 75r27 76r25 77r41 81r12 85m17 85r27
+. 86r25 87r41 91r12 98r12 105r12 144r30 275r38 277r37
+38E8 user_defined_thing 44e41 56r43 138r42 162r41 177r43 191r43 234r21
+38n31 with_thing{38E8} 84r26 274r26
+39n31 use_thing{38E8} 74r26 276r29
+40n31 init_thing{38E8} 94r24 291r26
+41n31 report_thing{38E8} 108r23 297r29
+42n31 finish_thing{38E8} 101r24 294r29
+43n31 line_thing{38E8} 112r18 143r30 234r43 278r29
+44n31 eof_thing{38E8} 65r20 66r20 290r28
+56U13 get_next_thing 56b13 56=28 113l7 113t21 142s11 273s7 301s9
+56e28 thing{38E8} 65r12 66m11 74m17 84m17 94m15 101m15 108m14 112m9
+58a5 with_string{string} 81r22 82r27 83r44 85r36 86r42 87r50
+59a5 use_string{string} 71r22 72r27 73r44 75r36 76r42 77r50
+60a5 init_string{string} 91r22 92r27 93r54
+61a5 finish_string{string} 98r22 99r27 100r53
+62a5 report_string{string} 105r22 106r27 107r53
+63r5 temp{14|55R10} 72m47 72r47 73r35 82m48 82r48 83r35 92m48 92r48 93r45
+. 99m50 99r50 100r44 106m50 106r50 107r44
+124U15 Write_Line 124b15 124>26 127l9 127t19 144s11 147s9 148s9 149s9 151s7
+. 164s7 179s7 193s7 194s7 195s7 196s7 197s7 198s7 240s5 241s5 242s5 243s5
+. 244s5 245s5 246s5 247s5 248s5 249s5 250s5 251s5 252s5 253s5 254s5 255s5
+. 256s5 257s5 258s5 259s5 260s5 261s5 262s5 263s5 264s5 265s5 270s5 275s9
+. 277s9 284s5 285s5 286s5 287s5 288s5 313s5 314s5 315s5 316s5 318s5 319s5
+. 320s5 321s5 322s5 323s5 324s5 325s5 326s5 327s5 328s5 329s5 330s5 331s5
+. 332s5 333s5 334s5 335s5 336s5 337s5 338s5 339s5 340s5 341s5 342s5 343s5
+124a26 S{string} 126r28
+137U15 write_thing 137b15 137>27 138=27 152l9 152t20 165s7 180s7 199s7
+137b27 user{boolean} 140r10
+138e27 thing{38E8} 142m26 143r21
+161U15 write_init 161b15 161>26 162=26 166l9 166t19 292s9 305s7
+161b26 user{boolean} 165r19
+162e26 thing{38E8} 165m25
+176U15 write_finish 176b15 176>28 177=28 181l9 181t21 295s9 308s7
+176b28 user{boolean} 180r19
+177e28 thing{38E8} 180m25
+190U15 write_report 190b15 190>28 191=28 200l9 200t21 298s9 311s7
+190b28 user{boolean} 199r19
+191e28 thing{38E8} 199m25
+234e5 current_thing{38E8} 273m22 273r22 274r10 276r13 278r13 290r11 291r10
+. 292m26 292r26 294r13 295m28 295r28 297r13 298m28 298r28 301m24 301r24 305m25
+. 305r25 308m27 308r27 311m27 311r27
+235b5 wrote_init{boolean} 293m9 304r12
+236b5 wrote_finish{boolean} 296m9 307r12
+237b5 wrote_report{boolean} 299m9 310r12
+X 13 source_file.ads
+48K9*Source_File 10|2w37 65r38 70r9 13|93e16
+67V16*Is_End_of_File{boolean} 10|65s50
+83U15*Read_Line 10|70s21
+X 14 str_pack.ads
+48K9*STR_Pack 10|2w50 57r9 93r25 100r24 107r24 14|88e13
+55R10*STR 10|63r12 14|86e19
+58V15*Value_of{string} 10|73s15 83s15 93s16 100s15 107s15
+62U15*Assign 10|72s12 82s12 92s12 99s12 106s12
+72V15*Upper_Case{55R10} 10|73s24 83s24 93s34 100s33 107s33
+

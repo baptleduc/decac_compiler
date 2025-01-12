@@ -1,0 +1,69 @@
+V "GNAT Lib v9"
+A -gnatf
+A -gnatyM115
+A -gnatwl
+A -g
+A -gnato
+A -fstack-check=specific
+A -g
+A -fstack-check=specific
+P SS ZX
+
+RN
+RV NO_DIRECT_BOOLEAN_OPERATORS
+RV NO_EXCEPTION_HANDLERS
+RV NO_EXCEPTIONS
+RV NO_SECONDARY_STACK
+RV NO_STANDARD_STORAGE_POOLS
+RV SPARK_05
+
+U partie_op.temps%b	partie_op-temps.adb	9526d2ce NE OO PK
+Z ada.exceptions%s	a-except.adb		a-except.ali
+W options%s		options.adb		options.ali
+W partie_op%s		partie_op.adb		partie_op.ali
+Z system.img_int%s	s-imgint.adb		s-imgint.ali
+Z system.secondary_stack%s  s-secsta.adb	s-secsta.ali
+W types_base%s		types_base.adb		types_base.ali
+
+U partie_op.temps%s	partie_op-temps.ads	696bed65 EE NE OO PK
+W partie_op%s		partie_op.adb		partie_op.ali
+
+D ada.ads		20220527072110 76789da1 ada%s
+D a-except.ads		20220527072110 291912d5 ada.exceptions%s
+D a-unccon.ads		20220527072110 0e9b276f ada.unchecked_conversion%s
+D options.ads		20221217092829 e3b46f5a options%s
+D partie_op.ads		20221217092829 a1140479 partie_op%s
+D partie_op-temps.ads	20221217092829 c87fe91c partie_op.temps%s
+D partie_op-temps.adb	20221217092829 056bbb14 partie_op.temps%b
+D pseudo_code.ads	20221217092829 b9d57959 pseudo_code%s
+D system.ads		20220527072110 4635ec04 system%s
+D s-exctab.ads		20220527072110 54135002 system.exception_table%s
+D s-imgint.ads		20220527072110 02dbe0c2 system.img_int%s
+D s-parame.ads		20220527072110 48ec542b system.parameters%s
+D s-secsta.ads		20220527072110 20bbe636 system.secondary_stack%s
+D s-stalib.ads		20220527072110 09bd3940 system.standard_library%s
+D s-stoele.ads		20220527072110 2dc34a04 system.storage_elements%s
+D s-traent.ads		20220527072110 005bf670 system.traceback_entries%s
+D types_base.ads	20221217092829 bb86ef9c types_base%s
+X 4 options.ads
+12K9*Options 41e12 7|12w6 13r6
+30V12*Limite_Temps{17|26I9} 7|45s10 46s24
+X 5 partie_op.ads
+13K9*Partie_Op 67e14 6|12r17 24r5 7|15r14 65r5
+62X39*Limite_Temps_Ecoulee 7|48r16
+64n30*Termine{64E8} 7|47r22
+65e3*etat_ima{64E8} 7|47m10
+X 6 partie_op-temps.ads
+12K27*Temps 5|13k9 6|24l15 24e20 7|15b24 65l15 65t20
+14U13*Reset 7|59b14 63l8 63t13
+17U13*Incr 17>19 7|40b14 53l8 53t12
+17i19 Val{natural} 7|40b20 43r25
+20V12*Image{string} 7|27b13 34l8 34t13
+X 7 partie_op-temps.adb
+17b4 Defensif{boolean}
+19i4 Cour{natural} 30r32 43m10 43r18 46r16 61m7
+21b4 Valide{boolean} 29r10 42r10 52m10 62m7
+X 17 types_base.ads
+17K9*Types_Base 7|12w15 13r15 17|65e15
+26I9*Entier<integer> 7|46r9
+

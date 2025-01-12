@@ -1,0 +1,65 @@
+;;;;;;;;;;;;;;;;;;;;;;;;
+;; Horner
+;;;;;;;;;;;;;;;;;;;;;;;;	
+
+  LOAD #0.0,R2			; Resultat
+  LOAD #-2.8,R3			; X
+  LOAD #1.33333,R4		; Coefficient du polynome
+  LOAD #15,R5			; Exposant max
+
+boucle.1 :
+  CMP #0, R5
+  BLT fin_boucle.1
+
+  MUL  R3,R2
+  ADD  R4,R2
+	
+  SUB #1, R5
+  BRA boucle.1
+fin_boucle.1 :
+
+  WSTR "Resultat :"
+  LOAD R2,R1
+  WFLOAT
+  WSTR " "
+  WFLOATX
+  WNL
+
+  LOAD R2,R6
+
+;;;;;;;;;;;;;;;;;;;;;;;;
+;; Horner FMA
+;;;;;;;;;;;;;;;;;;;;;;;;	
+
+  LOAD #0.0,R2			; Resultat
+  LOAD #-2.8,R3			; X
+  LOAD #1.33333,R4		; Coefficient du polynome
+  LOAD #15,R5			; Exposant max
+
+  LOAD R4,R1  
+
+boucle.2 :
+  CMP #0, R5
+  BLT fin_boucle.2
+
+  FMA  R3,R2
+	
+  SUB #1, R5
+  BRA boucle.2
+fin_boucle.2 :
+
+  WSTR "Resultat FMA :"
+  LOAD R2,R1
+  WFLOAT
+  WSTR " "
+  WFLOATX
+  WNL
+
+  SUB R2,R6
+
+  WSTR "Différence : "
+  LOAD R6,R1
+  WFLOAT
+  WNL	
+	
+  HALT

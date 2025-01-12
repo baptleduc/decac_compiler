@@ -1,0 +1,4 @@
+RINT
+LOAD #1.0, R1
+WINT
+HALT

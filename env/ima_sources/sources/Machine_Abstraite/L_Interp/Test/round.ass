@@ -1,0 +1,93 @@
+;; Test des différents modes d'arrondis de IMA
+
+BSR computation
+CMP #1.0, R2
+BEQ ok1_1
+WSTR "Arrondi par défaut KO"
+ERROR
+ok1_1:
+CMP #-1.0, R3
+BEQ ok1_2
+WSTR "Arrondi par défaut négatif KO"
+ERROR
+ok1_2:
+
+SETROUND_UPWARD
+
+BSR computation
+CMP #1.0, R2
+BGT ok2_1
+WSTR "Arrondi upward KO"
+ERROR
+ok2_1:
+CMP #-1.0, R3
+BGT ok2_2
+WSTR "Arrondi upward négatif KO"
+ERROR
+ok2_2:
+
+
+SETROUND_TONEAREST
+
+BSR computation
+CMP #1.0, R2
+BEQ ok3_1
+WSTR "Arrondi par défaut KO"
+ERROR
+ok3_1:
+CMP #-1.0, R3
+BEQ ok3_2
+WSTR "Arrondi par défaut négatif KO"
+ERROR
+ok3_2:
+
+
+SETROUND_DOWNWARD
+
+BSR computation
+CMP #1.0, R2
+BLT ok4_1
+WSTR "Arrondi downward KO"
+ERROR
+ok4_1:
+CMP #-1.0, R3
+BLT ok4_2
+WSTR "Arrondi downward négatif KO"
+ERROR
+ok4_2:
+
+
+SETROUND_TOWARDZERO
+
+BSR computation
+CMP #1.0, R2
+BLT ok5_1
+WSTR "Arrondi towardzero KO"
+ERROR
+ok5_1:
+CMP #-1.0, R3
+BGT ok5_2
+WSTR "Arrondi towardzero négatif KO"
+ERROR
+ok5_2:
+
+WSTR "OK"
+HALT
+
+computation:
+LOAD #1.0, R2
+DIV #3.0, R2
+MUL #3.0, R2
+LOAD R2, R1
+SUB #1.0, R1
+WFLOAT
+WNL
+
+LOAD #-1.0, R3
+DIV #3.0, R3
+MUL #3.0, R3
+LOAD R3, R1
+SUB #-1.0, R1
+WFLOAT
+WNL
+RTS

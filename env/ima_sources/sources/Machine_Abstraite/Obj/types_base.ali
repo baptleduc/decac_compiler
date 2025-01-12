@@ -1,0 +1,47 @@
+V "GNAT Lib v9"
+A -gnatf
+A -gnatyM115
+A -gnatwl
+A -g
+A -gnato
+A -fstack-check=specific
+A -g
+A -fstack-check=specific
+P SS ZX
+
+RN
+RV NO_ALLOCATORS
+RV NO_FLOATING_POINT
+RV NO_LOCAL_ALLOCATORS
+RV NO_SECONDARY_STACK
+RV NO_STANDARD_STORAGE_POOLS
+RV NO_DYNAMIC_SIZED_OBJECTS
+RV SPARK_05
+
+U types_base%b		types_base.adb		f5ff2cf9 NE OO PK
+Z system.secondary_stack%s  s-secsta.adb	s-secsta.ali
+
+U types_base%s		types_base.ads		bb86ef9c EE NE OO PK
+
+D system.ads		20220527072110 4635ec04 system%s
+D s-parame.ads		20220527072110 48ec542b system.parameters%s
+D s-secsta.ads		20220527072110 20bbe636 system.secondary_stack%s
+D s-stoele.ads		20220527072110 2dc34a04 system.storage_elements%s
+D types_base.ads	20221217092829 bb86ef9c types_base%s
+D types_base.adb	20221217092829 4e79c365 types_base%b
+X 5 types_base.ads
+17K9*Types_Base 63E9 65l5 65e15 6|12b14 32l5 32t15
+26I9*Entier<integer> 28r22 28r32 29r22 29r32
+28i4*Valmin{26I9}
+29i4*Valmax{26I9}
+34A9*St_Chaine<string> 35r30 52r47 58r43 63c9 6|17r18 17r30 21r47 27r43
+35P9*Chaine(34A9) 43r25 47r42 6|15r42
+41F9*Flot_MA<short_float>
+43P9*Flottant<35P9>
+47V13*Creation{35P9} 47>23 6|15b13 18l8 18t16
+47a23 S{string} 6|15b23 17r41
+52V13*Acces_String{string} 52^27 6|21b13 24l8 24t20
+52p27 C(34A9) 6|21b27 23r22
+58V13*Longueur{natural} 58^23 6|27b13 30l8 30t16
+58p23 C(34A9) 6|27b23 29r14
+

@@ -1,0 +1,165 @@
+V "GNAT Lib v9"
+A -gnato
+A -fstack-check=specific
+P ZX
+
+RN
+RV NO_DIRECT_BOOLEAN_OPERATORS
+RV NO_EXCEPTIONS
+RV NO_IO
+RV NO_SECONDARY_STACK
+RV NO_STANDARD_STORAGE_POOLS
+RV NO_DEFAULT_INITIALIZATION
+RV NO_DYNAMIC_SIZED_OBJECTS
+RV NO_ELABORATION_CODE
+RV NO_OBSOLESCENT_FEATURES
+RV SPARK_05
+
+U lexical_analyzer%b	lexical_analyzer.adb	bc397647 OO PK
+W actions_file%s	actions_file.adb	actions_file.ali
+W ada%s			ada.ads			ada.ali
+Z ada.exceptions%s	a-except.adb		a-except.ali
+Z ada.tags%s		a-tags.adb		a-tags.ali
+W ada.text_io%s		a-textio.adb		a-textio.ali
+W source_file%s		source_file.adb		source_file.ali
+W str_pack%s		str_pack.adb		str_pack.ali
+Z system.concat_2%s	s-conca2.adb		s-conca2.ali
+Z system.concat_3%s	s-conca3.adb		s-conca3.ali
+Z system.img_int%s	s-imgint.adb		s-imgint.ali
+Z system.secondary_stack%s  s-secsta.adb	s-secsta.ali
+W tokens_file%s		tokens_file.adb		tokens_file.ali
+
+U lexical_analyzer%s	lexical_analyzer.ads	6d6ee381 EE OO PK
+Z ada.tags%s		a-tags.adb		a-tags.ali
+W source_file%s		source_file.adb		source_file.ali
+Z system%s		system.ads		system.ali
+Z system.exception_table%s  s-exctab.adb	s-exctab.ali
+Z system.standard_library%s  s-stalib.adb	s-stalib.ali
+
+D actions_file.ads	20221217092829 3fe1550d actions_file%s
+D ada.ads		20220527072110 76789da1 ada%s
+D a-except.ads		20220527072110 291912d5 ada.exceptions%s
+D a-ioexce.ads		20220527072110 e4a01f64 ada.io_exceptions%s
+D a-stream.ads		20220527072110 119b8fb3 ada.streams%s
+D a-tags.ads		20220527072110 491b781d ada.tags%s
+D a-textio.ads		20220527072110 881db35a ada.text_io%s
+D a-unccon.ads		20220527072110 0e9b276f ada.unchecked_conversion%s
+D interfac.ads		20220527072110 5ab55268 interfaces%s
+D i-cstrea.ads		20220527072110 e53d8b8e interfaces.c_streams%s
+D lexical_analyzer.ads	20221217092829 6ade6f66 lexical_analyzer%s
+D lexical_analyzer.adb	20221217092829 0037c4ea lexical_analyzer%b
+D source_file.ads	20221217092829 07b08ce7 source_file%s
+D str_pack.ads		20221217092829 16be565b str_pack%s
+D system.ads		20220527072110 4635ec04 system%s
+D s-conca2.ads		20220527072110 02a0d7d0 system.concat_2%s
+D s-conca3.ads		20220527072110 0b705ca5 system.concat_3%s
+D s-crtl.ads		20220527072110 0ebbdb71 system.crtl%s
+D s-exctab.ads		20220527072110 54135002 system.exception_table%s
+D s-ficobl.ads		20220527072110 078245e4 system.file_control_block%s
+D s-imgint.ads		20220527072110 02dbe0c2 system.img_int%s
+D s-parame.ads		20220527072110 48ec542b system.parameters%s
+D s-secsta.ads		20220527072110 20bbe636 system.secondary_stack%s
+D s-soflin.ads		20220527072110 a7318a92 system.soft_links%s
+D s-stache.ads		20220527072110 a37c21ec system.stack_checking%s
+D s-stalib.ads		20220527072110 09bd3940 system.standard_library%s
+D s-stoele.ads		20220527072110 2dc34a04 system.storage_elements%s
+D s-traent.ads		20220527072110 005bf670 system.traceback_entries%s
+D s-unstyp.ads		20220527072110 34867c83 system.unsigned_types%s
+D s-wchcon.ads		20220527072110 1b7d22d2 system.wch_con%s
+D tokens_file.ads	20221217092829 7022e120 tokens_file%s
+X 1 actions_file.ads
+51K9*Actions_File 80e17 12|47w6 48r6 216r9 217r9 218r9 219r9 220r9 225r21
+. 233r21 236r25 242r21 246r25 248r25 254r21 258r25 272r29 274r29 283r21 290r21
+. 294r9
+65U15*Write 12|225s34 233s34 236s38 242s34 246s38 248s38 290s34
+66U15*Write 12|217s22 219s22 258s38 272s42 274s42
+67U15*Writeln 12|216s22 218s22 220s22 254s34 283s34 294s22
+X 2 ada.ads
+16K9*Ada 20e8 12|47r56 48r56
+X 7 a-textio.ads
+49K13*Text_IO 471e16 12|47w60 48r60
+263U14*Put_Line 12|267s29 278s25
+X 11 lexical_analyzer.ads
+48K9*Lexical_Analyzer 81l5 81e21 12|49b14 335l5 335t21
+51V14*Get_Lexeme_Text{string} 12|65b14 68l9 68t24
+54E10*Ayacc_Token 60e26 63r31 12|96r31
+55n10*Token{54E10} 12|146r36
+55n17*Start{54E10} 12|148r36
+56n10*Left{54E10} 12|150r36
+56n16*Right{54E10} 12|152r36
+56n23*Nonassoc{54E10} 12|154r36
+56n33*Prec{54E10} 12|156r36
+57n10*With_Clause{54E10} 12|158r36
+57n23*Use_Clause{54E10} 12|160r36
+58n10*Identifier{54E10} 12|203r28
+58n22*Character_Literal{54E10} 12|184r32
+59n10*Comma{54E10} 12|127r28
+59n17*Colon{54E10} 12|121r28
+59n24*Semicolon{54E10} 12|124r28
+59n35*Vertical_Bar{54E10} 12|167r28
+59n49*Left_Brace{54E10} 12|170r28
+60n10*Mark{54E10} 12|133r32
+60n16*Eof_Token{54E10} 12|172r28
+63V14*Get_Token{54E10} 12|96b14 208l9 208t18
+66V14*Line_Number{natural} 12|71b14 74l9 74t20
+69U15*Handle_Action 69>29 69>35 12|212b15 295l9 295t22
+69i29 Rule{integer} 12|212b29 217r52
+69i35 Rule_Length{integer} 12|212b35 266r35 270r40
+72U15*Print_Context_Lines=72:55
+75U15*Dump_Declarations 12|297b15 333l9 333t26
+78X5*Illegal_Token 12|117r31 162r35 180r35 205r27 268r35 279r31 320r46
+X 12 lexical_analyzer.adb
+51a3 SCCS_ID{string}
+55a3 Rcs_ID{string}
+57N5 Max_Lexeme_Length 61r23
+59i5 Current_Line_Number{natural} 86m17 86r40 104m21 104r44 219r55 284m21
+. 284r44 327m32 327r55
+61r5 Lexeme_Text{14|55R10} 67r25 100m30 100r30 120m38 120r38 123m38 123r38
+. 126m38 126r38 129m38 129r38 132m42 132r42 142m46 142r46 144m36 144r36 145r37
+. 147r40 149r40 151r40 153r40 155r40 157r41 159r41 166m38 166r38 169m38 169r38
+. 174m38 174r38 177m42 177r42 182m46 182r46 187m38 187r38 196m46 196r46 202m32
+. 202r32
+77U15 Skip_Comment 77b15 90l9 90t21 115s25
+78e9 Ch{character} 81m22 82r16 83r28 85r19
+97e9 Ch{character} 102m26 103r20 106r27 107r27 108r27 111r18 113m30 114r24
+. 120r28 123r28 126r28 129r28 131m34 132r32 136m38 137r32 138r32 139r44 142r36
+. 166r28 169r28 174r28 175m30 176r24 176r38 177r32 178m34 179r28 182r36 187r28
+. 189m34 190r28 191r28 192r28 193r28 194r28 196r36 198r40
+213e9 Char{character} 222m22 223r16 225r40 226m30 227r31 231r18 233r40 235m34
+. 236r44 237r35 242r40 244m32 246r44 247m34 248r44 250r36 256m30 257r24 259r27
+. 260r47 262m38 264r51 290r40
+214i9 Base{integer} 260m25 263m29 263r37 266r28 267r78 270m25 270r33 271r28
+. 275r50
+298e9 Ch{character} 303m22 304r23 306r18 307r39 310m49 311r47 316r39 318m45
+. 319r39 319r52 322r43 323r46 329r39
+299r9 Text{14|55R10} 301m26 301r26 307m49 307r49 311m57 311r57 316m49 316r49
+. 322m53 322r53 325r61 326m49 326r49 329m49 329r49 332r38
+X 13 source_file.ads
+48K9*Source_File 11|47w6 72r43 12|47w20 48r20 299r20 13|93e16
+63U16*Get_Char 12|81s13 102s17 113s21 131s25 136s29 175s21 178s25 189s25
+. 222s13 226s21 235s25 244s23 247s25 256s21 262s29 303s13 310s40 318s36
+64U16*Unget_Char 12|83s17 139s33 198s29 250s25
+66V16*Peek_Next_Char{character} 12|130s24 223s36 243s24 245s26 261s31 308s35
+. 312s50 313s50
+68V16*Source_Line_Number{natural} 12|73s16
+72V14*Maximum_Line_Length{natural} 12|299s32
+74e5*Eof{character} 12|82r21 171r22 176r30 313r67 319r57 328r22
+75e5*Eoln{character} 12|85r24 103r25 107r33 176r44 227r38 282r22 312r67 319r44
+. 325r22
+78U15*Print_Context_Lines 11|72r55
+X 14 str_pack.ads
+48K9*STR_Pack 12|47w33 48r33 14|88e13
+55R10*STR 12|61r19 299r16 14|86e19
+58V15*Value_of{string} 12|67s16 145s28 147s31 149s31 151s31 153s31 155s31
+. 157s31 159s31 325s52 332s29
+62U15*Assign 12|100s13 301s9 326s32
+62r44 To{55R10} 12|100r24 301r20 326r43
+65U15*Append 12|120s21 123s21 126s21 129s21 132s25 142s29 166s21 169s21 174s21
+. 177s25 182s29 187s21 196s29 307s32 311s40 316s32 322s36 329s32
+65r43 To{55R10} 12|120r32 123r32 126r32 129r32 132r36 142r40 166r32 169r32
+. 174r32 177r36 182r40 187r32 196r40 307r43 311r51 316r43 322r47 329r43
+69U15*Upper_Case 12|144s25 202s21
+X 31 tokens_file.ads
+48K9*Tokens_File 12|47w43 48r43 325r32 332r9 31|65e16
+63U15*Writeln 12|325s44 332s21
+
