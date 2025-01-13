@@ -25,4 +25,8 @@ io_error_1:
 	WSTR "Error: Input/Output error"
 	WNL
 	ERROR
+divide_by_zero_error_3:
+	WSTR "Error: Division by zero"
+	WNL
+	ERROR
 ; end main program
