@@ -1,0 +1,15 @@
+// Description:
+//    Minimalistic program to test the creation of a method without return type.
+//
+// Results:
+//    None
+//
+// History:
+//    Created on 13/1/2025
+
+class Car{
+    int x = 42;
+    myMethod(int param){
+        
+    }
+}

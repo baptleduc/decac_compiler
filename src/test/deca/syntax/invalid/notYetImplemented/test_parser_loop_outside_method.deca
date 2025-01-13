@@ -1,0 +1,14 @@
+// Description:
+//    Minimalistic program to test the use of a loop outside a method.
+//
+// Results:
+//    None
+//
+// History:
+//    Created on 13/1/2025
+
+class Car{
+    while(true){
+        return 5;
+    }
+}

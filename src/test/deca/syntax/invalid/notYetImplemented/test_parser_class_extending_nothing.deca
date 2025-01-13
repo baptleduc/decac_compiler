@@ -1,0 +1,12 @@
+// Description:
+//    Minimalistic program to test the creation of a class that extends nothing.
+//
+// Results:
+//    None
+//
+// History:
+//    Created on 13/1/2025
+
+class Car extends {
+    int x = 42;
+}

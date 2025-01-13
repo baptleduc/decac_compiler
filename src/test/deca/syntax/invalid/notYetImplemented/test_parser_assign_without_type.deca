@@ -1,0 +1,12 @@
+// Description:
+//    Minimalistic program to test the creation of a var without type.
+//
+// Results:
+//    None
+//
+// History:
+//    Created on 13/1/2025
+
+class Car{
+    x = 42;
+}
