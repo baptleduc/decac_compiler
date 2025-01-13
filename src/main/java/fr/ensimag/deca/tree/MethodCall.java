@@ -14,18 +14,19 @@ import org.apache.commons.lang.Validate;
 /**
  *
  * @author nicolmal
- * @date 06/01/2025
+ * @date 13/01/2025
  */
-public class InstanceOf extends AbstractExpr {
+public class MethodCall extends AbstractExpr {
 
     private AbstractExpr leftOperand;
     private AbstractIdentifier rightOperand;
-    
-    public InstanceOf(AbstractExpr leftOperand, AbstractIdentifier rightOperand) {
-	this.leftOperand = leftOperand;
-	this.rightOperand = rightOperand;
-    }
+    private ListExpr param;
 
+    public MethodeCall(AbstractExpr leftOperand, AbstractIdentifier rightOperand, ListExpr param) {
+        this.leftOperand = leftOperand;
+        this.rightOperand= rightOperand;
+	this.param = param;
+    }
 
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
@@ -67,4 +68,5 @@ public class InstanceOf extends AbstractExpr {
     protected boolean isImmediate() {
 	throw new UnsupportedOperationException("not yet implemented");
     }
+
 }

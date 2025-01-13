@@ -7,25 +7,26 @@ import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.DVal;
-import fr.ensimag.ima.pseudocode.ImmediateFloat;
+import fr.ensimag.ima.pseudocode.ImmediateInteger;
 import java.io.PrintStream;
-import org.apache.commons.lang.Validate;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author nicolmal
- * @date 06/01/2025
+ * @date 13/01/2025
  */
-public class InstanceOf extends AbstractExpr {
+public class This extends AbstractExpr {
 
-    private AbstractExpr leftOperand;
-    private AbstractIdentifier rightOperand;
-    
-    public InstanceOf(AbstractExpr leftOperand, AbstractIdentifier rightOperand) {
-	this.leftOperand = leftOperand;
-	this.rightOperand = rightOperand;
+    public boolean getValue() {
+        return value;
     }
 
+    private boolean value;
+
+    public This(boolean value) {
+        this.value = value;
+    }
 
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
@@ -67,4 +68,5 @@ public class InstanceOf extends AbstractExpr {
     protected boolean isImmediate() {
 	throw new UnsupportedOperationException("not yet implemented");
     }
+
 }
