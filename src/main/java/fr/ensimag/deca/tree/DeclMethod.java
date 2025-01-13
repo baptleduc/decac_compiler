@@ -10,15 +10,15 @@ import java.io.PrintStream;
  */
 public class DeclMethod extends AbstractDeclMethod {
 
-    private AbstractIdentifier type;
-    private AbstractIdentifier name;
+    private AbstractIdentifier returnType;
+    private AbstractIdentifier methodName;
     private ListDeclParam params;
     private AbstractMethodBody body;
 
-    public DeclMethod(AbstractIdentifier type, AbstractIdentifier name, ListDeclParam params,
+    public DeclMethod(AbstractIdentifier returnType, AbstractIdentifier methodName, ListDeclParam params,
             AbstractMethodBody body) {
-        this.type = type;
-        this.name = name;
+        this.returnType = returnType;
+        this.methodName = methodName;
         this.params = params;
         this.body = body;
     }
@@ -30,7 +30,10 @@ public class DeclMethod extends AbstractDeclMethod {
 
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
-        throw new UnsupportedOperationException("Not yet supported");
+        returnType.prettyPrint(s, prefix, false);
+        methodName.prettyPrint(s, prefix, false);
+        params.prettyPrint(s, prefix, false);
+        body.prettyPrint(s, prefix, true);
     }
 
     @Override

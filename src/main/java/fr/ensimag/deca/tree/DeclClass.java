@@ -5,6 +5,8 @@ import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import java.io.PrintStream;
 
+import org.apache.commons.lang.Validate;
+
 /**
  * Declaration of a class (<code>class name extends superClass {members}<code>).
  * 
@@ -13,14 +15,19 @@ import java.io.PrintStream;
  */
 public class DeclClass extends AbstractDeclClass {
 
-    private AbstractIdentifier name;
-    private AbstractIdentifier herit;
+    private AbstractIdentifier nameClass;
+    private AbstractIdentifier superClass;
     private ListDeclField fields;
     private ListDeclMethod methods;
 
-    public DeclClass(AbstractIdentifier name, AbstractIdentifier herit, ListDeclField fields, ListDeclMethod methods) {
-        this.name = name;
-        this.herit = herit;
+    public DeclClass(AbstractIdentifier nameClass, AbstractIdentifier superClass, ListDeclField fields, ListDeclMethod methods) {
+        Validate.notNull(nameClass);
+        Validate.notNull(superClass);
+        Validate.notNull(fields);
+        Validate.notNull(methods);
+    
+        this.nameClass = nameClass;
+        this.superClass = superClass;
         this.fields = fields;
         this.methods = methods;
     }
@@ -48,7 +55,11 @@ public class DeclClass extends AbstractDeclClass {
 
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
-        throw new UnsupportedOperationException("Not yet supported");
+        nameClass.prettyPrint(s, prefix, false);
+        superClass.prettyPrint(s, prefix, false);
+        fields.prettyPrint(s, prefix, false);
+        methods.prettyPrint(s, prefix, true);
+
     }
 
     @Override

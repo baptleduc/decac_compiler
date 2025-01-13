@@ -39,7 +39,7 @@ public class Return extends AbstractInst {
 
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
-        throw new UnsupportedOperationException("not yet implemented");
+        returnExpr.prettyPrint(s, prefix, true);
     }
 
     @Override

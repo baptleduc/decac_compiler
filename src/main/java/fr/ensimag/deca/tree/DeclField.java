@@ -11,16 +11,13 @@ import java.io.PrintStream;
  */
 public class DeclField extends AbstractDeclField {
 
+    private Visibility visibility;
     private AbstractIdentifier name;
     private AbstractInitialization init;
 
-    public DeclField(AbstractIdentifier type, AbstractIdentifier name, AbstractInitialization init) {
+    public DeclField(Visibility visibility, AbstractIdentifier type, AbstractIdentifier name, AbstractInitialization init) {
+        this.visibility = visibility;
         setType(type);
-        this.name = name;
-        this.init = init;
-    }
-
-    public DeclField(AbstractIdentifier name, AbstractInitialization init) {
         this.name = name;
         this.init = init;
     }
@@ -29,10 +26,17 @@ public class DeclField extends AbstractDeclField {
     public void decompile(IndentPrintStream s) {
         s.print(" ... A FAIRE ... ");
     }
+    
+    @Override
+    String prettyPrintNode(){
+        return "[visibility=" + visibility +"]" + " " +  super.prettyPrintNode();
+    }
 
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
-        throw new UnsupportedOperationException("Not yet supported");
+        getType().prettyPrint(s, prefix, false);
+        name.prettyPrint(s, prefix, false);
+        init.prettyPrint(s, prefix, false);
     }
 
     @Override

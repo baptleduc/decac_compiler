@@ -10,12 +10,12 @@ import java.io.PrintStream;
  */
 public class MethodBody extends AbstractMethodBody {
 
-    private ListDeclVar vars;
-    private ListInst insts;
+    private ListDeclVar listDeclVar;
+    private ListInst listInst;
 
-    public MethodBody(ListDeclVar vars, ListInst insts) {
-        this.vars = vars;
-        this.insts = insts;
+    public MethodBody(ListDeclVar listDeclVar, ListInst listInst) {
+        this.listDeclVar = listDeclVar;
+        this.listInst = listInst;
     }
 
     @Override
@@ -25,7 +25,8 @@ public class MethodBody extends AbstractMethodBody {
 
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
-        throw new UnsupportedOperationException("Not yet supported");
+        listDeclVar.prettyPrint(s, prefix, false);
+        listInst.prettyPrint(s, prefix, true);
     }
 
     @Override

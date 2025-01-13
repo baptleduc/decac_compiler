@@ -16,6 +16,16 @@ import java.io.PrintStream;
  */
 public class This extends AbstractExpr {
 
+    private boolean isImplicit; // set to true during parsing if the 'this' keyword is implicit
+
+    public This(boolean isImplicit) {
+        this.isImplicit = isImplicit;
+    }
+
+    public This() {
+        this.isImplicit = false;
+    }
+
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
@@ -29,7 +39,7 @@ public class This extends AbstractExpr {
 
     @Override
     String prettyPrintNode() {
-        throw new UnsupportedOperationException("not yet implemented");
+        return "This";
     }
 
     @Override
@@ -39,7 +49,7 @@ public class This extends AbstractExpr {
 
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
-        throw new UnsupportedOperationException("not yet implemented");
+        // leaf node => nothing to do
     }
 
     @Override

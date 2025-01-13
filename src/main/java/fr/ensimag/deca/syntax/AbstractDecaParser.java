@@ -22,7 +22,6 @@ import org.apache.log4j.Logger;
  */
 public abstract class AbstractDecaParser extends Parser {
     Logger LOG = Logger.getLogger(AbstractDecaParser.class);
-    protected SymbolTable symbolTable;
     private DecacCompiler decacCompiler;
 
     protected DecacCompiler getDecacCompiler() {
@@ -81,7 +80,6 @@ public abstract class AbstractDecaParser extends Parser {
      */
     protected AbstractDecaParser(TokenStream input) {
         super(input);
-        this.symbolTable = new SymbolTable();
         setErrorHandler(new DefaultErrorStrategy() {
             @Override
             public void reportError(Parser recognizer,

@@ -10,12 +10,12 @@ import java.io.PrintStream;
  */
 public class DeclParam extends AbstractDeclParam {
 
-    private AbstractIdentifier type;
-    private AbstractIdentifier name;
+    private AbstractIdentifier paramType;
+    private AbstractIdentifier paramName;
 
-    public DeclParam(AbstractIdentifier type, AbstractIdentifier name) {
-        this.type = type;
-        this.name = name;
+    public DeclParam(AbstractIdentifier paramType, AbstractIdentifier paramName) {
+        this.paramType = paramType;
+        this.paramName = paramName;
     }
 
     @Override
@@ -25,7 +25,8 @@ public class DeclParam extends AbstractDeclParam {
 
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
-        throw new UnsupportedOperationException("Not yet supported");
+        paramType.prettyPrint(s, prefix, false);
+        paramName.prettyPrint(s, prefix, true);
     }
 
     @Override
