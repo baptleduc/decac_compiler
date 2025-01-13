@@ -1,0 +1,12 @@
+// Description:
+//     Program testing AND operator with non boolean operand
+//
+// Results:
+//    error
+//
+// History:
+//    Created on 13/01/2025
+
+{
+    boolean a = true && 4;
+}

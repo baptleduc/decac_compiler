@@ -1,0 +1,12 @@
+// Description:
+//    Program testing type not defined
+//
+// Results:
+//    error
+//
+// History:
+//    Created on 13/01/2025
+
+{
+    notDefined x = 5;
+}

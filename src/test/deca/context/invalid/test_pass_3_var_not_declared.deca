@@ -1,0 +1,12 @@
+// Description:
+//    Program testing var not declared
+//
+// Results:
+//    error
+//
+// History:
+//    Created on 13/01/2025
+
+{
+    x = 2;
+}

@@ -1,5 +1,5 @@
 // Description:
-//    Program testing that we can not use op mod on non int type 
+//    Program testing that we can not use op mod on non int type (left operand)
 //
 // Results:
 //    error
