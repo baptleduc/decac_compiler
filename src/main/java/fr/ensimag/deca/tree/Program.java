@@ -1,7 +1,7 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.DecacCompiler;
-import fr.ensimag.deca.codegen.StackManagement;
+import fr.ensimag.deca.codegen.StackManager;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.IMAProgram;
@@ -48,7 +48,7 @@ public class Program extends AbstractProgram {
 
     @Override
     public void codeGenProgram(DecacCompiler compiler) {
-        StackManagement stackManager = compiler.getStackManager();
+        StackManager stackManager = compiler.getStackManager();
 
         IMAProgram mainIMAProgram = new IMAProgram();
 
@@ -61,8 +61,10 @@ public class Program extends AbstractProgram {
 
         compiler.addInstruction(new HALT());
 
-        // Error management
-        compiler.stackOverflowCheck(compiler.getCompilerOptions().getVerify());
+        // Error handling
+        compiler.generateStackOverflow();
+        compiler.generateOverflowError();
+        compiler.generateIOError();
     }
 
     @Override
