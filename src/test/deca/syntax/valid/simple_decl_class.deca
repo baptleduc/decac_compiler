@@ -1,0 +1,21 @@
+// Description:
+//    Minimalistic program to test declaration of class.
+//
+// Results:
+//    None
+//
+// History:
+//    Created on 13/01/2025
+
+
+class A {
+    protected int x;
+    int getX(){
+        return x;
+    }
+    void setX(int x){
+        this.x = x;
+    }
+}
+{
+}
