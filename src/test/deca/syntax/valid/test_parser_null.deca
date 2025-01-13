@@ -1,0 +1,13 @@
+// Description:
+//    Minimalistic program to test assign to null for a field in a class.
+//
+// Results:
+//    None
+//
+// History:
+//    Created on 13/1/2025
+
+class Car {
+    int immatriculation;
+    immatriculation = null;
+}
