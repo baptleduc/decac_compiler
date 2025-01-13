@@ -496,7 +496,7 @@ ident returns[AbstractIdentifier tree]
         }
     ;
 
-multi_line_string returns[String text, Location location]
+multi_line_string returns[AbstractStringLiteral text, Location location]
     : s=STRING {
             $text = $s.text;
             $location = tokenLocation($s);
@@ -607,7 +607,7 @@ decl_method returns[AbstractDeclMethod tree]
 }
     : returnType=type name=ident OPARENT params=list_params CPARENT
       (action=block {
-        body = new MethodBody(action.decls, action.insts);
+        body = new MethodBody($action.decls, $action.insts);
         setLocation(body, $OPARENT);
       }
       | ASM OPARENT code=multi_line_string CPARENT SEMI {
@@ -621,7 +621,7 @@ decl_method returns[AbstractDeclMethod tree]
 
 list_params returns[ListDeclParam tree]
 @init {
-    $tree = new ListParam();
+    $tree = new ListDeclParam();
 }
     : (p1=param {
         $tree.add($p1.tree);
@@ -632,7 +632,7 @@ list_params returns[ListDeclParam tree]
 
 param returns[AbstractDeclParam tree]
     : t=type name=ident {
-        $tree = new DeclParam(t.tree, name.tree);
+        $tree = new DeclParam($t.tree, $name.tree);
         setLocation($tree, $name.start);
     }
     ;

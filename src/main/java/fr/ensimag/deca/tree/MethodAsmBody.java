@@ -12,8 +12,8 @@ public class MethodAsmBody extends AbstractMethodBody {
 
     private AbstractStringLiteral asmName;
 
-    public MethodAsmBody(AbstractStringLiteral asmName) {
-        this.asmName = asmName;
+    public MethodAsmBody(AbstractStringLiteral asmname) {
+        asmName = asmname;
     }
 
     @Override
