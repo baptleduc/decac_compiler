@@ -29,8 +29,10 @@ unit_tests:
   script:
     - echo "Running unit tests..."
     - mvn surefire:test -Dtest=fr.ensimag.deca.tools.SymbolTest
+    - mvn surefire:test -Dtest=fr.ensimag.deca.tools.ManualTestSymbol
     - mvn surefire:test -Dtest=fr.ensimag.deca.TestCompilerOptions
     - mvn surefire:test -Dtest=fr.ensimag.deca.context.TestEnvironmentExp
+    
 
 non_regression_tests:
   stage: test
@@ -55,7 +57,26 @@ verify-ima-output:
   script:
     - echo "Running IMA output verification tests..."
     - mvn exec:exec@verify-ima-output
-    
+
+basic-test:
+  stage: test
+  dependencies:
+    - maven_build
+  script:
+    - echo "Running basic tests..."
+    - mvn exec:exec@basic-lex
+    - mvn exec:exec@basic-synt
+    - mvn exec:exec@basic-context
+    - mvn exec:exec@basic-gencode
+
+basic-decac:
+  stage: test
+  dependencies:
+    - maven_build
+  script:
+    - echo "Running basic syntactic tests..."
+    - mvn exec:exec@basic-decac
+
 spotless_check:
   stage: format-check
   script:
