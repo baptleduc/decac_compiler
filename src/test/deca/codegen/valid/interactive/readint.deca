@@ -1,0 +1,12 @@
+// Description:
+//    Minimalistic program making readint and printing the result.
+// Results:
+//    x
+//
+// History:
+//    Created on 13/01/2025
+
+{       
+        int x = readInt();
+        println(x);
+}

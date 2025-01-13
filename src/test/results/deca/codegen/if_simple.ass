@@ -31,4 +31,16 @@ stack_overflow_error_4:
 	WSTR "Error: Stack Overflow"
 	WNL
 	ERROR
+overflow_error_6:
+	WSTR "Error: Overflow during arithmetic operation"
+	WNL
+	ERROR
+io_error_5:
+	WSTR "Error: Input/Output error"
+	WNL
+	ERROR
+divide_by_zero_error_7:
+	WSTR "Error: Division by zero"
+	WNL
+	ERROR
 ; end main program

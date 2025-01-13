@@ -7,8 +7,8 @@ import fr.ensimag.ima.pseudocode.RegisterOffset;
 import java.util.LinkedList;
 import org.apache.log4j.Logger;
 
-public class StackManagement {
-    private static final Logger LOG = Logger.getLogger(StackManagement.class);
+public class StackManager {
+    private static final Logger LOG = Logger.getLogger(StackManager.class);
 
     private IMAProgram program;
 
@@ -28,7 +28,7 @@ public class StackManagement {
     private int numTemporaries = 0;
     private int numMethodParams = 0;
 
-    public StackManagement(IMAProgram program, int numRegisters) {
+    public StackManager(IMAProgram program, int numRegisters) {
         idxAvailableGPRegisters = new LinkedList<>();
         idxUsedGPRegisters = new LinkedList<>();
         this.program = program;

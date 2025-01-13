@@ -1,0 +1,12 @@
+// Description:
+//    Minimalistic program making an overflow in a basic float operation.
+// Results:
+//    Error: Overflow during arithmetic operation
+//
+// History:
+//    Created on 13/01/2025
+
+{       
+        float x = 100000000000000000000000000000000.0 * 10000000;
+        println(x);
+}

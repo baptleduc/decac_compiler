@@ -4,8 +4,10 @@
 ; start main program
 ; Main program
 ; Beginning of main instructions:
-	LOAD #5, R2
-	FLOAT #5, R2
+	LOAD #10000000, R2
+	FLOAT #10000000, R2
+	MUL #0x1.3b8b5cp106, R2
+	BOV overflow_error_2
 	STORE R2, 1(GB)
 	LOAD 1(GB), R1
 	WFLOAT

@@ -1,6 +1,7 @@
 package fr.ensimag.deca;
 
-import fr.ensimag.deca.codegen.StackManagement;
+import fr.ensimag.deca.codegen.ErrorManager;
+import fr.ensimag.deca.codegen.StackManager;
 import fr.ensimag.deca.context.EnvironmentType;
 import fr.ensimag.deca.syntax.DecaLexer;
 import fr.ensimag.deca.syntax.DecaParser;
@@ -20,11 +21,8 @@ import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.RegisterOffset;
 import fr.ensimag.ima.pseudocode.instructions.ADDSP;
 import fr.ensimag.ima.pseudocode.instructions.BOV;
-import fr.ensimag.ima.pseudocode.instructions.ERROR;
 import fr.ensimag.ima.pseudocode.instructions.PUSH;
 import fr.ensimag.ima.pseudocode.instructions.TSTO;
-import fr.ensimag.ima.pseudocode.instructions.WNL;
-import fr.ensimag.ima.pseudocode.instructions.WSTR;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -61,9 +59,9 @@ public class DecacCompiler {
         super();
         this.compilerOptions = compilerOptions;
         if (compilerOptions == null || this.compilerOptions.getRegisters() == -1) {
-            this.stackManager = new StackManagement(program, Register.getMaxGPRegisters());
+            this.stackManager = new StackManager(program, Register.getMaxGPRegisters());
         } else {
-            this.stackManager = new StackManagement(program, this.compilerOptions.getRegisters());
+            this.stackManager = new StackManager(program, this.compilerOptions.getRegisters());
         }
         this.source = source;
     }
@@ -83,7 +81,7 @@ public class DecacCompiler {
         return compilerOptions;
     }
 
-    public StackManagement getStackManager() {
+    public StackManager getStackManager() {
         return stackManager;
     }
 
@@ -97,7 +95,7 @@ public class DecacCompiler {
     /**
      * Stack management to handle registers and stack.
      */
-    private final StackManagement stackManager;
+    private final StackManager stackManager;
 
     /** The global environment for types (and the symbolTable) */
     public final SymbolTable symbolTable = new SymbolTable();
@@ -190,34 +188,60 @@ public class DecacCompiler {
     }
 
     /**
-     * Inserts a TSTO instruction to test for stack overflow and calculates
-     * the required stack size. If 'noVerify' is false, it adds a block to handle
-     * stack overflow errors.
-     *
-     * @param noVerify
-     *            if true, skips adding the stack overflow error-handling block
+     * @see
+     *      fr.ensimag.ima.pseudocode.ErrorManager#generateOverflowError()
      */
-    public void stackOverflowCheck(boolean noVerify) {
-        if (noVerify) {
-            return;
-        }
-        LOG.debug("Inserting TSTO instruction");
-        LOG.debug(noVerify);
-        int d = stackManager.getNeededStackFrame();
-        Label label = new Label("stack_overflow_error");
-        ImmediateInteger imm = new ImmediateInteger(stackManager.getOffsetGB());
-        addFirst(new ADDSP(imm)); // Increment SP by offsetGB
-        addFirst(new BOV(label));
-        addFirst(new TSTO(d), stackManager.getCommentTSTO());
-        addLabel(label);
-        addInstruction(new WSTR("Error: Stack Overflow"));
-        addInstruction(new WNL());
-        addInstruction(new ERROR());
+    public void generateOverflowError() {
+        ErrorManager.generateOverflowError(this);
     }
 
     /**
      * @see
-     *      fr.ensimag.deca.codegen.StackManagement#addGlobalVariable()
+     *      fr.ensimag.ima.pseudocode.ErrorManager#generateIOError()
+     */
+    public void generateIOError() {
+        ErrorManager.generateIOError(this);
+    }
+
+    /**
+     * @see
+     *      fr.ensimag.ima.pseudocode.ErrorManager#generateDivideByZeroError()
+     */
+    public void generateDivideByZeroError() {
+        ErrorManager.generateDivideByZeroError(this);
+    }
+
+    /**
+     * Inserts a `TSTO` instruction to check for stack overflow and calculates the
+     * required stack size.
+     * Adds code at the start to check for overflow and at the end to handle the
+     * error, unless `noVerify` is true.
+     *
+     * @param noVerify
+     *            if true, skips adding the stack overflow error-handling code
+     */
+    public void generateStackOverflow() {
+        if (getCompilerOptions().getNoCheck()) {
+            return;
+        }
+
+        LOG.debug("Inserting TSTO instruction");
+        int d = stackManager.getNeededStackFrame();
+        ImmediateInteger imm = new ImmediateInteger(stackManager.getOffsetGB());
+
+        // Insert TSTO instruction to test for stack overflow at the beginning of the
+        // program
+        addFirst(new ADDSP(imm)); // Increment SP by offsetGB
+        addFirst(new BOV(ErrorManager.STACK_OVERFLOW_ERROR));
+        addFirst(new TSTO(d), stackManager.getCommentTSTO());
+
+        // Generate stack overflow error handling block at the end of the program
+        ErrorManager.generateStackOverflowError(this);
+    }
+
+    /**
+     * @see
+     *      fr.ensimag.deca.codegen.StackManager#addGlobalVariable()
      */
     public RegisterOffset addGlobalVariable() {
         return stackManager.addGlobalVariable();

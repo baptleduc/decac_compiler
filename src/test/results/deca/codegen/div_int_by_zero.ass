@@ -4,11 +4,12 @@
 ; start main program
 ; Main program
 ; Beginning of main instructions:
-	LOAD #5, R2
-	FLOAT #5, R2
+	LOAD #4, R2
+	QUO #0, R2
+	BOV divide_by_zero_error_3
 	STORE R2, 1(GB)
 	LOAD 1(GB), R1
-	WFLOAT
+	WINT
 	WNL
 	HALT
 stack_overflow_error_0:

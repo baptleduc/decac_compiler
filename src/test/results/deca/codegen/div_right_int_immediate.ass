@@ -8,6 +8,7 @@
 	STORE R2, 1(GB)
 	LOAD 1(GB), R2
 	QUO #2, R2
+	BOV divide_by_zero_error_3
 	STORE R2, 2(GB)
 	LOAD 2(GB), R1
 	WINT
@@ -15,6 +16,18 @@
 	HALT
 stack_overflow_error_0:
 	WSTR "Error: Stack Overflow"
+	WNL
+	ERROR
+overflow_error_2:
+	WSTR "Error: Overflow during arithmetic operation"
+	WNL
+	ERROR
+io_error_1:
+	WSTR "Error: Input/Output error"
+	WNL
+	ERROR
+divide_by_zero_error_3:
+	WSTR "Error: Division by zero"
 	WNL
 	ERROR
 ; end main program
