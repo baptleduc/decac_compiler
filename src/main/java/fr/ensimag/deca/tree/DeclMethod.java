@@ -10,14 +10,14 @@ import java.io.PrintStream;
  */
 public class DeclMethod extends AbstractDeclMethod {
 
-    private AbstractIdentifier visibility;
+    private AbstractIdentifier type;
     private AbstractIdentifier name;
     private ListDeclParam params;
     private AbstractMethodBody body;
 
-    public DeclMethod(AbstractIdentifier visibility, AbstractIdentifier name, ListDeclParam params,
+    public DeclMethod(AbstractIdentifier type, AbstractIdentifier name, ListDeclParam params,
             AbstractMethodBody body) {
-        this.visibility = visibility;
+        this.type = type;
         this.name = name;
         this.params = params;
         this.body = body;

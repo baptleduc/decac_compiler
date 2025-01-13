@@ -11,12 +11,16 @@ import java.io.PrintStream;
  */
 public class DeclField extends AbstractDeclField {
 
-    private AbstractIdentifier visibility;
     private AbstractIdentifier name;
     private AbstractInitialization init;
 
-    public DeclField(AbstractIdentifier visibility, AbstractIdentifier name, AbstractInitialization init) {
-        this.visibility = visibility;
+    public DeclField(AbstractIdentifier type, AbstractIdentifier name, AbstractInitialization init) {
+        setType(type);
+        this.name = name;
+        this.init = init;
+    }
+
+    public DeclField(AbstractIdentifier name, AbstractInitialization init) {
         this.name = name;
         this.init = init;
     }
