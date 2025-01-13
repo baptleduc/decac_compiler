@@ -22,5 +22,4 @@ public abstract class AbstractReadExpr extends AbstractExpr {
         setDVal(compiler.getRegister1());
     }
 
-
 }
