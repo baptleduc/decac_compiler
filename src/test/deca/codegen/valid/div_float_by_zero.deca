@@ -1,0 +1,12 @@
+// Description:
+//    Minimalistic program making an division by zero error with float
+// Results:
+//    Error: Division by zero
+//
+// History:
+//    Created on 13/01/2025
+
+{       
+        float x = 4/0.0;
+        println(x);
+}

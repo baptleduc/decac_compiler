@@ -27,8 +27,7 @@ Usage:
 The script continues execution for all files, even if some tests fail.
 '
 
-# Stop script on any command failure
-set -e 
+
 
 process_deca_file() {
     local DECA_FILE="$1"
@@ -59,13 +58,9 @@ process_deca_file() {
     # Step 2: Execute the .ass file with $IMA_EXEC
     echo "Executing $ASS_FILE..."
     local OUTPUT
-    OUTPUT=$($IMA_EXEC "$ASS_FILE")
-    if [ $? -ne 0 ]; then
-        echo "Error: Execution failed for $ASS_FILE."
-        rm "$ASS_FILE"
-        exit 1
-        return
-    fi
+    local ERROR_OUTPUT
+    OUTPUT=$($IMA_EXEC "$ASS_FILE" 2> >(ERROR_OUTPUT=$(cat)))
+    local EXIT_CODE=$?
 
     # Step 3: Verify the program output
     # Convert the expected output to lowercase for case-insensitive comparison
