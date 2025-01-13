@@ -1,0 +1,1 @@
+./src/test/deca/context/invalid/test_pass_3_OR_non_boolean.deca:11:24: Vars int and booleanmust be boolean values for logical operations (AND, OR)
