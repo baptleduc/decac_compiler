@@ -12,3 +12,6 @@
 # Avoid .antlr because files are generated
 **/.antlr
 /global
+
+# Avoid *.ass file in src/test/deca/codegen
+src/test/deca/codegen/**/*.ass
