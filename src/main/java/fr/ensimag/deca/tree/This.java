@@ -16,16 +16,6 @@ import java.io.PrintStream;
  */
 public class This extends AbstractExpr {
 
-    public boolean getValue() {
-        return value;
-    }
-
-    private boolean value;
-
-    public This(boolean value) {
-        this.value = value;
-    }
-
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
