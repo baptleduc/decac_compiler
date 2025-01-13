@@ -40,9 +40,6 @@ public class Program extends AbstractProgram {
     @Override
     public void verifyProgram(DecacCompiler compiler) throws ContextualError {
         LOG.debug("verify program: start");
-        if (main == null) {
-            throw new ContextualError("No main block defined in the program.", Location.BUILTIN);
-        }
         // Pass 1
 
         // Pass 2
