@@ -498,13 +498,14 @@ ident returns[AbstractIdentifier tree]
 
 multi_line_string returns[AbstractStringLiteral text, Location location]
     : s=STRING {
-            $text = $s.text;
+            $text = new StringLiteral($s.text);
             $location = tokenLocation($s);
+            setLocation($text, $s);
         }
     | s=MULTI_LINE_STRING {
-            $text = $s.text;
+            $text = new StringLiteral($s.text);
             $location = tokenLocation($s);
-        }
+            setLocation($text, $s);        }
     ;
 
 
