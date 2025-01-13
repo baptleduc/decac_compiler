@@ -65,6 +65,7 @@ public class Program extends AbstractProgram {
         compiler.generateStackOverflow();
         compiler.generateOverflowError();
         compiler.generateIOError();
+        compiler.generateDivideByZeroError();
     }
 
     @Override

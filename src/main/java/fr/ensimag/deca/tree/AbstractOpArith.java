@@ -1,12 +1,14 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.DecacCompiler;
+import fr.ensimag.deca.codegen.ErrorManager;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.ima.pseudocode.DVal;
 import fr.ensimag.ima.pseudocode.GPRegister;
+import fr.ensimag.ima.pseudocode.instructions.BOV;
 import org.apache.log4j.Logger;
 
 /**
@@ -131,6 +133,12 @@ public abstract class AbstractOpArith extends AbstractBinaryExpr {
 
         // Generate the operation instruction
         codeGenOperationInst(regDest, sourceDVal, compiler);
+
+        // Check for overflow
+        if (getType().isFloat()) {
+            compiler.addInstruction(new BOV(ErrorManager.getLabelOverflowError()));
+            ;
+        }
 
         // Free the source operand if necessary
         sourceDVal.freeGPRegister(compiler);

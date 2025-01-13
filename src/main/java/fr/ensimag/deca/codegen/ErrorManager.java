@@ -14,6 +14,7 @@ public class ErrorManager {
     public static final Label STACK_OVERFLOW_ERROR = new Label("stack_overflow_error");
     public static final Label IO_ERROR = new Label("io_error");
     public static final Label OVERFLOW_ERROR = new Label("overflow_error");
+    public static final Label DIVIDE_BY_ZERO_ERROR = new Label("divide_by_zero_error");
 
     public static Label getLabelStackOverflowError() {
         return STACK_OVERFLOW_ERROR;
@@ -21,6 +22,14 @@ public class ErrorManager {
 
     public static Label getLabelIOError() {
         return IO_ERROR;
+    }
+
+    public static Label getLabelOverflowError() {
+        return OVERFLOW_ERROR;
+    }
+
+    public static Label getLabelDivideByZeroError() {
+        return DIVIDE_BY_ZERO_ERROR;
     }
 
     /**
@@ -51,6 +60,16 @@ public class ErrorManager {
      */
     public static void generateOverflowError(DecacCompiler compiler) {
         generateError(OVERFLOW_ERROR, "Error: Overflow during arithmetic operation", compiler);
+    }
+
+    /**
+     * Generates the assembly code for handling division by zero errors.
+     *
+     * @param compiler
+     *            the Deca compiler instance
+     */
+    public static void generateDivideByZeroError(DecacCompiler compiler) {
+        generateError(DIVIDE_BY_ZERO_ERROR, "Error: Division by zero", compiler);
     }
 
     /**

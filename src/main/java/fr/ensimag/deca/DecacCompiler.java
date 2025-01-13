@@ -204,6 +204,14 @@ public class DecacCompiler {
     }
 
     /**
+     * @see
+     *      fr.ensimag.ima.pseudocode.ErrorManager#generateDivideByZeroError()
+     */
+    public void generateDivideByZeroError() {
+        ErrorManager.generateDivideByZeroError(this);
+    }
+
+    /**
      * Inserts a `TSTO` instruction to check for stack overflow and calculates the
      * required stack size.
      * Adds code at the start to check for overflow and at the end to handle the
