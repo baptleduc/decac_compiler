@@ -4,7 +4,6 @@ import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import java.io.PrintStream;
-
 import org.apache.commons.lang.Validate;
 
 /**
@@ -20,12 +19,13 @@ public class DeclClass extends AbstractDeclClass {
     private ListDeclField fields;
     private ListDeclMethod methods;
 
-    public DeclClass(AbstractIdentifier nameClass, AbstractIdentifier superClass, ListDeclField fields, ListDeclMethod methods) {
+    public DeclClass(AbstractIdentifier nameClass, AbstractIdentifier superClass, ListDeclField fields,
+            ListDeclMethod methods) {
         Validate.notNull(nameClass);
         Validate.notNull(superClass);
         Validate.notNull(fields);
         Validate.notNull(methods);
-    
+
         this.nameClass = nameClass;
         this.superClass = superClass;
         this.fields = fields;

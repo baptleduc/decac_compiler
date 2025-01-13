@@ -15,7 +15,8 @@ public class DeclField extends AbstractDeclField {
     private AbstractIdentifier name;
     private AbstractInitialization init;
 
-    public DeclField(Visibility visibility, AbstractIdentifier type, AbstractIdentifier name, AbstractInitialization init) {
+    public DeclField(Visibility visibility, AbstractIdentifier type, AbstractIdentifier name,
+            AbstractInitialization init) {
         this.visibility = visibility;
         setType(type);
         this.name = name;
@@ -26,10 +27,10 @@ public class DeclField extends AbstractDeclField {
     public void decompile(IndentPrintStream s) {
         s.print(" ... A FAIRE ... ");
     }
-    
+
     @Override
-    String prettyPrintNode(){
-        return "[visibility=" + visibility +"]" + " " +  super.prettyPrintNode();
+    String prettyPrintNode() {
+        return "[visibility=" + visibility + "]" + " " + super.prettyPrintNode();
     }
 
     @Override
