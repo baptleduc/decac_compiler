@@ -67,7 +67,7 @@ IDENT : (LETTER | '$' | '_')(LETTER | DIGIT | '$' | '_')*;
 
 //Integer
 fragment POSITIVE_DIGIT : '0' .. '9';
-INT : '0' | POSITIVE_DIGIT+;
+INT : '0' | (POSITIVE_DIGIT DIGIT*) ;
 
 // Flottants
 fragment EOL:'\n';
