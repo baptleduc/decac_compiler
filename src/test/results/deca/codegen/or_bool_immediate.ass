@@ -5,16 +5,10 @@
 ; Main program
 ; Beginning of main instructions:
 	LOAD #1, R2
-	CMP #0, R2
-	BNE set_true_0	; If R2 is true, branch to set_true_0
-	LOAD #0, R3
-	CMP #0, R3
-	BNE set_true_0	; If R3 is true, branch to set_true_0
+	BRA end_label_0
+Or_end_label_1:
 	LOAD #0, R2
-	BRA end_1
-set_true_0:
-	LOAD #1, R2
-end_1:
+end_label_0:
 	STORE R2, 1(GB)
 	HALT
 stack_overflow_error_2:

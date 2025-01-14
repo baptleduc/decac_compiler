@@ -90,14 +90,22 @@ process_deca_file() {
 }
 
 # Directory containing the .deca files, dir can be add as needed.
-DECA_DIR="./src/test/deca/codegen/valid"
+DECA_DIR="./src/test/deca/codegen/valid ./src/test/deca/codegen/valid/test_if"
 IMA_EXEC="./env/ima_sources/bin/ima"
 DECAC_EXEC="./src/main/bin/decac"
 
 main() {
-    for DECA_FILE in "$DECA_DIR"/*.deca; do
-        process_deca_file "$DECA_FILE"
+    for dir in $DECA_DIR; do
+        if [ ! -d "$dir" ]; then
+            echo "Error: Directory $dir does not exist."
+            exit 1
+        fi
+
+        for DECA_FILE in "$dir"/*.deca; do
+            process_deca_file "$DECA_FILE"
+        done
     done
+    
 }
 
 main

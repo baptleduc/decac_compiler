@@ -1,5 +1,5 @@
 	TSTO #1	; 1 (variables) + 0 (saved registers) + 0 (temporaries) + 0 (method parameters x 2)
-	BOV stack_overflow_error_8
+	BOV stack_overflow_error_6
 	ADDSP #1
 ; start main program
 ; Main program
@@ -8,52 +8,38 @@
 	STORE R2, 1(GB)
 	LOAD 1(GB), R2
 	CMP #3, R2
-	BEQ set_true_1
-	LOAD #0, R2
-	BRA end_0
-set_true_1:
-	LOAD #1, R2
-	BRA end_0
-end_0:
-	CMP #0, R2
-	BEQ else_2
+	BNE else_1
+then_0:
 	WSTR "wrong result"
 	WNL
-	BRA end_3
-else_2:
+	BRA end_2
+else_1:
 	LOAD 1(GB), R2
 	CMP #0, R2
-	BEQ set_true_5
-	LOAD #0, R2
-	BRA end_4
-set_true_5:
-	LOAD #1, R2
-	BRA end_4
-end_4:
-	CMP #0, R2
-	BEQ else_6
+	BNE else_4
+then_3:
 	WSTR "right result"
 	WNL
-	BRA end_7
-else_6:
+	BRA end_5
+else_4:
 	WSTR "wrong result"
 	WNL
-end_7:
-end_3:
+end_5:
+end_2:
 	HALT
-stack_overflow_error_8:
+stack_overflow_error_6:
 	WSTR "Error: Stack Overflow"
 	WNL
 	ERROR
-overflow_error_10:
+overflow_error_8:
 	WSTR "Error: Overflow during arithmetic operation"
 	WNL
 	ERROR
-io_error_9:
+io_error_7:
 	WSTR "Error: Input/Output error"
 	WNL
 	ERROR
-divide_by_zero_error_11:
+divide_by_zero_error_9:
 	WSTR "Error: Division by zero"
 	WNL
 	ERROR
