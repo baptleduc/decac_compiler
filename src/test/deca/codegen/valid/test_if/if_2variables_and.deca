@@ -6,10 +6,12 @@
 // History:
 //    Created on 14/01/2025
 
+{
 int x = 10;
 int y = 20;
 if (x > 5 && y < 25) {
     println("Both conditions are true.");
 } else {
     println("At least one condition is false.");
+}
 }

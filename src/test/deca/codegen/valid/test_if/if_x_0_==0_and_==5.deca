@@ -5,10 +5,11 @@
 //
 // History:
 //    Created on 14/01/2025
-
-int x = 0;
-if (x == 0 && x == 5) {
-    println("Both conditions are true");
-} else {
-    println("At least one condition is false");
+{
+    int x = 0;
+    if (x == 0 && x == 5) {
+        println("Both conditions are true");
+    } else {
+        println("At least one condition is false");
+    }
 }

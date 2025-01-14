@@ -5,8 +5,11 @@ import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.Type;
+import fr.ensimag.deca.tools.DecacInternalError;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.DVal;
+import fr.ensimag.ima.pseudocode.Label;
+
 import java.io.PrintStream;
 
 /**
@@ -62,5 +65,11 @@ public class New extends AbstractExpr {
     protected boolean isImmediate() {
         throw new UnsupportedOperationException("not yet implemented");
     }
+
+    @Override
+    protected void codeGenBool(DecacCompiler compiler, Label label, boolean branchOn) {
+        throw new DecacInternalError("Should not be called");
+    }
+
 
 }
