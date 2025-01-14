@@ -55,5 +55,7 @@ public abstract class AbstractOpCmp extends AbstractBinaryExpr {
         // Compare the two values
         compiler.addInstruction(new CMP(rightDVal, regLeft));
         codeGenBranch(compiler, label, branchOn);
+        
+        regLeft.freeGPRegister(compiler);
     }
 }

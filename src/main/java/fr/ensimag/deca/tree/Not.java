@@ -57,7 +57,7 @@ public class Not extends AbstractUnaryExpr {
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
-        Label endLabel = new Label("end_label");
+        Label endLabel = new Label("Not_end_label");
         GPRegister reg = compiler.allocGPRegister();
         compiler.addInstruction(new LOAD(1, reg)); // We initialize the result to true
         codeGenBool(compiler, endLabel, true);
