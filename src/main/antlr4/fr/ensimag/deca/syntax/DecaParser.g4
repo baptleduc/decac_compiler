@@ -595,6 +595,7 @@ decl_method returns[AbstractDeclMethod tree]
         setLocation(body, $OPARENT);
       }
       | ASM OPARENT code=multi_line_string CPARENT SEMI {
+        System.out.println("pass");
         StringLiteral string = new StringLiteral($code.text);
         setLocation(string, $code.start);
         body = new MethodAsmBody(string);   

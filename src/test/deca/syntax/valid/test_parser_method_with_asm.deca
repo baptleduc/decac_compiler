@@ -8,7 +8,5 @@
 //    Created on 13/1/2025
 
 class Car {
-    void afficher(int limite){
-        asm("");
-    }
+    void afficher(int limite) asm("a");
 }

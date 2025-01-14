@@ -9,5 +9,7 @@
 
 class Car {
     int immatriculation;
-    this.immatriculation = 5;
+    void test(){
+	this.immatriculation = 5;
+    }
 }

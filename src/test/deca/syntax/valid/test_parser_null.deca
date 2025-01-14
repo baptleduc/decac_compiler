@@ -8,6 +8,5 @@
 //    Created on 13/1/2025
 
 class Car {
-    int immatriculation;
-    immatriculation = null;
+    int immatriculation = null;
 }
