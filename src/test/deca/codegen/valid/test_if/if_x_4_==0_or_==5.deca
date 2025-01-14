@@ -1,0 +1,14 @@
+// Description:
+//    Minimalistic program demonstrating an if-then-else statement with || (logical OR)
+// Results:
+//    Both conditions are false.
+//
+// History:
+//    Created on 14/01/2025
+
+int x = 4;
+if (x == 0 || x == 5) {
+    println("At least one condition is true.");
+} else {
+    println("Both conditions are false.");
+}

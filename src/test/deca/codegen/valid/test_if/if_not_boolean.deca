@@ -1,0 +1,14 @@
+// Description:
+//    Minimalistic program demonstrating an if-then-else statement with not
+// Results:
+//    The condition is false.
+//
+// History:
+//    Created on 14/01/2025
+
+boolean x = false;
+if (!x) {
+    println("The condition is false.");
+} else {
+    println("The condition is true.");
+}

@@ -1,0 +1,16 @@
+// Description:
+//    Minimalistic program demonstrating an if-then-else statement used inequality
+// Results:
+//    b is not zero.
+//
+// History:
+//    Created on 14/01/2025
+
+{       
+    float b = 3.5;
+    if (b != 0.0) {
+        println("b is not zero.");
+    } else {
+        println("b is zero.");
+    }
+}
