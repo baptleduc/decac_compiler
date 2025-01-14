@@ -33,8 +33,6 @@ THIS : 'this';
 TRUE : 'true';
 WHILE : 'while';
 
-// fragment rulxes are used by other rules, but do not produce tokens:
-fragment POSITIVE_DIGIT : '0' .. '9';
 
 
 
@@ -61,23 +59,29 @@ GEQ : '>=';
 LEQ  : '<=';
 AND : '&&';
 OR : '||';
+        
+//Identificateurs
+fragment LETTER: ('a' .. 'z'|'A' .. 'Z');
+fragment DIGIT : '0' .. '9';
+IDENT : (LETTER | '$' | '_')(LETTER | DIGIT | '$' | '_')*;
+
+//Integer
+fragment POSITIVE_DIGIT : '0' .. '9';
+INT : '0' | POSITIVE_DIGIT+;
 
 // Flottants
 fragment EOL:'\n';
 fragment NUM: DIGIT+;
-fragment SIGN : '+' | '-';
-fragment EXP : ('E' | 'e') SIGN? NUM;
+fragment SIGN : '+' | '-'|;
+fragment EXP : ('E' | 'e') SIGN NUM;
 fragment DEC : NUM '.' NUM;
 // on passe par un autre fragment car on veut ignorer le f
-fragment FLOATDEC : DEC (EXP)? FIGNORED?;
-fragment FIGNORED : [fF];
-fragment DIGITHEX :'0' .. '9' | 'A' .. 'F' | 'a' .. 'f';
+fragment FLOATDEC : (DEC | EXP EXP) ('F' | 'f'|);
+fragment DIGITHEX :('0' .. '9') | ('A' .. 'F') | ('a' .. 'f');
 fragment NUMHEX : DIGITHEX+;
-fragment FLOATHEX : ('0x' | '0X')NUMHEX '.' NUMHEX ('P' | 'p') SIGN? NUM FIGNORED?;
+fragment FLOATHEX : ('0x' | '0X')NUMHEX '.' NUMHEX ('P' | 'p') SIGN NUM ('F' | 'f'|)?;
 FLOAT : FLOATDEC | FLOATHEX;
 
-//Integer
-INT : '0' | POSITIVE_DIGIT+;
 
 //Chaînes de caractères
 fragment STRING_CAR :  ~["\\\n];
@@ -89,16 +93,16 @@ MULTI_LINE_STRING : '"' (STRING_CAR | EOL | '\\"' | '\\\\')* '"';
 WS  :   ( ' '
         | '\t'
         | '\r'
-        | '\n'
+        | EOL
         ) {
-              skip(); // avoid producing a token
+              skip();
           }
     ;
 
 //Commentaires
 COMMENT : '/*' .*? '*/'
                 { skip(); } ;
-MONO_LIGNE_COMMENT : '//' (~[\n])*
+MONO_LIGNE_COMMENT : '//' .*? (EOL|EOF)
                 { skip(); } ;
                 
 
@@ -109,8 +113,3 @@ INCLUDE : '#include' (' ')* '"' FILENAME '"'
                    doInclude(getText());
                 };
 
-
-//Identificateurs
-fragment LETTER: ('a' .. 'z'|'A' .. 'Z');
-fragment DIGIT : '0' .. '9';
-IDENT : (LETTER | '$' | '_')(LETTER | DIGIT | '$' | '_')*;
