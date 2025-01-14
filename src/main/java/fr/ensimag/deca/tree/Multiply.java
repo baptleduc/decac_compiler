@@ -25,6 +25,11 @@ public class Multiply extends AbstractOpArith {
     }
 
     @Override
+    protected void codeGenOperationInstARM(String dest, String left, String right, DecacCompiler compiler) {
+        compiler.getARMProgram().addInstructionARM("mul", dest, left, right);
+    }
+
+    @Override
     protected boolean isImmediate() {
         return false;
     }

@@ -49,6 +49,11 @@ public class Modulo extends AbstractOpArith {
     }
 
     @Override
+    protected void codeGenOperationInstARM(String dest, String left, String right, DecacCompiler compiler) {
+        // TODO ARM
+    }
+
+    @Override
     protected boolean isImmediate() {
         return false;
     }

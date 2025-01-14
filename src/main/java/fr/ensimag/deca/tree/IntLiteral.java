@@ -73,7 +73,7 @@ public class IntLiteral extends AbstractExpr {
 
     @Override
     protected void codeGenInstARM(DecacCompiler compiler) {
-        // TODO ARM
+        setDValARM("#" + value);
     }
 
     @Override

@@ -77,10 +77,13 @@ public class Initialization extends AbstractInitialization {
     public void codeGenInitializationARM(DecacCompiler compiler, String varName, String type) {
         expression.codeGenInstARM(compiler);
         ARMProgram prog = compiler.getARMProgram();
-        if (compiler.getARMProgram().isComplexExpr()) {
-            prog.addBssSectionLine(varName, ARMProgram.getSizeForType(type));
+        if (expression.isImmediate()) {
+            prog.addDataSectionLine(type, varName, expression.getDVal(compiler).toString());
         } else {
-            prog.addDataSectionLine(type, varName, expression.getDVal(compiler).toString()); // value of the expression if it is a constant
+            prog.addBssSectionLine(varName, ARMProgram.getSizeForType(type));
+            String reg = expression.getDValARM();
+            prog.addInstructionSetMem(varName, reg);
+            prog.freeRegister(reg);
         }
     }
 }

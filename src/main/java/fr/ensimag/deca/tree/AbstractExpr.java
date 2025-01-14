@@ -46,8 +46,14 @@ public abstract class AbstractExpr extends AbstractInst {
         this.dval = dval;
     }
 
+    protected void setDValARM(String dvalARM) {
+        this.dvalARM = dvalARM;
+    }
+
     private Type type;
     private DVal dval = null; // Register, Immediate or d(XX)
+
+    private String dvalARM = null; // Register or Immediate for ARM
 
     @Override
     protected void checkDecoration() {
@@ -157,6 +163,10 @@ public abstract class AbstractExpr extends AbstractInst {
 
     protected DVal getDVal(DecacCompiler compiler) {
         return dval;
+    }
+
+    protected String getDValARM() {
+        return dvalARM;
     }
 
     protected boolean isImmediate() {

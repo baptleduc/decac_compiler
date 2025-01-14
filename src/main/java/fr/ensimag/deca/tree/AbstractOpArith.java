@@ -44,6 +44,8 @@ public abstract class AbstractOpArith extends AbstractBinaryExpr {
      */
     abstract protected void codeGenOperationInst(GPRegister dest, DVal source, DecacCompiler compiler);
 
+    abstract protected void codeGenOperationInstARM(String dest, String left, String right, DecacCompiler compiler);
+
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
@@ -149,6 +151,30 @@ public abstract class AbstractOpArith extends AbstractBinaryExpr {
 
     @Override
     protected void codeGenInstARM(DecacCompiler compiler) {
-        // TODO ARM
+        getLeftOperand().codeGenInstARM(compiler);
+        getRightOperand().codeGenInstARM(compiler);
+
+        String left = getLeftOperand().getDValARM().toString();
+        String right = getRightOperand().getDValARM().toString();
+        String regDest = left;
+
+        if (getLeftOperand().isImmediate() && getRightOperand().isImmediate()) {
+            regDest = compiler.getARMProgram().getAvailableRegister();
+            compiler.getARMProgram().addInstructionARM("mov", regDest, left);
+            left = regDest;
+        }
+        else if (getLeftOperand().isImmediate()) {
+            regDest = getRightOperand().getDValARM().toString();
+            right = left;
+            left = regDest;
+        }
+
+        codeGenOperationInstARM(regDest, left, right, compiler);
+
+        setDValARM(regDest);
+
+        if (!getRightOperand().isImmediate() && !getLeftOperand().isImmediate()) {
+            compiler.getARMProgram().freeRegister(right);
+        }
     }
 }

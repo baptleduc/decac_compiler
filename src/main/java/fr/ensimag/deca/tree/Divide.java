@@ -39,6 +39,12 @@ public class Divide extends AbstractOpArith {
     }
 
     @Override
+    protected void codeGenOperationInstARM(String dest, String left, String right, DecacCompiler compiler) {
+        // TODO ARM verifier
+        compiler.getARMProgram().addInstructionARM("udiv", dest, left, right);
+    }
+
+    @Override
     protected boolean isImmediate() {
         return false;
     }
