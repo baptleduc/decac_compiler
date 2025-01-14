@@ -9,6 +9,7 @@ import fr.ensimag.deca.tools.DecacInternalError;
 import fr.ensimag.ima.pseudocode.DAddr;
 import fr.ensimag.ima.pseudocode.DVal;
 import fr.ensimag.ima.pseudocode.GPRegister;
+import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.instructions.STORE;
 import org.apache.log4j.Logger;
 
@@ -70,6 +71,11 @@ public class Assign extends AbstractBinaryExpr {
 
         compiler.addInstruction(new STORE(regRight, destAddr));
         setDVal(leftDVal);
+    }
+
+    @Override
+    protected void codeGenBranch(DecacCompiler compiler, GPRegister reg, boolean branchOnTrue, Label branchLabel) {
+        throw new DecacInternalError("Should not be called");
     }
 
 }

@@ -5,6 +5,7 @@ import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.Type;
+import fr.ensimag.deca.tools.DecacInternalError;
 import fr.ensimag.ima.pseudocode.DVal;
 import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.ImmediateInteger;
@@ -67,5 +68,37 @@ public class Not extends AbstractUnaryExpr {
         compiler.addInstruction(new BRA(endLabel));
 
         compiler.addLabel(endLabel);
+    }
+
+    // @Override
+    // protected void codeGenInst(DecacCompiler compiler) {
+        
+    //     getOperand().codeGenInst(compiler);
+
+    //     DVal leftDVal = getOperand().getDVal(compiler);
+    //     GPRegister regLeft = leftDVal.codeGenToGPRegister(compiler);
+    //     Label setTrue = new Label("set_true");
+    //     Label setFalse = new Label("set_false");
+    //     getOperand().codeGenBool(compiler, setTrue, setFalse);
+
+    //     compiler.addLabel(setTrue);
+    //     compiler.addInstruction(new LOAD(new ImmediateInteger(1), regLeft));
+
+    //     compiler.addLabel(setFalse);
+    //     compiler.addInstruction(new LOAD(new ImmediateInteger(0), regLeft));
+
+    //     setDVal(regLeft);
+        
+    // }
+
+    @Override
+    protected void codeGenBool(DecacCompiler compiler, Label label, boolean branchOn) {
+        getOperand().codeGenBool(compiler, label, !branchOn);
+    }
+
+
+    @Override
+    protected void codeGenBranch(DecacCompiler compiler, GPRegister reg, boolean branchOnTrue, Label branchLabel) {
+        throw new DecacInternalError("Should not be called");
     }
 }

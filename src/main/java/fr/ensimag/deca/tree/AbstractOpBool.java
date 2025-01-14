@@ -5,11 +5,14 @@ import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.Type;
+import fr.ensimag.ima.pseudocode.BranchInstruction;
 import fr.ensimag.ima.pseudocode.DVal;
 import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.ImmediateInteger;
 import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.instructions.BEQ;
+import fr.ensimag.ima.pseudocode.instructions.BGT;
+import fr.ensimag.ima.pseudocode.instructions.BLT;
 import fr.ensimag.ima.pseudocode.instructions.BNE;
 import fr.ensimag.ima.pseudocode.instructions.BRA;
 import fr.ensimag.ima.pseudocode.instructions.CMP;
@@ -43,6 +46,8 @@ public abstract class AbstractOpBool extends AbstractBinaryExpr {
                         + "must be boolean values for logical operations (AND, OR)",
                 this.getRightOperand().getLocation());
     }
+
+    
 
     /**
      * Generates code for boolean operations.
@@ -89,6 +94,23 @@ public abstract class AbstractOpBool extends AbstractBinaryExpr {
         // End
         compiler.addLabel(endLabel);
         setDVal(regLeft);
+    }
+
+    @Override
+    protected void codeGenInst(DecacCompiler compiler) {
+
+        Label setTrue = new Label("set_true");
+        Label setFalse = new Label("set_false");
+        codeGenBool(compiler, setFalse, setTrue);
+
+        compiler.addLabel(setTrue);
+        compiler.addInstruction(new LOAD(new ImmediateInteger(1), regLeft));
+
+        compiler.addLabel(setFalse);
+        compiler.addInstruction(new LOAD(new ImmediateInteger(0), regLeft));
+
+        setDVal(regLeft);
+        
     }
 
 }

@@ -1,13 +1,13 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.DecacCompiler;
-import fr.ensimag.deca.context.ClassDefinition;
-import fr.ensimag.deca.context.ContextualError;
-import fr.ensimag.deca.context.EnvironmentExp;
-import fr.ensimag.deca.context.Type;
-import fr.ensimag.deca.tools.IndentPrintStream;
-import fr.ensimag.ima.pseudocode.DVal;
-import java.io.PrintStream;
+import fr.ensimag.ima.pseudocode.BranchInstruction;
+import fr.ensimag.ima.pseudocode.GPRegister;
+import fr.ensimag.ima.pseudocode.Label;
+import fr.ensimag.ima.pseudocode.UnaryInstructionToReg;
+import fr.ensimag.ima.pseudocode.instructions.BEQ;
+import fr.ensimag.ima.pseudocode.instructions.BNE;
+import fr.ensimag.ima.pseudocode.instructions.SEQ;
 
 /**
  *
@@ -55,13 +55,9 @@ public class InstanceOf extends AbstractExpr {
         throw new UnsupportedOperationException("not yet implemented");
     }
 
-    @Override
-    protected void codeGenInst(DecacCompiler compiler) {
-        throw new UnsupportedOperationException("not yet implemented");
+    protected void codeGenBranch(DecacCompiler compiler,GPRegister regDest, boolean branchOnTrue, Label branchLabel) {
+        throw new UnsupportedOperationException("Not implemented yet.");
     }
 
-    @Override
-    protected boolean isImmediate() {
-        throw new UnsupportedOperationException("not yet implemented");
-    }
+
 }

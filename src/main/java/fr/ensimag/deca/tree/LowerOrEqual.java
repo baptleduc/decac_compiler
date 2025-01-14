@@ -1,8 +1,16 @@
 package fr.ensimag.deca.tree;
 
+import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.ima.pseudocode.BranchInstruction;
+import fr.ensimag.ima.pseudocode.DVal;
+import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.Label;
+import fr.ensimag.ima.pseudocode.instructions.BGE;
+import fr.ensimag.ima.pseudocode.instructions.BGT;
 import fr.ensimag.ima.pseudocode.instructions.BLE;
+import fr.ensimag.ima.pseudocode.instructions.BLT;
+import fr.ensimag.ima.pseudocode.instructions.BRA;
+import fr.ensimag.ima.pseudocode.instructions.CMP;
 
 /**
  *
@@ -23,10 +31,35 @@ public class LowerOrEqual extends AbstractOpIneq {
     protected boolean isImmediate() {
         return false;
     }
+    
+    @Override
+    protected void codeGenBranch(DecacCompiler compiler,GPRegister regDest, boolean branchOnTrue, Label branchLabel) {
+        if (branchOnTrue) {
+            compiler.addInstruction(new BLE(branchLabel));
+        } else {
+            compiler.addInstruction(new BGT(branchLabel));
+        }
+    }
+
 
     @Override
-    protected BranchInstruction getBranchInstruction(Label setTrueLabel) {
-        return new BLE(setTrueLabel);
+    protected void codeGenBool(DecacCompiler compiler, Label label, boolean branchOn) {
+        getLeftOperand().codeGenInst(compiler);
+        getRightOperand().codeGenInst(compiler);
+        DVal leftDVal = getLeftOperand().getDVal(compiler);
+        DVal rightDVal = getRightOperand().getDVal(compiler);
+
+        GPRegister regLeft = leftDVal.codeGenToGPRegister(compiler);
+
+        // Compare the two values
+        compiler.addInstruction(new CMP(rightDVal, regLeft));
+        if (branchOn){
+            compiler.addInstruction(new BLE(label));
+        }
+        else{
+            compiler.addInstruction(new BGT(label));
+        }
+        
     }
 
 }

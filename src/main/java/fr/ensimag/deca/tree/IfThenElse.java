@@ -52,19 +52,13 @@ public class IfThenElse extends AbstractInst {
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
-        condition.codeGenInst(compiler);
-
-        DVal resultDVal = condition.getDVal(compiler);
-        GPRegister resultRegister = resultDVal.codeGenToGPRegister(compiler);
+        Label thenLabel = new Label("then");
         Label elseLabel = new Label("else");
         Label endLabel = new Label("end");
-
-        // If condition is false, branch to else branch
-        compiler.addInstruction(new CMP(new ImmediateInteger(0), resultRegister));
-        compiler.addInstruction(new BEQ(elseLabel));
-        resultRegister.freeGPRegister(compiler); // Free for then branch
-
-        // Do the then branch
+        
+        condition.codeGenBool(compiler, elseLabel, false);
+        
+        compiler.addLabel(thenLabel);
         thenBranch.codeGenListInst(compiler);
         compiler.addInstruction(new BRA(endLabel));
 

@@ -2,8 +2,10 @@ package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.codegen.ErrorManager;
+import fr.ensimag.deca.tools.DecacInternalError;
 import fr.ensimag.ima.pseudocode.DVal;
 import fr.ensimag.ima.pseudocode.GPRegister;
+import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.instructions.BOV;
 import fr.ensimag.ima.pseudocode.instructions.DIV;
 import fr.ensimag.ima.pseudocode.instructions.QUO;
@@ -51,4 +53,11 @@ public class Divide extends AbstractOpArith {
         setRegDest(regDest);
         setSourceDVal(sourceDVal);
     }
+
+    @Override
+    protected void codeGenBranch(DecacCompiler compiler, GPRegister reg, boolean branchOnTrue, Label branchLabel) {
+        throw new DecacInternalError("Should not be called");
+    }
+
+    
 }
