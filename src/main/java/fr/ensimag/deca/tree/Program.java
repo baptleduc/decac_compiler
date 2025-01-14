@@ -70,7 +70,8 @@ public class Program extends AbstractProgram {
 
     @Override
     public void codeGenProgramARM(DecacCompiler compiler) {
-       // TODO ARM
+       main.codeGenMainARM(compiler);
+       compiler.getARMProgram().display();
        System.out.println("Program.java: ARM not implemented");
     }
 

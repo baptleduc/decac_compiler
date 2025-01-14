@@ -1,5 +1,6 @@
 package fr.ensimag.deca.tree;
 
+import fr.ensimag.arm.ARMProgram;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
@@ -69,6 +70,12 @@ public class DeclVar extends AbstractDeclVar {
         DAddr addr = ((VariableDefinition) varName.getDefinition()).getOperand();
         initialization.codeGenInitialization(compiler, addr);
 
+    }
+
+    @Override
+    protected void codeGenDeclVarARM(DecacCompiler compiler) {
+        initialization.codeGenInitializationARM(compiler, varName.getName().toString(),
+                ARMProgram.getARMTypeFromDecaType(((VariableDefinition) varName.getDefinition()).getType()));
     }
 
     @Override

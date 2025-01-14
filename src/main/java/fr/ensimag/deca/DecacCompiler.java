@@ -1,5 +1,6 @@
 package fr.ensimag.deca;
 
+import fr.ensimag.arm.ARMProgram;
 import fr.ensimag.deca.codegen.ErrorManager;
 import fr.ensimag.deca.codegen.StackManager;
 import fr.ensimag.deca.context.EnvironmentType;
@@ -92,6 +93,8 @@ public class DecacCompiler {
      */
     private IMAProgram program = new IMAProgram();
 
+    private ARMProgram armProgram = new ARMProgram();
+
     /**
      * Stack management to handle registers and stack.
      */
@@ -121,6 +124,17 @@ public class DecacCompiler {
         this.program = program;
         r.run();
         this.program = oldProgram;
+    }
+
+    public void withARMProgram(ARMProgram program, Runnable r) {
+        ARMProgram oldProgram = this.armProgram;
+        this.armProgram = program;
+        r.run();
+        this.armProgram = oldProgram;
+    }
+
+    public ARMProgram getARMProgram() {
+        return armProgram;
     }
 
     /**

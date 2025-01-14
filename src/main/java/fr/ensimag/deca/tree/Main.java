@@ -53,7 +53,13 @@ public class Main extends AbstractMain {
         declVariables.codeGenListDeclVar(compiler);
         // Generate code for instructions
         insts.codeGenListInst(compiler);
+    }
 
+    @Override
+    protected void codeGenMainARM(DecacCompiler compiler) {
+        declVariables.codeGenListDeclVarARM(compiler);
+        // TODO ARM
+        // insts.codeGenListInstARM(compiler);
     }
 
     @Override

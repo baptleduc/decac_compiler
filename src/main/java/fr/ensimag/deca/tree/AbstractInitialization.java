@@ -32,4 +32,7 @@ public abstract class AbstractInitialization extends Tree {
             throws ContextualError;
 
     public abstract void codeGenInitialization(DecacCompiler compiler, DAddr addr);
+
+    public abstract void codeGenInitializationARM(DecacCompiler compiler, String varName, String type);
+
 }

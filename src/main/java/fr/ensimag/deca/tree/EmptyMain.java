@@ -23,6 +23,11 @@ public class EmptyMain extends AbstractMain {
         compiler.addComment("Beginning of main instructions:");
     }
 
+    @Override
+    protected void codeGenMainARM(DecacCompiler compiler) {
+        // TODO ARM
+    }
+
     /**
      * Contains no real information => nothing to check.
      */

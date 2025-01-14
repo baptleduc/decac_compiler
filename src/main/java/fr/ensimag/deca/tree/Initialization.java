@@ -1,5 +1,6 @@
 package fr.ensimag.deca.tree;
 
+import fr.ensimag.arm.ARMProgram;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
@@ -70,5 +71,16 @@ public class Initialization extends AbstractInitialization {
         compiler.addInstruction(new STORE(regDest, addr));
         regDest.freeGPRegister(compiler);
         LOG.debug("STORE " + regDest + "," + addr);
+    }
+
+    @Override
+    public void codeGenInitializationARM(DecacCompiler compiler, String varName, String type) {
+        expression.codeGenInstARM(compiler);
+        ARMProgram prog = compiler.getARMProgram();
+        if (compiler.getARMProgram().isComplexExpr()) {
+            prog.addBssSectionLine(varName, ARMProgram.getSizeForType(type));
+        } else {
+            prog.addDataSectionLine(type, varName, expression.getDVal(compiler).toString()); // value of the expression if it is a constant
+        }
     }
 }
