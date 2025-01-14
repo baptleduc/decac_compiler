@@ -32,4 +32,9 @@ public class And extends AbstractOpBool {
         codeGenBooleanOperation(compiler, false, setFalse);
     }
 
+    @Override
+    protected void codeGenInstARM(DecacCompiler compiler) {
+        // TODO ARM
+    }
+
 }

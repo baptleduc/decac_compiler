@@ -72,4 +72,9 @@ public class Assign extends AbstractBinaryExpr {
         setDVal(leftDVal);
     }
 
+    @Override
+    protected void codeGenInstARM(DecacCompiler compiler) {
+        // TODO ARM
+    }
+
 }

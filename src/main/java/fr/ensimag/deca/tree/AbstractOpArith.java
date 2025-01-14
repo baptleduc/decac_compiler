@@ -146,4 +146,9 @@ public abstract class AbstractOpArith extends AbstractBinaryExpr {
         // Store the result in the destination DVal
         setDVal(regDest);
     }
+
+    @Override
+    protected void codeGenInstARM(DecacCompiler compiler) {
+        // TODO ARM
+    }
 }

@@ -30,6 +30,7 @@ public class CompilerOptions {
     private boolean parallel = false;
     private boolean printBanner = false;
     private boolean warnings = false;
+    private boolean arm = false;
 
     private List<File> sourceFiles = new ArrayList<File>();
     private HashSet<String> sourceFilesPath = new HashSet<String>();
@@ -66,6 +67,10 @@ public class CompilerOptions {
         return warnings;
     }
 
+    public boolean getArm() {
+        return arm;
+    }
+
     public List<File> getSourceFiles() {
         return Collections.unmodifiableList(sourceFiles);
     }
@@ -88,6 +93,8 @@ public class CompilerOptions {
                 parallel = true;
             } else if (args[i].equals("-w")) {
                 warnings = true;
+            } else if (args[i].equals("--arm")) {
+                arm = true;
             } else if (args[i].endsWith(".deca")) {
                 handleSourceFile(args[i]);
             } else {
@@ -181,7 +188,7 @@ public class CompilerOptions {
     }
 
     protected void displayUsage() {
-        String usage = "usage: decac [-h] [-b] [-p] [-v] [-n] [-r X] [-d]* [-P] <deca file>...\n\n"
+        String usage = "usage: decac [-h] [-b] [-p] [-v] [-n] [-r X] [-d]* [-P] [--arm] <deca file>...\n\n"
                 + "options:\n"
                 + "    -b (banner): displays a banner with the team's name\n"
                 + "           (cannot be used with any other options)\n"
@@ -191,7 +198,8 @@ public class CompilerOptions {
                 + "    -n (no check): disables runtime checks specified in points 11.1 and 11.3 of the Deca semantics.\n"
                 + "    -r X (registers): limits the available registers to R0 ... R{X-1}, with 4 <= X <= 16\n"
                 + "    -d (debug): enables debug traces. Repeat the option multiple times for more traces.\n"
-                + "    -P (parallel): if there are multiple source files, compiles them in parallel (to speed up compilation)\n";
+                + "    -P (parallel): if there are multiple source files, compiles them in parallel (to speed up compilation)\n"
+                + "    --arm: generates ARM code\n";
 
         System.out.println(usage);
     }

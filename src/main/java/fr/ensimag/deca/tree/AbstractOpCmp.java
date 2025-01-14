@@ -78,4 +78,9 @@ public abstract class AbstractOpCmp extends AbstractBinaryExpr {
         setDVal(regLeft);
 
     }
+
+    @Override
+    protected void codeGenInstARM(DecacCompiler compiler) {
+        // TODO ARM
+    }
 }

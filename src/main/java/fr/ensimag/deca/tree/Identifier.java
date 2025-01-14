@@ -244,6 +244,11 @@ public class Identifier extends AbstractIdentifier {
     }
 
     @Override
+    protected void codeGenInstARM(DecacCompiler compiler) {
+        // TODO ARM
+    }
+
+    @Override
     protected boolean isImmediate() {
         return false;
     }

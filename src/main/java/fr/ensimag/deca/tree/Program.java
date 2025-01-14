@@ -69,6 +69,12 @@ public class Program extends AbstractProgram {
     }
 
     @Override
+    public void codeGenProgramARM(DecacCompiler compiler) {
+       // TODO ARM
+       System.out.println("Program.java: ARM not implemented");
+    }
+
+    @Override
     public void decompile(IndentPrintStream s) {
         getClasses().decompile(s);
         getMain().decompile(s);

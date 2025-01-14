@@ -25,4 +25,9 @@ public abstract class AbstractReadExpr extends AbstractExpr {
         setDVal(compiler.getRegister1());
     }
 
+    @Override
+    protected void codeGenInstARM(DecacCompiler compiler) {
+        // TODO ARM
+    }
+
 }

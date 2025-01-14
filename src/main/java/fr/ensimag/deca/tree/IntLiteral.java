@@ -72,6 +72,11 @@ public class IntLiteral extends AbstractExpr {
     }
 
     @Override
+    protected void codeGenInstARM(DecacCompiler compiler) {
+        // TODO ARM
+    }
+
+    @Override
     protected DVal getDVal(DecacCompiler compiler) {
         return immediate;
     }

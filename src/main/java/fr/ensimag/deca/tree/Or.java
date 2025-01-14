@@ -30,4 +30,9 @@ public class Or extends AbstractOpBool {
         codeGenBooleanOperation(compiler, true, setFalse);
     }
 
+    @Override
+    protected void codeGenInstARM(DecacCompiler compiler) {
+        // TODO ARM
+    }
+
 }

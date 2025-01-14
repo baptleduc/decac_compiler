@@ -92,4 +92,9 @@ public class While extends AbstractInst {
         compiler.addLabel(endLabel);
     }
 
+    @Override
+    protected void codeGenInstARM(DecacCompiler compiler) {
+        // TODO ARM
+    }
+
 }

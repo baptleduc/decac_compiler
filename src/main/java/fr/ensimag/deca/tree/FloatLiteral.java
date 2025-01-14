@@ -83,4 +83,9 @@ public class FloatLiteral extends AbstractExpr {
         return true;
     }
 
+    @Override
+    protected void codeGenInstARM(DecacCompiler compiler) {
+        // TODO ARM
+    }
+
 }

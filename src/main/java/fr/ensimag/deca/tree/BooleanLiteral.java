@@ -76,4 +76,9 @@ public class BooleanLiteral extends AbstractExpr {
         setDVal(immediate);
     }
 
+    @Override
+    protected void codeGenInstARM(DecacCompiler compiler) {
+        // TODO ARM
+    }
+
 }

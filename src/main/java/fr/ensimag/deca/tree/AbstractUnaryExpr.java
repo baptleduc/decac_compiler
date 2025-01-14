@@ -55,4 +55,9 @@ public abstract class AbstractUnaryExpr extends AbstractExpr {
         setDVal(regDest);
     }
 
+    @Override
+    protected void codeGenInstARM(DecacCompiler compiler) {
+        // TODO ARM
+    }
+
 }

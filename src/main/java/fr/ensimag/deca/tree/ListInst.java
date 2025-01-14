@@ -42,6 +42,10 @@ public class ListInst extends TreeList<AbstractInst> {
         }
     }
 
+    protected void codeGenListInstARM(DecacCompiler compiler) {
+        // TODO ARM
+    }
+
     @Override
     public void decompile(IndentPrintStream s) {
         for (AbstractInst i : getList()) {
