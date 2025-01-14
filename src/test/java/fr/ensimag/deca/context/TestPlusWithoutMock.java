@@ -9,7 +9,6 @@ import fr.ensimag.deca.tree.AbstractExpr;
 import fr.ensimag.deca.tree.Plus;
 import fr.ensimag.deca.tree.TreeFunction;
 import fr.ensimag.ima.pseudocode.Label;
-
 import java.io.PrintStream;
 import org.junit.jupiter.api.Test;
 
