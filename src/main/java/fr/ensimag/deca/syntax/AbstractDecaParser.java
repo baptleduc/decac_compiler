@@ -2,7 +2,6 @@ package fr.ensimag.deca.syntax;
 
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.tools.DecacInternalError;
-import fr.ensimag.deca.tools.SymbolTable;
 import fr.ensimag.deca.tree.AbstractProgram;
 import fr.ensimag.deca.tree.Location;
 import fr.ensimag.deca.tree.LocationException;
@@ -22,7 +21,6 @@ import org.apache.log4j.Logger;
  */
 public abstract class AbstractDecaParser extends Parser {
     Logger LOG = Logger.getLogger(AbstractDecaParser.class);
-    protected SymbolTable symbolTable;
     private DecacCompiler decacCompiler;
 
     protected DecacCompiler getDecacCompiler() {
@@ -81,7 +79,6 @@ public abstract class AbstractDecaParser extends Parser {
      */
     protected AbstractDecaParser(TokenStream input) {
         super(input);
-        this.symbolTable = new SymbolTable();
         setErrorHandler(new DefaultErrorStrategy() {
             @Override
             public void reportError(Parser recognizer,

@@ -1,0 +1,12 @@
+// Description:
+//    Minimalistic program to test the a wrong use of new.
+//
+// Results:
+//    None
+//
+// History:
+//    Created on 13/1/2025
+
+class Car{
+    int x = new int(42);
+}

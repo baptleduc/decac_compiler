@@ -6,37 +6,31 @@ import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.IndentPrintStream;
-import fr.ensimag.ima.pseudocode.DVal;
 import java.io.PrintStream;
 
 /**
- *
+ * Represents a field selection (e.g., obj.field) in the Deca AST.
+ * 
  * @author nicolmal
- * @date 06/01/2025
+ * @date 13/01/2025
  */
-public class InstanceOf extends AbstractExpr {
+public class Selection extends AbstractLValue {
+    @Override
+    protected void checkDecoration() {
+        throw new UnsupportedOperationException("not yet implemented");
+    }
 
-    private AbstractExpr leftOperand;
-    private AbstractIdentifier rightOperand;
+    private AbstractExpr selectedObject;
+    private AbstractIdentifier selectedField;
 
-    public InstanceOf(AbstractExpr leftOperand, AbstractIdentifier rightOperand) {
-        this.leftOperand = leftOperand;
-        this.rightOperand = rightOperand;
+    public Selection(AbstractExpr selectedObject, AbstractIdentifier selectedField) {
+        this.selectedObject = selectedObject;
+        this.selectedField = selectedField;
     }
 
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
-    }
-
-    @Override
-    public void decompile(IndentPrintStream s) {
-        throw new UnsupportedOperationException("not yet implemented");
-    }
-
-    @Override
-    String prettyPrintNode() {
         throw new UnsupportedOperationException("not yet implemented");
     }
 
@@ -47,11 +41,12 @@ public class InstanceOf extends AbstractExpr {
 
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
-        throw new UnsupportedOperationException("not yet implemented");
+        selectedObject.prettyPrint(s, prefix, false);
+        selectedField.prettyPrint(s, prefix, true);
     }
 
     @Override
-    protected DVal getDVal(DecacCompiler compiler) {
+    public void decompile(IndentPrintStream s) {
         throw new UnsupportedOperationException("not yet implemented");
     }
 
@@ -64,4 +59,5 @@ public class InstanceOf extends AbstractExpr {
     protected boolean isImmediate() {
         throw new UnsupportedOperationException("not yet implemented");
     }
+
 }

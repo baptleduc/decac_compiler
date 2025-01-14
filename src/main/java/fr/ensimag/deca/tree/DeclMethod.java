@@ -1,0 +1,44 @@
+package fr.ensimag.deca.tree;
+
+import fr.ensimag.deca.tools.IndentPrintStream;
+import java.io.PrintStream;
+
+/**
+ * 
+ * @author nicolmal
+ * @date 13/01/2025
+ */
+public class DeclMethod extends AbstractDeclMethod {
+
+    private AbstractIdentifier returnType;
+    private AbstractIdentifier methodName;
+    private ListDeclParam params;
+    private AbstractMethodBody body;
+
+    public DeclMethod(AbstractIdentifier returnType, AbstractIdentifier methodName, ListDeclParam params,
+            AbstractMethodBody body) {
+        this.returnType = returnType;
+        this.methodName = methodName;
+        this.params = params;
+        this.body = body;
+    }
+
+    @Override
+    public void decompile(IndentPrintStream s) {
+        s.print(" ... A FAIRE ... ");
+    }
+
+    @Override
+    protected void prettyPrintChildren(PrintStream s, String prefix) {
+        returnType.prettyPrint(s, prefix, false);
+        methodName.prettyPrint(s, prefix, false);
+        params.prettyPrint(s, prefix, false);
+        body.prettyPrint(s, prefix, true);
+    }
+
+    @Override
+    protected void iterChildren(TreeFunction f) {
+        throw new UnsupportedOperationException("Not yet supported");
+    }
+
+}

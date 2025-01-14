@@ -1,0 +1,12 @@
+// Description:
+//    Minimalistic program to test an empty class.
+//
+// Results:
+//    None
+//
+// History:
+//    Created on 13/1/2025
+
+class Car {
+    
+}

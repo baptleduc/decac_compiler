@@ -12,16 +12,18 @@ import java.io.PrintStream;
 /**
  *
  * @author nicolmal
- * @date 06/01/2025
+ * @date 13/01/2025
  */
-public class InstanceOf extends AbstractExpr {
+public class This extends AbstractExpr {
 
-    private AbstractExpr leftOperand;
-    private AbstractIdentifier rightOperand;
+    private boolean isImplicit; // set to true during parsing if the 'this' keyword is implicit
 
-    public InstanceOf(AbstractExpr leftOperand, AbstractIdentifier rightOperand) {
-        this.leftOperand = leftOperand;
-        this.rightOperand = rightOperand;
+    public This(boolean isImplicit) {
+        this.isImplicit = isImplicit;
+    }
+
+    public This() {
+        this.isImplicit = false;
     }
 
     @Override
@@ -37,7 +39,7 @@ public class InstanceOf extends AbstractExpr {
 
     @Override
     String prettyPrintNode() {
-        throw new UnsupportedOperationException("not yet implemented");
+        return "This";
     }
 
     @Override
@@ -47,7 +49,7 @@ public class InstanceOf extends AbstractExpr {
 
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
-        throw new UnsupportedOperationException("not yet implemented");
+        // leaf node => nothing to do
     }
 
     @Override
@@ -64,4 +66,5 @@ public class InstanceOf extends AbstractExpr {
     protected boolean isImmediate() {
         throw new UnsupportedOperationException("not yet implemented");
     }
+
 }

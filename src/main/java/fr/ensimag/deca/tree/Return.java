@@ -6,37 +6,29 @@ import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.IndentPrintStream;
-import fr.ensimag.ima.pseudocode.DVal;
 import java.io.PrintStream;
 
 /**
  *
  * @author nicolmal
- * @date 06/01/2025
+ * @date 13/01/2025
  */
-public class InstanceOf extends AbstractExpr {
+public class Return extends AbstractInst {
+    private AbstractExpr returnExpr;
 
-    private AbstractExpr leftOperand;
-    private AbstractIdentifier rightOperand;
-
-    public InstanceOf(AbstractExpr leftOperand, AbstractIdentifier rightOperand) {
-        this.leftOperand = leftOperand;
-        this.rightOperand = rightOperand;
+    public Return(AbstractExpr expr) {
+        this.returnExpr = expr;
     }
 
     @Override
-    public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
-            ClassDefinition currentClass) throws ContextualError {
+    protected void verifyInst(DecacCompiler compiler, EnvironmentExp localEnv,
+            ClassDefinition currentClass, Type returnType)
+            throws ContextualError {
         throw new UnsupportedOperationException("not yet implemented");
     }
 
     @Override
     public void decompile(IndentPrintStream s) {
-        throw new UnsupportedOperationException("not yet implemented");
-    }
-
-    @Override
-    String prettyPrintNode() {
         throw new UnsupportedOperationException("not yet implemented");
     }
 
@@ -47,12 +39,7 @@ public class InstanceOf extends AbstractExpr {
 
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
-        throw new UnsupportedOperationException("not yet implemented");
-    }
-
-    @Override
-    protected DVal getDVal(DecacCompiler compiler) {
-        throw new UnsupportedOperationException("not yet implemented");
+        returnExpr.prettyPrint(s, prefix, true);
     }
 
     @Override
@@ -60,8 +47,4 @@ public class InstanceOf extends AbstractExpr {
         throw new UnsupportedOperationException("not yet implemented");
     }
 
-    @Override
-    protected boolean isImmediate() {
-        throw new UnsupportedOperationException("not yet implemented");
-    }
 }

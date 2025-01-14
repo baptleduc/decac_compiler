@@ -1,0 +1,12 @@
+// Description:
+//    Minimalistic program to test the creation of a var with a wrong name.
+//
+// Results:
+//    None
+//
+// History:
+//    Created on 13/1/2025
+
+class Car{
+    int class = 42;
+}

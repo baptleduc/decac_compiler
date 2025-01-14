@@ -12,16 +12,14 @@ import java.io.PrintStream;
 /**
  *
  * @author nicolmal
- * @date 06/01/2025
+ * @date 13/01/2025
  */
-public class InstanceOf extends AbstractExpr {
+public class New extends AbstractExpr {
 
-    private AbstractExpr leftOperand;
-    private AbstractIdentifier rightOperand;
+    private AbstractIdentifier ident;
 
-    public InstanceOf(AbstractExpr leftOperand, AbstractIdentifier rightOperand) {
-        this.leftOperand = leftOperand;
-        this.rightOperand = rightOperand;
+    public New(AbstractIdentifier ident) {
+        this.ident = ident;
     }
 
     @Override
@@ -64,4 +62,5 @@ public class InstanceOf extends AbstractExpr {
     protected boolean isImmediate() {
         throw new UnsupportedOperationException("not yet implemented");
     }
+
 }
