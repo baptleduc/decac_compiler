@@ -1,0 +1,12 @@
+// Description:
+//    Program testing pass 1, creat an object with an undeclar superclass
+//
+// Results:
+//    ok
+//
+// History:
+//    Created on 14/01/2025
+
+class Test extends NonDeclare{
+    
+}
