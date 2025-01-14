@@ -1,13 +1,8 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.DecacCompiler;
-import fr.ensimag.ima.pseudocode.BranchInstruction;
-import fr.ensimag.ima.pseudocode.GPRegister;
+import fr.ensimag.deca.tools.DecacInternalError;
 import fr.ensimag.ima.pseudocode.Label;
-import fr.ensimag.ima.pseudocode.UnaryInstructionToReg;
-import fr.ensimag.ima.pseudocode.instructions.BEQ;
-import fr.ensimag.ima.pseudocode.instructions.BNE;
-import fr.ensimag.ima.pseudocode.instructions.SEQ;
 
 /**
  *
@@ -55,9 +50,14 @@ public class InstanceOf extends AbstractExpr {
         throw new UnsupportedOperationException("not yet implemented");
     }
 
-    protected void codeGenBranch(DecacCompiler compiler,GPRegister regDest, boolean branchOnTrue, Label branchLabel) {
-        throw new UnsupportedOperationException("Not implemented yet.");
+    @Override
+    protected void codeGenBool(DecacCompiler compiler, Label label, boolean branchOn) {
+        throw new DecacInternalError("Should not be called");
     }
 
+    @Override
+    protected void codeGenBranch(DecacCompiler compiler, Label label, boolean branchOn) {
+        throw new DecacInternalError("Should not be called");
+    }
 
 }

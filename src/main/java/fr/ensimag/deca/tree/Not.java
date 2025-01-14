@@ -8,11 +8,7 @@ import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.DecacInternalError;
 import fr.ensimag.ima.pseudocode.DVal;
 import fr.ensimag.ima.pseudocode.GPRegister;
-import fr.ensimag.ima.pseudocode.ImmediateInteger;
 import fr.ensimag.ima.pseudocode.Label;
-import fr.ensimag.ima.pseudocode.instructions.BEQ;
-import fr.ensimag.ima.pseudocode.instructions.BRA;
-import fr.ensimag.ima.pseudocode.instructions.CMP;
 import fr.ensimag.ima.pseudocode.instructions.LOAD;
 
 /**
@@ -51,54 +47,24 @@ public class Not extends AbstractUnaryExpr {
 
     @Override
     protected void codeGenUnaryExpr(GPRegister regDest, DVal sourceDVal, DecacCompiler compiler) {
-        Label endLabel = new Label("end");
-        Label setTrueLabel = new Label("set_true");
-
-        // Compare the value of the register to 0
-        compiler.addInstruction(new CMP(new ImmediateInteger(0), regDest));
-        compiler.addInstruction(new BEQ(setTrueLabel));
-
-        // If the condition is not met, we load false
-        compiler.addInstruction(new LOAD(new ImmediateInteger(1), regDest));
-        compiler.addInstruction(new BRA(endLabel));
-
-        // If the condition is met, we load true
-        compiler.addLabel(setTrueLabel);
-        compiler.addInstruction(new LOAD(new ImmediateInteger(0), regDest));
-        compiler.addInstruction(new BRA(endLabel));
-
-        compiler.addLabel(endLabel);
+        throw new DecacInternalError("Should not be called");
     }
-
-    // @Override
-    // protected void codeGenInst(DecacCompiler compiler) {
-        
-    //     getOperand().codeGenInst(compiler);
-
-    //     DVal leftDVal = getOperand().getDVal(compiler);
-    //     GPRegister regLeft = leftDVal.codeGenToGPRegister(compiler);
-    //     Label setTrue = new Label("set_true");
-    //     Label setFalse = new Label("set_false");
-    //     getOperand().codeGenBool(compiler, setTrue, setFalse);
-
-    //     compiler.addLabel(setTrue);
-    //     compiler.addInstruction(new LOAD(new ImmediateInteger(1), regLeft));
-
-    //     compiler.addLabel(setFalse);
-    //     compiler.addInstruction(new LOAD(new ImmediateInteger(0), regLeft));
-
-    //     setDVal(regLeft);
-        
-    // }
 
     @Override
     protected void codeGenBool(DecacCompiler compiler, Label label, boolean branchOn) {
         getOperand().codeGenBool(compiler, label, !branchOn);
     }
 
-
     @Override
-    protected void codeGenBranch(DecacCompiler compiler, GPRegister reg, boolean branchOnTrue, Label branchLabel) {
-        throw new DecacInternalError("Should not be called");
+    protected void codeGenInst(DecacCompiler compiler) {
+        Label endLabel = new Label("end_label");
+        GPRegister reg = compiler.allocGPRegister();
+        compiler.addInstruction(new LOAD(1, reg)); // We initialize the result to true
+        codeGenBool(compiler, endLabel, true);
+
+        compiler.addInstruction(new LOAD(0, reg));
+        compiler.addLabel(endLabel);
+        setDVal(reg);
     }
+
 }

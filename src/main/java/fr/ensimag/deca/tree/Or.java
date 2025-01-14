@@ -1,10 +1,9 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.DecacCompiler;
-import fr.ensimag.ima.pseudocode.DVal;
 import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.Label;
-import fr.ensimag.ima.pseudocode.instructions.BRA;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
 
 /**
  *
@@ -28,21 +27,12 @@ public class Or extends AbstractOpBool {
     }
 
     @Override
-    protected void codeGenInst(DecacCompiler compiler) {
-    }
-    @Override
-    protected void codeGenBranch(DecacCompiler compiler, GPRegister reg, boolean branchOnTrue, Label branchLabel) {
-        // nothing to do
-    }
-
-    @Override
     protected void codeGenBool(DecacCompiler compiler, Label label, boolean branchOn) {
         Label endLabel = new Label("Or_end_label");
-        if (branchOn){
+        if (branchOn) {
             getLeftOperand().codeGenBool(compiler, label, true);
             getRightOperand().codeGenBool(compiler, label, true);
-        }
-        else{
+        } else {
             getLeftOperand().codeGenBool(compiler, endLabel, true);
             getRightOperand().codeGenBool(compiler, label, false);
         }

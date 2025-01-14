@@ -8,7 +8,6 @@ import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.DecacInternalError;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.DVal;
-import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.instructions.LOAD;
 import fr.ensimag.ima.pseudocode.instructions.WFLOAT;
@@ -50,8 +49,6 @@ public abstract class AbstractExpr extends AbstractInst {
 
     private Type type;
     private DVal dval = null; // Register, Immediate or d(XX)
-
-
 
     @Override
     protected void checkDecoration() {
@@ -189,7 +186,6 @@ public abstract class AbstractExpr extends AbstractInst {
         }
     }
 
-    protected abstract void codeGenBranch(DecacCompiler compiler, GPRegister regDest, boolean branchOnTrue, Label branchLabel);
     protected abstract void codeGenBool(DecacCompiler compiler, Label breakLabel, boolean branchOn);
 
 }

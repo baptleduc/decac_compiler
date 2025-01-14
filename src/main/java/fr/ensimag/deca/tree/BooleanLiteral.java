@@ -5,16 +5,10 @@ import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.Type;
-import fr.ensimag.deca.tools.DecacInternalError;
 import fr.ensimag.deca.tools.IndentPrintStream;
-import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.ImmediateInteger;
 import fr.ensimag.ima.pseudocode.Label;
-import fr.ensimag.ima.pseudocode.instructions.BEQ;
-import fr.ensimag.ima.pseudocode.instructions.BNE;
 import fr.ensimag.ima.pseudocode.instructions.BRA;
-import fr.ensimag.ima.pseudocode.instructions.CMP;
-
 import java.io.PrintStream;
 
 /**
@@ -85,29 +79,16 @@ public class BooleanLiteral extends AbstractExpr {
     }
 
     @Override
-    protected void codeGenBranch(DecacCompiler compiler, GPRegister reg, boolean branchOnTrue, Label branchLabel) {
-        compiler.addInstruction(new CMP(new ImmediateInteger(0), reg));
-        if (branchOnTrue){
-            compiler.addInstruction(new BNE(branchLabel));
-        }
-        else{
-            compiler.addInstruction(new BEQ(branchLabel));
-        }
-    }
-
-    @Override
     protected void codeGenBool(DecacCompiler compiler, Label label, boolean branchOn) {
-        if(value){
-            if(branchOn){
+        if (value) {
+            if (branchOn) {
                 compiler.addInstruction(new BRA(label));
             }
-        }
-        else{
-            if(!branchOn){
+        } else {
+            if (!branchOn) {
                 compiler.addInstruction(new BRA(label));
             }
         }
     }
-
 
 }

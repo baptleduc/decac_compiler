@@ -19,7 +19,6 @@ import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.instructions.BEQ;
 import fr.ensimag.ima.pseudocode.instructions.BNE;
 import fr.ensimag.ima.pseudocode.instructions.CMP;
-
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
 import org.apache.log4j.Logger;
@@ -255,8 +254,7 @@ public class Identifier extends AbstractIdentifier {
         compiler.addInstruction(new CMP(0, regDest));
         if (branchOn) {
             compiler.addInstruction(new BNE(label));
-        }
-        else {
+        } else {
             compiler.addInstruction(new BEQ(label));
         }
     }
@@ -265,10 +263,4 @@ public class Identifier extends AbstractIdentifier {
     protected boolean isImmediate() {
         return false;
     }
-
-    @Override
-    protected void codeGenBranch(DecacCompiler compiler, GPRegister reg, boolean branchOnTrue, Label branchLabel) {
-        throw new DecacInternalError("Should not be called");
-    }
-
 }

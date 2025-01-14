@@ -1,8 +1,6 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.DecacCompiler;
-import fr.ensimag.ima.pseudocode.BranchInstruction;
-import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.instructions.BEQ;
 import fr.ensimag.ima.pseudocode.instructions.BNE;
@@ -29,11 +27,11 @@ public class NotEquals extends AbstractOpExactCmp {
     }
 
     @Override
-    protected void codeGenBranch(DecacCompiler compiler,GPRegister regDest, boolean branchOnTrue, Label branchLabel) {
-        if (branchOnTrue) {
-            compiler.addInstruction(new BNE(branchLabel));
+    protected void codeGenBranch(DecacCompiler compiler, Label label, boolean branchOn) {
+        if (branchOn) {
+            compiler.addInstruction(new BNE(label));
         } else {
-            compiler.addInstruction(new BEQ(branchLabel));
+            compiler.addInstruction(new BEQ(label));
         }
     }
 

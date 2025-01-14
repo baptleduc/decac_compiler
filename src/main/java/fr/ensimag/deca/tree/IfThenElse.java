@@ -6,13 +6,8 @@ import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.IndentPrintStream;
-import fr.ensimag.ima.pseudocode.DVal;
-import fr.ensimag.ima.pseudocode.GPRegister;
-import fr.ensimag.ima.pseudocode.ImmediateInteger;
 import fr.ensimag.ima.pseudocode.Label;
-import fr.ensimag.ima.pseudocode.instructions.BEQ;
 import fr.ensimag.ima.pseudocode.instructions.BRA;
-import fr.ensimag.ima.pseudocode.instructions.CMP;
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
 
@@ -55,9 +50,9 @@ public class IfThenElse extends AbstractInst {
         Label thenLabel = new Label("then");
         Label elseLabel = new Label("else");
         Label endLabel = new Label("end");
-        
+
         condition.codeGenBool(compiler, elseLabel, false);
-        
+
         compiler.addLabel(thenLabel);
         thenBranch.codeGenListInst(compiler);
         compiler.addInstruction(new BRA(endLabel));

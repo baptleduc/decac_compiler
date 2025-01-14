@@ -5,13 +5,9 @@ import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.Type;
-import fr.ensimag.ima.pseudocode.BranchInstruction;
 import fr.ensimag.ima.pseudocode.DVal;
 import fr.ensimag.ima.pseudocode.GPRegister;
-import fr.ensimag.ima.pseudocode.ImmediateInteger;
 import fr.ensimag.ima.pseudocode.Label;
-import fr.ensimag.ima.pseudocode.UnaryInstructionToReg;
-import fr.ensimag.ima.pseudocode.instructions.BRA;
 import fr.ensimag.ima.pseudocode.instructions.CMP;
 import fr.ensimag.ima.pseudocode.instructions.LOAD;
 
@@ -46,9 +42,10 @@ public abstract class AbstractOpCmp extends AbstractBinaryExpr {
                 this.getRightOperand().getLocation());
     }
 
-    
+    protected abstract void codeGenBranch(DecacCompiler compiler, Label label, boolean branchOn);
+
     @Override
-    protected void codeGenInst(DecacCompiler compiler) {
+    protected void codeGenBool(DecacCompiler compiler, Label label, boolean branchOn) {
         getLeftOperand().codeGenInst(compiler);
         getRightOperand().codeGenInst(compiler);
         DVal leftDVal = getLeftOperand().getDVal(compiler);
@@ -58,7 +55,6 @@ public abstract class AbstractOpCmp extends AbstractBinaryExpr {
 
         // Compare the two values
         compiler.addInstruction(new CMP(rightDVal, regLeft));
-        leftDVal.freeGPRegister(compiler);
-
+        codeGenBranch(compiler, label, branchOn);
     }
 }

@@ -41,7 +41,7 @@ public class Minus extends AbstractOpArith {
     }
 
     @Override
-    protected void codeGenBranch(DecacCompiler compiler, GPRegister reg, boolean branchOnTrue, Label branchLabel) {
+    protected void codeGenBool(DecacCompiler compiler, Label label, boolean branchOn) {
         throw new DecacInternalError("Should not be called");
     }
 

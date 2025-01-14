@@ -1,13 +1,14 @@
 // Description:
-//    Minimalistic program making a If-then-else statement with immediate bool as condition, passing through the else branch.
+//    Minimalistic program making a If-then-else statement. Condition: equals && equals
 // Results:
-//    else
+//    if
 //
 // History:
 //    Created on 12/01/2025
 
 {       
-        if (true && false) {
+        int x = 10;
+        if (x==10 && x==10) {
             println("if");
         }
         else{
