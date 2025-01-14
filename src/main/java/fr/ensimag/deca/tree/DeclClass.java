@@ -1,8 +1,11 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.DecacCompiler;
+import fr.ensimag.deca.context.ClassDefinition;
+import fr.ensimag.deca.context.ClassType;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.deca.tools.SymbolTable.Symbol;
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
 
@@ -39,7 +42,30 @@ public class DeclClass extends AbstractDeclClass {
 
     @Override
     protected void verifyClass(DecacCompiler compiler) throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
+
+        // Get the name of the super class.
+        Symbol superName = superClass.getName();
+
+        // Check if the name of the super class exists in the environment
+        if (!compiler.environmentType.getEnvTypes().containsKey(superName)) {
+            throw new ContextualError("SuperClass is not in the environment", superClass.getLocation());
+        }
+        // Check if the name in the environment is a class and not a predef_type
+        else if (!compiler.environmentType.getEnvTypes().get(superName).isClass()) {
+            throw new ContextualError("SuperClass is not in the environment", superClass.getLocation());
+        }
+        ClassDefinition definitionSuper = superClass.getClassDefinition();
+
+        // Check if envtype(name) is already defined
+        if (compiler.environmentType.getEnvTypes().containsKey(nameClass)) {
+            throw new ContextualError("Class with the same name already existing", nameClass.getLocation());
+        }
+
+        // add the class to the environment
+        ClassType classType = new ClassType(nameClass.getName(), nameClass.getLocation(), definitionSuper);
+        ClassDefinition classDef = new ClassDefinition(classType, nameClass.getLocation(), definitionSuper);
+
+        compiler.environmentType.declare(nameClass.getName(), classDef);
     }
 
     @Override

@@ -52,4 +52,31 @@ public class EnvironmentType {
     public final FloatType FLOAT;
     public final StringType STRING;
     public final BooleanType BOOLEAN;
+
+    public Map<Symbol, TypeDefinition> getEnvTypes() {
+        return envTypes;
+    }
+
+    /**
+     * Add the definition def associated to the symbol name in the environment.
+     * 
+     * Adding a symbol which is already defined in the environment,
+     * - throws DoubleDefException if the symbol is in the "current" dictionary
+     * - or, hides the previous declaration otherwise.
+     * 
+     * @param name
+     *            Name of the symbol to define
+     * @param def
+     *            Definition of the symbol
+     * @throws DoubleDefException
+     *             if the symbol is already defined at the "current" dictionary
+     *
+     */
+    public void declare(Symbol name, TypeDefinition def) throws IllegalArgumentException {
+        if (envTypes.containsKey(name)) {
+            throw new IllegalArgumentException("Key already exists");
+        }
+        // Hides the previous declaration
+        this.envTypes.put(name, def);
+    }
 }
