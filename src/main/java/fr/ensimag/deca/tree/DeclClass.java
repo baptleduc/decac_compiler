@@ -1,6 +1,7 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.DecacCompiler;
+import fr.ensimag.deca.codegen.MethodTable;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ClassType;
 import fr.ensimag.deca.context.ContextualError;
@@ -9,6 +10,7 @@ import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.deca.tools.SymbolTable.Symbol;
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
+import org.apache.log4j.Logger;
 
 /**
  * Declaration of a class (<code>class name extends superClass {members}<code>).
@@ -17,21 +19,22 @@ import org.apache.commons.lang.Validate;
  * @date 01/01/2025
  */
 public class DeclClass extends AbstractDeclClass {
+    private static final Logger LOG = Logger.getLogger(DeclClass.class);
 
-    private AbstractIdentifier nameClass;
-    private AbstractIdentifier superClass;
+    private AbstractIdentifier classIdentifier;
+    private AbstractIdentifier superClassIdentifier;
     private ListDeclField fields;
     private ListDeclMethod methods;
 
-    public DeclClass(AbstractIdentifier nameClass, AbstractIdentifier superClass, ListDeclField fields,
+    public DeclClass(AbstractIdentifier classIdentifier, AbstractIdentifier superClassIdentifier, ListDeclField fields,
             ListDeclMethod methods) {
-        Validate.notNull(nameClass);
-        Validate.notNull(superClass);
+        Validate.notNull(classIdentifier);
+        Validate.notNull(superClassIdentifier);
         Validate.notNull(fields);
         Validate.notNull(methods);
 
-        this.nameClass = nameClass;
-        this.superClass = superClass;
+        this.classIdentifier = classIdentifier;
+        this.superClassIdentifier = superClassIdentifier;
         this.fields = fields;
         this.methods = methods;
     }
@@ -48,30 +51,31 @@ public class DeclClass extends AbstractDeclClass {
     protected void verifyClass(DecacCompiler compiler) throws ContextualError {
 
         // Get the name of the super class.
-        Symbol superName = superClass.getName();
+        Symbol superName = superClassIdentifier.getName();
 
         // Check if the name of the super class exists in the environment
         if (!compiler.environmentType.getEnvTypes().containsKey(superName)) {
-            throw new ContextualError("SuperClass is not in the environment", superClass.getLocation());
+            throw new ContextualError("SuperClass is not in the environment", superClassIdentifier.getLocation());
         }
         // Check if the name in the environment is a class and not a predef_type
         else if (!compiler.environmentType.getEnvTypes().get(superName).getType().isClass()) {
-            throw new ContextualError("SuperClass is not in the environment", superClass.getLocation());
+            throw new ContextualError("SuperClass is not in the environment", superClassIdentifier.getLocation());
         }
 
         // Check if envtype(name) is already defined
-        if (compiler.environmentType.getEnvTypes().containsKey(nameClass.getName())) {
-            throw new ContextualError("Class with the same name already existing", nameClass.getLocation());
+        if (compiler.environmentType.getEnvTypes().containsKey(classIdentifier.getName())) {
+            throw new ContextualError("Class with the same name already existing", classIdentifier.getLocation());
         }
 
         // add the class to the environment
         TypeDefinition definitionSuper = compiler.environmentType.getEnvTypes().get(superName);
         ClassDefinition classDefinitionSuper = (ClassDefinition) definitionSuper;
-        ClassType classType = new ClassType(nameClass.getName(), nameClass.getLocation(), classDefinitionSuper);
-        ClassDefinition classDef = new ClassDefinition(classType, nameClass.getLocation(), null);
-        nameClass.setDefinition(classDef);
-        superClass.setDefinition(definitionSuper);
-        compiler.environmentType.declare(nameClass.getName(), classDef);
+        ClassType classType = new ClassType(classIdentifier.getName(), classIdentifier.getLocation(),
+                classDefinitionSuper);
+        ClassDefinition classDef = new ClassDefinition(classType, classIdentifier.getLocation(), null);
+        classIdentifier.setDefinition(classDef);
+        superClassIdentifier.setDefinition(definitionSuper);
+        compiler.environmentType.declare(classIdentifier.getName(), classDef);
     }
 
     // /**
@@ -117,8 +121,8 @@ public class DeclClass extends AbstractDeclClass {
 
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
-        nameClass.prettyPrint(s, prefix, false);
-        superClass.prettyPrint(s, prefix, false);
+        classIdentifier.prettyPrint(s, prefix, false);
+        superClassIdentifier.prettyPrint(s, prefix, false);
         fields.prettyPrint(s, prefix, false);
         methods.prettyPrint(s, prefix, true);
 
@@ -126,9 +130,23 @@ public class DeclClass extends AbstractDeclClass {
 
     @Override
     protected void iterChildren(TreeFunction f) {
-        nameClass.iter(f);
-        superClass.iter(f);
+        classIdentifier.iter(f);
+        superClassIdentifier.iter(f);
         fields.iter(f);
         methods.iter(f);
     }
+
+    @Override
+    protected void codeGenDeclClass(DecacCompiler compiler) {
+        MethodTable methodTable = new MethodTable(classIdentifier.getClassDefinition(),
+                compiler.getLastMethodTableAddr());
+
+        // Increment the last method table address by the number of methods in the class
+        compiler.incrementLastMethodTableAddr(classIdentifier.getClassDefinition().getNumberOfMethods());
+
+        methodTable.codeGenTable(compiler);
+        LOG.debug(methodTable.toString());
+
+    }
+
 }

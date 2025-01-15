@@ -1,6 +1,7 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.DecacCompiler;
+import fr.ensimag.deca.codegen.MethodTable;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import org.apache.log4j.Logger;
@@ -44,6 +45,16 @@ public class ListDeclClass extends TreeList<AbstractDeclClass> {
      */
     public void verifyListClassBody(DecacCompiler compiler) throws ContextualError {
         throw new UnsupportedOperationException("not yet implemented");
+    }
+
+    public void codeGenListDeclClass(DecacCompiler compiler) {
+        if (getList().isEmpty()) {
+            return;
+        }
+        MethodTable.codeGenTableObjectClass(compiler);
+        for (AbstractDeclClass declClass : getList()) {
+            declClass.codeGenDeclClass(compiler);
+        }
     }
 
 }

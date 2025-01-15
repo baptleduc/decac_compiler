@@ -1,6 +1,7 @@
 package fr.ensimag.deca;
 
 import fr.ensimag.deca.codegen.ErrorManager;
+import fr.ensimag.deca.codegen.LabelManager;
 import fr.ensimag.deca.codegen.StackManager;
 import fr.ensimag.deca.context.EnvironmentType;
 import fr.ensimag.deca.syntax.DecaLexer;
@@ -12,6 +13,7 @@ import fr.ensimag.deca.tools.SymbolTable.Symbol;
 import fr.ensimag.deca.tree.AbstractProgram;
 import fr.ensimag.deca.tree.LocationException;
 import fr.ensimag.ima.pseudocode.AbstractLine;
+import fr.ensimag.ima.pseudocode.DAddr;
 import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.IMAProgram;
 import fr.ensimag.ima.pseudocode.ImmediateInteger;
@@ -226,13 +228,13 @@ public class DecacCompiler {
         }
 
         LOG.debug("Inserting TSTO instruction");
-        int d = stackManager.getNeededStackFrame();
-        ImmediateInteger imm = new ImmediateInteger(stackManager.getOffsetGB());
+        int d = stackManager.calculateTSTOSize();
+        ImmediateInteger imm = new ImmediateInteger(stackManager.getOffsetGBValue());
 
         // Insert TSTO instruction to test for stack overflow at the beginning of the
         // program
         addFirst(new ADDSP(imm)); // Increment SP by offsetGB
-        addFirst(new BOV(ErrorManager.STACK_OVERFLOW_ERROR));
+        addFirst(new BOV(LabelManager.STACK_OVERFLOW_ERROR.getLabel())); // Branch to stack overflow error if overflow
         addFirst(new TSTO(d), stackManager.getCommentTSTO());
 
         // Generate stack overflow error handling block at the end of the program
@@ -247,6 +249,51 @@ public class DecacCompiler {
         return stackManager.addGlobalVariable();
     }
 
+    /**
+     * @see
+     *      fr.ensimag.deca.codegen.StackManager#IncrementOffsetGB()
+     */
+    public void incrementOffsetGB() {
+        stackManager.incrementOffsetGB();
+    }
+
+    /**
+     * @see
+     *      fr.ensimag.deca.codegen.StackManager#IncrementOffsetGB(int value)
+     */
+    public void incrementOffsetGB(int value) {
+        stackManager.incrementOffsetGB(value);
+    }
+
+    /**
+     * @see
+     *      fr.ensimag.deca.codegen.StackManager#getOffsetGB()
+     */
+    public RegisterOffset getOffsetGB() {
+        return stackManager.getOffsetGB();
+    }
+
+    /**
+     * @see
+     *      fr.ensimag.deca.codegen.StackManager#getLastMethodTableAddr()
+     */
+    public DAddr getLastMethodTableAddr() {
+        return stackManager.getLastMethodTableAddr();
+    }
+
+    /**
+     * @see
+     *      fr.ensimag.deca.codegen.StackManager#incrementLastMethodTableAddr(int
+     *      value)
+     */
+    public void incrementLastMethodTableAddr(int value) {
+        stackManager.incrementLastMethodTableAddr(value);
+    }
+
+    /**
+     * @see
+     *      fr.ensimag.deca.codegen.StackManager#getLastUsedRegister()
+     */
     public GPRegister getLastUsedRegister() {
         return stackManager.getLastUsedRegister();
     }
@@ -255,18 +302,34 @@ public class DecacCompiler {
         stackManager.pushAvailableGPRegister(reg);
     }
 
+    /**
+     * @see
+     *      fr.ensimag.deca.codegen.StackManager#debugAvailableRegister()
+     */
     public String debugAvailableRegister() {
         return stackManager.debugAvailableRegister();
     }
 
+    /**
+     * @see
+     *      fr.ensimag.deca.codegen.StackManager#debugUsedRegister()
+     */
     public String debugUsedRegister() {
         return stackManager.debugUsedRegister();
     }
 
+    /**
+     * @see
+     *      fr.ensimag.deca.codegen.StackManager#getRegister1()
+     */
     public GPRegister getRegister1() {
         return stackManager.getRegister1();
     }
 
+    /**
+     * @see
+     *      fr.ensimag.deca.codegen.StackManager#getRegister0()
+     */
     public GPRegister getRegister0() {
         return stackManager.getRegister0();
     }

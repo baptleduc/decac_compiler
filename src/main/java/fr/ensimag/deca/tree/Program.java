@@ -51,6 +51,10 @@ public class Program extends AbstractProgram {
     @Override
     public void codeGenProgram(DecacCompiler compiler) {
         StackManager stackManager = compiler.getStackManager();
+        // Passe 1
+        classes.codeGenListDeclClass(compiler);
+
+        // Passe 2
 
         IMAProgram mainIMAProgram = new IMAProgram();
 

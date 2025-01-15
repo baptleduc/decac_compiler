@@ -1,5 +1,13 @@
+/**
+ * Manages the stack and registers for the IMA program.
+ * Provides methods to handle offsets, register allocation, and stack frame size calculation.
+ * 
+ * @param program the IMA program to manage
+ * @param numRegisters the number of general-purpose registers available
+ */
 package fr.ensimag.deca.codegen;
 
+import fr.ensimag.ima.pseudocode.DAddr;
 import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.IMAProgram;
 import fr.ensimag.ima.pseudocode.Register;
@@ -23,6 +31,8 @@ public class StackManager {
     private int offsetLB = 0;
     private int offsetSP = 0;
 
+    private DAddr lastMethodTableAddr = getOffsetGB();
+
     // Add counters to calculate "d"
     private int numSavedRegisters = 0;
     private int numTemporaries = 0;
@@ -38,41 +48,120 @@ public class StackManager {
         }
     }
 
+    /**
+     * Returns the GB register.
+     */
+    public Register getGBRegister() {
+        return GB;
+    }
+
+    /**
+     * Returns the register 1.
+     */
     public GPRegister getRegister1() {
         return Register.getR(1);
     }
 
+    /**
+     * Returns the register 0.
+     */
     public GPRegister getRegister0() {
         return Register.getR(0);
     }
 
+    /**
+     * Returns the LB register.
+     */
+    public Register getLBRegister() {
+        return LB;
+    }
+
+    /**
+     * Returns the SP register.
+     */
+    public Register getSPRegister() {
+        return SP;
+    }
+
+    /**
+     * Returns the current offset in the GB register.
+     */
+    public RegisterOffset getOffsetGB() {
+        return new RegisterOffset(offsetGB, GB);
+    }
+
+    /**
+     * Returns the current value of the GB offset.
+     */
+    public int getOffsetGBValue() {
+        return offsetGB;
+    }
+
+    /**
+     * Increments the GB offset by the specified value.
+     */
+    public void incrementOffsetGB(int value) {
+        offsetGB += value;
+    }
+
+    /**
+     * Increments the GB offset by 1.
+     */
+    public void incrementOffsetGB() {
+        offsetGB++;
+    }
+
+    /**
+     * Increments the number of saved registers by 1.
+     */
     public void incrementNumSavedRegisters() {
         numSavedRegisters++;
     }
 
+    /**
+     * Returns the address of the last method table.
+     */
+    public DAddr getLastMethodTableAddr() {
+        return lastMethodTableAddr;
+    }
+
+    public void incrementLastMethodTableAddr(int value) {
+        lastMethodTableAddr = new RegisterOffset(getOffsetGBValue() + value, GB);
+    }
+
+    /**
+     * Returns a comment string for the TSTO instruction.
+     */
     public String getCommentTSTO() {
         return (offsetGB + offsetLB) + " (variables) + " + numSavedRegisters + " (saved registers) + " + numTemporaries
                 + " (temporaries) + " + 2 * numMethodParams + " (method parameters x 2)";
     }
 
-    public int getOffsetGB() {
-        return offsetGB;
-    }
-
+    /**
+     * Returns the current offset in the LB register.
+     */
     public int getOffsetLB() {
         return offsetLB;
     }
 
+    /**
+     * Returns the current offset in the SP register.
+     */
     public int getOffsetSP() {
         return offsetSP;
     }
 
+    /**
+     * Adds a global variable and returns its offset in the GB register.
+     */
     public RegisterOffset addGlobalVariable() {
-
         // TODO: switch case to determine the size of the offset and add type in arg
         return new RegisterOffset(++offsetGB, GB);
     }
 
+    /**
+     * Returns the current IMA program.
+     */
     public IMAProgram getProgram() {
         return program;
     }
@@ -83,11 +172,8 @@ public class StackManager {
      *
      * @return the size of the stack frame needed for the TSTO instruction
      */
-    public int getNeededStackFrame() {
-        return numSavedRegisters + (offsetGB + offsetLB) + numTemporaries + 2 * numMethodParams; // 2 * numMethodParams
-                                                                                                 // because
-        // BSR
-        // makes 2 pushes
+    public int calculateTSTOSize() {
+        return offsetGB + offsetLB + numSavedRegisters + numTemporaries + 2 * numMethodParams;
     }
 
     /**
@@ -100,15 +186,35 @@ public class StackManager {
         return Register.getR(idxUsedGPRegisters.getFirst());
     }
 
+    /**
+     * Pops the last used general-purpose register (GPRegister) from the list of
+     * used
+     * registers index.
+     *
+     * @return the last used GPRegister
+     */
     public GPRegister popUsedRegister() {
         int idx = idxUsedGPRegisters.removeFirst();
         return Register.getR(idx);
     }
 
+    /**
+     * Pushes the given general-purpose register (GPRegister) to the list of used
+     * registers index.
+     *
+     * @param reg
+     *            the GPRegister to push
+     */
     public GPRegister popAvailableGPRegister() {
         return Register.getR(idxAvailableGPRegisters.removeFirst());
     }
 
+    /**
+     * Retrieves the last available general-purpose register (GPRegister) from the
+     * list of available registers index.
+     *
+     * @return the last available GPRegister
+     */
     public boolean isAvailableGPRegisterEmpty() {
         return idxAvailableGPRegisters.isEmpty();
     }
@@ -125,11 +231,20 @@ public class StackManager {
         idxAvailableGPRegisters.addFirst(idx);
     }
 
+    /**
+     * Marks the given general-purpose register (GPRegister) as used.
+     *
+     * @param reg
+     *            the GPRegister to mark as used
+     */
     public void pushUsedGPRegister(GPRegister reg) {
         int idx = reg.getNumber();
         idxUsedGPRegisters.addFirst(idx);
     }
 
+    /**
+     * Used to debug the available registers.
+     */
     public String debugAvailableRegister() {
         String res = "Stack of available registers: ";
         for (int i = 0; i < idxAvailableGPRegisters.size(); i++) {
@@ -138,6 +253,9 @@ public class StackManager {
         return res;
     }
 
+    /**
+     * Used to debug the used registers.
+     */
     public String debugUsedRegister() {
         String res = "Stack of Used registers: ";
         for (int i = 0; i < idxUsedGPRegisters.size(); i++) {

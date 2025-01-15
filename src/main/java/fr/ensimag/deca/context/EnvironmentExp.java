@@ -2,7 +2,10 @@ package fr.ensimag.deca.context;
 
 import fr.ensimag.deca.tools.SymbolTable.Symbol;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Dictionary associating identifier's ExpDefinition to their names.
@@ -101,6 +104,21 @@ public class EnvironmentExp {
         }
         // Hides the previous declaration
         this.currentEnvironment.put(name, def);
+    }
+
+    public Iterator<Symbol> getSymbolIterator() {
+        Set<Symbol> symbols = new LinkedHashSet<>();
+        collectAllSymbols(symbols);
+        return symbols.iterator();
+    }
+
+    private void collectAllSymbols(Set<Symbol> symbols) {
+        symbols.addAll(currentEnvironment.keySet());
+
+        // Add the definitions of the parentEnvironment
+        if (parentEnvironment != null) {
+            parentEnvironment.collectAllSymbols(symbols);
+        }
     }
 
 }

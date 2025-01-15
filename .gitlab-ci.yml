@@ -6,8 +6,8 @@ image: maven:latest
 
 stages:
   - build
-  - test
   - format-check
+  - test
 
 cache:
   paths:

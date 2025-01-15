@@ -27,8 +27,6 @@ Usage:
 The script continues execution for all files, even if some tests fail.
 '
 
-
-
 process_deca_file() {
     local DECA_FILE="$1"
     echo "Processing file: $DECA_FILE"
@@ -36,7 +34,6 @@ process_deca_file() {
     # Extract the expected output from the line below "Results:"
     local EXPECTED_OUTPUT
     EXPECTED_OUTPUT=$(grep -A 1 -i "Results:" "$DECA_FILE" | tail -n 1 | sed 's|^[[:space:]]*//||' | sed 's|^[[:space:]]*||;s|[[:space:]]*$||')
-
 
     # If no "Results:" line is found, skip this file
     if [ -z "$EXPECTED_OUTPUT" ]; then
@@ -106,7 +103,7 @@ main() {
             process_deca_file "$DECA_FILE"
         done
     done
-    
+
 }
 
 main
