@@ -50,7 +50,8 @@ process_deca_file() {
     # Step 1: Compile the .deca file with decac
     echo "Compiling $DECA_FILE..."
     if ! "$DECAC_EXEC" "$DECA_FILE"; then
-        echo "Error: Compilation failed for $DECA_FILE. Skipping..."
+        echo "Error: Compilation failed for $DECA_FILE."
+        exit 1
         return
     fi
     echo "Compilation successful."
@@ -90,7 +91,7 @@ process_deca_file() {
 }
 
 # Directory containing the .deca files, dir can be add as needed.
-DECA_DIR=" ./src/test/deca/codegen/valid/test_while"
+DECA_DIR=" ./src/test/deca/codegen/valid/test_arithmetic ./src/test/deca/codegen/valid ./src/test/deca/codegen/valid/test_if ./src/test/deca/codegen/valid/test_while"
 IMA_EXEC="./env/ima_sources/bin/ima"
 DECAC_EXEC="./src/main/bin/decac"
 
