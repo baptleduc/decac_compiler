@@ -62,7 +62,7 @@ public class DeclMethod extends AbstractDeclMethod {
         } catch (Exception e) {
             // do nothing
         }
-	methodName.setDefinition(defMethod);
+        methodName.setDefinition(defMethod);
         return environmentMethod;
     }
 
@@ -81,10 +81,10 @@ public class DeclMethod extends AbstractDeclMethod {
 
     @Override
     protected void iterChildren(TreeFunction f) {
-	methodName.iter(f);
-	returnType.iter(f);
-	params.iter(f);
-	body.iter(f);
+        methodName.iter(f);
+        returnType.iter(f);
+        params.iter(f);
+        body.iter(f);
     }
 
 }
