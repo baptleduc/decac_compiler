@@ -7,6 +7,6 @@
 //    Created on 08/01/2025
 
 {       
-        int x = 1 +2;
+        int x = 1 + 2;
         println(x);
 }
