@@ -1,11 +1,7 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.DecacCompiler;
-<<<<<<< HEAD
 import fr.ensimag.deca.codegen.MethodTable;
-=======
-import fr.ensimag.deca.context.TypeDefinition;
->>>>>>> 1adc2f5 (fix: pass 1 partie B ok avec test)
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ClassType;
 import fr.ensimag.deca.context.ContextualError;
@@ -80,15 +76,6 @@ public class DeclClass extends AbstractDeclClass {
         classIdentifier.setDefinition(classDef);
         superClassIdentifier.setDefinition(definitionSuper);
         compiler.environmentType.declare(classIdentifier.getName(), classDef);
-
-	TypeDefinition definitionSuper = compiler.environmentType.getEnvTypes().get(superName);
-	ClassDefinition classDefinitionSuper = (ClassDefinition)definitionSuper;
-        ClassType classType = new ClassType(nameClass.getName(), nameClass.getLocation(), classDefinitionSuper);
-        ClassDefinition classDef = new ClassDefinition(classType, nameClass.getLocation(), null);
-        nameClass.setDefinition(classDef);
-	superClass.setDefinition(definitionSuper);
-        compiler.environmentType.declare(nameClass.getName(), classDef);
->>>>>>> 1adc2f5 (fix: pass 1 partie B ok avec test)
     }
 
     //  * Pass 2 of [SyntaxeContextuelle]
@@ -128,24 +115,6 @@ public class DeclClass extends AbstractDeclClass {
             throw new UnsupportedOperationException("not yet implemented");
         }
 
-        @Override
-        protected void prettyPrintChildren(PrintStream s, String prefix) {
-            nameClass.prettyPrint(s, prefix, false);
-            superClass.prettyPrint(s, prefix, false);
-            fields.prettyPrint(s, prefix, false);
-            methods.prettyPrint(s, prefix, true);
-
-        }
-
-        @Override
-        protected void iterChildren(TreeFunction f) {
-	    nameClass.iter(f);
-	    superClass.iter(f);
-	    fields.iter(f);
-	    methods.iter(f);
-        }
-<<<<<<< HEAD
->>>>>>> 471ecd9 (feat: passe 1 non <<<<<<< HEAD
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
         classIdentifier.prettyPrint(s, prefix, false);
@@ -175,7 +144,5 @@ public class DeclClass extends AbstractDeclClass {
         LOG.debug(methodTable.toString());
 
     }
-
-=======
->>>>>>> 1adc2f5 (fix: pass 1 partie B ok avec test)
 }
+
