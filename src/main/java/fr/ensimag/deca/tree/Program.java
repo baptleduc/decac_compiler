@@ -43,6 +43,7 @@ public class Program extends AbstractProgram {
 
         classes.verifyListClass(compiler);
 
+        classes.verifyListClassMembers(compiler);
         main.verifyMain(compiler);
 
         LOG.debug("verify program: end");

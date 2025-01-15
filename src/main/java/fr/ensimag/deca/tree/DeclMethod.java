@@ -1,5 +1,11 @@
 package fr.ensimag.deca.tree;
 
+import fr.ensimag.deca.DecacCompiler;
+import fr.ensimag.deca.context.ContextualError;
+import fr.ensimag.deca.context.EnvironmentExp;
+import fr.ensimag.deca.context.MethodDefinition;
+import fr.ensimag.deca.context.Signature;
+import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import java.io.PrintStream;
 
@@ -23,49 +29,42 @@ public class DeclMethod extends AbstractDeclMethod {
         this.body = body;
     }
 
-    // /**
-    // * Pass 2 of [SyntaxeContextuelle]
-    // */
-    // @Override
-    // protected void verifyMethod(DecacCompiler compiler) throws ContextualError {
+    /**
+     * Pass 2 of [SyntaxeContextuelle]
+     */
+    @Override
+    protected EnvironmentExp verifyMethod(DecacCompiler compiler, AbstractIdentifier superClass, int index)
+            throws ContextualError {
+        Type methodType = returnType.verifyType(compiler);
+        Signature signature = params.verifyListParams(compiler);
+        EnvironmentExp envExpSuper = superClass.getClassDefinition().getMembers();
+        Type type1 = compiler.environmentType.getEnvTypes().get(returnType.getName()).getType();
 
-    // //Get the name of the super class.
-    // Symbol superName = superClass.getName();
+        if (envExpSuper.getCurrentEnvironment().containsKey(methodName.getName())) {
+            if (!methodType.asClassType("this is not a class type", returnType.getLocation())
+                    .isSubClassOf(type1.asClassType("this is not a class type", methodName.getLocation()))) {
+                throw new ContextualError(
+                        "Method" + methodName.getName() + "must have the same type that the inherited method one",
+                        methodName.getLocation());
+            } else if (envExpSuper.getCurrentEnvironment().get((methodName.getName()))
+                    .asMethodDefinition("ce n'est pas une méthode", methodName.getLocation())
+                    .getSignature() != signature) {
+                throw new ContextualError(
+                        "Method" + methodName.getName() + "must have the same signature that inherited method",
+                        methodName.getLocation());
+            }
 
-    // //Check if the name of the super class exists in the environment
-    // if(!compiler.environmentType.envTypes.containsKey(superName)){
-    // throw new ContextualError("SuperClass is not in the environment",
-    // superName.getLocation());
-    // }
-    // //Check if the name in the environment is a class and not a predef_type
-    // else if(!compiler.environmentType.envTypes.get(superName).isClass()){
-    // throw new ContextualError("SuperClass is not in the environment",
-    // superName.getLocation());
-    // }
-    // //Check if envtype(name) is already defined
-    // if (compiler.environmentType.envTypes.containsKey(nameClass)){
-    // throw new ContextualError("Class with the same name already existing",
-    // nameClass.getLocation());
-    // }
-
-    // //add the class to the environment
-    // ClassType classType = new ClassType(nameClass.getName(),
-    // nameClass.getLocation(), superClass.getDefinition());
-    // ClassDefinition classDef = new ClassDefinition(classType,
-    // nameClass.getLocation(), superClass.getDefinition());
-
-    // // Baptiste
-    // classType.setOperand(compiler.addGlobalVariable());
-    // nameClass.setDefinition(classDef);
-
-    // compiler.environmentType.envTypes.put(nameClass.getName(), classDef);
-
-    // //Verify list_decl_field
-    // fields.verifyDeclClass()
-
-    // //Verify list_decl_method
-    // methods.
-    // }
+        }
+        MethodDefinition defMethod = new MethodDefinition(type1, methodName.getLocation(), signature, index);
+        EnvironmentExp environmentMethod = new EnvironmentExp(null);
+        try {
+            environmentMethod.declare(methodName.getName(), defMethod);
+        } catch (Exception e) {
+            // do nothing
+        }
+        methodName.setDefinition(defMethod);
+        return environmentMethod;
+    }
 
     @Override
     public void decompile(IndentPrintStream s) {
@@ -82,7 +81,10 @@ public class DeclMethod extends AbstractDeclMethod {
 
     @Override
     protected void iterChildren(TreeFunction f) {
-        throw new UnsupportedOperationException("Not yet supported");
+        methodName.iter(f);
+        returnType.iter(f);
+        params.iter(f);
+        body.iter(f);
     }
 
 }

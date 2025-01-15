@@ -31,7 +31,7 @@ public class MethodBody extends AbstractMethodBody {
 
     @Override
     protected void iterChildren(TreeFunction f) {
-        throw new UnsupportedOperationException("Not yet supported");
+        return;
     }
 
 }
