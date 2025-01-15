@@ -84,31 +84,40 @@ public class DeclClass extends AbstractDeclClass {
      protected void verifyClassMembers(DecacCompiler compiler)
              throws ContextualError {
 
-    //     EnvironmentExp envExpSuper = superClass.getClassDefinition().getMembers();
-    //     ClassDefinition currentClassDef = nameClass.getClassDefinition();
-    //     currentClassDef.getMembers().empile(envExpSuper);
+        EnvironmentExp envExpSuper = superClass.getClassDefinition().getMembers();
+        ClassDefinition currentClassDef = nameClass.getClassDefinition();
+        currentClassDef.getMembers().empile(envExpSuper);
 
-    //     EnvironmentExp envExpF = fields.verifyListFields();
-    //     EnvironmentExp envExpM = fields.verifyListMethods();
+        EnvironmentExp envExpF = fields.verifyListFields();
+        EnvironmentExp envExpM = fields.verifyListMethods();
 
-    //     //Verify that envExpF and envExpM have no symb in common
-    //     for(Map.Entry<Symbol, ExpDefinition> entry : envExpM.currentEnvironment.entrySet()){
-    //         Symbol var = entry.getKey();
-    //         if(envExpF.currentEnvironment.containsKey(var)){
-    //             throw new ContextualError("Name of Method"+ var.getName()+ "declared in field environment", var.getLocation())
-    //         }
-    //     }
+        //Verify that envExpF and envExpM have no symb in common
+        for(Map.Entry<Symbol, ExpDefinition> entry : envExpM.currentEnvironment.entrySet()){
+            Symbol var = entry.getKey();
+            if(envExpF.currentEnvironment.containsKey(var)){
+                throw new ContextualError("Name of Method"+ var.getName()+ "declared in field environment", var.getLocation());
+            }
+        }
 
-    //     //add symb of envExpM to envExpF
-    //     for(Map.Entry<Symbol, ExpDefinition> entry : envExpM.currentEnvironment.entrySet()){
-    //         Symbol var = entry.getKey();
-    //         ExpDefinition definition = entry.getValue();
-    //         envExpF.declare(var, definition); // add the key-value
-    //     }
+        //add symb of envExpM to envExpF
+        for(Map.Entry<Symbol, ExpDefinition> entry : envExpM.currentEnvironment.entrySet()){
+            Symbol var = entry.getKey();
+            ExpDefinition definition = entry.getValue();
+            envExpF.declare(var, definition); // add the key-value
+        }
 
-    //     currentClassDef.getMembers().empile(envExpF);
-	 throw new UnsupportedOperationException("not yet implemented");
-     }
+        currentClassDef.getMembers().empile(envExpF);
+
+        ClassDefinition newDef = new ClassDefinition()
+
+        EnvironmentType envTypeR = new EnvironmentType(compiler);
+
+        envTypeR.getEnvTypes().declare(nameClass.getName(), newDef);
+
+        envTyperR.empile(compiler.environmentType);
+
+        return envTypeR;
+    }
 
         @Override
         protected void verifyClassBody(DecacCompiler compiler) throws ContextualError {
