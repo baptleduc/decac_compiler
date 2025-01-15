@@ -1,0 +1,21 @@
+// Description:
+//    Minimalistic program making several operations
+// Results:
+//    10422
+//
+// History:
+//    Created on 08/01/2025
+
+{       
+        int a = 15;
+        int b = 24;
+        int c = 30;
+        int d = 1265;
+        int e = 4;
+        int f = 8;
+        int g = 52;
+
+        int x = a + b * c - d + e / f + g * a - b + (c - d) * e / f + g + (a * b * c) - (d / e / f);
+
+        println(x);
+}
