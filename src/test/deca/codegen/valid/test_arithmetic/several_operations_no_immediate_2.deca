@@ -1,7 +1,7 @@
 // Description:
 //    Minimalistic program making several operations
 // Results:
-//    5990
+//    -494511
 //
 // History:
 //    Created on 08/01/2025
@@ -15,6 +15,7 @@
         int f = 8;
         int g = 52;
 
-        int x = a*b + (c+d)*e + f*(g+e)+f/e;
+        int x = (a + b * c - d) + (e * f / g) - ((a * d) + b) * (c - e) + g / (a + f - c);
+
         println(x);
 }
