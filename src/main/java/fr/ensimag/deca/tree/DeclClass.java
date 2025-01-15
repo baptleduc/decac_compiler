@@ -1,7 +1,11 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.DecacCompiler;
+<<<<<<< HEAD
 import fr.ensimag.deca.codegen.MethodTable;
+=======
+import fr.ensimag.deca.context.TypeDefinition;
+>>>>>>> 1adc2f5 (fix: pass 1 partie B ok avec test)
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ClassType;
 import fr.ensimag.deca.context.ContextualError;
@@ -66,7 +70,7 @@ public class DeclClass extends AbstractDeclClass {
         if (compiler.environmentType.getEnvTypes().containsKey(classIdentifier.getName())) {
             throw new ContextualError("Class with the same name already existing", classIdentifier.getLocation());
         }
-
+	
         // add the class to the environment
         TypeDefinition definitionSuper = compiler.environmentType.getEnvTypes().get(superName);
         ClassDefinition classDefinitionSuper = (ClassDefinition) definitionSuper;
@@ -76,13 +80,22 @@ public class DeclClass extends AbstractDeclClass {
         classIdentifier.setDefinition(classDef);
         superClassIdentifier.setDefinition(definitionSuper);
         compiler.environmentType.declare(classIdentifier.getName(), classDef);
+
+	TypeDefinition definitionSuper = compiler.environmentType.getEnvTypes().get(superName);
+	ClassDefinition classDefinitionSuper = (ClassDefinition)definitionSuper;
+        ClassType classType = new ClassType(nameClass.getName(), nameClass.getLocation(), classDefinitionSuper);
+        ClassDefinition classDef = new ClassDefinition(classType, nameClass.getLocation(), null);
+        nameClass.setDefinition(classDef);
+	superClass.setDefinition(definitionSuper);
+        compiler.environmentType.declare(nameClass.getName(), classDef);
+>>>>>>> 1adc2f5 (fix: pass 1 partie B ok avec test)
     }
 
     //  * Pass 2 of [SyntaxeContextuelle]
     //  */
-    // @Override
-    // protected void verifyClassMembers(DecacCompiler compiler)
-    //         throws ContextualError {
+     @Override
+     protected void verifyClassMembers(DecacCompiler compiler)
+             throws ContextualError {
 
     //     EnvironmentExp envExpSuper = superClass.getClassDefinition().getMembers();
     //     ClassDefinition currentClassDef = nameClass.getClassDefinition();
@@ -107,7 +120,8 @@ public class DeclClass extends AbstractDeclClass {
     //     }
 
     //     currentClassDef.getMembers().empile(envExpF);
-    // }
+	 throw new UnsupportedOperationException("not yet implemented");
+     }
 
         @Override
         protected void verifyClassBody(DecacCompiler compiler) throws ContextualError {
@@ -125,8 +139,12 @@ public class DeclClass extends AbstractDeclClass {
 
         @Override
         protected void iterChildren(TreeFunction f) {
-            throw new UnsupportedOperationException("Not yet supported");
+	    nameClass.iter(f);
+	    superClass.iter(f);
+	    fields.iter(f);
+	    methods.iter(f);
         }
+<<<<<<< HEAD
 >>>>>>> 471ecd9 (feat: passe 1 non <<<<<<< HEAD
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
@@ -158,6 +176,6 @@ public class DeclClass extends AbstractDeclClass {
 
     }
 
-}
 =======
->>>>>>> 471ecd9 (feat: passe 1 non corrigée)
+>>>>>>> 1adc2f5 (fix: pass 1 partie B ok avec test)
+}

@@ -5,6 +5,9 @@ import fr.ensimag.deca.tools.SymbolTable.Symbol;
 import fr.ensimag.deca.tree.AbstractIdentifier;
 import fr.ensimag.deca.tree.Identifier;
 import fr.ensimag.deca.tree.Location;
+import fr.ensimag.deca.tree.Identifier;
+import fr.ensimag.deca.tree.AbstractIdentifier;
+import fr.ensimag.deca.context.ClassDefinition;
 import java.util.HashMap;
 import java.util.Map;
 
