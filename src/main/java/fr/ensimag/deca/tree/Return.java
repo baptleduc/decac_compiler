@@ -29,12 +29,14 @@ public class Return extends AbstractInst {
 
     @Override
     public void decompile(IndentPrintStream s) {
-        throw new UnsupportedOperationException("not yet implemented");
+        s.print("return ");
+        returnExpr.decompile(s);
+        s.print(";");
     }
 
     @Override
     protected void iterChildren(TreeFunction f) {
-        throw new UnsupportedOperationException("not yet implemented");
+        returnExpr.iter(f);
     }
 
     @Override

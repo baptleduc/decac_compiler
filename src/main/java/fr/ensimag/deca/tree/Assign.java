@@ -6,6 +6,7 @@ import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.DecacInternalError;
+import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.DAddr;
 import fr.ensimag.ima.pseudocode.DVal;
 import fr.ensimag.ima.pseudocode.GPRegister;
@@ -46,6 +47,13 @@ public class Assign extends AbstractBinaryExpr {
     @Override
     protected String getOperatorName() {
         return "=";
+    }
+
+    @Override
+    public void decompile(IndentPrintStream s) {
+        getLeftOperand().decompile(s);
+        s.print(" = ");
+        getRightOperand().decompile(s);
     }
 
     @Override

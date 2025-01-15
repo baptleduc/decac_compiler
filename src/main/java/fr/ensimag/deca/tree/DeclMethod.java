@@ -68,7 +68,13 @@ public class DeclMethod extends AbstractDeclMethod {
 
     @Override
     public void decompile(IndentPrintStream s) {
-        s.print(" ... A FAIRE ... ");
+        returnType.decompile(s);
+        s.print(" ");
+        methodName.decompile(s);
+        s.print("(");
+        params.decompile(s);
+        s.print(")");
+        body.decompile(s);
     }
 
     @Override
@@ -81,8 +87,8 @@ public class DeclMethod extends AbstractDeclMethod {
 
     @Override
     protected void iterChildren(TreeFunction f) {
-        methodName.iter(f);
         returnType.iter(f);
+        methodName.iter(f);
         params.iter(f);
         body.iter(f);
     }

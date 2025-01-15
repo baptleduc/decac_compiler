@@ -1,0 +1,5 @@
+class Test extends Object {
+	protected int x;
+	protected int y = x;
+
+}
