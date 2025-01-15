@@ -2,6 +2,8 @@ package fr.ensimag.deca.context;
 
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.tools.SymbolTable.Symbol;
+import fr.ensimag.deca.tree.AbstractIdentifier;
+import fr.ensimag.deca.tree.Identifier;
 import fr.ensimag.deca.tree.Location;
 import java.util.HashMap;
 import java.util.Map;
@@ -39,6 +41,12 @@ public class EnvironmentType {
         STRING = new StringType(stringSymb);
         // not added to envTypes, it's not visible for the user.
 
+        // Define the Object class
+        Symbol objectSymb = compiler.createSymbol("Object");
+        AbstractIdentifier objectIdent = new Identifier(objectSymb);
+        OBJECT = new ClassType(objectSymb, Location.BUILTIN, null); // null = no superclass
+        // Add Object to the environment
+        envTypes.put(objectIdent.getName(), new ClassDefinition(OBJECT, Location.BUILTIN, null));
     }
 
     private final Map<Symbol, TypeDefinition> envTypes;
@@ -52,4 +60,32 @@ public class EnvironmentType {
     public final FloatType FLOAT;
     public final StringType STRING;
     public final BooleanType BOOLEAN;
+    public final ClassType OBJECT;
+
+    public Map<Symbol, TypeDefinition> getEnvTypes() {
+        return envTypes;
+    }
+
+    /**
+     * Add the definition def associated to the symbol name in the environment.
+     * 
+     * Adding a symbol which is already defined in the environment,
+     * - throws DoubleDefException if the symbol is in the "current" dictionary
+     * - or, hides the previous declaration otherwise.
+     * 
+     * @param name
+     *            Name of the symbol to define
+     * @param def
+     *            Definition of the symbol
+     * @throws DoubleDefException
+     *             if the symbol is already defined at the "current" dictionary
+     *
+     */
+    public void declare(Symbol name, TypeDefinition def) throws IllegalArgumentException {
+        if (envTypes.containsKey(name)) {
+            throw new IllegalArgumentException("Key already exists");
+        }
+        // Hides the previous declaration
+        this.envTypes.put(name, def);
+    }
 }

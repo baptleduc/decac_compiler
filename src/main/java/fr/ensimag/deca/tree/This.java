@@ -46,7 +46,7 @@ public class This extends AbstractExpr {
 
     @Override
     protected void iterChildren(TreeFunction f) {
-        throw new UnsupportedOperationException("not yet implemented");
+        // leaf node => nothing to do
     }
 
     @Override
