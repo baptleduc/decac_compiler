@@ -2,6 +2,7 @@ package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.codegen.ErrorManager;
+import fr.ensimag.deca.codegen.LabelManager;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
@@ -136,8 +137,7 @@ public abstract class AbstractOpArith extends AbstractBinaryExpr {
 
         // Check for overflow
         if (getType().isFloat()) {
-            compiler.addInstruction(new BOV(ErrorManager.getLabelOverflowError()));
-            ;
+            compiler.addInstruction(new BOV(LabelManager.OVERFLOW_ERROR.getLabel()));
         }
 
         // Free the source operand if necessary

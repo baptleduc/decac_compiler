@@ -1,6 +1,7 @@
 package fr.ensimag.deca;
 
 import fr.ensimag.deca.codegen.ErrorManager;
+import fr.ensimag.deca.codegen.LabelManager;
 import fr.ensimag.deca.codegen.StackManager;
 import fr.ensimag.deca.context.EnvironmentType;
 import fr.ensimag.deca.syntax.DecaLexer;
@@ -232,7 +233,7 @@ public class DecacCompiler {
         // Insert TSTO instruction to test for stack overflow at the beginning of the
         // program
         addFirst(new ADDSP(imm)); // Increment SP by offsetGB
-        addFirst(new BOV(ErrorManager.STACK_OVERFLOW_ERROR));
+        addFirst(new BOV(LabelManager.STACK_OVERFLOW_ERROR.getLabel())); // Branch to stack overflow error if overflow
         addFirst(new TSTO(d), stackManager.getCommentTSTO());
 
         // Generate stack overflow error handling block at the end of the program

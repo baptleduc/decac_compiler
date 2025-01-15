@@ -2,6 +2,8 @@ package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.codegen.ErrorManager;
+import fr.ensimag.deca.codegen.LabelManager;
+import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.instructions.BOV;
 
 /**
@@ -21,7 +23,7 @@ public abstract class AbstractReadExpr extends AbstractExpr {
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
         codeGenRead(compiler);
-        compiler.addInstruction(new BOV(ErrorManager.getLabelIOError()));
+        compiler.addInstruction(new BOV(LabelManager.IO_ERROR.getLabel()));
         setDVal(compiler.getRegister1());
     }
 

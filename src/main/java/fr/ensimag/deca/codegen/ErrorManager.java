@@ -10,28 +10,6 @@ import org.apache.log4j.Logger;
 public class ErrorManager {
     private static final Logger LOG = Logger.getLogger(ErrorManager.class);
 
-    // Label declaration for an IMA program
-    public static final Label STACK_OVERFLOW_ERROR = new Label("stack_overflow_error");
-    public static final Label IO_ERROR = new Label("io_error");
-    public static final Label OVERFLOW_ERROR = new Label("overflow_error");
-    public static final Label DIVIDE_BY_ZERO_ERROR = new Label("divide_by_zero_error");
-
-    public static Label getLabelStackOverflowError() {
-        return STACK_OVERFLOW_ERROR;
-    }
-
-    public static Label getLabelIOError() {
-        return IO_ERROR;
-    }
-
-    public static Label getLabelOverflowError() {
-        return OVERFLOW_ERROR;
-    }
-
-    public static Label getLabelDivideByZeroError() {
-        return DIVIDE_BY_ZERO_ERROR;
-    }
-
     /**
      * Generates the assembly code for handling stack overflow errors.
      *
@@ -39,7 +17,7 @@ public class ErrorManager {
      *            the Deca compiler instance
      */
     public static void generateStackOverflowError(DecacCompiler compiler) {
-        generateError(STACK_OVERFLOW_ERROR, "Error: Stack Overflow", compiler);
+        generateError(LabelManager.STACK_OVERFLOW_ERROR.getLabel(), "Error: Stack Overflow", compiler);
     }
 
     /**
@@ -49,7 +27,7 @@ public class ErrorManager {
      *            the Deca compiler instance
      */
     public static void generateIOError(DecacCompiler compiler) {
-        generateError(IO_ERROR, "Error: Input/Output error", compiler);
+        generateError(LabelManager.IO_ERROR.getLabel(), "Error: Input/Output error", compiler);
     }
 
     /**
@@ -59,7 +37,7 @@ public class ErrorManager {
      *            the Deca compiler instance
      */
     public static void generateOverflowError(DecacCompiler compiler) {
-        generateError(OVERFLOW_ERROR, "Error: Overflow during arithmetic operation", compiler);
+        generateError(LabelManager.OVERFLOW_ERROR.getLabel(), "Error: Overflow during arithmetic operation", compiler);
     }
 
     /**
@@ -69,7 +47,7 @@ public class ErrorManager {
      *            the Deca compiler instance
      */
     public static void generateDivideByZeroError(DecacCompiler compiler) {
-        generateError(DIVIDE_BY_ZERO_ERROR, "Error: Division by zero", compiler);
+        generateError(LabelManager.DIVIDE_BY_ZERO_ERROR.getLabel(), "Error: Division by zero", compiler);
     }
 
     /**
