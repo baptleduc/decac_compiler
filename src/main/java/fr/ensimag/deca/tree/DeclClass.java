@@ -5,10 +5,14 @@ import fr.ensimag.deca.codegen.MethodTable;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ClassType;
 import fr.ensimag.deca.context.ContextualError;
+import fr.ensimag.deca.context.EnvironmentExp;
+import fr.ensimag.deca.context.ExpDefinition;
 import fr.ensimag.deca.context.TypeDefinition;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.deca.tools.SymbolTable.Symbol;
 import java.io.PrintStream;
+import java.util.Iterator;
+import java.util.Map;
 import org.apache.commons.lang.Validate;
 import org.apache.log4j.Logger;
 
@@ -88,35 +92,33 @@ public class DeclClass extends AbstractDeclClass {
         ClassDefinition currentClassDef = nameClass.getClassDefinition();
         currentClassDef.getMembers().empile(envExpSuper);
 
-        EnvironmentExp envExpF = fields.verifyListFields();
-        EnvironmentExp envExpM = fields.verifyListMethods();
+        EnvironmentExp envExpF = fields.verifyListFields(compiler);
+        EnvironmentExp envExpM = methods.verifyListMethods(compiler);
 
-        //Verify that envExpF and envExpM have no symb in common
-        for(Map.Entry<Symbol, ExpDefinition> entry : envExpM.currentEnvironment.entrySet()){
+        // Verify that envExpF and envExpM have no symb in common
+        for (Map.Entry<Symbol, ExpDefinition> entry : envExpM.getCurrentEnvironment().entrySet()) {
             Symbol var = entry.getKey();
-            if(envExpF.currentEnvironment.containsKey(var)){
-                throw new ContextualError("Name of Method"+ var.getName()+ "declared in field environment", var.getLocation());
+            if (envExpF.getCurrentEnvironment().containsKey(var)) {
+                throw new ContextualError("Name of Method" + var.getName() + "declared in field environment",
+                        nameClass.getLocation());
             }
         }
 
-        //add symb of envExpM to envExpF
-        for(Map.Entry<Symbol, ExpDefinition> entry : envExpM.currentEnvironment.entrySet()){
+        // add symb of envExpM to envExpF
+        for (Iterator<Map.Entry<Symbol, ExpDefinition>> it = envExpM.getCurrentEnvironment().entrySet().iterator(); it
+                .hasNext();) {
+            Map.Entry<Symbol, ExpDefinition> entry = it.next();
             Symbol var = entry.getKey();
             ExpDefinition definition = entry.getValue();
-            envExpF.declare(var, definition); // add the key-value
+            try {
+                envExpF.declare(var, definition); // add the key-value
+            } catch (Exception e) {
+                // do nothing
+            }
+
         }
 
         currentClassDef.getMembers().empile(envExpF);
-
-        ClassDefinition newDef = new ClassDefinition()
-
-        EnvironmentType envTypeR = new EnvironmentType(compiler);
-
-        envTypeR.getEnvTypes().declare(nameClass.getName(), newDef);
-
-        envTyperR.empile(compiler.environmentType);
-
-        return envTypeR;
     }
 
         @Override

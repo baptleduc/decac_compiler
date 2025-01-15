@@ -24,24 +24,28 @@ public class DeclMethod extends AbstractDeclMethod {
     }
 
     /**
-    * Pass 2 of [SyntaxeContextuelle]
-    */
-    @Override
-    protected void verifyMethod(DecacCompiler compiler, int index) throws ContextualError {
-        Type methodType = returnType.verifyType(compiler);
-        Signature signature = params.verifyListParams(compiler);
-        EnvironmentExp envExpSuper = superClass.getClassDefinition().getMembers();
-        if(envExpSuper.currentEnvironment.containsKey(methodName.getName())){
-            if(envExpSuper(methodName.getName()).getSignature() != signature){
-                throw new ContextualError("Method"+ var.getName()+ "must have the same sig that inherited method", var.getLocation());
-            }
-            //else if(envExpSuper(methodName.getName()).getType() not subtype of returnType))
-        }
-        MethodDefinition defMethod = new MethodDefinition(returnType, methodName.getLocation(), signature, index+1);
-        EnvironmentExp environmentMethod = new EnvironmentExp();
-        environmentMethod.set(methodName.getName(), defMethod);
-        return environmentMethod;
-    }
+     * Pass 2 of [SyntaxeContextuelle]
+     */
+    // @Override
+    // protected void verifyMethod(DecacCompiler compiler, int index) throws
+    // ContextualError {
+    // Type methodType = returnType.verifyType(compiler);
+    // Signature signature = params.verifyListParams(compiler);
+    // EnvironmentExp envExpSuper = superClass.getClassDefinition().getMembers();
+    // if(envExpSuper.currentEnvironment.containsKey(methodName.getName())){
+    // if(envExpSuper(methodName.getName()).getSignature() != signature){
+    // throw new ContextualError("Method"+ var.getName()+ "must have the same sig
+    // that inherited method", var.getLocation());
+    // }
+    // //else if(envExpSuper(methodName.getName()).getType() not subtype of
+    // returnType))
+    // }
+    // MethodDefinition defMethod = new MethodDefinition(returnType,
+    // methodName.getLocation(), signature, index+1);
+    // EnvironmentExp environmentMethod = new EnvironmentExp();
+    // environmentMethod.set(methodName.getName(), defMethod);
+    // return environmentMethod;
+    // }
 
     @Override
     public void decompile(IndentPrintStream s) {

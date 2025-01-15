@@ -1,5 +1,8 @@
 package fr.ensimag.deca.tree;
 
+import fr.ensimag.deca.DecacCompiler;
+import fr.ensimag.deca.context.ContextualError;
+import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import org.apache.log4j.Logger;
 
@@ -14,13 +17,15 @@ public class ListDeclField extends TreeList<AbstractDeclField> {
     // /**
     // * Pass 2 of [SyntaxeContextuelle]
     // */
-    // void verifyListField(DecacCompiler compiler, ) throws ContextualError {
-    // LOG.debug("verify listClass: start");
-    // for(AbstractDeclClass declClass : getList()){
-    // declClass.verifyClass(compiler);
-    // }
-    // // LOG.debug("verify listClass: end");
-    // }
+    EnvironmentExp verifyListFields(DecacCompiler compiler) throws ContextualError {
+        // LOG.debug("verify listClass: start");
+        // for(AbstractDeclClass declClass : getList()){
+        // declClass.verifyClass(compiler);
+        // }
+        EnvironmentExp envExp = new EnvironmentExp(null);
+        return envExp;
+        // LOG.debug("verify listClass: end");
+    }
 
     @Override
     public void decompile(IndentPrintStream s) {
