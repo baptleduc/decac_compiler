@@ -1,0 +1,15 @@
+// Description:
+//    Program testing method declar whithout params or body
+//
+// Results:
+//    ok
+//
+// History:
+//    Created on 15/01/2025
+
+
+class Test{
+    void MethodTest(){
+	
+    }
+}
