@@ -37,17 +37,17 @@ public class New extends AbstractExpr {
 
     @Override
     String prettyPrintNode() {
-	return "New";
+        return "New";
     }
 
     @Override
     protected void iterChildren(TreeFunction f) {
-	ident.iter(f);
+        ident.iter(f);
     }
 
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
-	ident.prettyPrint(s, prefix, false);
+        ident.prettyPrint(s, prefix, false);
     }
 
     @Override
