@@ -3,7 +3,10 @@ package fr.ensimag.deca.tree;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
+import fr.ensimag.deca.context.ExpDefinition;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.deca.tools.SymbolTable.Symbol;
+import java.util.Map;
 import org.apache.log4j.Logger;
 
 /**
@@ -17,28 +20,26 @@ public class ListDeclMethod extends TreeList<AbstractDeclMethod> {
     /**
      * Pass 2 of [SyntaxeContextuelle]
      */
-    public EnvironmentExp verifyListMethods(DecacCompiler compiler) throws ContextualError {
-        // LOG.debug("verify listMethods: start");
-        // EnvironmentExp envExpR = new EnvironmentExp();
-        // int index = 0;
-        // for(AbstractDeclMethod declMethod : getList()){
-        // EnvironmentExp envExp = declMethod.verifyMethod(compiler, index);
-        // //Check if envexp intersection is null
-        // for(Map.Entry<Symbol, ExpDefinition> entry :
-        // envExp.currentEnvironment.entrySet()){
-        // Symbol var = entry.getKey();
-        // ExpDefinition definition = entry.getValue();
-        // if(envExpR.currentEnvironment.containsKey(var)){
-        // throw new ContextualError("Name of Method"+ var.getName()+ "already existing
-        // in field environment", var.getLocation());
-        // }
-        // envExpR.declare(var, definition); // add the key-value
-        // }
-        // }
-
-        // return envExpR;
-        EnvironmentExp envExp = new EnvironmentExp(null);
-        return envExp;
+    public EnvironmentExp verifyListMethods(DecacCompiler compiler, AbstractIdentifier superClass)
+            throws ContextualError {
+        LOG.debug("verify listMethods: start");
+        EnvironmentExp envExpR = new EnvironmentExp(null);
+        int index = 0;
+        for (AbstractDeclMethod declMethod : getList()) {
+            EnvironmentExp envExp = declMethod.verifyMethod(compiler, superClass, index);
+            // Check if envexp intersection is null
+            for (Map.Entry<Symbol, ExpDefinition> entry : envExp.getCurrentEnvironment().entrySet()) {
+                Symbol var = entry.getKey();
+                ExpDefinition definition = entry.getValue();
+                try {
+                    envExpR.declare(var, definition); // add the key-value
+                } catch (Exception e) {
+                    // do nothing
+                }
+            }
+            index = index + 1;
+        }
+        return envExpR;
         // LOG.debug("verify listClass: end");
     }
 

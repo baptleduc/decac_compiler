@@ -1,5 +1,7 @@
 package fr.ensimag.deca.tree;
 
+import fr.ensimag.deca.DecacCompiler;
+import fr.ensimag.deca.context.Signature;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import org.apache.log4j.Logger;
 
@@ -17,5 +19,10 @@ public class ListDeclParam extends TreeList<AbstractDeclParam> {
             c.decompile(s);
             s.println();
         }
+    }
+
+    Signature verifyListParams(DecacCompiler compiler) {
+        Signature sign = new Signature();
+        return sign;
     }
 }

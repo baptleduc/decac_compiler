@@ -1,11 +1,5 @@
 package fr.ensimag.deca.tree;
 
-import java.io.PrintStream;
-import java.util.Iterator;
-import java.util.Map;
-
-import org.apache.commons.lang.Validate;
-
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.codegen.MethodTable;
 import fr.ensimag.deca.context.ClassDefinition;
@@ -94,19 +88,19 @@ public class DeclClass extends AbstractDeclClass {
      protected void verifyClassMembers(DecacCompiler compiler)
              throws ContextualError {
 
-        EnvironmentExp envExpSuper = superClass.getClassDefinition().getMembers();
-        ClassDefinition currentClassDef = nameClass.getClassDefinition();
+        EnvironmentExp envExpSuper = superClassIdentifier.getClassDefinition().getMembers();
+        ClassDefinition currentClassDef = classIdentifier.getClassDefinition();
         currentClassDef.getMembers().empile(envExpSuper);
 
         EnvironmentExp envExpF = fields.verifyListFields(compiler);
-        EnvironmentExp envExpM = methods.verifyListMethods(compiler);
+        EnvironmentExp envExpM = methods.verifyListMethods(compiler, superClassIdentifier);
 
         // Verify that envExpF and envExpM have no symb in common
         for (Map.Entry<Symbol, ExpDefinition> entry : envExpM.getCurrentEnvironment().entrySet()) {
             Symbol var = entry.getKey();
             if (envExpF.getCurrentEnvironment().containsKey(var)) {
                 throw new ContextualError("Name of Method" + var.getName() + "declared in field environment",
-                        nameClass.getLocation());
+                        classIdentifier.getLocation());
             }
         }
 
@@ -125,6 +119,8 @@ public class DeclClass extends AbstractDeclClass {
         }
 
         currentClassDef.getMembers().empile(envExpF);
+        currentClassDef.setNumberOfMethods(envExpM.getCurrentEnvironment().size());
+        currentClassDef.setNumberOfFields(envExpF.getCurrentEnvironment().size());
     }
 
         @Override
