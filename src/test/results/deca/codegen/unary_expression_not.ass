@@ -5,18 +5,14 @@
 ; Main program
 ; Beginning of main instructions:
 	LOAD #1, R2
-	CMP #0, R2
-	BEQ set_true_1
-	LOAD #1, R2
-	BRA end_0
-set_true_1:
+	BRA Not_end_label_0
 	LOAD #0, R2
-	BRA end_0
-end_0:
+Not_end_label_0:
 	STORE R2, 1(GB)
 	LOAD 1(GB), R2
 	CMP #0, R2
 	BEQ else_2
+then_1:
 	WSTR "ok"
 	WNL
 	BRA end_3

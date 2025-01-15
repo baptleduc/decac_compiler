@@ -1,0 +1,17 @@
+// Description:
+//    If-then-Else statement with not condition
+// Results:
+//    if
+//
+// History:
+//    Created on 12/01/2025
+
+{       
+        int x = 4 ;
+        if (!(x <=0 || x>5)) { // x>0 && x<=5
+            print("if");
+        }
+        else{
+            print("else");
+        }
+}

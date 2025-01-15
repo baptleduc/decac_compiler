@@ -1,0 +1,16 @@
+// Description:
+//    Minimalistic program making Sub arithmetic operation with one variable and one immediate at right
+// Results:
+//    10
+//
+// History:
+//    Created on 08/01/2025
+
+{       
+        int a = 2;
+        int b= 5;
+        int c = 3;
+        int d = 2;
+        int x = a*b + c*d; 
+        println(x);
+}

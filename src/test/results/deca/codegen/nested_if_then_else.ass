@@ -1,5 +1,5 @@
 	TSTO #1	; 1 (variables) + 0 (saved registers) + 0 (temporaries) + 0 (method parameters x 2)
-	BOV stack_overflow_error_16
+	BOV stack_overflow_error_10
 	ADDSP #1
 ; start main program
 ; Main program
@@ -8,87 +8,52 @@
 	STORE R2, 1(GB)
 	LOAD 1(GB), R2
 	CMP #0, R2
-	BGT set_true_1
-	LOAD #0, R2
-	BRA end_0
-set_true_1:
-	LOAD #1, R2
-	BRA end_0
-end_0:
-	CMP #0, R2
-	BEQ else_2
+	BLE else_1
+then_0:
 	LOAD 1(GB), R2
 	CMP #12, R2
-	BLT set_true_6
-	LOAD #0, R2
-	BRA end_5
-set_true_6:
-	LOAD #1, R2
-	BRA end_5
-end_5:
-	LOAD 1(GB), R3
-	CMP #8, R3
-	BGT set_true_8
-	LOAD #0, R3
-	BRA end_7
-set_true_8:
-	LOAD #1, R3
-	BRA end_7
-end_7:
-	CMP #0, R2
-	BEQ set_false_4	; If R2 is false, branch to set_false_4
-	CMP #0, R3
-	BEQ set_false_4	; If R3 is false, branch to set_false_4
-	LOAD #1, R2
-	BRA end_9
-set_false_4:
-	LOAD #0, R2
-end_9:
-	CMP #0, R2
-	BEQ else_10
+	BGE else_4
+	LOAD 1(GB), R2
+	CMP #8, R2
+	BLE else_4
+And_end_label_6:
+then_3:
 	LOAD 1(GB), R2
 	CMP #10, R2
-	BEQ set_true_13
-	LOAD #0, R2
-	BRA end_12
-set_true_13:
-	LOAD #1, R2
-	BRA end_12
-end_12:
-	CMP #0, R2
-	BEQ else_14
+	BNE else_8
+then_7:
 	LOAD 1(GB), R1
 	WINT
 	WNL
-	BRA end_15
-else_14:
+	BRA end_9
+else_8:
 	WSTR "x is either 9 or 11"
 	WNL
-end_15:
-	BRA end_11
-else_10:
+end_9:
+	BRA end_5
+else_4:
 	WSTR "x is outside the range (8, 12)"
 	WNL
-end_11:
-	BRA end_3
-else_2:
+end_5:
+	BRA end_2
+else_1:
 	WSTR "x is negative"
 	WNL
-end_3:
+end_2:
 	HALT
-stack_overflow_error_16:
+stack_overflow_error_10:
 	WSTR "Error: Stack Overflow"
 	WNL
 	ERROR
-overflow_error_18:
+overflow_error_12:
 	WSTR "Error: Overflow during arithmetic operation"
 	WNL
 	ERROR
-io_error_17:
+io_error_11:
 	WSTR "Error: Input/Output error"
 	WNL
 	ERROR
-divide_by_zero_error_19:
+divide_by_zero_error_13:
 	WSTR "Error: Division by zero"
 	WNL
 	ERROR

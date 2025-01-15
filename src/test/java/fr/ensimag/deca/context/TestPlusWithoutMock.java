@@ -3,10 +3,12 @@ package fr.ensimag.deca.context;
 import static org.junit.jupiter.api.Assertions.*;
 
 import fr.ensimag.deca.DecacCompiler;
+import fr.ensimag.deca.tools.DecacInternalError;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.deca.tree.AbstractExpr;
 import fr.ensimag.deca.tree.Plus;
 import fr.ensimag.deca.tree.TreeFunction;
+import fr.ensimag.ima.pseudocode.Label;
 import java.io.PrintStream;
 import org.junit.jupiter.api.Test;
 
@@ -59,6 +61,11 @@ public class TestPlusWithoutMock {
          */
         public void checkProperUse() {
             assertTrue(hasBeenVerified, "verifyExpr has not been called");
+        }
+
+        @Override
+        protected void codeGenBool(DecacCompiler compiler, Label label, boolean branchOn) {
+            throw new DecacInternalError("Should not be called");
         }
     }
 

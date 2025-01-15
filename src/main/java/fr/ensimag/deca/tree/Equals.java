@@ -1,8 +1,9 @@
 package fr.ensimag.deca.tree;
 
-import fr.ensimag.ima.pseudocode.BranchInstruction;
+import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.instructions.BEQ;
+import fr.ensimag.ima.pseudocode.instructions.BNE;
 
 /**
  *
@@ -26,8 +27,12 @@ public class Equals extends AbstractOpExactCmp {
     }
 
     @Override
-    protected BranchInstruction getBranchInstruction(Label setTrueLabel) {
-        return new BEQ(setTrueLabel);
+    protected void codeGenBranch(DecacCompiler compiler, Label label, boolean branchOn) {
+        if (branchOn) {
+            compiler.addInstruction(new BEQ(label));
+        } else {
+            compiler.addInstruction(new BNE(label));
+        }
     }
 
 }

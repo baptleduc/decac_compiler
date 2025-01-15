@@ -1,0 +1,16 @@
+// Description:
+//    Minimalistic program demonstrating an if-then-else statement used less or equal
+// Results:
+//    c is less than 15.
+//
+// History:
+//    Created on 14/01/2025
+
+{
+    int c = 10;
+    if (c >= 15) {
+        println("c is greater than or equal to 15.");
+    } else {
+        println("c is less than 15.");
+    }
+}

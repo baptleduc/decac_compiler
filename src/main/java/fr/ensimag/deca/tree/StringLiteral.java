@@ -5,8 +5,10 @@ import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.Type;
+import fr.ensimag.deca.tools.DecacInternalError;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.ImmediateString;
+import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.instructions.WSTR;
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
@@ -76,6 +78,11 @@ public class StringLiteral extends AbstractStringLiteral {
     @Override
     protected boolean isImmediate() {
         return false;
+    }
+
+    @Override
+    protected void codeGenBool(DecacCompiler compiler, Label label, boolean branchOn) {
+        throw new DecacInternalError("Should not be called");
     }
 
 }

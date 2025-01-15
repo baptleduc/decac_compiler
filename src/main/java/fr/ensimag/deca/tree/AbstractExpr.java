@@ -8,6 +8,7 @@ import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.DecacInternalError;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.DVal;
+import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.instructions.LOAD;
 import fr.ensimag.ima.pseudocode.instructions.WFLOAT;
 import fr.ensimag.ima.pseudocode.instructions.WINT;
@@ -184,4 +185,7 @@ public abstract class AbstractExpr extends AbstractInst {
             s.println();
         }
     }
+
+    protected abstract void codeGenBool(DecacCompiler compiler, Label breakLabel, boolean branchOn);
+
 }

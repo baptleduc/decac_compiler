@@ -6,7 +6,7 @@
 // History:
 //    Created on 12/01/2025
 {
-    boolean a = !true;
+    boolean a = !false;
     if (a){
 	println("ok");
     }

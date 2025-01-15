@@ -5,7 +5,9 @@ import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.Type;
+import fr.ensimag.deca.tools.DecacInternalError;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.instructions.RFLOAT;
 import java.io.PrintStream;
 
@@ -45,6 +47,11 @@ public class ReadFloat extends AbstractReadExpr {
     @Override
     protected void codeGenRead(DecacCompiler compiler) {
         compiler.addInstruction(new RFLOAT());
+    }
+
+    @Override
+    protected void codeGenBool(DecacCompiler compiler, Label label, boolean branchOn) {
+        throw new DecacInternalError("Should not be called");
     }
 
 }

@@ -6,13 +6,8 @@ import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.IndentPrintStream;
-import fr.ensimag.ima.pseudocode.DVal;
-import fr.ensimag.ima.pseudocode.GPRegister;
-import fr.ensimag.ima.pseudocode.ImmediateInteger;
 import fr.ensimag.ima.pseudocode.Label;
-import fr.ensimag.ima.pseudocode.instructions.BEQ;
 import fr.ensimag.ima.pseudocode.instructions.BRA;
-import fr.ensimag.ima.pseudocode.instructions.CMP;
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
 
@@ -74,18 +69,10 @@ public class While extends AbstractInst {
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
         Label startWhile = new Label("start_while");
-        Label endLabel = new Label("end");
+        Label endLabel = new Label("end_while");
 
         compiler.addLabel(startWhile);
-        condition.codeGenInst(compiler);
-        DVal resultDVal = condition.getDVal(compiler);
-        GPRegister resultRegister = resultDVal.codeGenToGPRegister(compiler);
-
-        // If condition is false, branch to end
-        compiler.addInstruction(new CMP(new ImmediateInteger(0), resultRegister));
-        compiler.addInstruction(new BEQ(endLabel));
-
-        // Do the body
+        condition.codeGenBool(compiler, endLabel, false);
         body.codeGenListInst(compiler);
         compiler.addInstruction(new BRA(startWhile));
 

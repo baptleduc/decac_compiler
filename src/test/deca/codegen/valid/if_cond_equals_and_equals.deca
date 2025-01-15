@@ -1,0 +1,17 @@
+// Description:
+//    Minimalistic program making a If-then-else statement. Condition: equals && equals
+// Results:
+//    if
+//
+// History:
+//    Created on 12/01/2025
+
+{       
+        int x = 10;
+        if (x==10 && x==10) {
+            println("if");
+        }
+        else{
+            println("else");
+        }
+}

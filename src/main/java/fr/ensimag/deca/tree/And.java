@@ -27,9 +27,16 @@ public class And extends AbstractOpBool {
     }
 
     @Override
-    protected void codeGenInst(DecacCompiler compiler) {
-        Label setFalse = new Label("set_false");
-        codeGenBooleanOperation(compiler, false, setFalse);
-    }
+    protected void codeGenBool(DecacCompiler compiler, Label label, boolean branchOn) {
+        Label endLabel = new Label("And_end_label");
+        if (branchOn) {
+            getLeftOperand().codeGenBool(compiler, endLabel, false);
+            getRightOperand().codeGenBool(compiler, label, true);
+        } else {
+            getLeftOperand().codeGenBool(compiler, label, false);
+            getRightOperand().codeGenBool(compiler, label, false);
+        }
 
+        compiler.addLabel(endLabel);
+    }
 }
