@@ -72,7 +72,7 @@ Pour développer et tester l'extension ARM, nous utiliserons les outils suivants
      ```
    - Assemblage et linkage pour produire un exécutable à partir d'un fichier assembleur (.s) en entrée : 
      ```sh
-     arm-linux-gnueabihf-gcc -S -o arm/hello_world.s arm/hello_world.c
+     arm-linux-gnueabihf-gcc -S arm/hello_world arm/hello_world.s
      ```
 
 
