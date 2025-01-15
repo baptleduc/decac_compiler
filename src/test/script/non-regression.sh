@@ -366,6 +366,7 @@ run_non_regression_tests() {
                 # If the output file does not exist, remove the temporary output
                 echo "Warning: $output_file does not exist."
                 rm "$tmp_file"
+		#mv "$tmp_file" "$output_file"
             fi
         fi
     done
