@@ -4,7 +4,7 @@
    |      +> [10, 6] Identifier (Car)
    |      +> [builtin] Identifier (Object)
    |      +> ListDeclField [List with 1 elements]
-   |      |  []> [11, 8] [visibility=PUBLIC] DeclField
+   |      |  []> [11, 8] [visibility=public] DeclField
    |      |      +> [11, 4] Identifier (int)
    |      |      +> [11, 8] Identifier (immatriculation)
    |      |      +> [11, 26] Initialization

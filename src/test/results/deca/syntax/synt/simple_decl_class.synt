@@ -4,7 +4,7 @@
    |      +> [11, 6] Identifier (A)
    |      +> [builtin] Identifier (Object)
    |      +> ListDeclField [List with 1 elements]
-   |      |  []> [12, 18] [visibility=PROTECTED] DeclField
+   |      |  []> [12, 18] [visibility=protected] DeclField
    |      |      +> [12, 14] Identifier (int)
    |      |      +> [12, 18] Identifier (x)
    |      |      +> NoInitialization

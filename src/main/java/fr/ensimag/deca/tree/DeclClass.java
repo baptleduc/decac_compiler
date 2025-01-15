@@ -45,11 +45,7 @@ public class DeclClass extends AbstractDeclClass {
 
     @Override
     public void decompile(IndentPrintStream s) {
-        if (superClass.getName().getName().equals("Object")) {
-            s.print("class " + nameClass.getName() + " {");
-        } else {
-            s.print("class " + nameClass.getName() + " extends " + superClass.getName() + " {");
-        }
+        s.print("class " + nameClass.getName() + " extends " + superClass.getName() + " {");
         s.println();
         s.indent();
         fields.decompile(s);

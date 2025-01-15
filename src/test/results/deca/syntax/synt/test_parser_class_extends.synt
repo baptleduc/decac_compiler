@@ -4,7 +4,7 @@
    |  ||  +> [10, 6] Identifier (Car)
    |  ||  +> [builtin] Identifier (Object)
    |  ||  +> ListDeclField [List with 1 elements]
-   |  ||  |  []> [11, 18] [visibility=PROTECTED] DeclField
+   |  ||  |  []> [11, 18] [visibility=protected] DeclField
    |  ||  |      +> [11, 14] Identifier (int)
    |  ||  |      +> [11, 18] Identifier (immatriculation)
    |  ||  |      +> NoInitialization
@@ -13,7 +13,7 @@
    |      +> [14, 6] Identifier (Volkswagen)
    |      +> [14, 25] Identifier (Car)
    |      +> ListDeclField [List with 1 elements]
-   |      |  []> [15, 8] [visibility=PUBLIC] DeclField
+   |      |  []> [15, 8] [visibility=public] DeclField
    |      |      +> [15, 4] Identifier (int)
    |      |      +> [15, 8] Identifier (numeroModel)
    |      |      +> NoInitialization

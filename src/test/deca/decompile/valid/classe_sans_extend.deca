@@ -3,7 +3,7 @@
 //
 // Resultats:
 // class Test extends Object {
-//    int x;
+//    public int x;
 // }
 //
 // Historique:
