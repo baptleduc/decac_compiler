@@ -47,7 +47,7 @@ public class DeclClass extends AbstractDeclClass {
     public void decompile(IndentPrintStream s) {
         s.print("class { ... A FAIRE ... }");
     }
-    
+
     /**
      * Pass 1 of [SyntaxeContextuelle]
      */
@@ -70,7 +70,7 @@ public class DeclClass extends AbstractDeclClass {
         if (compiler.environmentType.getEnvTypes().containsKey(classIdentifier.getName())) {
             throw new ContextualError("Class with the same name already existing", classIdentifier.getLocation());
         }
-	
+
         // add the class to the environment
         TypeDefinition definitionSuper = compiler.environmentType.getEnvTypes().get(superName);
         ClassDefinition classDefinitionSuper = (ClassDefinition) definitionSuper;
@@ -82,11 +82,11 @@ public class DeclClass extends AbstractDeclClass {
         compiler.environmentType.declare(classIdentifier.getName(), classDef);
     }
 
-    //  * Pass 2 of [SyntaxeContextuelle]
-    //  */
-     @Override
-     protected void verifyClassMembers(DecacCompiler compiler)
-             throws ContextualError {
+    // * Pass 2 of [SyntaxeContextuelle]
+    // */
+    @Override
+    protected void verifyClassMembers(DecacCompiler compiler)
+            throws ContextualError {
 
         EnvironmentExp envExpSuper = superClassIdentifier.getClassDefinition().getMembers();
         ClassDefinition currentClassDef = classIdentifier.getClassDefinition();
@@ -123,10 +123,10 @@ public class DeclClass extends AbstractDeclClass {
         currentClassDef.setNumberOfFields(envExpF.getCurrentEnvironment().size());
     }
 
-        @Override
-        protected void verifyClassBody(DecacCompiler compiler) throws ContextualError {
-            throw new UnsupportedOperationException("not yet implemented");
-        }
+    @Override
+    protected void verifyClassBody(DecacCompiler compiler) throws ContextualError {
+        throw new UnsupportedOperationException("not yet implemented");
+    }
 
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
@@ -158,4 +158,3 @@ public class DeclClass extends AbstractDeclClass {
 
     }
 }
-

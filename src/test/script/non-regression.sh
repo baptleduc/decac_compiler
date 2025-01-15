@@ -36,7 +36,7 @@ TMP_DIR="./src/test/results/tmp/"
 
 # Directories containing test files
 INPUT_DIRS_SYNTAX="./src/test/deca/syntax/valid/ ./src/test/deca/syntax/valid/provided/"
-INPUT_DIR_DECOMPILE="./src/test/deca/decompile/"
+INPUT_DIR_DECOMPILE="./src/test/deca/decompile/valid/"
 INPUT_DIR_CODEGEN="./src/test/deca/codegen/valid/ ./src/test/deca/codegen/valid/provided/ ./src/test/deca/codegen/valid/test_arithmetic/ ./src/test/deca/codegen/valid/test_class/ ./src/test/deca/codegen/valid/test_if/ ./src/test/deca/codegen/valid/test_while/"
 INPUT_DIR_CONTEXT="./src/test/deca/context/valid/ ./src/test/deca/context/valid/provided/"
 INPUT_DIR_INVALID_CONTEXT="./src/test/deca/context/invalid/ ./src/test/deca/context/invalid/provided/"
