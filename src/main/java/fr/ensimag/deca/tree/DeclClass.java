@@ -1,5 +1,11 @@
 package fr.ensimag.deca.tree;
 
+import java.io.PrintStream;
+import java.util.Iterator;
+import java.util.Map;
+
+import org.apache.commons.lang.Validate;
+
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.codegen.MethodTable;
 import fr.ensimag.deca.context.ClassDefinition;
