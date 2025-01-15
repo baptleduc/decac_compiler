@@ -3,6 +3,9 @@ package fr.ensimag.deca.context;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.tools.SymbolTable.Symbol;
 import fr.ensimag.deca.tree.Location;
+import fr.ensimag.deca.tree.Identifier;
+import fr.ensimag.deca.tree.AbstractIdentifier;
+import fr.ensimag.deca.context.ClassDefinition;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,8 +44,10 @@ public class EnvironmentType {
 
         // Define the Object class
         Symbol objectSymb = compiler.createSymbol("Object");
+	AbstractIdentifier objectIdent = new Identifier(objectSymb);
         OBJECT = new ClassType(objectSymb, Location.BUILTIN, null); // null = no superclass
-        envTypes.put(objectSymb, new TypeDefinition(OBJECT, Location.BUILTIN));
+	// Add Object to the environment
+        envTypes.put(objectIdent.getName(), new ClassDefinition(OBJECT, Location.BUILTIN,null));
     }
 
     private final Map<Symbol, TypeDefinition> envTypes;

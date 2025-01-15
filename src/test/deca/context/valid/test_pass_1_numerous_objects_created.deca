@@ -1,5 +1,5 @@
 // Description:
-//    Program testing pass 1, enrichisment type environment
+//    Program testing pass 1, creat numerous objects
 //
 // Results:
 //    ok
@@ -7,10 +7,10 @@
 // History:
 //    Created on 14/01/2025
 
-class Test{
+class Test1 {
     
 }
 
-{
-    Test newType;
+class Test2{
+    
 }
