@@ -68,7 +68,7 @@ public class ListDeclClass extends TreeList<AbstractDeclClass> {
     private void codeGenDeclClassObject(DecacCompiler compiler) {
         compiler.addComment("Method table for Object class");
         compiler.incrementOffsetGB(); // Increment offset to be at 1(GB)
-        compiler.addInstruction(new LOAD(new NullOperand(), compiler.getRegister0())); 
+        compiler.addInstruction(new LOAD(new NullOperand(), compiler.getRegister0()));
         compiler.addInstruction(new STORE(compiler.getRegister0(), compiler.getOffsetGB()));
         compiler.incrementOffsetGB(); // Increment offset to be at 2(GB)
         DVal labelDVal = new LabelOperand(LabelManager.OBJECT_EQUALS_LABEL.getLabel());

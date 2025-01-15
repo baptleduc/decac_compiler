@@ -29,7 +29,7 @@ Usage:
 The script stops immediately if an error occurs.
 '
 # Stop script on any command failure
-set -e 
+set -e
 
 # Temporary directory for intermediate files
 TMP_DIR="./src/test/results/tmp/"
@@ -82,192 +82,189 @@ EXTENSION_TEST_CODEGEN="ass"
 OUTPUT_DIR_TEST_CODEGEN="./src/test/results/deca/codegen/"
 OPTIONS_TEST_CODEGEN=""
 
-
-
 ALL_TESTS="$NAME_TEST_LEX $NAME_TEST_SYNT $NAME_TEST_CONTEXT $NAME_TEST_INVALID_CONTEXT $NAME_TEST_DECOMPILE $NAME_TEST_CODEGEN"
-
 
 # Retrieve output directory based on the test name
 get_output_dir() {
     case $1 in
-        $NAME_TEST_LEX)
-            echo $OUTPUT_DIR_TEST_LEX
-            ;;
-        $NAME_TEST_SYNT)
-            echo $OUTPUT_DIR_TEST_SYNT
-            ;;
-	$NAME_TEST_CONTEXT)
-            echo $OUTPUT_DIR_TEST_CONTEXT
-            ;;
-	$NAME_TEST_INVALID_CONTEXT)
-            echo $OUTPUT_DIR_TEST_INVALID_CONTEXT
-            ;;
-        $NAME_TEST_DECOMPILE)
-            echo $OUTPUT_DIR_TEST_DECOMPILE
-            ;;
-        $NAME_TEST_CODEGEN)
-            echo $OUTPUT_DIR_TEST_CODEGEN
-            ;;
-        *)
-            echo "Error: output directory not found for $1."
-            exit 1
-            ;;
+    $NAME_TEST_LEX)
+        echo $OUTPUT_DIR_TEST_LEX
+        ;;
+    $NAME_TEST_SYNT)
+        echo $OUTPUT_DIR_TEST_SYNT
+        ;;
+    $NAME_TEST_CONTEXT)
+        echo $OUTPUT_DIR_TEST_CONTEXT
+        ;;
+    $NAME_TEST_INVALID_CONTEXT)
+        echo $OUTPUT_DIR_TEST_INVALID_CONTEXT
+        ;;
+    $NAME_TEST_DECOMPILE)
+        echo $OUTPUT_DIR_TEST_DECOMPILE
+        ;;
+    $NAME_TEST_CODEGEN)
+        echo $OUTPUT_DIR_TEST_CODEGEN
+        ;;
+    *)
+        echo "Error: output directory not found for $1."
+        exit 1
+        ;;
     esac
 }
 
 # Retrieve input directory based on the test name
 get_input_dir() {
     case $1 in
-        $NAME_TEST_LEX)
-            echo $INPUT_DIRS_SYNTAX
-            ;;
-        $NAME_TEST_SYNT)
-            echo $INPUT_DIRS_SYNTAX
-            ;;
-	$NAME_TEST_CONTEXT)
-            echo $INPUT_DIR_CONTEXT
-            ;;
-	$NAME_TEST_INVALID_CONTEXT)
-            echo $INPUT_DIR_INVALID_CONTEXT
-            ;;
-        $NAME_TEST_DECOMPILE)
-            echo $INPUT_DIR_DECOMPILE
-            ;;
-        $NAME_TEST_CODEGEN)
-            echo $INPUT_DIR_CODEGEN
-            ;;
-        *)
-            echo "Error: input directory not found for $1."
-            exit 1
-            ;;
+    $NAME_TEST_LEX)
+        echo $INPUT_DIRS_SYNTAX
+        ;;
+    $NAME_TEST_SYNT)
+        echo $INPUT_DIRS_SYNTAX
+        ;;
+    $NAME_TEST_CONTEXT)
+        echo $INPUT_DIR_CONTEXT
+        ;;
+    $NAME_TEST_INVALID_CONTEXT)
+        echo $INPUT_DIR_INVALID_CONTEXT
+        ;;
+    $NAME_TEST_DECOMPILE)
+        echo $INPUT_DIR_DECOMPILE
+        ;;
+    $NAME_TEST_CODEGEN)
+        echo $INPUT_DIR_CODEGEN
+        ;;
+    *)
+        echo "Error: input directory not found for $1."
+        exit 1
+        ;;
     esac
 }
 
 # Retrieve executable command based on the test name
 get_exec() {
     case $1 in
-        $NAME_TEST_LEX)
-            echo $EXEC_LEX
-            ;;
-        $NAME_TEST_SYNT)
-            echo $EXEC_SYNT
-            ;;
-	$NAME_TEST_CONTEXT)
-            echo $EXEC_CONTEXT
-            ;;
-	$NAME_TEST_INVALID_CONTEXT)
-            echo $EXEC_INVALID_CONTEXT
-            ;;
-        $NAME_TEST_DECOMPILE)
-            echo $EXEC_DECOMPILE
-            ;;
-        $NAME_TEST_CODEGEN)
-            echo $EXEC_CODEGEN
-            ;;
-        *)
-            echo "Error: executable not found for $1."
-            exit 1
-            ;;
+    $NAME_TEST_LEX)
+        echo $EXEC_LEX
+        ;;
+    $NAME_TEST_SYNT)
+        echo $EXEC_SYNT
+        ;;
+    $NAME_TEST_CONTEXT)
+        echo $EXEC_CONTEXT
+        ;;
+    $NAME_TEST_INVALID_CONTEXT)
+        echo $EXEC_INVALID_CONTEXT
+        ;;
+    $NAME_TEST_DECOMPILE)
+        echo $EXEC_DECOMPILE
+        ;;
+    $NAME_TEST_CODEGEN)
+        echo $EXEC_CODEGEN
+        ;;
+    *)
+        echo "Error: executable not found for $1."
+        exit 1
+        ;;
     esac
 }
 
 # Retrieve output file extension based on the test name
 get_extension() {
     case $1 in
-        $NAME_TEST_LEX)
-            echo $EXTENSION_TEST_LEX
-            ;;
-        $NAME_TEST_SYNT)
-            echo $EXTENSION_TEST_SYNT
-            ;;
-	$NAME_TEST_CONTEXT)
-            echo $EXTENSION_TEST_CONTEXT
-            ;;
-	$NAME_TEST_INVALID_CONTEXT)
-            echo $EXTENSION_TEST_INVALID_CONTEXT
-            ;;
-        $NAME_TEST_DECOMPILE)
-            echo $EXTENSION_TEST_DECOMPILE
-            ;;
-        $NAME_TEST_CODEGEN)
-            echo $EXTENSION_TEST_CODEGEN
-            ;;
-        *)
-            echo "Erreur : extension non trouvée pour $1."
-            exit 1
-            ;;
+    $NAME_TEST_LEX)
+        echo $EXTENSION_TEST_LEX
+        ;;
+    $NAME_TEST_SYNT)
+        echo $EXTENSION_TEST_SYNT
+        ;;
+    $NAME_TEST_CONTEXT)
+        echo $EXTENSION_TEST_CONTEXT
+        ;;
+    $NAME_TEST_INVALID_CONTEXT)
+        echo $EXTENSION_TEST_INVALID_CONTEXT
+        ;;
+    $NAME_TEST_DECOMPILE)
+        echo $EXTENSION_TEST_DECOMPILE
+        ;;
+    $NAME_TEST_CODEGEN)
+        echo $EXTENSION_TEST_CODEGEN
+        ;;
+    *)
+        echo "Erreur : extension non trouvée pour $1."
+        exit 1
+        ;;
     esac
 }
 
 # Retrieve options based on the test name
 get_options() {
     case $1 in
-        $NAME_TEST_LEX)
-            echo $OPTIONS_TEST_LEX
-            ;;
-        $NAME_TEST_SYNT)
-            echo $OPTIONS_TEST_SYNT
-            ;;
-	$NAME_TEST_CONTEXT)
-            echo $OPTIONS_TEST_CONTEXT
-            ;;
-	$NAME_TEST_INVALID_CONTEXT)
-            echo $OPTIONS_TEST_INVALID_CONTEXT
-            ;;
-        $NAME_TEST_DECOMPILE)
-            echo $OPTIONS_DECOMPILE
-            ;;
-        $NAME_TEST_CODEGEN)
-            echo $OPTIONS_TEST_CODEGEN
-            ;;
-        *)
-            echo "Erreur : options non trouvées pour $1."
-            exit 1
-            ;;
+    $NAME_TEST_LEX)
+        echo $OPTIONS_TEST_LEX
+        ;;
+    $NAME_TEST_SYNT)
+        echo $OPTIONS_TEST_SYNT
+        ;;
+    $NAME_TEST_CONTEXT)
+        echo $OPTIONS_TEST_CONTEXT
+        ;;
+    $NAME_TEST_INVALID_CONTEXT)
+        echo $OPTIONS_TEST_INVALID_CONTEXT
+        ;;
+    $NAME_TEST_DECOMPILE)
+        echo $OPTIONS_DECOMPILE
+        ;;
+    $NAME_TEST_CODEGEN)
+        echo $OPTIONS_TEST_CODEGEN
+        ;;
+    *)
+        echo "Erreur : options non trouvées pour $1."
+        exit 1
+        ;;
     esac
 }
 
-# Execute syntax-related tests (test_lex, test_synt) and save output to a temporary file for comparison (ex : test_lex file.deca > tmp_file.lex) 
-exec_test_syntax(){
+# Execute syntax-related tests (test_lex, test_synt) and save output to a temporary file for comparison (ex : test_lex file.deca > tmp_file.lex)
+exec_test_syntax() {
     executable=$1
     options=$2
     file=$3
     tmp_file=$4
 
-    $executable $options "$file" > "$tmp_file"
+    $executable $options "$file" >"$tmp_file"
 }
 
-# Execute context-related tests and save output to a temporary file for comparison (ex : test_context file.deca > tmp_file.synt) 
-exec_test_context(){
+# Execute context-related tests and save output to a temporary file for comparison (ex : test_context file.deca > tmp_file.synt)
+exec_test_context() {
     executable=$1
     options=$2
     file=$3
     tmp_file=$4
 
-    $executable $options "$file" > "$tmp_file"
+    $executable $options "$file" >"$tmp_file"
 }
 
-# Execute invalid-context-related tests and save output to a temporary file for comparison (ex : test_context file.deca > tmp_file.synt 2>&1) 
-exec_test_invalid_context(){
+# Execute invalid-context-related tests and save output to a temporary file for comparison (ex : test_context file.deca > tmp_file.synt 2>&1)
+exec_test_invalid_context() {
     executable=$1
     options=$2
     file=$3
     tmp_file=$4
 
-    $executable $options "$file" > "$tmp_file" 2>&1 || true
+    $executable $options "$file" >"$tmp_file" 2>&1 || true
 }
 # Execute decompilation tests and save output to a temporary file for comparison (ex : decac -p file.deca > tmp_file.synt)
-exec_test_decompile(){
+exec_test_decompile() {
     executable=$1
     options=$2
     file=$3
     tmp_file=$4
 
-    $executable $options "$file" > "$tmp_file" 2>&1
+    $executable $options "$file" >"$tmp_file" 2>&1
 }
 
 # Execute codegen tests and save output to a temporary file for comparison (ex : decac file.deca > tmp_file.ass)
-exec_test_codegen(){
+exec_test_codegen() {
     executable=$1
     options=$2
     file=$3
@@ -278,7 +275,7 @@ exec_test_codegen(){
 }
 
 # Generic execution function for tests
-exec_test(){
+exec_test() {
     name_test=$1
     executable=$2
     options=$3
@@ -286,32 +283,31 @@ exec_test(){
     tmp_file=$5
 
     case $1 in
-        $NAME_TEST_LEX)
-            exec_test_syntax "$executable" "$options" "$file" "$tmp_file"
-            ;;
-        $NAME_TEST_SYNT)
-            exec_test_syntax "$executable" "$options" "$file" "$tmp_file"
-            ;;
-	$NAME_TEST_CONTEXT)
-            exec_test_context "$executable" "$options" "$file" "$tmp_file"
-            ;;
-	$NAME_TEST_INVALID_CONTEXT)
-            exec_test_invalid_context "$executable" "$options" "$file" "$tmp_file"
-            ;;
-        $NAME_TEST_DECOMPILE)
-            exec_test_decompile "$executable" "$options" "$file" "$tmp_file"
-            ;;
-        $NAME_TEST_CODEGEN)
-            exec_test_codegen "$executable" "$options" "$file" "$tmp_file"
-            ;;
-        *)
-            echo "Erreur : test exec non trouvé pour $1."
-            exit 1
-            ;;
+    $NAME_TEST_LEX)
+        exec_test_syntax "$executable" "$options" "$file" "$tmp_file"
+        ;;
+    $NAME_TEST_SYNT)
+        exec_test_syntax "$executable" "$options" "$file" "$tmp_file"
+        ;;
+    $NAME_TEST_CONTEXT)
+        exec_test_context "$executable" "$options" "$file" "$tmp_file"
+        ;;
+    $NAME_TEST_INVALID_CONTEXT)
+        exec_test_invalid_context "$executable" "$options" "$file" "$tmp_file"
+        ;;
+    $NAME_TEST_DECOMPILE)
+        exec_test_decompile "$executable" "$options" "$file" "$tmp_file"
+        ;;
+    $NAME_TEST_CODEGEN)
+        exec_test_codegen "$executable" "$options" "$file" "$tmp_file"
+        ;;
+    *)
+        echo "Erreur : test exec non trouvé pour $1."
+        exit 1
+        ;;
     esac
 
 }
-
 
 # Function to execute a non-regression test.
 #
@@ -326,7 +322,7 @@ exec_test(){
 #   Runs tests on `.deca` files, saves outputs temporarily, and compares them to expected results.
 #   Displays differences if mismatched and stops on errors. Cleans up temporary files after comparison
 run_non_regression_tests() {
-    
+
     input_dir=$1
     output_dir=$2
     options=$3
@@ -345,8 +341,7 @@ run_non_regression_tests() {
     # Détermine l'extension des fichiers de sortie (lex ou synt)
     extension=$(get_extension $name_test)
 
-    for file in "$input_dir"*.deca
-    do
+    for file in "$input_dir"*.deca; do
         if [ -f "$file" ]; then
             echo "Processing file: $file"
             output_file="$output_dir$(basename "${file%.deca}").$extension"
@@ -356,7 +351,7 @@ run_non_regression_tests() {
 
             if [ -f "$output_file" ]; then
                 # Compare les résultats avec le fichier existant
-                if ! diff "$output_file" "$tmp_file" > /dev/null; then
+                if ! diff "$output_file" "$tmp_file" >/dev/null; then
                     echo "Error: $output_file and $tmp_file differ."
                     diff "$output_file" "$tmp_file"
                     exit 1
@@ -366,22 +361,19 @@ run_non_regression_tests() {
                 # If the output file does not exist, remove the temporary output
                 echo "Warning: $output_file does not exist."
                 rm "$tmp_file"
-		#mv "$tmp_file" "$output_file"
+                #mv "$tmp_file" "$output_file"
             fi
         fi
     done
 }
 
-
-
-
 # Main function to execute all tests
 main() {
     for test_name in $ALL_TESTS; do
         echo "[BEGIN] : $test_name"
-            for input_dir in $(get_input_dir $test_name); do
-                run_non_regression_tests "$input_dir" "$(get_output_dir $test_name)" "$(get_options $test_name)" "$(get_exec $test_name)" "$test_name"
-            done
+        for input_dir in $(get_input_dir $test_name); do
+            run_non_regression_tests "$input_dir" "$(get_output_dir $test_name)" "$(get_options $test_name)" "$(get_exec $test_name)" "$test_name"
+        done
         echo "[SUCCESS] : $executable"
     done
 }
