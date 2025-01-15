@@ -1,0 +1,1 @@
+./src/test/deca/context/invalid/test_pass_1_object_with_non_class_superclass.deca:10:20: SuperClassint is not a class

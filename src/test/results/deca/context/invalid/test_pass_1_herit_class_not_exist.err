@@ -1,0 +1,1 @@
+./src/test/deca/context/invalid/test_pass_1_herit_class_not_exist.deca:10:19: SuperClass NonDeclareis not in the environment
