@@ -55,7 +55,6 @@ public class Assign extends AbstractBinaryExpr {
         s.print(" = ");
         getRightOperand().decompile(s);
     }
-    
 
     @Override
     protected boolean isImmediate() {

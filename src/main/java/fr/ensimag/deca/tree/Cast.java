@@ -50,6 +50,7 @@ public class Cast extends AbstractExpr {
         s.print(")");
 
     }
+
     @Override
     protected void iterChildren(TreeFunction f) {
         typeIdentifier.iter(f);
