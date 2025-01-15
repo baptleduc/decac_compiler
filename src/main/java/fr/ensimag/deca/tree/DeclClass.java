@@ -39,7 +39,9 @@ public class DeclClass extends AbstractDeclClass {
     public void decompile(IndentPrintStream s) {
         s.print("class { ... A FAIRE ... }");
     }
-
+    /**
+     * Pass 1 of [SyntaxeContextuelle]
+     */
     @Override
     protected void verifyClass(DecacCompiler compiler) throws ContextualError {
 
@@ -51,46 +53,73 @@ public class DeclClass extends AbstractDeclClass {
             throw new ContextualError("SuperClass is not in the environment", superClass.getLocation());
         }
         // Check if the name in the environment is a class and not a predef_type
-        else if (!compiler.environmentType.getEnvTypes().get(superName).isClass()) {
+        else if (!compiler.environmentType.getEnvTypes().get(superName).getType().isClass()) {
             throw new ContextualError("SuperClass is not in the environment", superClass.getLocation());
         }
         ClassDefinition definitionSuper = superClass.getClassDefinition();
 
         // Check if envtype(name) is already defined
-        if (compiler.environmentType.getEnvTypes().containsKey(nameClass)) {
+        if (compiler.environmentType.getEnvTypes().containsKey(nameClass.getName())) {
             throw new ContextualError("Class with the same name already existing", nameClass.getLocation());
         }
 
         // add the class to the environment
         ClassType classType = new ClassType(nameClass.getName(), nameClass.getLocation(), definitionSuper);
-        ClassDefinition classDef = new ClassDefinition(classType, nameClass.getLocation(), definitionSuper);
-
+        ClassDefinition classDef = new ClassDefinition(classType, nameClass.getLocation(), null);
+        nameClass.getName().setDefinition(classDef);
         compiler.environmentType.declare(nameClass.getName(), classDef);
     }
 
-    @Override
-    protected void verifyClassMembers(DecacCompiler compiler)
-            throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
+    // /**
+    //  * Pass 2 of [SyntaxeContextuelle]
+    //  */
+    // @Override
+    // protected void verifyClassMembers(DecacCompiler compiler)
+    //         throws ContextualError {
+
+    //     EnvironmentExp envExpSuper = superClass.getClassDefinition().getMembers();
+    //     ClassDefinition currentClassDef = nameClass.getClassDefinition();
+    //     currentClassDef.getMembers().empile(envExpSuper);
+
+    //     EnvironmentExp envExpF = fields.verifyListFields();
+    //     EnvironmentExp envExpM = fields.verifyListMethods();
+
+    //     //Verify that envExpF and envExpM have no symb in common
+    //     for(Map.Entry<Symbol, ExpDefinition> entry : envExpM.currentEnvironment.entrySet()){
+    //         Symbol var = entry.getKey();
+    //         if(envExpF.currentEnvironment.containsKey(var)){
+    //             throw new ContextualError("Name of Method"+ var.getName()+ "declared in field environment", var.getLocation())
+    //         }
+    //     }
+
+    //     //add symb of envExpM to envExpF
+    //     for(Map.Entry<Symbol, ExpDefinition> entry : envExpM.currentEnvironment.entrySet()){
+    //         Symbol var = entry.getKey();
+    //         ExpDefinition definition = entry.getValue();
+    //         envExpF.declare(var, definition); // add the key-value
+    //     }
+
+    //     currentClassDef.getMembers().empile(envExpF);
+    // }
+
+        @Override
+        protected void verifyClassBody(DecacCompiler compiler) throws ContextualError {
+            throw new UnsupportedOperationException("not yet implemented");
+        }
+
+        @Override
+        protected void prettyPrintChildren(PrintStream s, String prefix) {
+            nameClass.prettyPrint(s, prefix, false);
+            superClass.prettyPrint(s, prefix, false);
+            fields.prettyPrint(s, prefix, false);
+            methods.prettyPrint(s, prefix, true);
+
+        }
+
+        @Override
+        protected void iterChildren(TreeFunction f) {
+            throw new UnsupportedOperationException("Not yet supported");
+        }
     }
 
-    @Override
-    protected void verifyClassBody(DecacCompiler compiler) throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
-    }
 
-    @Override
-    protected void prettyPrintChildren(PrintStream s, String prefix) {
-        nameClass.prettyPrint(s, prefix, false);
-        superClass.prettyPrint(s, prefix, false);
-        fields.prettyPrint(s, prefix, false);
-        methods.prettyPrint(s, prefix, true);
-
-    }
-
-    @Override
-    protected void iterChildren(TreeFunction f) {
-        throw new UnsupportedOperationException("Not yet supported");
-    }
-
-}

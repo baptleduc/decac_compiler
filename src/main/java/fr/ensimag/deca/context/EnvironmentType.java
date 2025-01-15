@@ -57,7 +57,7 @@ public class EnvironmentType {
     public final StringType STRING;
     public final BooleanType BOOLEAN;
     public final ClassType OBJECT;
-    
+
     public Map<Symbol, TypeDefinition> getEnvTypes() {
         return envTypes;
     }
