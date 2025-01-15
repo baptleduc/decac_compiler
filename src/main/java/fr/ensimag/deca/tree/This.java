@@ -36,7 +36,11 @@ public class This extends AbstractExpr {
 
     @Override
     public void decompile(IndentPrintStream s) {
-        throw new UnsupportedOperationException("not yet implemented");
+        if (isImplicit) {
+            s.print("");
+        } else {
+            s.print("this");
+        }
     }
 
     @Override

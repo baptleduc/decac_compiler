@@ -12,20 +12,27 @@ import java.io.PrintStream;
 public class DeclField extends AbstractDeclField {
 
     private Visibility visibility;
+    private AbstractIdentifier type;
     private AbstractIdentifier name;
     private AbstractInitialization init;
 
     public DeclField(Visibility visibility, AbstractIdentifier type, AbstractIdentifier name,
             AbstractInitialization init) {
         this.visibility = visibility;
-        setType(type);
+        this.type = type;
+        setType(type); // TODO : removes ? 
         this.name = name;
         this.init = init;
     }
 
     @Override
     public void decompile(IndentPrintStream s) {
-        s.print(" ... A FAIRE ... ");
+        s.print(visibility.toString() + " ");
+        type.decompile(s);
+        s.print(" ");
+        name.decompile(s);
+        init.decompile(s);
+        s.println(";");
     }
 
     @Override
@@ -42,7 +49,10 @@ public class DeclField extends AbstractDeclField {
 
     @Override
     protected void iterChildren(TreeFunction f) {
-        throw new UnsupportedOperationException("Not yet supported");
+        type.iter(f);
+        name.iter(f);
+        init.iter(f);
+        
     }
 
 }

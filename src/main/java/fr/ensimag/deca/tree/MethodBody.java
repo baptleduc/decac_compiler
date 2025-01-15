@@ -20,7 +20,12 @@ public class MethodBody extends AbstractMethodBody {
 
     @Override
     public void decompile(IndentPrintStream s) {
-        s.print(" ... A FAIRE ... ");
+        s.println("{");
+        s.indent();
+        listDeclVar.decompile(s);
+        listInst.decompile(s);
+        s.unindent();
+        s.print("}");
     }
 
     @Override
@@ -31,7 +36,8 @@ public class MethodBody extends AbstractMethodBody {
 
     @Override
     protected void iterChildren(TreeFunction f) {
-        return;
+        listDeclVar.iter(f);
+        listInst.iter(f);
     }
 
 }

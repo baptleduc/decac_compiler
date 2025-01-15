@@ -3,10 +3,15 @@
 //
 // Resultats:
 // class Test {
-//    int x;
-//    int y;
-//    void printX() {
-//        println(x);
+//    public int x;
+//    public int y;
+//
+//    void setX(int x){
+//          this.x = x;
+//    }
+//
+//    void getX(int x){
+//          return this.x;
 //    }
 // }
 //
@@ -19,8 +24,12 @@
 // Les méthodes sont regroupées après les champs
 class Test {
    int x;
-   void printX() {
-       println(x);
+   void setX(int x) {
+       this.x = x;
+   }
+
+   void getX(int x){
+    return this.x;
    }
    int y;
 }
