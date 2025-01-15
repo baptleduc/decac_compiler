@@ -11,6 +11,7 @@ import fr.ensimag.ima.pseudocode.DAddr;
 import fr.ensimag.ima.pseudocode.DVal;
 import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.LabelOperand;
+import fr.ensimag.ima.pseudocode.NullOperand;
 import fr.ensimag.ima.pseudocode.instructions.LEA;
 import fr.ensimag.ima.pseudocode.instructions.LOAD;
 import fr.ensimag.ima.pseudocode.instructions.STORE;
@@ -72,6 +73,25 @@ public class MethodTable {
                 // Not a method
             }
         }
+    }
+
+    /*
+     * CodeGen for the declaration of the Object class
+     */
+    public static void codeGenTableObjectClass(DecacCompiler compiler) {
+        compiler.addComment("Method table for Object class");
+        compiler.incrementOffsetGB(); // Increment offset to be at 1(GB)
+
+        // Null pointer
+        compiler.addInstruction(new LOAD(new NullOperand(), compiler.getRegister0()));
+        compiler.addInstruction(new STORE(compiler.getRegister0(), compiler.getOffsetGB()));
+        compiler.incrementOffsetGB(); // Increment offset to be at 2(GB)
+
+        // Equals method
+        DVal labelDVal = new LabelOperand(LabelManager.OBJECT_EQUALS_LABEL.getLabel());
+        compiler.addInstruction(new LOAD(labelDVal, compiler.getRegister0()));
+        compiler.addInstruction(new STORE(compiler.getRegister0(), compiler.getOffsetGB()));
+        compiler.incrementOffsetGB(); // Increment offset to be at 3(GB)
     }
 
     /**

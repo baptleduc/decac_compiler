@@ -1,14 +1,9 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.DecacCompiler;
-import fr.ensimag.deca.codegen.LabelManager;
+import fr.ensimag.deca.codegen.MethodTable;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.tools.IndentPrintStream;
-import fr.ensimag.ima.pseudocode.DVal;
-import fr.ensimag.ima.pseudocode.LabelOperand;
-import fr.ensimag.ima.pseudocode.NullOperand;
-import fr.ensimag.ima.pseudocode.instructions.LOAD;
-import fr.ensimag.ima.pseudocode.instructions.STORE;
 import org.apache.log4j.Logger;
 
 /**
@@ -56,25 +51,10 @@ public class ListDeclClass extends TreeList<AbstractDeclClass> {
         if (getList().isEmpty()) {
             return;
         }
-        codeGenDeclClassObject(compiler);
+        MethodTable.codeGenTableObjectClass(compiler);
         for (AbstractDeclClass declClass : getList()) {
             declClass.codeGenDeclClass(compiler);
         }
-    }
-
-    /*
-     * CodeGen for the declaration of the Object class
-     */
-    private void codeGenDeclClassObject(DecacCompiler compiler) {
-        compiler.addComment("Method table for Object class");
-        compiler.incrementOffsetGB(); // Increment offset to be at 1(GB)
-        compiler.addInstruction(new LOAD(new NullOperand(), compiler.getRegister0()));
-        compiler.addInstruction(new STORE(compiler.getRegister0(), compiler.getOffsetGB()));
-        compiler.incrementOffsetGB(); // Increment offset to be at 2(GB)
-        DVal labelDVal = new LabelOperand(LabelManager.OBJECT_EQUALS_LABEL.getLabel());
-        compiler.addInstruction(new LOAD(labelDVal, compiler.getRegister0()));
-        compiler.addInstruction(new STORE(compiler.getRegister0(), compiler.getOffsetGB()));
-        compiler.incrementOffsetGB(); // Increment offset to be at 3(GB)
     }
 
 }
