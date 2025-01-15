@@ -53,8 +53,10 @@ public class ListDeclClass extends TreeList<AbstractDeclClass> {
     }
 
     public void codeGenListDeclClass(DecacCompiler compiler) {
+        if (getList().isEmpty()) {
+            return;
+        }
         codeGenDeclClassObject(compiler);
-
         for (AbstractDeclClass declClass : getList()) {
             declClass.codeGenDeclClass(compiler);
         }
@@ -65,13 +67,14 @@ public class ListDeclClass extends TreeList<AbstractDeclClass> {
      */
     private void codeGenDeclClassObject(DecacCompiler compiler) {
         compiler.addComment("Method table for Object class");
-        compiler.addInstruction(new LOAD(new NullOperand(), compiler.getRegister0()));
+        compiler.incrementOffsetGB(); // Increment offset to be at 1(GB)
+        compiler.addInstruction(new LOAD(new NullOperand(), compiler.getRegister0())); 
         compiler.addInstruction(new STORE(compiler.getRegister0(), compiler.getOffsetGB()));
-        compiler.incrementOffsetGB();
+        compiler.incrementOffsetGB(); // Increment offset to be at 2(GB)
         DVal labelDVal = new LabelOperand(LabelManager.OBJECT_EQUALS_LABEL.getLabel());
         compiler.addInstruction(new LOAD(labelDVal, compiler.getRegister0()));
         compiler.addInstruction(new STORE(compiler.getRegister0(), compiler.getOffsetGB()));
-        compiler.incrementOffsetGB();
+        compiler.incrementOffsetGB(); // Increment offset to be at 3(GB)
     }
 
 }

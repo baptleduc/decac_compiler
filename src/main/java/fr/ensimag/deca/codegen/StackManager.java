@@ -27,9 +27,9 @@ public class StackManager {
     private LinkedList<Integer> idxAvailableGPRegisters;
     private LinkedList<Integer> idxUsedGPRegisters;
 
-    private int offsetGB = 1;
-    private int offsetLB = 1;
-    private int offsetSP = 1;
+    private int offsetGB = 0;
+    private int offsetLB = 0;
+    private int offsetSP = 0;
 
     private DAddr lastMethodTableAddr = getOffsetGB();
 
