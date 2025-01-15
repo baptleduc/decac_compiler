@@ -9,7 +9,6 @@ import fr.ensimag.deca.tools.DecacInternalError;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.DVal;
 import fr.ensimag.ima.pseudocode.Label;
-
 import java.io.PrintStream;
 
 /**
@@ -67,6 +66,5 @@ public class Null extends AbstractExpr {
     protected void codeGenBool(DecacCompiler compiler, Label label, boolean branchOn) {
         throw new DecacInternalError("Should not be called");
     }
-
 
 }
