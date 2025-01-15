@@ -16,7 +16,10 @@
 //EXPR → Cast
 //Cast → Cast [ IDENTIFIER EXPR ]
 
+// in english
+
+
 // Cast explicite
 {
-    int x = (int) 5.0;
+    int x = (int)(y);
 }

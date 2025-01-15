@@ -18,12 +18,20 @@ import java.io.PrintStream;
  */
 public class Cast extends AbstractExpr {
 
-    private AbstractIdentifier leftOperand;
-    private AbstractExpr rightOperand;
+    private AbstractIdentifier typeIdentifier;
+    private AbstractExpr expressionToCast;
 
-    public Cast(AbstractIdentifier leftOperand, AbstractExpr rightOperand) {
-        this.leftOperand = leftOperand;
-        this.rightOperand = rightOperand;
+    public Cast(AbstractIdentifier typeIdentifier, AbstractExpr expressionToCast) {
+        this.typeIdentifier = typeIdentifier;
+        this.expressionToCast = expressionToCast;
+    }
+
+    public AbstractExpr getTypeIdentifier() {
+        return typeIdentifier;
+    }
+
+    public AbstractExpr getExpressionToCast() {
+        return expressionToCast;
     }
 
     @Override
@@ -34,22 +42,24 @@ public class Cast extends AbstractExpr {
 
     @Override
     public void decompile(IndentPrintStream s) {
-        throw new UnsupportedOperationException("not yet implemented");
-    }
+        s.print("(");
+        typeIdentifier.decompile(s);
+        s.print(") ");
+        s.print("(");
+        expressionToCast.decompile(s);
+        s.print(")");
 
-    @Override
-    String prettyPrintNode() {
-        throw new UnsupportedOperationException("not yet implemented");
     }
-
     @Override
     protected void iterChildren(TreeFunction f) {
-        throw new UnsupportedOperationException("not yet implemented");
+        typeIdentifier.iter(f);
+        expressionToCast.iter(f);
     }
 
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
-        throw new UnsupportedOperationException("not yet implemented");
+        typeIdentifier.prettyPrint(s, prefix, false);
+        expressionToCast.prettyPrint(s, prefix, true);
     }
 
     @Override
