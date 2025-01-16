@@ -7,6 +7,7 @@ import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.FieldDefinition;
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.IndentPrintStream;
+
 import java.io.PrintStream;
 import org.apache.log4j.Logger;
 

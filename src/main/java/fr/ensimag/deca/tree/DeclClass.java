@@ -1,5 +1,10 @@
 package fr.ensimag.deca.tree;
 
+import java.io.PrintStream;
+
+import org.apache.commons.lang.Validate;
+import org.apache.log4j.Logger;
+
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.codegen.MethodTable;
 import fr.ensimag.deca.context.ClassDefinition;
@@ -105,7 +110,6 @@ public class DeclClass extends AbstractDeclClass {
             throw new ContextualError("Method declared in field environment",
                     classIdentifier.getLocation());
         }
-
         currentClassDef.getMembers().empile(envExpF);
     }
 

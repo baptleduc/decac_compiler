@@ -60,7 +60,7 @@ public class EnvironmentExp {
         return empiledEnv;
     }
 
-    public void directSum(EnvironmentExp env2) throws DoubleDefException {
+    public void directSum(EnvironmentExp env2)throws DoubleDefException{
         // Verify that this and env2 have no symb in common
         for (Map.Entry<Symbol, ExpDefinition> entry : env2.getCurrentEnvironment().entrySet()) {
             Symbol var = entry.getKey();
