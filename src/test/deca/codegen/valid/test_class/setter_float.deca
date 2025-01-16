@@ -1,0 +1,21 @@
+// Description:
+//    Minimalistic class with attribut
+// Results:
+//    none
+//
+// History:
+//    Created on 16/01/2025
+
+class A {
+    protected float x ;
+
+    void setX(float x) {
+        this.x = x ;
+    }
+}
+
+{
+    A a = new A() ;
+
+    a.setX(1.2) ;
+}
