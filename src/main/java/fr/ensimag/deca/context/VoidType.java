@@ -20,7 +20,7 @@ public class VoidType extends Type {
 
     @Override
     public boolean sameType(Type otherType) {
-	 return otherType.isVoid();
+        return otherType.isVoid();
     }
 
 }

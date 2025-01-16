@@ -24,7 +24,7 @@ public class Signature {
         return args.size();
     }
 
-    public boolean sameSign(Signature otherSignature){
+    public boolean sameSign(Signature otherSignature) {
         if (size() != otherSignature.size()) {
             return false;
         }

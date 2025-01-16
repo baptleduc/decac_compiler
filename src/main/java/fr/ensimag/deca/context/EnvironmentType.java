@@ -2,10 +2,6 @@ package fr.ensimag.deca.context;
 
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.tools.SymbolTable.Symbol;
-import fr.ensimag.deca.tree.AbstractIdentifier;
-import fr.ensimag.deca.tree.Identifier;
-import fr.ensimag.deca.context.MethodDefinition;
-import fr.ensimag.deca.context.Signature;
 import fr.ensimag.deca.tree.Location;
 import java.util.HashMap;
 import java.util.Map;
@@ -21,7 +17,6 @@ import java.util.Map;
 public class EnvironmentType {
     private final Map<Symbol, TypeDefinition> envTypes = new HashMap<Symbol, TypeDefinition>();
 
-    
     public EnvironmentType(DecacCompiler compiler) {
 
         Symbol intSymb = compiler.createSymbol("int");
@@ -44,28 +39,27 @@ public class EnvironmentType {
         STRING = new StringType(stringSymb);
         // not added to envTypes, it's not visible for the user.
 
-	// 
+        //
         // Define the Object class
-	Symbol objectSymbol = compiler.createSymbol("Object");
-	OBJECT = new ClassType(objectSymbol,Location.BUILTIN, null);
-	ClassDefinition objectDef = OBJECT.getDefinition();
-	envTypes.put(objectSymbol, objectDef);
+        Symbol objectSymbol = compiler.createSymbol("Object");
+        OBJECT = new ClassType(objectSymbol, Location.BUILTIN, null);
+        ClassDefinition objectDef = OBJECT.getDefinition();
+        envTypes.put(objectSymbol, objectDef);
 
-	// Add the equals method to the environmentExp
-	Signature equalsSign = new Signature();
-	equalsSign.add(OBJECT);
-	MethodDefinition equalsDef = new MethodDefinition(BOOLEAN, Location.BUILTIN, equalsSign, 1);
-	EnvironmentExp objectEnvExp = objectDef.getMembers();
-	Symbol equalsSymbol = compiler.createSymbol("equals");
-	try{
-	    objectEnvExp.declare(equalsSymbol,equalsDef);   
-	} catch (Exception e) {
-	    // nothing to do
-	}
-	objectDef.setNumberOfFields(0);
-	objectDef.setNumberOfMethods(1);
+        // Add the equals method to the environmentExp
+        Signature equalsSign = new Signature();
+        equalsSign.add(OBJECT);
+        MethodDefinition equalsDef = new MethodDefinition(BOOLEAN, Location.BUILTIN, equalsSign, 1);
+        EnvironmentExp objectEnvExp = objectDef.getMembers();
+        Symbol equalsSymbol = compiler.createSymbol("equals");
+        try {
+            objectEnvExp.declare(equalsSymbol, equalsDef);
+        } catch (Exception e) {
+            // nothing to do
+        }
+        objectDef.setNumberOfFields(0);
+        objectDef.setNumberOfMethods(1);
     }
-
 
     public TypeDefinition defOfType(Symbol s) {
         return envTypes.get(s);
