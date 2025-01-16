@@ -81,9 +81,9 @@ public class DeclClass extends AbstractDeclClass {
         // add the class to the environment
         TypeDefinition definitionSuper = compiler.environmentType.getEnvTypes().get(superName);
         ClassDefinition classDefinitionSuper = (ClassDefinition) definitionSuper;
-        ClassType classType = new ClassType(classIdentifier.getName(), classIdentifier.getLocation(),
-                classDefinitionSuper);
-        ClassDefinition classDef = new ClassDefinition(classType, classIdentifier.getLocation(), null);
+        ClassType classType = new ClassType(classIdentifier.getName(), classIdentifier.getLocation(),classDefinitionSuper);
+	ClassDefinition classDefSuperNoMembers = new ClassDefinition(classDefinitionSuper.getType(), superClassIdentifier.getLocation(), null);
+        ClassDefinition classDef = new ClassDefinition(classType, classIdentifier.getLocation(), classDefSuperNoMembers);
         classIdentifier.setDefinition(classDef);
         superClassIdentifier.setDefinition(definitionSuper);
         compiler.environmentType.declare(classIdentifier.getName(), classDef);
