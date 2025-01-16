@@ -40,6 +40,13 @@ public class MethodTable {
         this.lastMethodAddr = lastMethodAddr;
     }
 
+    public MethodTable(ClassDefinition classDefinition) {
+        this.classDefinition = classDefinition;
+        this.className = classDefinition.getType().getName().getName();
+        this.methods = initializeMethods();
+        this.lastMethodAddr = null;
+    }
+
     /**
      * Initializes the method table by allocating space for all methods
      * (including inherited methods) and setting default values.
@@ -53,7 +60,8 @@ public class MethodTable {
 
         ArrayList<Label> methodsList = new ArrayList<>(totalMethods);
         fillListWithNull(methodsList, totalMethods);
-        methodsList.set(OBJECT_EQUALS_INDEX, LabelManager.OBJECT_EQUALS_LABEL.getLabel());
+        // methodsList.set(OBJECT_EQUALS_INDEX,
+        // LabelManager.OBJECT_EQUALS_LABEL.getLabel());
 
         LOG.debug("Method table initialized: " + methodsList);
         return methodsList;
@@ -130,13 +138,15 @@ public class MethodTable {
      *            The environment containing the methods to be added.
      */
     private void addMethods(String objectName, EnvironmentExp classMembers) {
+        LOG.debug("Adding methods for class : " + objectName);
         Iterator<Symbol> it = classMembers.getSymbolCurrentEnvIterator();
         while (it.hasNext()) {
             Symbol symbol = it.next();
+            LOG.debug("symbol : " + symbol.getName());
             ExpDefinition def = classMembers.get(symbol);
             try {
                 MethodDefinition methodDef = def.asMethodDefinition("Error", classDefinition.getLocation());
-                int idxTable = methodDef.getIndex() + 1; // +1 because the first method is equals
+                int idxTable = methodDef.getIndex();
                 addMethod(idxTable, objectName, symbol.getName());
             } catch (ContextualError e) {
                 // Not a method
@@ -151,11 +161,12 @@ public class MethodTable {
      * @param classDef
      *            The class definition for which the method table is built.
      */
-    private void buildTable(ClassDefinition classDef) {
-        LOG.debug("Building method table for class : " + className);
+    private void buildTable(ClassDefinition classDef, DecacCompiler compiler) {
+        LOG.debug("Building method table for class : " + classDef.getType().getName().getName());
+        ClassDefinition superClass = classDef.getSuperClass();
 
-        if (classDef.getSuperClass() != null) {
-            buildTable(classDef.getSuperClass());
+        if (superClass != null) {
+            buildTable(superClass, compiler);
         }
         addMethods(classDef.getType().getName().getName(), classDef.getMembers());
     }
@@ -191,15 +202,19 @@ public class MethodTable {
      *            The Deca compiler instance used for code generation.
      */
     public void codeGenTable(DecacCompiler compiler) {
-        buildTable(classDefinition);
+        buildTable(classDefinition, compiler);
 
         compiler.addComment("Method Table of class " + className);
 
         // Add Pointer to the last method table
-        compiler.addInstruction(new LEA(lastMethodAddr, compiler.getRegister0()));
+        if (lastMethodAddr != null) {
+            compiler.addInstruction(new LEA(lastMethodAddr, compiler.getRegister0()));
+        } else {
+            compiler.addInstruction(new LOAD(new NullOperand(), compiler.getRegister0())); // Object case, no pointer to
+                                                                                           // last method table
+        }
         compiler.addInstruction(new STORE(compiler.getRegister0(), compiler.getOffsetGB()));
         compiler.incrementOffsetGB();
-
         for (Label label : methods) {
             DVal labelDVal = new LabelOperand(label);
             compiler.addInstruction(new LOAD(labelDVal, compiler.getRegister0()));
