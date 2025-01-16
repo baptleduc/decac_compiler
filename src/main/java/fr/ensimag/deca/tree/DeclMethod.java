@@ -1,11 +1,11 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.DecacCompiler;
+import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.ExpDefinition;
 import fr.ensimag.deca.context.MethodDefinition;
-import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.Signature;
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.IndentPrintStream;
@@ -36,7 +36,8 @@ public class DeclMethod extends AbstractDeclMethod {
      * Pass 2 of [SyntaxeContextuelle]
      */
     @Override
-    protected EnvironmentExp verifyMethod(DecacCompiler compiler,AbstractIdentifier classIdentifier, AbstractIdentifier superClass)
+    protected EnvironmentExp verifyMethod(DecacCompiler compiler, AbstractIdentifier classIdentifier,
+            AbstractIdentifier superClass)
             throws ContextualError {
         Type methodType = returnType.verifyType(compiler);
         Signature signature = params.verifyListParams(compiler);
@@ -44,13 +45,14 @@ public class DeclMethod extends AbstractDeclMethod {
         Type type1 = compiler.environmentType.getEnvTypes().get(returnType.getName()).getType();
         ExpDefinition superClassDefinition = envExpSuper.getCurrentEnvironment().get(methodName.getName());
         MethodDefinition defMethod;
-	ClassDefinition defClass = (ClassDefinition)(compiler.environmentType.getEnvTypes().get(classIdentifier.getName()));
+        ClassDefinition defClass = (ClassDefinition) (compiler.environmentType.getEnvTypes()
+                .get(classIdentifier.getName()));
         MethodDefinition methodSuperClass;
         Signature sign2;
         Type type2;
-	LOG.debug("Number of methods of " + classIdentifier.getName() + " : " + defClass.getNumberOfMethods());
-	int indexMethod = defClass.getNumberOfMethods();
-	
+        LOG.debug("Number of methods of " + classIdentifier.getName() + " : " + defClass.getNumberOfMethods());
+        int indexMethod = defClass.getNumberOfMethods();
+
         if (envExpSuper.getCurrentEnvironment().containsKey(methodName.getName())) {
             methodSuperClass = superClassDefinition.asMethodDefinition("is not a method definition",
                     methodName.getLocation());
@@ -61,15 +63,14 @@ public class DeclMethod extends AbstractDeclMethod {
                     && (type1.sameType(type2) || type1.asClassType("not a class Type", methodName.getLocation())
                             .isSubClassOf(type2.asClassType("not a class Type", methodName.getLocation())))) {
                 // Override Condition
-		indexMethod = methodSuperClass.getIndex();
+                indexMethod = methodSuperClass.getIndex();
             } else {
                 throw new ContextualError(methodName.getName() + " can not be overloaded", methodName.getLocation());
             }
+        } else {
+            defClass.incNumberOfMethods();
+            LOG.debug("inc Number of methods");
         }
-	else{
-	    defClass.incNumberOfMethods();
-	    LOG.debug("inc Number of methods");
-	}
         defMethod = new MethodDefinition(type1, methodName.getLocation(), signature, indexMethod);
 
         EnvironmentExp environmentMethod = new EnvironmentExp(null);
@@ -80,7 +81,7 @@ public class DeclMethod extends AbstractDeclMethod {
         }
         returnType.setType(methodType);
         methodName.setDefinition(defMethod);
-	LOG.debug("Method " + methodName.getName() + " index: " + defMethod.getIndex());
+        LOG.debug("Method " + methodName.getName() + " index: " + defMethod.getIndex());
         return environmentMethod;
     }
 

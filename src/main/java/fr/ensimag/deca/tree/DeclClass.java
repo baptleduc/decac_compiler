@@ -86,7 +86,7 @@ public class DeclClass extends AbstractDeclClass {
         ClassDefinition classDef = new ClassDefinition(classType, classIdentifier.getLocation(),
                 classDefinitionSuper);
         classIdentifier.setDefinition(classDef);
-	superClassIdentifier.setDefinition(classDefinitionSuper);
+        superClassIdentifier.setDefinition(classDefinitionSuper);
         compiler.environmentType.declare(classIdentifier.getName(), classDef);
     }
 
@@ -94,10 +94,10 @@ public class DeclClass extends AbstractDeclClass {
     // */
     @Override
     protected void verifyClassMembers(DecacCompiler compiler)
-	throws ContextualError {
-	LOG.debug(classIdentifier.getName() + " " + superClassIdentifier.getName());
+            throws ContextualError {
+        LOG.debug(classIdentifier.getName() + " " + superClassIdentifier.getName());
         ClassDefinition currentClassDef = classIdentifier.getClassDefinition();
-	
+
         EnvironmentExp envExpF = fields.verifyListFields(compiler);
         EnvironmentExp envExpM = methods.verifyListMethods(compiler, classIdentifier, superClassIdentifier);
 
