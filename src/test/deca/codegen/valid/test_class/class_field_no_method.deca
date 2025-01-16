@@ -1,0 +1,15 @@
+// Description:
+//    Minimalistic program using a class with fields but no methods.
+// Results:
+//    0
+//
+// History:
+//    Created on 14/01/2025
+
+class A{
+    int x;
+    int y=1;
+}
+
+{
+}

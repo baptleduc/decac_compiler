@@ -171,6 +171,7 @@ public class MethodTable {
                                                                                            // last method table
         }
         compiler.addInstruction(new STORE(compiler.getRegister0(), compiler.getOffsetGB()));
+        DAddr methodTableAddr = compiler.getOffsetGB();
         compiler.incrementOffsetGB();
         for (Label label : methods) {
             DVal labelDVal = new LabelOperand(label);
@@ -178,6 +179,7 @@ public class MethodTable {
             compiler.addInstruction(new STORE(compiler.getRegister0(), compiler.getOffsetGB()));
             compiler.incrementOffsetGB();
         }
+        return methodTableAddr;
     }
 
 }

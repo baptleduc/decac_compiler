@@ -9,8 +9,13 @@ import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.DecacInternalError;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.ima.pseudocode.DAddr;
 import fr.ensimag.ima.pseudocode.DVal;
 import fr.ensimag.ima.pseudocode.Label;
+import fr.ensimag.ima.pseudocode.instructions.NEW;
+import fr.ensimag.ima.pseudocode.instructions.STORE;
+
+import java.io.PrintStream;
 
 /**
  *
@@ -63,7 +68,11 @@ public class New extends AbstractExpr {
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
-        throw new UnsupportedOperationException("not yet implemented");
+        ClassDefinition classDef = ident.getClassDefinition();
+        DAddr methodTableAddr = classDef.getMethodTableAddr();
+
+        compiler.addInstruction(new NEW(classDef.getNumberOfFields() + 1, compiler.getRegister0())); // +1 for the method table
+        compiler.addInstruction(new STORE(compiler.getRegister0(), methodTableAddr));
     }
 
     @Override

@@ -14,9 +14,9 @@ import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.TypeDefinition;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.deca.tools.SymbolTable.Symbol;
-import java.io.PrintStream;
-import org.apache.commons.lang.Validate;
-import org.apache.log4j.Logger;
+import fr.ensimag.ima.pseudocode.DAddr;
+
+
 
 /**
  * Declaration of a class (<code>class name extends superClass {members}<code>).
@@ -150,7 +150,10 @@ public class DeclClass extends AbstractDeclClass {
         // Increment the last method table address by the number of methods in the class
         compiler.incrementLastMethodTableAddr(classIdentifier.getClassDefinition().getNumberOfMethods());
 
-        methodTable.codeGenTable(compiler);
+        DAddr methodTableAddr = methodTable.codeGenTable(compiler);
+        classIdentifier.getClassDefinition().setMethodTableAddr(methodTableAddr);
+
+        LOG.debug("Addr method table : " + methodTableAddr.toString());
         LOG.debug(methodTable.toString());
 
     }
