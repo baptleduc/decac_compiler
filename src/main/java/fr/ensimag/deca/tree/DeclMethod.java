@@ -46,20 +46,21 @@ public class DeclMethod extends AbstractDeclMethod {
         Signature sign2;
         Type type2;
 
-        methodSuperClass = superClassDefinition.asMethodDefinition("is not a method definition",
-                methodName.getLocation());
-        sign2 = methodSuperClass.getSignature();
-        type2 = methodSuperClass.getType();
+        if (envExpSuper.getCurrentEnvironment().containsKey(methodName.getName())) {
+            methodSuperClass = superClassDefinition.asMethodDefinition("is not a method definition",
+                    methodName.getLocation());
+            sign2 = methodSuperClass.getSignature();
+            type2 = methodSuperClass.getType();
 
-        if ((signature.sameSign(sign2))
-                && (type1.sameType(type2) || type1.asClassType("not a class Type", methodName.getLocation())
-                        .isSubClassOf(type2.asClassType("not a class Type", methodName.getLocation())))) {
-            // Override Condition
-            defMethod = new MethodDefinition(type1, methodName.getLocation(), signature, index);
-        } else {
-            throw new ContextualError(methodName.getName() + " can not be overloaded", methodName.getLocation());
+            if ((signature.sameSign(sign2))
+                    && (type1.sameType(type2) || type1.asClassType("not a class Type", methodName.getLocation())
+                            .isSubClassOf(type2.asClassType("not a class Type", methodName.getLocation())))) {
+                // Override Condition
+                defMethod = new MethodDefinition(type1, methodName.getLocation(), signature, index);
+            } else {
+                throw new ContextualError(methodName.getName() + " can not be overloaded", methodName.getLocation());
+            }
         }
-
         defMethod = new MethodDefinition(type1, methodName.getLocation(), signature, index);
 
         EnvironmentExp environmentMethod = new EnvironmentExp(null);
