@@ -1,0 +1,16 @@
+// Description:
+//    Minimalistic program using a class with an empty methods.
+// Results:
+//    0
+//
+// History:
+//    Created on 14/01/2025
+
+class A{
+    int method1(){
+    }
+    void method2(){
+    }
+}
+{
+}
