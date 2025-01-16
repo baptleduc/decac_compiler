@@ -34,7 +34,8 @@ public class ListDeclMethod extends TreeList<AbstractDeclMethod> {
                 try {
                     envExpR.declare(var, definition); // add the key-value
                 } catch (Exception e) {
-                    // do nothing
+                    throw new ContextualError("Method " + var.getName() + "aldready declared in this class",
+                            definition.getLocation());
                 }
             }
             index = index + 1;

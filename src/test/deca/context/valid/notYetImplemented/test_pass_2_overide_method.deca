@@ -1,0 +1,20 @@
+// Description:
+//    Program testing pass 2 override method 
+//
+// Results:
+//    ok
+//
+// History:
+//    Created on 16/01/2025
+
+class Test1{
+    void methodOverride(){
+	
+    }
+}
+
+class Test2 extends Test1{
+    void methodOverride(){
+	
+    }
+}

@@ -60,5 +60,4 @@ public class ListDeclClass extends TreeList<AbstractDeclClass> {
             declClass.codeGenDeclClass(compiler);
         }
     }
-
 }
