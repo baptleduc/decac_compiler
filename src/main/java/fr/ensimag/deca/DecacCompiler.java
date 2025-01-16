@@ -283,6 +283,14 @@ public class DecacCompiler {
 
     /**
      * @see
+     *      fr.ensimag.deca.codegen.StackManager#setLastMethodTableAddr()
+     */
+    public void setLastMethodTableAddr(DAddr addr) {
+        stackManager.setLastMethodTableAddr(addr);
+    }
+
+    /**
+     * @see
      *      fr.ensimag.deca.codegen.StackManager#incrementLastMethodTableAddr(int
      *      value)
      */

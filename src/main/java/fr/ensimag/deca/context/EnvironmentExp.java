@@ -104,7 +104,7 @@ public class EnvironmentExp {
         this.currentEnvironment.put(name, def);
     }
 
-    public Iterator<Symbol> getSymbolIterator() {
+    public Iterator<Symbol> getSymbolCurrentEnvIterator() {
         Set<Symbol> symbols = new LinkedHashSet<>();
         collectAllSymbols(symbols);
         return symbols.iterator();
@@ -112,11 +112,6 @@ public class EnvironmentExp {
 
     private void collectAllSymbols(Set<Symbol> symbols) {
         symbols.addAll(currentEnvironment.keySet());
-
-        // Add the definitions of the parentEnvironment
-        if (parentEnvironment != null) {
-            parentEnvironment.collectAllSymbols(symbols);
-        }
     }
 
 }
