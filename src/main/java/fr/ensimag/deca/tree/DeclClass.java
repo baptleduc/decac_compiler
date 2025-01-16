@@ -95,7 +95,7 @@ public class DeclClass extends AbstractDeclClass {
     @Override
     protected void verifyClassMembers(DecacCompiler compiler)
 	throws ContextualError {
-	System.out.println(classIdentifier.getName() + " " + superClassIdentifier.getName());
+	LOG.debug(classIdentifier.getName() + " " + superClassIdentifier.getName());
         ClassDefinition currentClassDef = classIdentifier.getClassDefinition();
 	
         EnvironmentExp envExpF = fields.verifyListFields(compiler);
@@ -125,8 +125,6 @@ public class DeclClass extends AbstractDeclClass {
         }
 
         currentClassDef.getMembers().empile(envExpF);
-        currentClassDef.setNumberOfMethods(envExpM.getCurrentEnvironment().size());
-        currentClassDef.setNumberOfFields(envExpF.getCurrentEnvironment().size());
     }
 
     @Override

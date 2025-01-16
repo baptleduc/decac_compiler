@@ -11,10 +11,23 @@ class Test1{
     void methodOverride(){
 	
     }
+
+    //Override
+    //boolean equals(Object o){
+    //}
 }
 
 class Test2 extends Test1{
+
+    void methodNonOverrideBefore(){
+	
+    }
+    
     void methodOverride(){
+	
+    }
+
+    void methodNonOverrideAfter(){
 	
     }
 }

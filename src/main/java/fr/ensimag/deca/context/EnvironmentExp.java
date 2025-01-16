@@ -43,11 +43,9 @@ public class EnvironmentExp {
             return this;
         }
         EnvironmentExp empiledEnv = this;
-
         for (Map.Entry<Symbol, ExpDefinition> entry : env2.currentEnvironment.entrySet()) {
             Symbol var = entry.getKey();
             ExpDefinition definition = entry.getValue();
-
             try {
                 // Verify is the key is not in the current environment
                 if (!this.currentEnvironment.containsKey(var)) {

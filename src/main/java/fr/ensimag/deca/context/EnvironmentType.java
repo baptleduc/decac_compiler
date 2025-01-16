@@ -49,7 +49,7 @@ public class EnvironmentType {
         // Add the equals method to the environmentExp
         Signature equalsSign = new Signature();
         equalsSign.add(OBJECT);
-        MethodDefinition equalsDef = new MethodDefinition(BOOLEAN, Location.BUILTIN, equalsSign, 1);
+        MethodDefinition equalsDef = new MethodDefinition(BOOLEAN, Location.BUILTIN, equalsSign, 0);
         EnvironmentExp objectEnvExp = objectDef.getMembers();
         Symbol equalsSymbol = compiler.createSymbol("equals");
         try {
