@@ -1,11 +1,7 @@
 package fr.ensimag.deca.tree;
 
-import java.io.PrintStream;
-
-import org.apache.commons.lang.Validate;
-import org.apache.log4j.Logger;
-
 import fr.ensimag.deca.DecacCompiler;
+import fr.ensimag.deca.codegen.Constructor;
 import fr.ensimag.deca.codegen.MethodTable;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ClassType;
@@ -15,8 +11,9 @@ import fr.ensimag.deca.context.TypeDefinition;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.deca.tools.SymbolTable.Symbol;
 import fr.ensimag.ima.pseudocode.DAddr;
-
-
+import java.io.PrintStream;
+import org.apache.commons.lang.Validate;
+import org.apache.log4j.Logger;
 
 /**
  * Declaration of a class (<code>class name extends superClass {members}<code>).
@@ -156,5 +153,11 @@ public class DeclClass extends AbstractDeclClass {
         LOG.debug("Addr method table : " + methodTableAddr.toString());
         LOG.debug(methodTable.toString());
 
+    }
+
+    @Override
+    protected void codeGenConstructor(DecacCompiler compiler) {
+        Constructor constructor = new Constructor(classIdentifier.getClassDefinition());
+        constructor.codeGenConstructor(compiler);
     }
 }

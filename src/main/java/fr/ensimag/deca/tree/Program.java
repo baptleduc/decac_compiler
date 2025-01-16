@@ -59,6 +59,7 @@ public class Program extends AbstractProgram {
         classes.codeGenListDeclClass(compiler);
 
         // Passe 2
+        classes.codeGenConstructors(compiler);
 
         IMAProgram mainIMAProgram = new IMAProgram();
 
