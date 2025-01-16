@@ -33,6 +33,10 @@ public class DeclField extends AbstractDeclField {
         this.init = init;
     }
 
+    public AbstractInitialization getInitialization() {
+        return init;
+    }
+
     /**
      * Pass 2 of [SyntaxeContextuelle]
      */

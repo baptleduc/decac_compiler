@@ -49,7 +49,7 @@ public class ClassDefinition extends TypeDefinition {
     public void setMethodTableAddr(DAddr methodTableAddr) {
         this.methodTableAddr = methodTableAddr;
     }
-    
+
     @Override
     public boolean isClass() {
         return true;

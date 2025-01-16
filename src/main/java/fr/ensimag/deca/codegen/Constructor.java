@@ -3,11 +3,11 @@ package fr.ensimag.deca.codegen;
 
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
-import fr.ensimag.deca.context.ContextualError;
-import fr.ensimag.deca.context.EnvironmentExp;
-import fr.ensimag.deca.context.ExpDefinition;
-import fr.ensimag.deca.context.FieldDefinition;
-import fr.ensimag.deca.tools.SymbolTable.Symbol;
+import fr.ensimag.deca.tree.AbstractDeclField;
+import fr.ensimag.deca.tree.AbstractInitialization;
+import fr.ensimag.deca.tree.Initialization;
+import fr.ensimag.deca.tree.IntLiteral;
+import fr.ensimag.deca.tree.ListDeclField;
 import fr.ensimag.ima.pseudocode.ImmediateInteger;
 import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.Register;
@@ -16,68 +16,39 @@ import fr.ensimag.ima.pseudocode.instructions.BSR;
 import fr.ensimag.ima.pseudocode.instructions.LOAD;
 import fr.ensimag.ima.pseudocode.instructions.PUSH;
 import fr.ensimag.ima.pseudocode.instructions.RTS;
-import fr.ensimag.ima.pseudocode.instructions.STORE;
 import fr.ensimag.ima.pseudocode.instructions.SUBSP;
-import java.util.Iterator;
 
 public class Constructor {
     private final Label label;
     private final ClassDefinition classDefinition;
+    private ListDeclField fields;
     private static final RegisterOffset INSTANCE_OFFSET = new RegisterOffset(-2, Register.LB); // Registrer that
                                                                                                // contains the address
                                                                                                // of the start of the
                                                                                                // heap
 
-    public Constructor(ClassDefinition classDefinition) {
+    public Constructor(ClassDefinition classDefinition, ListDeclField fields) {
         this.classDefinition = classDefinition;
         this.label = new Label("init." + classDefinition.getType().getName().getName(), false);
+        this.fields = fields;
     }
 
     public Label getLabel() {
         return label;
     }
 
-    private void initializeFieldToZero(FieldDefinition fieldDef, DecacCompiler compiler, int index) {
-        compiler.addInstruction(new LOAD(new ImmediateInteger(0), compiler.getRegister0()));
-        compiler.addInstruction(new STORE(compiler.getRegister0(), new RegisterOffset(index, compiler.getRegister1())));
-    }
-
     private void initializeAllFieldsToZero(ClassDefinition classDef, DecacCompiler compiler) {
-
-        EnvironmentExp classMembers = classDefinition.getMembers();
-        Iterator<Symbol> it = classMembers.getSymbolCurrentEnvIterator();
-        while (it.hasNext()) {
-            Symbol symbol = it.next();
-            ExpDefinition def = classMembers.get(symbol);
-            try {
-                FieldDefinition fieldDef = def.asFieldDefinition("Error", classDefinition.getLocation());
-                int idxField = fieldDef.getIndex();
-                initializeFieldToZero(fieldDef, compiler, idxField);
-            } catch (ContextualError e) {
-                // Not a method
-            }
+        for (AbstractDeclField field : fields.getList()) {
+            IntLiteral zero = new IntLiteral(0);
+            Initialization initToZero = new Initialization(zero);
+            initToZero.codeGenInitialization(compiler, new RegisterOffset(field.getIndex(), compiler.getRegister1()));
         }
     }
 
-    private void initializeFieldExplicitly(FieldDefinition fieldDef, DecacCompiler compiler, int index) {
-        compiler.addInstruction(new LOAD(new ImmediateInteger(34), compiler.getRegister0()));
-        compiler.addInstruction(new STORE(compiler.getRegister0(), new RegisterOffset(index, compiler.getRegister1())));
-    }
-
     private void initializeAllFieldsExplicitly(ClassDefinition classDef, DecacCompiler compiler) {
-
-        EnvironmentExp classMembers = classDefinition.getMembers();
-        Iterator<Symbol> it = classMembers.getSymbolCurrentEnvIterator();
-        while (it.hasNext()) {
-            Symbol symbol = it.next();
-            ExpDefinition def = classMembers.get(symbol);
-            try {
-                FieldDefinition fieldDef = def.asFieldDefinition("Error", classDefinition.getLocation());
-                int idxField = fieldDef.getIndex();
-                initializeFieldExplicitly(fieldDef, compiler, idxField);
-            } catch (ContextualError e) {
-                // Not a method
-            }
+        for (AbstractDeclField field : fields.getList()) {
+            AbstractInitialization init = field.getInitialization();
+            init.codeGenInitialization(compiler, new RegisterOffset(field.getIndex(), compiler.getRegister1()));
         }
     }
 
@@ -91,14 +62,13 @@ public class Constructor {
         // Avoid BSR to the constructor of Object
         if (classDefinition.getSuperClass().getSuperClass() == null) {
             initializeAllFieldsExplicitly(classDefinition, compiler);
-            compiler.addInstruction(new RTS());
-            return;
+        } else {
+            compiler.addInstruction(
+                    new BSR(new Label("init." + classDefinition.getSuperClass().getType().getName().getName())));
+            compiler.addInstruction(new SUBSP(new ImmediateInteger(1)));
+            initializeAllFieldsExplicitly(classDefinition, compiler);
+
         }
-        
-        compiler.addInstruction(
-                new BSR(new Label("init." + classDefinition.getSuperClass().getType().getName().getName())));
-        compiler.addInstruction(new SUBSP(new ImmediateInteger(1)));
-        initializeAllFieldsExplicitly(classDefinition, compiler);
         compiler.addInstruction(new RTS());
     }
 

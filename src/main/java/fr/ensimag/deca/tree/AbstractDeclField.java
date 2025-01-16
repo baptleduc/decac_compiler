@@ -13,6 +13,7 @@ public abstract class AbstractDeclField extends Tree {
 
     private Visibility vision;
     private AbstractIdentifier type;
+    private int index;
 
     public void setType(AbstractIdentifier typeParam) {
         type = typeParam;
@@ -28,6 +29,14 @@ public abstract class AbstractDeclField extends Tree {
 
     public Visibility getVisibility() {
         return vision;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    protected void setIndex(int index) {
+        this.index = index;
     }
 
     /**
