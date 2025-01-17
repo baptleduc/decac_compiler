@@ -46,6 +46,7 @@ public class Cast extends AbstractExpr {
         }
         if((typeExpression.isInt() && typeCast.isFloat())
         ||(typeExpression.isFloat() && typeCast.isInt())){
+            expressionToCast.setType(typeCast);
             return typeCast;
         }
 
@@ -53,7 +54,8 @@ public class Cast extends AbstractExpr {
         ClassType classTypeCast = typeCast.asClassType(" can only cast to a class type or int, float", expressionToCast.getLocation());
         if((classTypeExpression.isSubClassOf(classTypeCast))
         || (classTypeCast.isSubClassOf(classTypeExpression))){
-            return typeCast;
+            expressionToCast.setType(classTypeCast);
+            return classTypeCast;
         }
         else{
             throw new ContextualError("Can't cast those expressions", expressionToCast.getLocation());
