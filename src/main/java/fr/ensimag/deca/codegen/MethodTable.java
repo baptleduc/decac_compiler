@@ -159,7 +159,7 @@ public class MethodTable {
      * @param compiler
      *            The Deca compiler instance used for code generation.
      */
-    public void codeGenTable(DecacCompiler compiler) {
+    public DAddr codeGenTable(DecacCompiler compiler) {
         buildTable(classDefinition, compiler);
         compiler.addComment("Method Table of class " + className);
 

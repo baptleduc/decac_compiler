@@ -39,6 +39,8 @@ public abstract class AbstractDeclField extends Tree {
         this.index = index;
     }
 
+    public abstract AbstractInitialization getInitialization();
+
     /**
      * Pass 2 of [SyntaxeContextuelle]
      */
