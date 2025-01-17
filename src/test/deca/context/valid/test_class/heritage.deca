@@ -1,25 +1,20 @@
 // Description:
-//    Minimalistic program using heritage.
+//    Class inheritance example.
 // Results:
-//    Woof
+//    Hello
 //
 // History:
 //    Created on 16/01/2025
 
-
-class Animal {
-    void speak() {
-        println("I am an animal");
+class A {
+    String greet() {
+        return "Hello";
     }
 }
 
-class Dog extends Animal {
-    void speak() {
-        println("Woof");
-    }
-}
+class B extends A {}
 
 {
-    Dog a = new Dog();
-    a.speak();
+    B b = new B() ;
+    println(b.greet()) ;
 }

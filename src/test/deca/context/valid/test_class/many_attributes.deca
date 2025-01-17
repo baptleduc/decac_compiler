@@ -1,0 +1,25 @@
+// Description:
+//    Class with many attributes and a method.
+// Results:
+//    60
+//
+// History:
+//    Created on 16/01/2025
+
+class A {
+    int x = 10;
+    int y = 10;
+    int z = 10;
+    int a = 10;
+    int b = 10;
+    int c = 10;
+
+    int sum() {
+        return x + y + z + a + b + c ;
+    }
+}
+
+{
+    A a = new A() ;
+    println(a.sum()) ;
+}

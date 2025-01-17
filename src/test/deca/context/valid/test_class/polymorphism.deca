@@ -1,0 +1,25 @@
+// Description:
+//    Minimalistic program using heritage polymorphism .
+// Results:
+//    Woof
+//
+// History:
+//    Created on 16/01/2025
+
+
+class Animal {
+    void speak() {
+        println("I am an animal");
+    }
+}
+
+class Dog extends Animal {
+    void speak() {
+        println("Woof");
+    }
+}
+
+{
+    Dog a = new Dog();
+    a.speak();
+}

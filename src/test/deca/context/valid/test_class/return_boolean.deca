@@ -1,0 +1,18 @@
+// Description:
+//    Class with a method returning a boolean.
+// Results:
+//    true
+//
+// History:
+//    Created on 16/01/2025
+
+class A {
+    boolean isTrue() {
+        return true;
+    }
+}
+
+{
+    A a = new A() ;
+    println(a.isTrue()) ;
+}
