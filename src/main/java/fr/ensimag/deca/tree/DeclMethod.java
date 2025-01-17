@@ -84,11 +84,12 @@ public class DeclMethod extends AbstractDeclMethod {
         LOG.debug("Method " + methodName.getName() + " index: " + defMethod.getIndex());
         return environmentMethod;
     }
-    
+
     /**
      * Pass 3 of [SyntaxeContextuelle]
      */
-    public void verifyMethodBody(DecacCompiler compiler, EnvironmentExp envExp, AbstractIdentifier methodClass) throws ContextualError{
+    public void verifyMethodBody(DecacCompiler compiler, EnvironmentExp envExp, AbstractIdentifier methodClass)
+            throws ContextualError {
         Type methodReturnType = returnType.verifyType(compiler);
         EnvironmentExp envExpParams = params.verifyListParamsBody(compiler);
         body.verifyMethodBodyBody(compiler, envExp, envExpParams, methodClass, methodReturnType);

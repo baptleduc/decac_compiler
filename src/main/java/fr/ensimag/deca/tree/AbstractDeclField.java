@@ -29,16 +29,17 @@ public abstract class AbstractDeclField extends Tree {
     public Visibility getVisibility() {
         return vision;
     }
-    
-   /**
+
+    /**
      * Pass 2 of [SyntaxeContextuelle]
      */
-    public abstract EnvironmentExp verifyField(DecacCompiler compiler, AbstractIdentifier superClassIdentifier, AbstractIdentifier classIdentifier) throws ContextualError;
+    public abstract EnvironmentExp verifyField(DecacCompiler compiler, AbstractIdentifier superClassIdentifier,
+            AbstractIdentifier classIdentifier) throws ContextualError;
 
-   
-   /**
+    /**
      * Pass 3 of [SyntaxeContextuelle]
      */
-    public abstract void verifyFieldsBody(DecacCompiler compiler, EnvironmentExp envExp, AbstractIdentifier classIdentifier) throws ContextualError;
-    
+    public abstract void verifyFieldsBody(DecacCompiler compiler, EnvironmentExp envExp,
+            AbstractIdentifier classIdentifier) throws ContextualError;
+
 }
