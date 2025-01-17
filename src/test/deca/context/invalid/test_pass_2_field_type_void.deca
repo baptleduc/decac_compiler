@@ -1,5 +1,5 @@
 // Description:
-//    Program testing pass 2, only one public non class type field in a object
+//    Program testing pass 2, declare a void field
 //
 // Results:
 //    ok
@@ -7,6 +7,9 @@
 // History:
 //    Created on 17/01/2025
 
+
 class Test{
-    int x = 3;
+    void x;
 }
+
+
