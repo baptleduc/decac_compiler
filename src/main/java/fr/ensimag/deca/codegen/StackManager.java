@@ -125,6 +125,13 @@ public class StackManager {
         return lastMethodTableAddr;
     }
 
+    /**
+     * Sets the address of the last method table.
+     */
+    public void setLastMethodTableAddr(DAddr addr) {
+        lastMethodTableAddr = addr;
+    }
+
     public void incrementLastMethodTableAddr(int value) {
         lastMethodTableAddr = new RegisterOffset(getOffsetGBValue() + value, GB);
     }

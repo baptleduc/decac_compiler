@@ -18,12 +18,32 @@ public class Label extends Operand {
         return name;
     }
 
-    public Label(String name) {
+    /**
+     * Constructor with a counter appended to the name.
+     * 
+     * @param baseName
+     *            The base name of the label
+     */
+    public Label(String baseName) {
+        this(baseName, true); // Default to appending the counter
+    }
+
+    /**
+     * Constructor with an option to include a counter or not.
+     * 
+     * @param baseName
+     *            The base name of the label
+     * @param includeCounter
+     *            If true, append a unique counter to the label name
+     */
+    public Label(String baseName, boolean includeCounter) {
         super();
-        name = name + "_" + counter++;
-        Validate.isTrue(name.length() <= 1024, "Label name too long, not supported by IMA");
-        Validate.isTrue(name.matches("^[a-zA-Z][a-zA-Z0-9_.]*$"), "Invalid label name " + name);
-        this.name = name;
+        String finalName = includeCounter ? baseName + "_" + counter++ : baseName;
+
+        Validate.isTrue(finalName.length() <= 1024, "Label name too long, not supported by IMA");
+        Validate.isTrue(finalName.matches("^[a-zA-Z][a-zA-Z0-9_.]*$"), "Invalid label name " + finalName);
+
+        this.name = finalName;
     }
 
     private String name;

@@ -83,9 +83,10 @@ public class DeclClass extends AbstractDeclClass {
         ClassDefinition classDefinitionSuper = (ClassDefinition) definitionSuper;
         ClassType classType = new ClassType(classIdentifier.getName(), classIdentifier.getLocation(),
                 classDefinitionSuper);
-        ClassDefinition classDef = new ClassDefinition(classType, classIdentifier.getLocation(), null);
+        ClassDefinition classDef = new ClassDefinition(classType, classIdentifier.getLocation(),
+                classDefinitionSuper);
         classIdentifier.setDefinition(classDef);
-        superClassIdentifier.setDefinition(definitionSuper);
+        superClassIdentifier.setDefinition(classDefinitionSuper);
         compiler.environmentType.declare(classIdentifier.getName(), classDef);
     }
 
@@ -94,13 +95,11 @@ public class DeclClass extends AbstractDeclClass {
     @Override
     protected void verifyClassMembers(DecacCompiler compiler)
             throws ContextualError {
-
-        EnvironmentExp envExpSuper = superClassIdentifier.getClassDefinition().getMembers();
+        LOG.debug(classIdentifier.getName() + " " + superClassIdentifier.getName());
         ClassDefinition currentClassDef = classIdentifier.getClassDefinition();
-        currentClassDef.getMembers().empile(envExpSuper);
 
         EnvironmentExp envExpF = fields.verifyListFields(compiler);
-        EnvironmentExp envExpM = methods.verifyListMethods(compiler, superClassIdentifier);
+        EnvironmentExp envExpM = methods.verifyListMethods(compiler, classIdentifier, superClassIdentifier);
 
         // Verify that envExpF and envExpM have no symb in common
         for (Map.Entry<Symbol, ExpDefinition> entry : envExpM.getCurrentEnvironment().entrySet()) {
@@ -126,8 +125,6 @@ public class DeclClass extends AbstractDeclClass {
         }
 
         currentClassDef.getMembers().empile(envExpF);
-        currentClassDef.setNumberOfMethods(envExpM.getCurrentEnvironment().size());
-        currentClassDef.setNumberOfFields(envExpF.getCurrentEnvironment().size());
     }
 
     @Override

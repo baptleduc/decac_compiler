@@ -1,13 +1,16 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.DecacCompiler;
+import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
+import fr.ensimag.deca.context.ExpDefinition;
 import fr.ensimag.deca.context.MethodDefinition;
 import fr.ensimag.deca.context.Signature;
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import java.io.PrintStream;
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -15,7 +18,7 @@ import java.io.PrintStream;
  * @date 13/01/2025
  */
 public class DeclMethod extends AbstractDeclMethod {
-
+    private static final Logger LOG = Logger.getLogger(DeclMethod.class);
     private AbstractIdentifier returnType;
     private AbstractIdentifier methodName;
     private ListDeclParam params;
@@ -33,36 +36,52 @@ public class DeclMethod extends AbstractDeclMethod {
      * Pass 2 of [SyntaxeContextuelle]
      */
     @Override
-    protected EnvironmentExp verifyMethod(DecacCompiler compiler, AbstractIdentifier superClass, int index)
+    protected EnvironmentExp verifyMethod(DecacCompiler compiler, AbstractIdentifier classIdentifier,
+            AbstractIdentifier superClass)
             throws ContextualError {
         Type methodType = returnType.verifyType(compiler);
         Signature signature = params.verifyListParams(compiler);
         EnvironmentExp envExpSuper = superClass.getClassDefinition().getMembers();
         Type type1 = compiler.environmentType.getEnvTypes().get(returnType.getName()).getType();
+        ExpDefinition superClassDefinition = envExpSuper.getCurrentEnvironment().get(methodName.getName());
+        MethodDefinition defMethod;
+        ClassDefinition defClass = (ClassDefinition) (compiler.environmentType.getEnvTypes()
+                .get(classIdentifier.getName()));
+        MethodDefinition methodSuperClass;
+        Signature sign2;
+        Type type2;
+        LOG.debug("Number of methods of " + classIdentifier.getName() + " : " + defClass.getNumberOfMethods());
+        int indexMethod = defClass.getNumberOfMethods();
 
         if (envExpSuper.getCurrentEnvironment().containsKey(methodName.getName())) {
-            if (!methodType.asClassType("this is not a class type", returnType.getLocation())
-                    .isSubClassOf(type1.asClassType("this is not a class type", methodName.getLocation()))) {
-                throw new ContextualError(
-                        "Method" + methodName.getName() + "must have the same type that the inherited method one",
-                        methodName.getLocation());
-            } else if (envExpSuper.getCurrentEnvironment().get((methodName.getName()))
-                    .asMethodDefinition("ce n'est pas une méthode", methodName.getLocation())
-                    .getSignature() != signature) {
-                throw new ContextualError(
-                        "Method" + methodName.getName() + "must have the same signature that inherited method",
-                        methodName.getLocation());
-            }
+            methodSuperClass = superClassDefinition.asMethodDefinition("is not a method definition",
+                    methodName.getLocation());
+            sign2 = methodSuperClass.getSignature();
+            type2 = methodSuperClass.getType();
 
+            if ((signature.sameSign(sign2))
+                    && (type1.sameType(type2) || type1.asClassType("not a class Type", methodName.getLocation())
+                            .isSubClassOf(type2.asClassType("not a class Type", methodName.getLocation())))) {
+                // Override Condition
+                indexMethod = methodSuperClass.getIndex();
+            } else {
+                throw new ContextualError(methodName.getName() + " can not be overloaded", methodName.getLocation());
+            }
+        } else {
+            defClass.incNumberOfMethods();
+            LOG.debug("inc Number of methods");
         }
-        MethodDefinition defMethod = new MethodDefinition(type1, methodName.getLocation(), signature, index);
+        defMethod = new MethodDefinition(type1, methodName.getLocation(), signature, indexMethod);
+
         EnvironmentExp environmentMethod = new EnvironmentExp(null);
         try {
             environmentMethod.declare(methodName.getName(), defMethod);
         } catch (Exception e) {
             // do nothing
         }
+        returnType.setType(methodType);
         methodName.setDefinition(defMethod);
+        LOG.debug("Method " + methodName.getName() + " index: " + defMethod.getIndex());
         return environmentMethod;
     }
 
