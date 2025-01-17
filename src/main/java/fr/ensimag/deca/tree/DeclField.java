@@ -1,13 +1,13 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.DecacCompiler;
+import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.FieldDefinition;
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import java.io.PrintStream;
-import fr.ensimag.deca.context.ClassDefinition;
 import org.apache.log4j.Logger;
 
 /**
@@ -38,25 +38,24 @@ public class DeclField extends AbstractDeclField {
     public EnvironmentExp verifyField(DecacCompiler compiler, AbstractIdentifier superClassIdentifier,
             AbstractIdentifier classIdentifier) throws ContextualError {
         Type fieldType = type.verifyType(compiler);
-	ClassDefinition defClass = (ClassDefinition) (compiler.environmentType.getEnvTypes()
+        ClassDefinition defClass = (ClassDefinition) (compiler.environmentType.getEnvTypes()
                 .get(classIdentifier.getName()));
 
-	
         if (fieldType.sameType(compiler.environmentType.VOID)) {
             throw new ContextualError("Can't declare a field " + name.getName() + " with void type",
                     type.getLocation());
         }
-	LOG.debug("Number of methods of " + classIdentifier.getName() + " : " + defClass.getNumberOfFields());
+        LOG.debug("Number of methods of " + classIdentifier.getName() + " : " + defClass.getNumberOfFields());
         EnvironmentExp envExpSuper = superClassIdentifier.getClassDefinition().getMembers();
         if (envExpSuper.getCurrentEnvironment().containsKey(name.getName())) {
             if (!envExpSuper.getCurrentEnvironment().get(name.getName()).isField()) {
                 throw new ContextualError(name.getName() + " must be declared as a Field ", name.getLocation());
             }
         }
-	defClass.incNumberOfFields();
-	LOG.debug("inc Number of methods");
+        defClass.incNumberOfFields();
+        LOG.debug("inc Number of methods");
         FieldDefinition fieldDef = new FieldDefinition(fieldType, name.getLocation(), visibility,
-						       classIdentifier.getClassDefinition(), defClass.getNumberOfFields() );
+                classIdentifier.getClassDefinition(), defClass.getNumberOfFields());
         EnvironmentExp environmentField = new EnvironmentExp(null);
         try {
             environmentField.declare(name.getName(), fieldDef);
@@ -65,8 +64,8 @@ public class DeclField extends AbstractDeclField {
         }
         // Décoration du champ
         name.setDefinition(fieldDef);
-	type.setType(fieldType); 
-	LOG.debug("Method " + name.getName() + " index: " + fieldDef.getIndex());
+        type.setType(fieldType);
+        LOG.debug("Method " + name.getName() + " index: " + fieldDef.getIndex());
         return environmentField;
     }
 
