@@ -16,8 +16,6 @@ import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.NullOperand;
 import fr.ensimag.ima.pseudocode.instructions.BSR;
 import fr.ensimag.ima.pseudocode.instructions.CMP;
-import fr.ensimag.ima.pseudocode.instructions.STORE;
-
 import java.io.PrintStream;
 
 /**
@@ -88,7 +86,7 @@ public class Selection extends AbstractLValue {
         GPRegister regObject = objectDVal.codeGenToGPRegister(compiler);
         compiler.addInstruction(new CMP(new NullOperand(), regObject));
         compiler.addInstruction(new BSR(LabelManager.NULL_POINTER_ERROR.getLabel()));
-        
+
         setDVal(fieldDVal);
     }
 
