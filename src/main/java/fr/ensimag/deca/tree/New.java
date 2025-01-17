@@ -83,7 +83,7 @@ public class New extends AbstractExpr {
         compiler.addInstruction(new BSR(constructor.getLabel()));
         compiler.addInstruction(new POP(regDest));
 
-        setDVal(regDest);
+        ident.setDVal(regDest);
         // TODO constructor call
     }
 
