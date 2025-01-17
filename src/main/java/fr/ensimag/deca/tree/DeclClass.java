@@ -106,7 +106,7 @@ public class DeclClass extends AbstractDeclClass {
             envExpF.directSum(envExpM);
         } catch (Exception e) {
             throw new ContextualError("Method declared in field environment",
-                        classIdentifier.getLocation());;
+                        classIdentifier.getLocation());
         }
 
         currentClassDef.getMembers().empile(envExpF);

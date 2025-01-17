@@ -16,6 +16,7 @@ import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.Signature;
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.IndentPrintStream;
+
 /**
  *
  * @author nicolmal
@@ -45,16 +46,7 @@ public class ListDeclParam extends TreeList<AbstractDeclParam> {
 	return sign;
     }
     
-    /**
-     * Pass 3 of [SyntaxeContextuelle]
-     */
-    public Type verifyParamType(DecacCompiler compiler) throws ContextualError{
-        Type actualParamType = paramType.verifyType(compiler);
-        if (actualParamType.sameType(compiler.environmentType.VOID)){
-            throw new ContextualError("Can't declare a param with void type", paramType.getLocation());
-        }
-        return actualParamType;
-    }
+
 
     
     /**

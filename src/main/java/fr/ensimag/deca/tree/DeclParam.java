@@ -4,6 +4,9 @@ import fr.ensimag.deca.tools.IndentPrintStream;
 import java.io.PrintStream;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.ParamDefinition;
+import fr.ensimag.deca.DecacCompiler;
+import fr.ensimag.deca.context.ContextualError;
+import fr.ensimag.deca.context.Type;
 /**
  * 
  * @author nicolmal
@@ -20,7 +23,7 @@ public class DeclParam extends AbstractDeclParam {
     }
 
     /**
-     * Pass 2 of [SyntaxeContextuelle]
+     * Pass 3 of [SyntaxeContextuelle]
      */
     public EnvironmentExp verifyParamBody(DecacCompiler compiler) throws ContextualError{
         Type actualParamType = paramType.verifyType(compiler);
@@ -35,7 +38,17 @@ public class DeclParam extends AbstractDeclParam {
         return environmentParam;
     }
 
-
+    /**
+     * Pass 2 of [SyntaxeContextuelle]
+     */
+    public Type verifyParamType(DecacCompiler compiler) throws ContextualError{
+        Type actualParamType = paramType.verifyType(compiler);
+        if (actualParamType.sameType(compiler.environmentType.VOID)){
+            throw new ContextualError("Can't declare a param with void type", paramType.getLocation());
+        }
+        return actualParamType;
+    }
+    
     @Override
     public void decompile(IndentPrintStream s) {
         paramType.decompile(s);
