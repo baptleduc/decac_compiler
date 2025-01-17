@@ -1,5 +1,9 @@
 package fr.ensimag.deca.tree;
 
+import fr.ensimag.deca.DecacCompiler;
+import fr.ensimag.deca.context.ContextualError;
+import fr.ensimag.deca.context.EnvironmentExp;
+
 /**
  *
  * @author nicolmal
@@ -25,5 +29,7 @@ public abstract class AbstractDeclField extends Tree {
     public Visibility getVisibility() {
         return vision;
     }
+
+    public abstract EnvironmentExp verifyField(DecacCompiler compiler, AbstractIdentifier superClassIdentifier, AbstractIdentifier classIdentifier) throws ContextualError;
 
 }

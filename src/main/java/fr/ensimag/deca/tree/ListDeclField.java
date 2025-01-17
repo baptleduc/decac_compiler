@@ -17,14 +17,20 @@ public class ListDeclField extends TreeList<AbstractDeclField> {
     // /**
     // * Pass 2 of [SyntaxeContextuelle]
     // */
-    EnvironmentExp verifyListFields(DecacCompiler compiler) throws ContextualError {
-        // LOG.debug("verify listClass: start");
-        // for(AbstractDeclClass declClass : getList()){
-        // declClass.verifyClass(compiler);
-        // }
-        EnvironmentExp envExp = new EnvironmentExp(null);
-        return envExp;
-        // LOG.debug("verify listClass: end");
+    EnvironmentExp verifyListFields(DecacCompiler compiler, AbstractIdentifier superClassIdentifier, AbstractIdentifier classIdentifier) throws ContextualError {
+	
+        LOG.debug("verify listClass: start");
+	EnvironmentExp envExpR = new EnvironmentExp(null);
+	for(AbstractDeclField declField : getList()){
+            EnvironmentExp envExp = declField.verifyField(compiler, superClassIdentifier, classIdentifier);
+            try {
+		envExpR.directSum(envExp);
+            } catch (Exception e) {
+                throw new RuntimeException("Unable to merge environments due to a conflict.", e);
+            }
+        }
+	LOG.debug("verify listClass: end");
+        return envExpR;
     }
 
     @Override

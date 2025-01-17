@@ -2,6 +2,11 @@ package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.tools.IndentPrintStream;
 import java.io.PrintStream;
+import fr.ensimag.deca.DecacCompiler;
+import fr.ensimag.deca.context.ContextualError;
+import fr.ensimag.deca.context.EnvironmentExp;
+import fr.ensimag.deca.context.FieldDefinition;
+import fr.ensimag.deca.context.Type;
 
 /**
  * Declaration of a class (<code>class name extends superClass {members}<code>).
@@ -24,6 +29,33 @@ public class DeclField extends AbstractDeclField {
         this.name = name;
         this.init = init;
     }
+
+        /**
+     * Pass 2 of [SyntaxeContextuelle]
+     */
+    public EnvironmentExp verifyField(DecacCompiler compiler, AbstractIdentifier superClassIdentifier, AbstractIdentifier classIdentifier) throws ContextualError{
+        Type fieldType = type.verifyType(compiler);
+        if (fieldType.sameType(compiler.environmentType.VOID)){
+            throw new ContextualError("Can't declare a field "+name.getName()+ " with void type", type.getLocation());
+        }
+        EnvironmentExp envExpSuper = superClassIdentifier.getClassDefinition().getMembers();
+        if (envExpSuper.getCurrentEnvironment().containsKey(name.getName())){
+            if(!envExpSuper.getCurrentEnvironment().get(name.getName()).isField()){
+                throw new ContextualError(name.getName()+" must be declared as a Field ", name.getLocation());
+            }
+        }
+        FieldDefinition fieldDef = new FieldDefinition(fieldType, name.getLocation(),visibility, classIdentifier.getClassDefinition(), 1);
+        EnvironmentExp environmentField = new EnvironmentExp(null);
+        try {
+            environmentField.declare(name.getName(), fieldDef);
+        } catch (Exception e) {
+            // do nothing
+        }
+        //Décoration du champ
+        name.setDefinition(fieldDef);
+        return environmentField;
+    }
+
 
     @Override
     public void decompile(IndentPrintStream s) {
