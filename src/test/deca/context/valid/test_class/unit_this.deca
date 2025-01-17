@@ -1,0 +1,23 @@
+// Description:
+//    Unit Test new 
+// Results:
+//    Must use a class, not a intto create a new object
+//
+// History:
+//    Created on 16/01/2025
+
+class A {
+    int x;
+
+    void setX(int x) {
+        this.x = x; // Utilisation de this pour différencier l'attribut de la variable locale
+    }
+
+}
+
+{
+    A a = new A();
+    a.setX(42);
+}
+
+

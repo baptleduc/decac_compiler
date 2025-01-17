@@ -1,14 +1,14 @@
 // Description:
 //    Class inheritance example.
 // Results:
-//    Hello
+//    2
 //
 // History:
 //    Created on 16/01/2025
 
 class A {
-    String greet() {
-        return "Hello";
+    int greet() {
+        return 2;
     }
 }
 

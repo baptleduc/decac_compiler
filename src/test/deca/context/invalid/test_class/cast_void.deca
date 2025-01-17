@@ -1,15 +1,13 @@
 // Description:
-//    Unit Test Creation Class
+//    Unit Test Cast void
 // Results:
-//    none
+//    Can't cast a void
 //
 // History:
 //    Created on 16/01/2025
 
-class A {
-
-}
 
 {
-    A a = new A() ;
+(void) 12;
+
 }
