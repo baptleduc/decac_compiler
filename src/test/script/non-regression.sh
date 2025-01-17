@@ -82,7 +82,7 @@ EXTENSION_TEST_CODEGEN="ass"
 OUTPUT_DIR_TEST_CODEGEN="./src/test/results/deca/codegen/"
 OPTIONS_TEST_CODEGEN=""
 
-ALL_TESTS="$NAME_TEST_LEX $NAME_TEST_SYNT $NAME_TEST_CONTEXT $NAME_TEST_INVALID_CONTEXT $NAME_TEST_DECOMPILE $NAME_TEST_CODEGEN"
+
 
 # Retrieve output directory based on the test name
 get_output_dir() {
@@ -368,15 +368,51 @@ run_non_regression_tests() {
     done
 }
 
+# Function to parse command line arguments
+parse_arguments() {
+    while getopts "t:" opt; do
+        case $opt in
+            t)
+                TEST_TO_RUN=$OPTARG
+                ;;
+            *)
+                echo "Usage: $0 [-t test_name]"
+                exit 1
+                ;;
+        esac
+    done
+}
+
+# Function to determine tests to run
+determine_tests_to_run() {
+    if [ -n "$TEST_TO_RUN" ]; then
+        case $TEST_TO_RUN in
+            codegen)
+                ALL_TESTS="$TEST_TO_RUN"
+                ;;
+            # Add other cases here if needed
+            *)
+                echo "Unknown test: $TEST_TO_RUN"
+                exit 1
+                ;;
+        esac
+    else
+        ALL_TESTS="$NAME_TEST_LEX $NAME_TEST_SYNT $NAME_TEST_CONTEXT $NAME_TEST_INVALID_CONTEXT $NAME_TEST_DECOMPILE $NAME_TEST_CODEGEN"
+    fi
+}
+
 # Main function to execute all tests
 main() {
+    parse_arguments "$@"
+    determine_tests_to_run
+
     for test_name in $ALL_TESTS; do
         echo "[BEGIN] : $test_name"
         for input_dir in $(get_input_dir $test_name); do
             run_non_regression_tests "$input_dir" "$(get_output_dir $test_name)" "$(get_options $test_name)" "$(get_exec $test_name)" "$test_name"
         done
-        echo "[SUCCESS] : $executable"
+        echo "[SUCCESS] : $test_name"
     done
 }
 
-main
+main "$@"
