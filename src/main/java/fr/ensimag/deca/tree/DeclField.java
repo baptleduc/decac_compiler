@@ -56,7 +56,7 @@ public class DeclField extends AbstractDeclField {
         return environmentField;
     }
 
-    /**
+         /**
      * Pass 3 of [SyntaxeContextuelle]
      */
     public void verifyFieldsBody(DecacCompiler compiler, EnvironmentExp envExp, AbstractIdentifier classIdentifier) throws ContextualError{
