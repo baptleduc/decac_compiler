@@ -9,10 +9,7 @@ public enum LabelManager {
 
     // Error labels
     STACK_OVERFLOW_ERROR("stack_overflow_error"), IO_ERROR("io_error"), OVERFLOW_ERROR(
-            "overflow_error"), DIVIDE_BY_ZERO_ERROR("divide_by_zero_error"),
-
-    // Object related labels
-    OBJECT_EQUALS_LABEL("code.Object.equals");
+            "overflow_error"), DIVIDE_BY_ZERO_ERROR("divide_by_zero_error");
 
     private final Label label;
 

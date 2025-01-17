@@ -58,6 +58,7 @@ public class ListDeclClass extends TreeList<AbstractDeclClass> {
         }
         ClassDefinition objectClass = compiler.environmentType.OBJECT.getDefinition();
         MethodTable objectMethodTable = new MethodTable(objectClass);
+        compiler.incrementOffsetGB(); // Increment to start building the method table at 1(GB)
         objectMethodTable.codeGenTable(compiler);
         for (AbstractDeclClass declClass : getList()) {
             declClass.codeGenDeclClass(compiler);

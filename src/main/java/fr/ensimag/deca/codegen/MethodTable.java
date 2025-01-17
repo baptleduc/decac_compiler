@@ -26,8 +26,6 @@ import org.apache.log4j.Logger;
 public class MethodTable {
     private static final Logger LOG = Logger.getLogger(MethodTable.class);
 
-    private static final int OBJECT_EQUALS_INDEX = 0;
-
     private ClassDefinition classDefinition;
     private String className;
     private ArrayList<Label> methods;
@@ -54,14 +52,12 @@ public class MethodTable {
      * @return A list of labels representing the method table.
      */
     private ArrayList<Label> initializeMethods() {
-        int totalMethods = getTotalNumberOfMethods(classDefinition) + 1; // +1 for "equals"
+        int totalMethods = classDefinition.getNumberOfMethods();
         LOG.debug("Initializing method table");
-        LOG.debug("Number of methods : " + getTotalNumberOfMethods(classDefinition));
+        LOG.debug("Number of methods : " + totalMethods);
 
         ArrayList<Label> methodsList = new ArrayList<>(totalMethods);
         fillListWithNull(methodsList, totalMethods);
-        // methodsList.set(OBJECT_EQUALS_INDEX,
-        // LabelManager.OBJECT_EQUALS_LABEL.getLabel());
 
         LOG.debug("Method table initialized: " + methodsList);
         return methodsList;
@@ -79,16 +75,6 @@ public class MethodTable {
         while (list.size() < size) {
             list.add(null);
         }
-    }
-
-    /**
-     * Recusivly calculate the total number of methods, including herited ones.
-     */
-    private int getTotalNumberOfMethods(ClassDefinition classDefinition) {
-        if (classDefinition.getSuperClass() == null) {
-            return 0;
-        }
-        return classDefinition.getNumberOfMethods() + getTotalNumberOfMethods(classDefinition.getSuperClass());
     }
 
     @Override
@@ -120,10 +106,6 @@ public class MethodTable {
             throw new DecacInternalError("Invalid index using for building method table of class + " + className);
         }
 
-        if (methods.get(index) != null) {
-            LOG.debug("Method already exists at index : " + index);
-            return;
-        }
         LOG.debug("methods added");
         methods.set(index, new Label("code." + objectName + "." + methodName, false));
         LOG.debug(methods.toString());
@@ -172,30 +154,6 @@ public class MethodTable {
     }
 
     /**
-     * Generates the method table for the Object class.
-     *
-     * @param compiler
-     *            The Deca compiler instance used for code generation.
-     */
-    public static void codeGenTableObjectClass(DecacCompiler compiler) {
-        compiler.addComment("Method table for Object class");
-        compiler.incrementOffsetGB(); // Increment offset to be at 1(GB)
-
-        // Null pointer
-        compiler.setLastMethodTableAddr(compiler.getOffsetGB());
-        compiler.addInstruction(new LOAD(new NullOperand(), compiler.getRegister0()));
-        compiler.addInstruction(new STORE(compiler.getRegister0(), compiler.getOffsetGB()));
-        compiler.incrementOffsetGB(); // Increment offset to be at 2(GB)
-
-        // Equals method
-        DVal labelDVal = new LabelOperand(LabelManager.OBJECT_EQUALS_LABEL.getLabel());
-        compiler.addInstruction(new LOAD(labelDVal, compiler.getRegister0()));
-        compiler.addInstruction(new STORE(compiler.getRegister0(), compiler.getOffsetGB()));
-        compiler.incrementOffsetGB(); // Increment offset to be at 3(GB)
-
-    }
-
-    /**
      * Generates the instructions to build the method table.
      *
      * @param compiler
@@ -203,7 +161,6 @@ public class MethodTable {
      */
     public void codeGenTable(DecacCompiler compiler) {
         buildTable(classDefinition, compiler);
-
         compiler.addComment("Method Table of class " + className);
 
         // Add Pointer to the last method table

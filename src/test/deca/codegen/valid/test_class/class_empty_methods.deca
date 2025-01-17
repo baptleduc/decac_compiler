@@ -13,5 +13,10 @@ class A{
     }
 }
 
+class B extends A{
+    void p(){}
+    int q(){}
+}
+
 {
 }
