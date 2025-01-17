@@ -31,7 +31,7 @@ public class StackManager {
     private int offsetLB = 0;
     private int offsetSP = 0;
 
-    private DAddr lastMethodTableAddr = getOffsetGB();
+    private DAddr lastMethodTableAddr;
 
     // Add counters to calculate "d"
     private int numSavedRegisters = 0;
@@ -108,7 +108,9 @@ public class StackManager {
      * Increments the GB offset by 1.
      */
     public void incrementOffsetGB() {
+
         offsetGB++;
+        LOG.debug("Incrementing offsetGB to " + offsetGB);
     }
 
     /**
@@ -162,6 +164,7 @@ public class StackManager {
      * Adds a global variable and returns its offset in the GB register.
      */
     public RegisterOffset addGlobalVariable() {
+        LOG.debug("Adding global variable at offset " + offsetGB);
         // TODO: switch case to determine the size of the offset and add type in arg
         return new RegisterOffset(++offsetGB, GB);
     }
