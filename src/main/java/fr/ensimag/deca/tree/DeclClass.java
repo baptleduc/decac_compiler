@@ -6,13 +6,10 @@ import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ClassType;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
-import fr.ensimag.deca.context.ExpDefinition;
 import fr.ensimag.deca.context.TypeDefinition;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.deca.tools.SymbolTable.Symbol;
 import java.io.PrintStream;
-import java.util.Iterator;
-import java.util.Map;
 import org.apache.commons.lang.Validate;
 import org.apache.log4j.Logger;
 
@@ -91,7 +88,7 @@ public class DeclClass extends AbstractDeclClass {
     }
 
     /**
-     *	Pass 2 of [SyntaxeContextuelle]
+     * Pass 2 of [SyntaxeContextuelle]
      */
     @Override
     protected void verifyClassMembers(DecacCompiler compiler)
@@ -106,7 +103,7 @@ public class DeclClass extends AbstractDeclClass {
             envExpF.directSum(envExpM);
         } catch (Exception e) {
             throw new ContextualError("Method declared in field environment",
-                        classIdentifier.getLocation());
+                    classIdentifier.getLocation());
         }
 
         currentClassDef.getMembers().empile(envExpF);

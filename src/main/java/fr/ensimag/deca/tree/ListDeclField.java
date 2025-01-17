@@ -17,29 +17,31 @@ public class ListDeclField extends TreeList<AbstractDeclField> {
     // /**
     // * Pass 2 of [SyntaxeContextuelle]
     // */
-    EnvironmentExp verifyListFields(DecacCompiler compiler, AbstractIdentifier superClassIdentifier, AbstractIdentifier classIdentifier) throws ContextualError {
-	
+    EnvironmentExp verifyListFields(DecacCompiler compiler, AbstractIdentifier superClassIdentifier,
+            AbstractIdentifier classIdentifier) throws ContextualError {
+
         LOG.debug("verify listClass: start");
-	EnvironmentExp envExpR = new EnvironmentExp(null);
-	for(AbstractDeclField declField : getList()){
+        EnvironmentExp envExpR = new EnvironmentExp(null);
+        for (AbstractDeclField declField : getList()) {
             EnvironmentExp envExp = declField.verifyField(compiler, superClassIdentifier, classIdentifier);
             try {
-		envExpR.directSum(envExp);
+                envExpR.directSum(envExp);
             } catch (Exception e) {
                 throw new RuntimeException("Unable to merge environments due to a conflict.", e);
             }
         }
-	LOG.debug("verify listClass: end");
+        LOG.debug("verify listClass: end");
         return envExpR;
     }
-    
+
     /**
-    * Pass 3 of [SyntaxeContextuelle]
-    */
-    void verifyListFieldsBody(DecacCompiler compiler, EnvironmentExp envExp, AbstractIdentifier classIdentifier) throws ContextualError {
+     * Pass 3 of [SyntaxeContextuelle]
+     */
+    void verifyListFieldsBody(DecacCompiler compiler, EnvironmentExp envExp, AbstractIdentifier classIdentifier)
+            throws ContextualError {
         // LOG.debug("verify listClass: start");
         EnvironmentExp envExpR = new EnvironmentExp(null);
-        for(AbstractDeclField declField : getList()){
+        for (AbstractDeclField declField : getList()) {
             declField.verifyFieldsBody(compiler, envExp, classIdentifier);
         }
         return;

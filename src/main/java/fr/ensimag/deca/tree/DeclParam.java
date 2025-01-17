@@ -1,12 +1,13 @@
 package fr.ensimag.deca.tree;
 
-import fr.ensimag.deca.tools.IndentPrintStream;
-import java.io.PrintStream;
-import fr.ensimag.deca.context.EnvironmentExp;
-import fr.ensimag.deca.context.ParamDefinition;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ContextualError;
+import fr.ensimag.deca.context.EnvironmentExp;
+import fr.ensimag.deca.context.ParamDefinition;
 import fr.ensimag.deca.context.Type;
+import fr.ensimag.deca.tools.IndentPrintStream;
+import java.io.PrintStream;
+
 /**
  * 
  * @author nicolmal
@@ -25,7 +26,7 @@ public class DeclParam extends AbstractDeclParam {
     /**
      * Pass 3 of [SyntaxeContextuelle]
      */
-    public EnvironmentExp verifyParamBody(DecacCompiler compiler) throws ContextualError{
+    public EnvironmentExp verifyParamBody(DecacCompiler compiler) throws ContextualError {
         Type actualParamType = paramType.verifyType(compiler);
         ParamDefinition paramDef = new ParamDefinition(actualParamType, paramName.getLocation());
         EnvironmentExp environmentParam = new EnvironmentExp(null);
@@ -41,14 +42,14 @@ public class DeclParam extends AbstractDeclParam {
     /**
      * Pass 2 of [SyntaxeContextuelle]
      */
-    public Type verifyParamType(DecacCompiler compiler) throws ContextualError{
+    public Type verifyParamType(DecacCompiler compiler) throws ContextualError {
         Type actualParamType = paramType.verifyType(compiler);
-        if (actualParamType.sameType(compiler.environmentType.VOID)){
+        if (actualParamType.sameType(compiler.environmentType.VOID)) {
             throw new ContextualError("Can't declare a param with void type", paramType.getLocation());
         }
         return actualParamType;
     }
-    
+
     @Override
     public void decompile(IndentPrintStream s) {
         paramType.decompile(s);

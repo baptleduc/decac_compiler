@@ -27,9 +27,10 @@ public class New extends AbstractExpr {
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-	Type newType = ident.verifyType(compiler);
-        if(!newType.isClass()){
-            throw new ContextualError ("Must use a class, not a "+newType.getName()+"to create a new object", ident.getLocation());
+        Type newType = ident.verifyType(compiler);
+        if (!newType.isClass()) {
+            throw new ContextualError("Must use a class, not a " + newType.getName() + "to create a new object",
+                    ident.getLocation());
         }
         return newType;
     }
