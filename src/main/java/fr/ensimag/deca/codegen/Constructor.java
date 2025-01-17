@@ -4,6 +4,7 @@ package fr.ensimag.deca.codegen;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.tree.AbstractDeclField;
+import fr.ensimag.deca.tree.AbstractIdentifier;
 import fr.ensimag.deca.tree.AbstractInitialization;
 import fr.ensimag.deca.tree.Initialization;
 import fr.ensimag.deca.tree.IntLiteral;
@@ -17,24 +18,28 @@ import fr.ensimag.ima.pseudocode.instructions.LOAD;
 import fr.ensimag.ima.pseudocode.instructions.PUSH;
 import fr.ensimag.ima.pseudocode.instructions.RTS;
 import fr.ensimag.ima.pseudocode.instructions.SUBSP;
+import org.apache.log4j.Logger;
 
 public class Constructor {
-    private final Label label;
+    private static final Logger LOG = Logger.getLogger(Constructor.class);
+
+    private final AbstractIdentifier classIdentifier;
+    private final AbstractIdentifier superClassIdentifier;
     private final ClassDefinition classDefinition;
-    private ListDeclField fields;
+    private final ClassDefinition superClassDefinition;
+    private final ListDeclField fields;
     private static final RegisterOffset INSTANCE_OFFSET = new RegisterOffset(-2, Register.LB); // Registrer that
                                                                                                // contains the address
                                                                                                // of the start of the
                                                                                                // heap
 
-    public Constructor(ClassDefinition classDefinition, ListDeclField fields) {
-        this.classDefinition = classDefinition;
-        this.label = new Label("init." + classDefinition.getType().getName().getName(), false);
+    public Constructor(AbstractIdentifier classIdentifer, AbstractIdentifier superClassIdentifier,
+            ListDeclField fields) {
+        this.classIdentifier = classIdentifer;
+        this.superClassIdentifier = superClassIdentifier;
+        this.classDefinition = classIdentifer.getClassDefinition();
+        this.superClassDefinition = superClassIdentifier.getClassDefinition();
         this.fields = fields;
-    }
-
-    public Label getLabel() {
-        return label;
     }
 
     private void initializeAllFieldsToZero(ClassDefinition classDef, DecacCompiler compiler) {
@@ -53,18 +58,18 @@ public class Constructor {
     }
 
     public void codeGenConstructor(DecacCompiler compiler) {
-        compiler.addLabel(label);
+        compiler.addLabel(LabelManager.getInitLabel(classIdentifier));
         // TODO : handle stack overflow
         compiler.addInstruction(new LOAD(INSTANCE_OFFSET, compiler.getRegister1()));
         initializeAllFieldsToZero(classDefinition, compiler);
         compiler.addInstruction(new PUSH(compiler.getRegister1()));
 
         // Avoid BSR to the constructor of Object
-        if (classDefinition.getSuperClass().getSuperClass() == null) {
+        if (superClassDefinition.getSuperClass() == null) {
             initializeAllFieldsExplicitly(classDefinition, compiler);
         } else {
-            compiler.addInstruction(
-                    new BSR(new Label("init." + classDefinition.getSuperClass().getType().getName().getName())));
+            Label labelInitSuperClass = LabelManager.getInitLabel(superClassIdentifier);
+            compiler.addInstruction(new BSR(labelInitSuperClass));
             compiler.addInstruction(new SUBSP(new ImmediateInteger(1)));
             initializeAllFieldsExplicitly(classDefinition, compiler);
 
