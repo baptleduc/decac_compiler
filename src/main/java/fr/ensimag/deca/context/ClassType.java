@@ -50,13 +50,13 @@ public class ClassType extends Type {
 
     @Override
     public boolean sameType(Type otherType) {
-        if(!otherType.isClass()){
+        if (!otherType.isClass()) {
             return false;
-        }
-        else{
+        } else {
             try {
-                ClassType otherClassType = otherType.asClassType("can't compare class type with a predef type", this.getDefinition().getLocation());
-                if(otherClassType.getDefinition().equals(this.getDefinition())){
+                ClassType otherClassType = otherType.asClassType("can't compare class type with a predef type",
+                        this.getDefinition().getLocation());
+                if (otherClassType.getDefinition().equals(this.getDefinition())) {
                     return true;
                 }
             } catch (Exception e) {
@@ -71,8 +71,8 @@ public class ClassType extends Type {
      */
     public boolean isSubClassOf(ClassType potentialSuperClass) {
         ClassDefinition superClassDefinition = this.definition.getSuperClass();
-        while(!superClassDefinition.getType().sameType(potentialSuperClass)
-        && superClassDefinition.getSuperClass() != null){
+        while (!superClassDefinition.getType().sameType(potentialSuperClass)
+                && superClassDefinition.getSuperClass() != null) {
             superClassDefinition = superClassDefinition.getSuperClass();
         }
         return superClassDefinition.getType().sameType(potentialSuperClass);
