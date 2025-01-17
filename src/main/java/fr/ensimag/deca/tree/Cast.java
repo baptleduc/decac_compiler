@@ -1,7 +1,10 @@
 package fr.ensimag.deca.tree;
 
+import java.io.PrintStream;
+
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
+import fr.ensimag.deca.context.ClassType;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.Type;
@@ -9,7 +12,6 @@ import fr.ensimag.deca.tools.DecacInternalError;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.DVal;
 import fr.ensimag.ima.pseudocode.Label;
-import java.io.PrintStream;
 
 /**
  *
@@ -37,7 +39,26 @@ public class Cast extends AbstractExpr {
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
+        Type typeExpression = expressionToCast.verifyExpr(compiler, localEnv, currentClass);
+        Type typeCast = typeIdentifier.verifyExpr(compiler, localEnv, currentClass);
+        if(typeExpression.isVoid()){
+            throw new ContextualError("Can't cast a void", expressionToCast.getLocation());
+        }
+        if((typeExpression.isInt() && typeCast.isFloat())
+        ||(typeExpression.isFloat() && typeCast.isInt())){
+            return typeCast;
+        }
+
+        ClassType classTypeExpression = typeExpression.asClassType(" can only cast from a class type or int, float", expressionToCast.getLocation());
+        ClassType classTypeCast = typeCast.asClassType(" can only cast to a class type or int, float", expressionToCast.getLocation());
+        if((classTypeExpression.isSubClassOf(classTypeCast))
+        || (classTypeCast.isSubClassOf(classTypeExpression))){
+            return typeCast;
+        }
+        else{
+            throw new ContextualError("Can't cast those expressions", expressionToCast.getLocation());
+        }
+
     }
 
     @Override
