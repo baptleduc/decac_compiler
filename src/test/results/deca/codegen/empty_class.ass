@@ -2,15 +2,15 @@
 	BOV stack_overflow_error_0
 	ADDSP #5
 ; start main program
-; Method table for Object class
+; Method Table of class Object
 	LOAD #null, R0
 	STORE R0, 1(GB)
-	LOAD code.Object.equals_4, R0
+	LOAD code.Object.equals, R0
 	STORE R0, 2(GB)
 ; Method Table of class A
 	LEA 0(GB), R0
 	STORE R0, 3(GB)
-	LOAD code.Object.equals_4, R0
+	LOAD code.Object.equals, R0
 	STORE R0, 4(GB)
 ; Main program
 ; Beginning of main instructions:
