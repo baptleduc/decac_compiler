@@ -1,0 +1,13 @@
+// Description:
+//    Program testing pass 2, fields declaration private and protected
+//
+// Results:
+//    ok
+//
+// History:
+//    Created on 17/01/2025
+
+class Test{
+    protected int r, y = r;
+    float f, s = 0.1;
+}

@@ -1,0 +1,18 @@
+// Description:
+//    Program testing pass 2, fields whith a superclass
+//
+// Results:
+//    ok
+//
+// History:
+//    Created on 17/01/2025
+
+class C{
+    int x;
+    int y=1;
+}
+
+class D extends C{
+    int x=3;
+    int z;
+}

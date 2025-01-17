@@ -5,6 +5,8 @@ import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import org.apache.log4j.Logger;
+import fr.ensimag.deca.tools.SymbolTable.Symbol;
+import fr.ensimag.deca.context.ClassDefinition;
 
 /**
  *
@@ -22,6 +24,12 @@ public class ListDeclField extends TreeList<AbstractDeclField> {
 
         LOG.debug("verify listClass: start");
         EnvironmentExp envExpR = new EnvironmentExp(null);
+	int numberOfFieldsSuperClass = ((ClassDefinition) (compiler.environmentType.getEnvTypes()
+                .get(superClassIdentifier.getName()))).getNumberOfFields();
+        ((ClassDefinition) (compiler.environmentType.getEnvTypes().get(classIdentifier.getName())))
+                .setNumberOfFields(numberOfFieldsSuperClass);
+        LOG.debug(
+                "number of fields of superclass of " + classIdentifier.getName() + " : " + numberOfFieldsSuperClass);
         for (AbstractDeclField declField : getList()) {
             EnvironmentExp envExp = declField.verifyField(compiler, superClassIdentifier, classIdentifier);
             try {
@@ -30,6 +38,9 @@ public class ListDeclField extends TreeList<AbstractDeclField> {
                 throw new RuntimeException("Unable to merge environments due to a conflict.", e);
             }
         }
+	LOG.debug("number of fields of " + classIdentifier.getName() + " : "
+                + ((ClassDefinition) (compiler.environmentType.getEnvTypes().get(classIdentifier.getName())))
+                        .getNumberOfFields());
         LOG.debug("verify listClass: end");
         return envExpR;
     }
