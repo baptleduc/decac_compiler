@@ -10,7 +10,7 @@ import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.IndentPrintStream;
 
 import org.apache.log4j.Logger;
-
+import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.Signature;
@@ -54,5 +54,22 @@ public class ListDeclParam extends TreeList<AbstractDeclParam> {
             throw new ContextualError("Can't declare a param with void type", paramType.getLocation());
         }
         return actualParamType;
+    }
+
+    
+    /**
+     * Pass 3 of [SyntaxeContextuelle]
+     */
+    EnvironmentExp verifyListParamsBody(DecacCompiler compiler) throws ContextualError {
+        EnvironmentExp envExpR = new EnvironmentExp(null);
+        for (AbstractDeclParam param: getList()){
+            EnvironmentExp envExp = param.verifyParamBody(compiler);
+            try {
+                envExpR.directSum(envExp);
+            } catch (Exception e) {
+                //do nothing
+            }
+        }
+        return envExpR;
     }
 }

@@ -2,7 +2,8 @@ package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.tools.IndentPrintStream;
 import java.io.PrintStream;
-
+import fr.ensimag.deca.context.EnvironmentExp;
+import fr.ensimag.deca.context.ParamDefinition;
 /**
  * 
  * @author nicolmal
@@ -17,6 +18,23 @@ public class DeclParam extends AbstractDeclParam {
         this.paramType = paramType;
         this.paramName = paramName;
     }
+
+    /**
+     * Pass 2 of [SyntaxeContextuelle]
+     */
+    public EnvironmentExp verifyParamBody(DecacCompiler compiler) throws ContextualError{
+        Type actualParamType = paramType.verifyType(compiler);
+        ParamDefinition paramDef = new ParamDefinition(actualParamType, paramName.getLocation());
+        EnvironmentExp environmentParam = new EnvironmentExp(null);
+        try {
+            environmentParam.declare(paramName.getName(), paramDef);
+        } catch (Exception e) {
+            // do nothing
+        }
+        paramName.setDefinition(paramDef);
+        return environmentParam;
+    }
+
 
     @Override
     public void decompile(IndentPrintStream s) {

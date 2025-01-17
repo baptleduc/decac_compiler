@@ -32,6 +32,19 @@ public class ListDeclField extends TreeList<AbstractDeclField> {
 	LOG.debug("verify listClass: end");
         return envExpR;
     }
+    
+    /**
+    * Pass 3 of [SyntaxeContextuelle]
+    */
+    void verifyListFieldsBody(DecacCompiler compiler, EnvironmentExp envExp, AbstractIdentifier classIdentifier) throws ContextualError {
+        // LOG.debug("verify listClass: start");
+        EnvironmentExp envExpR = new EnvironmentExp(null);
+        for(AbstractDeclField declField : getList()){
+            declField.verifyFieldsBody(compiler, envExp, classIdentifier);
+        }
+        return;
+        // LOG.debug("verify listClass: end");
+    }
 
     @Override
     public void decompile(IndentPrintStream s) {
