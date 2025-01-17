@@ -151,7 +151,7 @@ public class Constructor {
      */
     public void codeGenConstructor(DecacCompiler compiler) {
         compiler.addLabel(LabelManager.getInitLabel(classIdentifier));
-        if (classDefinition.getNumberOfFields()==0) {
+        if (classDefinition.getNumberOfFields() == 0) {
             compiler.addInstruction(new RTS());
             return;
         }
