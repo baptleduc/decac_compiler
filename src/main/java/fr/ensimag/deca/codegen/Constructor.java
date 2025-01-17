@@ -151,6 +151,10 @@ public class Constructor {
      */
     public void codeGenConstructor(DecacCompiler compiler) {
         compiler.addLabel(LabelManager.getInitLabel(classIdentifier));
+        if (classDefinition.getNumberOfFields()==0) {
+            compiler.addInstruction(new RTS());
+            return;
+        }
         // TODO : handle stack overflow
         compiler.addInstruction(new LOAD(INSTANCE_OFFSET, compiler.getRegister1()));
 
