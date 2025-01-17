@@ -38,6 +38,11 @@ public class Initialization extends AbstractInitialization {
     }
 
     @Override
+    public boolean isImplicit() {
+        return false;
+    }
+
+    @Override
     protected void verifyInitialization(DecacCompiler compiler, Type t,
             EnvironmentExp localEnv, ClassDefinition currentClass)
             throws ContextualError {

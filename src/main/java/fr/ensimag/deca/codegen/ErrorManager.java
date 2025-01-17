@@ -70,9 +70,6 @@ public class ErrorManager {
         generateError(LabelManager.NULL_POINTER_ERROR.getLabel(), "Error: Deferencing a null pointer", compiler);
     }
 
-
-
-
     /**
      * Generates the assembly code for a specific error handler.
      *

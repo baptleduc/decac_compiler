@@ -31,5 +31,10 @@ public abstract class AbstractInitialization extends Tree {
             Type t, EnvironmentExp localEnv, ClassDefinition currentClass)
             throws ContextualError;
 
+    /*
+     * True if NoInitialization, false if explicitely Initialization
+     */
+    public abstract boolean isImplicit();
+
     public abstract void codeGenInitialization(DecacCompiler compiler, DAddr addr);
 }
