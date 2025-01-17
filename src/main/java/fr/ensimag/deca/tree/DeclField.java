@@ -36,6 +36,10 @@ public class DeclField extends AbstractDeclField {
         return init;
     }
 
+    public AbstractIdentifier getName() {
+        return name;
+    }
+
     /**
      * Pass 2 of [SyntaxeContextuelle]
      */

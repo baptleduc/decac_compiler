@@ -8,7 +8,14 @@
 
 class A{
     int x;
+    int z;
     int y=1;
+}
+
+class B extends A{
+    int x=3;
+    int z;
+    int q=2;
 }
 
 {
