@@ -57,7 +57,7 @@ public class ListDeclClass extends TreeList<AbstractDeclClass> {
     }
 
     public void codeGenListDeclClass(DecacCompiler compiler) {
-        if (getList().isEmpty()) { //TODO: to remove
+        if (getList().isEmpty()) { // TODO: to remove
             return;
         }
         ClassDefinition objectClass = compiler.environmentType.OBJECT.getDefinition();

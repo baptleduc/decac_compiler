@@ -1,5 +1,5 @@
 	TSTO #0	; 0 (variables) + 0 (saved registers) + 0 (temporaries) + 0 (method parameters x 2)
-	BOV stack_overflow_error_0
+	BOV stack_overflow_error
 	ADDSP #0
 ; start main program
 ; Main program
@@ -9,20 +9,28 @@
 	WSTR " testing"
 	WNL
 	HALT
-stack_overflow_error_0:
+stack_overflow_error:
 	WSTR "Error: Stack Overflow"
 	WNL
 	ERROR
-overflow_error_2:
+overflow_error:
 	WSTR "Error: Overflow during arithmetic operation"
 	WNL
 	ERROR
-io_error_1:
+io_error:
 	WSTR "Error: Input/Output error"
 	WNL
 	ERROR
-divide_by_zero_error_3:
+divide_by_zero_error:
 	WSTR "Error: Division by zero"
+	WNL
+	ERROR
+heap_overflow_error:
+	WSTR "Error: Heap Overflow"
+	WNL
+	ERROR
+null_pointer_error:
+	WSTR "Error: Deferencing a null pointer"
 	WNL
 	ERROR
 ; end main program

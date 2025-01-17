@@ -73,10 +73,8 @@ public class Program extends AbstractProgram {
         compiler.addInstruction(new HALT());
 
         // Error handling
-        compiler.generateStackOverflow();
-        compiler.generateOverflowError();
-        compiler.generateIOError();
-        compiler.generateDivideByZeroError();
+        compiler.checkStackOverflow();
+        compiler.generateAllErrors();
     }
 
     @Override
