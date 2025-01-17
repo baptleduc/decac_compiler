@@ -1,7 +1,7 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.DecacCompiler;
-import fr.ensimag.deca.codegen.Constructor;
+import fr.ensimag.deca.codegen.LabelManager;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
@@ -79,8 +79,7 @@ public class New extends AbstractExpr {
         compiler.addInstruction(new LEA(heapStartAddr, compiler.getRegister0()));
         compiler.addInstruction(new STORE(compiler.getRegister0(), heapStartAddr));
         compiler.addInstruction(new PUSH(regDest));
-        Constructor constructor = new Constructor(classDef);
-        compiler.addInstruction(new BSR(constructor.getLabel()));
+        compiler.addInstruction(new BSR(LabelManager.getInitLabel(ident)));
         compiler.addInstruction(new POP(regDest));
 
         ident.setDVal(regDest);

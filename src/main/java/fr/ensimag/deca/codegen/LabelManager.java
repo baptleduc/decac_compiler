@@ -1,6 +1,9 @@
 package fr.ensimag.deca.codegen;
 
+import fr.ensimag.deca.tree.AbstractIdentifier;
 import fr.ensimag.ima.pseudocode.Label;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Enum for predefined labels used in the Deca program.
@@ -12,6 +15,10 @@ public enum LabelManager {
             "overflow_error"), DIVIDE_BY_ZERO_ERROR("divide_by_zero_error");
 
     private final Label label;
+
+    // Map to store dynamically created labels
+    private static final Map<String, Label> initLabels = new HashMap<>();
+    private static final Map<String, Label> methodLabels = new HashMap<>();
 
     /**
      * Constructor for the enum values.
@@ -30,5 +37,13 @@ public enum LabelManager {
      */
     public Label getLabel() {
         return label;
+    }
+
+    public static Label getInitLabel(AbstractIdentifier ident) {
+        String labelName = "init." + ident.getName().getName();
+        if (initLabels.containsKey(labelName)) {
+            return initLabels.get(labelName);
+        }
+        return new Label(labelName, false);
     }
 }
