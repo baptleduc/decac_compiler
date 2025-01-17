@@ -13,8 +13,6 @@
 	LOAD code.Object.equals, R0
 	STORE R0, 3(GB)
 init.A:
-	LOAD -2(LB), R1
-	PUSH R1
 	RTS
 ; Main program
 ; Beginning of main instructions:
