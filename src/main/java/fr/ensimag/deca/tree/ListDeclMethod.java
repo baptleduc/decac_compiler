@@ -54,6 +54,16 @@ public class ListDeclMethod extends TreeList<AbstractDeclMethod> {
         return envExpR;
     }
 
+    /**
+     * Pass 3 of [SyntaxeContextuelle]
+     */
+    public void verifyListMethodsBody(DecacCompiler compiler, EnvironmentExp envExp, AbstractIdentifier methodClass)
+            throws ContextualError {
+        for (AbstractDeclMethod declMethod : getList()) {
+            declMethod.verifyMethodBody(compiler, envExp, methodClass);
+        }
+    }
+
     @Override
     public void decompile(IndentPrintStream s) {
         for (AbstractDeclMethod c : getList()) {

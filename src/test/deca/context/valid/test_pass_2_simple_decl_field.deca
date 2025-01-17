@@ -1,0 +1,12 @@
+// Description:
+//    Program testing pass 1, only one public non class type field in a object
+//
+// Results:
+//    ok
+//
+// History:
+//    Created on 17/01/2025
+
+class Test{
+    int x = 3;
+}

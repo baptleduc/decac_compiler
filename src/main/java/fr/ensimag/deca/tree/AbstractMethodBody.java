@@ -1,5 +1,10 @@
 package fr.ensimag.deca.tree;
 
+import fr.ensimag.deca.DecacCompiler;
+import fr.ensimag.deca.context.ContextualError;
+import fr.ensimag.deca.context.EnvironmentExp;
+import fr.ensimag.deca.context.Type;
+
 /**
  * Class declaration.
  *
@@ -7,5 +12,6 @@ package fr.ensimag.deca.tree;
  * @date 13/01/2025
  */
 public abstract class AbstractMethodBody extends Tree {
-    // TODO : implement fonction verify for passe
+    public abstract void verifyMethodBodyBody(DecacCompiler compiler, EnvironmentExp envExp,
+            EnvironmentExp envExpParams, AbstractIdentifier methodClass, Type methodReturnType) throws ContextualError;
 }

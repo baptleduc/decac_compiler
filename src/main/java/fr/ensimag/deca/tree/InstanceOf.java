@@ -29,7 +29,15 @@ public class InstanceOf extends AbstractExpr {
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
+        Type leftType = leftOperand.verifyExpr(compiler, localEnv, currentClass);
+        Type rightType = rightOperand.verifyType(compiler);
+        if ((leftType.isClass() || leftType.isNull()) && rightType.isClass()) {
+            leftOperand.setType(leftType);
+            rightOperand.setType(rightType);
+            return compiler.environmentType.BOOLEAN;
+        }
+        throw new ContextualError("Can't use instanceof with this type " + rightOperand.getName(),
+                rightOperand.getLocation());
     }
 
     @Override

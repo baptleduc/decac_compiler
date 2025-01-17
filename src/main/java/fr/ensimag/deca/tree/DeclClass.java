@@ -6,13 +6,10 @@ import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ClassType;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
-import fr.ensimag.deca.context.ExpDefinition;
 import fr.ensimag.deca.context.TypeDefinition;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.deca.tools.SymbolTable.Symbol;
 import java.io.PrintStream;
-import java.util.Iterator;
-import java.util.Map;
 import org.apache.commons.lang.Validate;
 import org.apache.log4j.Logger;
 
@@ -90,46 +87,38 @@ public class DeclClass extends AbstractDeclClass {
         compiler.environmentType.declare(classIdentifier.getName(), classDef);
     }
 
-    // * Pass 2 of [SyntaxeContextuelle]
-    // */
+    /**
+     * Pass 2 of [SyntaxeContextuelle]
+     */
     @Override
     protected void verifyClassMembers(DecacCompiler compiler)
             throws ContextualError {
         LOG.debug(classIdentifier.getName() + " " + superClassIdentifier.getName());
         ClassDefinition currentClassDef = classIdentifier.getClassDefinition();
 
-        EnvironmentExp envExpF = fields.verifyListFields(compiler);
+        EnvironmentExp envExpF = fields.verifyListFields(compiler, superClassIdentifier, classIdentifier);
         EnvironmentExp envExpM = methods.verifyListMethods(compiler, classIdentifier, superClassIdentifier);
 
-        // Verify that envExpF and envExpM have no symb in common
-        for (Map.Entry<Symbol, ExpDefinition> entry : envExpM.getCurrentEnvironment().entrySet()) {
-            Symbol var = entry.getKey();
-            if (envExpF.getCurrentEnvironment().containsKey(var)) {
-                throw new ContextualError("Name of Method" + var.getName() + "declared in field environment",
-                        classIdentifier.getLocation());
-            }
-        }
-
-        // add symb of envExpM to envExpF
-        for (Iterator<Map.Entry<Symbol, ExpDefinition>> it = envExpM.getCurrentEnvironment().entrySet().iterator(); it
-                .hasNext();) {
-            Map.Entry<Symbol, ExpDefinition> entry = it.next();
-            Symbol var = entry.getKey();
-            ExpDefinition definition = entry.getValue();
-            try {
-                envExpF.declare(var, definition); // add the key-value
-            } catch (Exception e) {
-                // do nothing
-            }
-
+        try {
+            envExpF.directSum(envExpM);
+        } catch (Exception e) {
+            throw new ContextualError("Method declared in field environment",
+                    classIdentifier.getLocation());
         }
 
         currentClassDef.getMembers().empile(envExpF);
     }
 
+    /**
+     * Pass 3 of [SyntaxeContextuelle]
+     */
     @Override
     protected void verifyClassBody(DecacCompiler compiler) throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
+        TypeDefinition typeDef = compiler.environmentType.getEnvTypes().get(classIdentifier.getName());
+        ClassDefinition classDef = (ClassDefinition) typeDef;
+        EnvironmentExp envExp = classDef.getMembers();
+        fields.verifyListFieldsBody(compiler, envExp, classIdentifier);
+        methods.verifyListMethodsBody(compiler, envExp, classIdentifier);
     }
 
     @Override

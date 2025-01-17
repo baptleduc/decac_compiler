@@ -85,6 +85,16 @@ public class DeclMethod extends AbstractDeclMethod {
         return environmentMethod;
     }
 
+    /**
+     * Pass 3 of [SyntaxeContextuelle]
+     */
+    public void verifyMethodBody(DecacCompiler compiler, EnvironmentExp envExp, AbstractIdentifier methodClass)
+            throws ContextualError {
+        Type methodReturnType = returnType.verifyType(compiler);
+        EnvironmentExp envExpParams = params.verifyListParamsBody(compiler);
+        body.verifyMethodBodyBody(compiler, envExp, envExpParams, methodClass, methodReturnType);
+    }
+
     @Override
     public void decompile(IndentPrintStream s) {
         returnType.decompile(s);
