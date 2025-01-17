@@ -56,6 +56,14 @@ public class DeclField extends AbstractDeclField {
         return environmentField;
     }
 
+    /**
+     * Pass 3 of [SyntaxeContextuelle]
+     */
+    public void verifyFieldsBody(DecacCompiler compiler, EnvironmentExp envExp, AbstractIdentifier classIdentifier) throws ContextualError{
+        Type fieldType = type.verifyType(compiler);
+        init.verifyInitialization(compiler, fieldType, envExp, classIdentifier.getClassDefinition());
+    }
+
 
     @Override
     public void decompile(IndentPrintStream s) {

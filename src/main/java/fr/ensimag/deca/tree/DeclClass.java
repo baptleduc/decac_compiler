@@ -90,8 +90,9 @@ public class DeclClass extends AbstractDeclClass {
         compiler.environmentType.declare(classIdentifier.getName(), classDef);
     }
 
-    // * Pass 2 of [SyntaxeContextuelle]
-    // */
+    /**
+     *	Pass 2 of [SyntaxeContextuelle]
+     */
     @Override
     protected void verifyClassMembers(DecacCompiler compiler)
             throws ContextualError {
@@ -111,9 +112,16 @@ public class DeclClass extends AbstractDeclClass {
         currentClassDef.getMembers().empile(envExpF);
     }
 
+    /**
+     * Pass 3 of [SyntaxeContextuelle]
+     */
     @Override
     protected void verifyClassBody(DecacCompiler compiler) throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
+        TypeDefinition typeDef = compiler.environmentType.getEnvTypes().get(classIdentifier.getName());
+        ClassDefinition classDef = (ClassDefinition) typeDef;
+        EnvironmentExp envExp = classDef.getMembers();
+        fields.verifyListFieldsBody(compiler, envExp, classIdentifier);
+        methods.verifyListMethodsBody(compiler, envExp, classIdentifier);
     }
 
     @Override
