@@ -1,0 +1,21 @@
+// Description:
+//    Minimalistic counter.
+// Results:
+//    12
+//
+// History:
+//    Created on 16/01/2025
+
+class A {
+    int x = 12 ;
+    int getX() {
+        return x ;
+    }
+    
+}
+
+{
+    A a = new A() ;
+
+    println(a.getX()) ;
+}

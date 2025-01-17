@@ -1,0 +1,27 @@
+// Description:
+//    Minimalistic program using setter/getter.
+// Results:
+//    42
+//
+// History:
+//    Created on 16/01/2025
+
+
+class SimpleClass {
+    int number;
+
+    void setNumber(int n) {
+        number = n;
+    }
+
+    int getNumber() {
+        return number;
+    }
+}
+
+{
+    SimpleClass obj = new SimpleClass();
+    obj.setNumber(42);
+    println(obj.getNumber());
+    
+}
