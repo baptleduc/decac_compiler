@@ -60,6 +60,30 @@ public class EnvironmentExp {
         return empiledEnv;
     }
 
+        public void directSum(EnvironmentExp env2)throws DoubleDefException{
+        // Verify that this and env2 have no symb in common
+        for (Map.Entry<Symbol, ExpDefinition> entry : env2.getCurrentEnvironment().entrySet()) {
+            Symbol var = entry.getKey();
+            if (this.getCurrentEnvironment().containsKey(var)) {
+                throw new DoubleDefException();
+            }
+        }
+
+        // add symb of env2 to this
+        for (Iterator<Map.Entry<Symbol, ExpDefinition>> it = env2.getCurrentEnvironment().entrySet().iterator(); it
+                .hasNext();) {
+            Map.Entry<Symbol, ExpDefinition> entry = it.next();
+            Symbol var = entry.getKey();
+            ExpDefinition definition = entry.getValue();
+            try {
+                declare(var, definition); // add the key-value
+            } catch (Exception e) {
+                // do nothing
+            }
+        }
+    }
+
+
     public EnvironmentExp(EnvironmentExp parentEnvironment) {
         this.parentEnvironment = parentEnvironment;
         this.currentEnvironment = new HashMap<Symbol, ExpDefinition>();
