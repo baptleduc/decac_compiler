@@ -51,7 +51,6 @@ public class DeclVar extends AbstractDeclVar {
 
         // Add the variable to the environment
         VariableDefinition varDef = new VariableDefinition(varType, varName.getLocation());
-        varDef.setOperand(compiler.addGlobalVariable());
         varName.setDefinition(varDef);
         try {
             localEnv.declare(varName.getName(), varDef);
@@ -66,7 +65,8 @@ public class DeclVar extends AbstractDeclVar {
 
     @Override
     protected void codeGenDeclVar(DecacCompiler compiler) {
-        DAddr addr = ((VariableDefinition) varName.getDefinition()).getOperand();
+        DAddr addr = compiler.addGlobalVariable();
+        ((VariableDefinition) varName.getDefinition()).setOperand(addr);
         initialization.codeGenInitialization(compiler, addr);
 
     }

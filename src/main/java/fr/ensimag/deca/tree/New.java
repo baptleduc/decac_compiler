@@ -9,7 +9,6 @@ import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.DecacInternalError;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.DAddr;
-import fr.ensimag.ima.pseudocode.DVal;
 import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.instructions.BSR;
@@ -65,11 +64,6 @@ public class New extends AbstractExpr {
     }
 
     @Override
-    protected DVal getDVal(DecacCompiler compiler) {
-        throw new UnsupportedOperationException("not yet implemented");
-    }
-
-    @Override
     protected void codeGenInst(DecacCompiler compiler) {
         ClassDefinition classDef = ident.getClassDefinition();
         DAddr heapStartAddr = classDef.getMethodTableAddr();
@@ -82,7 +76,7 @@ public class New extends AbstractExpr {
         compiler.addInstruction(new BSR(LabelManager.getInitLabel(ident)));
         compiler.addInstruction(new POP(regDest));
 
-        ident.setDVal(regDest);
+        setDVal(regDest);
         // TODO constructor call
     }
 

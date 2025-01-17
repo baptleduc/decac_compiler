@@ -10,7 +10,6 @@ import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.TypeDefinition;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.deca.tools.SymbolTable.Symbol;
-import fr.ensimag.ima.pseudocode.DAddr;
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
 import org.apache.log4j.Logger;
@@ -141,18 +140,8 @@ public class DeclClass extends AbstractDeclClass {
 
     @Override
     protected void codeGenDeclClass(DecacCompiler compiler) {
-        MethodTable methodTable = new MethodTable(classIdentifier.getClassDefinition(),
-                compiler.getLastMethodTableAddr());
-
-        // Increment the last method table address by the number of methods in the class
-        compiler.incrementLastMethodTableAddr(classIdentifier.getClassDefinition().getNumberOfMethods());
-
-        DAddr methodTableAddr = methodTable.codeGenTable(compiler);
-        classIdentifier.getClassDefinition().setMethodTableAddr(methodTableAddr);
-
-        LOG.debug("Addr method table : " + methodTableAddr.toString());
-        LOG.debug(methodTable.toString());
-
+        MethodTable methodTable = new MethodTable(classIdentifier.getClassDefinition());
+        methodTable.codeGenTable(compiler);
     }
 
     @Override
