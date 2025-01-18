@@ -1,5 +1,7 @@
 package fr.ensimag.deca.tree;
 
+import java.io.PrintStream;
+
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.codegen.LabelManager;
 import fr.ensimag.deca.context.ClassDefinition;
@@ -15,7 +17,6 @@ import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.instructions.BRA;
 import fr.ensimag.ima.pseudocode.instructions.FLOAT;
 import fr.ensimag.ima.pseudocode.instructions.INT;
-import java.io.PrintStream;
 import org.apache.log4j.Logger;
 
 /**
@@ -53,6 +54,10 @@ public class Cast extends AbstractExpr {
         }
         if ((typeExpression.isInt() && typeCast.isFloat())
                 || (typeExpression.isFloat() && typeCast.isInt())) {
+            expressionToCast.setType(typeCast);
+            return typeCast;
+        }
+        if (typeExpression.sameType(typeCast)){
             return typeCast;
         }
 
