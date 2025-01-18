@@ -1,9 +1,5 @@
 package fr.ensimag.deca.tree;
 
-import java.io.PrintStream;
-
-import org.apache.commons.lang.Validate;
-
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ClassType;
@@ -17,6 +13,8 @@ import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.instructions.LOAD;
 import fr.ensimag.ima.pseudocode.instructions.WFLOAT;
 import fr.ensimag.ima.pseudocode.instructions.WINT;
+import java.io.PrintStream;
+import org.apache.commons.lang.Validate;
 
 /**
  * Expression, i.e. anything that has a value.
@@ -109,16 +107,17 @@ public abstract class AbstractExpr extends AbstractInst {
             AbstractExpr rValueConv = new ConvFloat(this);
             rValueConv.verifyExpr(compiler, localEnv, currentClass);
             return rValueConv;
-        }
-        else if(rvalueType.isClass() && expectedType.isClass()){
-            ClassType classTypeRvalue = rvalueType.asClassType(" need to assign to a compatible class", this.getLocation());
+        } else if (rvalueType.isClass() && expectedType.isClass()) {
+            ClassType classTypeRvalue = rvalueType.asClassType(" need to assign to a compatible class",
+                    this.getLocation());
             ClassType classTypeExpected = expectedType.asClassType(" the var can't be assigned to this class",
-                this.getLocation());
+                    this.getLocation());
             if ((classTypeRvalue.isSubClassOf(classTypeExpected))) {
-            this.setType(classTypeExpected);
-            return this;
+                this.setType(classTypeExpected);
+                return this;
             }
-            throw new ContextualError(classTypeRvalue.getName()+" is not subclass of "+classTypeExpected.getName(), getLocation());
+            throw new ContextualError(classTypeRvalue.getName() + " is not subclass of " + classTypeExpected.getName(),
+                    getLocation());
         }
         throw new ContextualError("Expected type " + expectedType + " but found type " + rvalueType, getLocation());
     }
