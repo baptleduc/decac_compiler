@@ -24,12 +24,14 @@ public class Null extends AbstractExpr {
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
+        Type nullType = compiler.environmentType.NULL;
+        this.setType(nullType);
+        return nullType;
     }
 
     @Override
     public void decompile(IndentPrintStream s) {
-        throw new UnsupportedOperationException("not yet implemented");
+        s.print("null");
     }
 
     @Override

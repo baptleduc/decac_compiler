@@ -200,6 +200,8 @@ public class Identifier extends AbstractIdentifier {
         LOG.debug("verifyType : start");
         Symbol symbol = compiler.createSymbol(name.getName());
         TypeDefinition typeDef = compiler.environmentType.defOfType(symbol);
+        LOG.debug("Environment Types :" + compiler.environmentType.getEnvTypes());
+
         if (typeDef == null) {
             throw new ContextualError("Type " + name.getName() + " is not defined", getLocation());
         }

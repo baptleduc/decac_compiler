@@ -28,8 +28,12 @@ public class MethodBody extends AbstractMethodBody {
     @Override
     public void verifyMethodBodyBody(DecacCompiler compiler, EnvironmentExp envExp, EnvironmentExp envExpParams,
             AbstractIdentifier methodClass, Type methodReturnType) throws ContextualError {
-        listDeclVar.verifyListDeclVariable(compiler, envExpParams, methodClass.getClassDefinition());
-        listInst.verifyListInst(compiler, envExp, methodClass.getClassDefinition(), methodReturnType);
+        EnvironmentExp localEnv = envExpParams;
+
+        localEnv.setParent(envExp);
+        listDeclVar.verifyListDeclVariable(compiler, localEnv, methodClass.getClassDefinition());
+        EnvironmentExp empiledExp = localEnv.empile(localEnv.getParent());
+        listInst.verifyListInst(compiler, empiledExp, methodClass.getClassDefinition(), methodReturnType);
     }
 
     @Override
