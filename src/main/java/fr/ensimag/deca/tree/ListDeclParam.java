@@ -3,6 +3,7 @@ package fr.ensimag.deca.tree;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
+import fr.ensimag.deca.context.EnvironmentExp.DirectSumException;
 import fr.ensimag.deca.context.Signature;
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.IndentPrintStream;
@@ -44,8 +45,10 @@ public class ListDeclParam extends TreeList<AbstractDeclParam> {
             EnvironmentExp envExp = param.verifyParamBody(compiler);
             try {
                 envExpR.directSum(envExp);
-            } catch (Exception e) {
-                // do nothing
+            } catch (DirectSumException e) {
+                throw new ContextualError(
+                        "Parameter " + e.getName() + " aldready declare as a parameter in this method",
+                        e.getLocation());
             }
         }
         return envExpR;

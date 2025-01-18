@@ -1,0 +1,18 @@
+// Description:
+//    Program testing pass 3, declare a method with a field name
+//
+// Results:
+//    ok
+//
+// History:
+//    Created on 18/01/2025
+
+
+class Test{
+
+    void x(int test, float test){
+	
+    }
+}
+
+
