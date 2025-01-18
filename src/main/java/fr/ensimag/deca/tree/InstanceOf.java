@@ -59,7 +59,7 @@ public class InstanceOf extends AbstractExpr {
 
     @Override
     String prettyPrintNode() {
-        throw new UnsupportedOperationException("not yet implemented");
+        return "instanceof";
     }
 
     @Override
@@ -70,7 +70,8 @@ public class InstanceOf extends AbstractExpr {
 
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
-        throw new UnsupportedOperationException("not yet implemented");
+        leftOperand.prettyPrint(s, prefix, false);
+        rightOperand.prettyPrint(s, prefix, false);
     }
 
     @Override
