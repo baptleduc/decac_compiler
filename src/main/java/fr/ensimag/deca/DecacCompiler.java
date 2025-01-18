@@ -23,6 +23,7 @@ import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.RegisterOffset;
 import fr.ensimag.ima.pseudocode.instructions.ADDSP;
 import fr.ensimag.ima.pseudocode.instructions.BOV;
+import fr.ensimag.ima.pseudocode.instructions.POP;
 import fr.ensimag.ima.pseudocode.instructions.PUSH;
 import fr.ensimag.ima.pseudocode.instructions.TSTO;
 import java.io.File;
@@ -123,6 +124,10 @@ public class DecacCompiler {
         this.program = program;
         r.run();
         this.program = oldProgram;
+    }
+
+    public IMAProgram getProgram() {
+        return program;
     }
 
     /**
@@ -332,11 +337,34 @@ public class DecacCompiler {
         if (stackManager.isAvailableGPRegisterEmpty()) {
             GPRegister reg = stackManager.getLastUsedRegister();
             saveRegister(reg);
+            stackManager.markRegisterUsedMethod(reg);
             return reg;
         }
         GPRegister reg = stackManager.popAvailableGPRegister();
         stackManager.pushUsedGPRegister(reg);
+        stackManager.markRegisterUsedMethod(reg);
         return reg;
+    }
+
+    public void resetUsedRegistersMethod() {
+        stackManager.resetUsedRegistersMethod();
+    }
+
+    public void codeGenMethodPrologue() {
+        int counter = 0;
+        for (int regIndex : stackManager.getUsedRegistersMethod()) {
+            addFirst(new PUSH(Register.getR(regIndex)));
+            counter++;
+        }
+        addFirst(new BOV(LabelManager.STACK_OVERFLOW_ERROR.getLabel()));
+        addFirst(new TSTO(counter));
+    }
+
+    public void codeGenMethodEpilogue() {
+        while (!stackManager.getUsedRegistersMethod().isEmpty()) {
+            int regIndex = stackManager.popUsedRegisterMethod();
+            addInstruction(new POP(Register.getR(regIndex)));
+        }
     }
 
     /**

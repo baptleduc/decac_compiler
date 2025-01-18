@@ -27,6 +27,8 @@ public class StackManager {
     private LinkedList<Integer> idxAvailableGPRegisters;
     private LinkedList<Integer> idxUsedGPRegisters;
 
+    private LinkedList<Integer> usedRegistersMethod;
+
     private int offsetGB = 0;
     private int offsetLB = 0;
     private int offsetSP = 0;
@@ -41,11 +43,28 @@ public class StackManager {
     public StackManager(IMAProgram program, int numRegisters) {
         idxAvailableGPRegisters = new LinkedList<>();
         idxUsedGPRegisters = new LinkedList<>();
+        usedRegistersMethod = new LinkedList<>();
         this.program = program;
 
         for (int i = 2; i < numRegisters; i++) { // R0 and R1 are scratch registers
             idxAvailableGPRegisters.add(i);
         }
+    }
+
+    public void resetUsedRegistersMethod() {
+        assert (usedRegistersMethod.isEmpty());
+    }
+
+    public void markRegisterUsedMethod(GPRegister reg) {
+        usedRegistersMethod.addFirst(reg.getNumber());
+    }
+
+    public LinkedList<Integer> getUsedRegistersMethod() {
+        return usedRegistersMethod;
+    }
+
+    public int popUsedRegisterMethod() {
+        return usedRegistersMethod.removeFirst();
     }
 
     /**

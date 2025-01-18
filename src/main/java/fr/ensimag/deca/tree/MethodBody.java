@@ -60,7 +60,7 @@ public class MethodBody extends AbstractMethodBody {
 
     @Override
     protected void codeGenMethodBody(DecacCompiler compiler) {
-        throw new UnsupportedOperationException("Not yet supported");
+        compiler.addComment("Method Body");
     }
 
 }

@@ -2,9 +2,11 @@ package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.codegen.MethodTable;
+import fr.ensimag.deca.codegen.Object;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.ima.pseudocode.IMAProgram;
 import org.apache.log4j.Logger;
 
 /**
@@ -56,7 +58,7 @@ public class ListDeclClass extends TreeList<AbstractDeclClass> {
         LOG.debug("verify listClass: end");
     }
 
-    public void codeGenListDeclClass(DecacCompiler compiler) {
+    public void codeGenMethodTable(DecacCompiler compiler) {
         if (getList().isEmpty()) { // TODO: to remove
             return;
         }
@@ -64,20 +66,19 @@ public class ListDeclClass extends TreeList<AbstractDeclClass> {
         MethodTable objectMethodTable = new MethodTable(objectClass);
         objectMethodTable.codeGenTable(compiler);
         for (AbstractDeclClass declClass : getList()) {
-            declClass.codeGenDeclClass(compiler);
+            declClass.codeGenMethodTable(compiler);
         }
     }
 
-    public void codeGenConstructors(DecacCompiler compiler) {
+    public void codeGenClasses(DecacCompiler compiler) {
+        IMAProgram objectProgram = new IMAProgram();
+        compiler.withProgram(objectProgram, () -> Object.codeGenClass(compiler));
+        compiler.getProgram().append(objectProgram);
         for (AbstractDeclClass declClass : getList()) {
-            declClass.codeGenConstructor(compiler);
+            IMAProgram classProgram = new IMAProgram();
+
+            compiler.withProgram(classProgram, () -> declClass.codeGenClass(compiler));
+            compiler.getProgram().append(classProgram);
         }
     }
-
-    protected void codeGenMethods(DecacCompiler compiler) {
-        for (AbstractDeclClass declClass : getList()) {
-            declClass.codeGenMethods(compiler);
-        }
-    }
-
 }
