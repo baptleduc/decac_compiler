@@ -16,7 +16,6 @@ import fr.ensimag.ima.pseudocode.instructions.BRA;
 import fr.ensimag.ima.pseudocode.instructions.FLOAT;
 import fr.ensimag.ima.pseudocode.instructions.INT;
 import java.io.PrintStream;
-
 import org.apache.log4j.Logger;
 
 /**
@@ -95,40 +94,119 @@ public class Cast extends AbstractExpr {
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
-        Type type = typeIdentifier.getType();
-        Type expressionType = expressionToCast.getType();
+        Type type = typeIdentifier.getType(); // Target type for casting
+        Type expressionType = expressionToCast.getType(); // Original type of the expression
 
-        if ((type.isBoolean() || type.isInt() || type.isFloat()) && expressionType.sameType(type)) {
-            expressionToCast.codeGenInst(compiler);
-            setDVal(expressionToCast.getDVal(compiler));
-        
-        } else if (type.isFloat() && expressionType.isInt()) {
-            expressionToCast.codeGenInst(compiler);
-            DVal exprDVal = expressionToCast.getDVal(compiler);
-            GPRegister reg = exprDVal.codeGenToGPRegister(compiler);
-            compiler.addInstruction(new FLOAT(exprDVal, reg));
-            setDVal(reg);
-        } else if (type.isInt() && expressionType.isFloat()) {
-            expressionToCast.codeGenInst(compiler);
-            DVal exprDVal = expressionToCast.getDVal(compiler);
-            GPRegister reg = exprDVal.codeGenToGPRegister(compiler);
-            compiler.addInstruction(new INT(exprDVal, reg));
-            setDVal(reg);
-        } else {
-            InstanceOf instanceOf = new InstanceOf(expressionToCast, typeIdentifier);
-            Label elseCast = new Label("ElseCast");
-            Label endCast = new Label("EndCast");
-
-            instanceOf.codeGenBool(compiler, elseCast, false);
-            expressionToCast.codeGenInst(compiler);
-            compiler.addInstruction(new BRA(endCast));
-
-            compiler.addLabel(elseCast);
-            compiler.addInstruction(new BRA(LabelManager.CAST_ERROR.getLabel()));
-
-            compiler.addLabel(endCast);
-            setDVal(expressionToCast.getDVal(compiler));
+        // Check for direct cast compatibility (i.e, same types)
+        if (isDirectCast(type, expressionType)) {
+            generateDirectCast(compiler);
+            return;
         }
+
+        // Check for numeric type conversions (i.e, int -> float or float -> int)
+        if (isFloatToIntOrIntToFloat(type, expressionType)) {
+            generateNumericCast(compiler, type, expressionType);
+            return;
+        }
+
+        // General case: use instanceOf to verify type compatibility
+        generateInstanceOfCast(compiler);
+    }
+
+    /**
+     * Checks if the cast is directly compatible (e.g., same type or simple
+     * boolean/int/float casting).
+     *
+     * @param type
+     *            The target type for casting.
+     * @param expressionType
+     *            The original type of the expression.
+     * @return true if the cast can be performed directly, false otherwise.
+     */
+    private boolean isDirectCast(Type type, Type expressionType) {
+        return (type.isBoolean() || type.isInt() || type.isFloat()) && expressionType.sameType(type);
+    }
+
+    /**
+     * Checks if the cast involves numeric types, specifically int to float or float
+     * to int.
+     *
+     * @param type
+     *            The target type for casting.
+     * @param expressionType
+     *            The original type of the expression.
+     * @return true if the cast is a numeric conversion, false otherwise.
+     */
+    private boolean isFloatToIntOrIntToFloat(Type type, Type expressionType) {
+        return (type.isFloat() && expressionType.isInt()) || (type.isInt() && expressionType.isFloat());
+    }
+
+    /**
+     * Generates the code for direct cast cases where the types are directly
+     * compatible.
+     *
+     * @param compiler
+     *            The DecacCompiler instance managing the code generation.
+     */
+    private void generateDirectCast(DecacCompiler compiler) {
+        expressionToCast.codeGenInst(compiler); // Generate the expression's code
+        setDVal(expressionToCast.getDVal(compiler)); // Store the result as the value
+    }
+
+    /**
+     * Generates the code for numeric type conversions, such as int to float or
+     * float to int.
+     *
+     * @param compiler
+     *            The DecacCompiler instance managing the code generation.
+     * @param targetType
+     *            The target type of the cast.
+     * @param sourceType
+     *            The source type of the expression.
+     */
+    private void generateNumericCast(DecacCompiler compiler, Type targetType, Type sourceType) {
+        expressionToCast.codeGenInst(compiler);
+        DVal exprDVal = expressionToCast.getDVal(compiler);
+        GPRegister reg = exprDVal.codeGenToGPRegister(compiler);
+
+        if (targetType.isFloat() && sourceType.isInt()) {
+            compiler.addInstruction(new FLOAT(exprDVal, reg));
+        } else if (targetType.isInt() && sourceType.isFloat()) {
+            compiler.addInstruction(new INT(exprDVal, reg));
+        }
+
+        setDVal(reg);
+    }
+
+    /**
+     * Generates the code for general cases requiring instanceOf verification.
+     *
+     * This method handles cases where the cast needs to be validated at runtime
+     * using an
+     * instanceOf check. If the check fails, the program will branch to an error
+     * label.
+     *
+     * @param compiler
+     *            The DecacCompiler instance managing the code generation.
+     */
+    private void generateInstanceOfCast(DecacCompiler compiler) {
+        // Create an instanceOf check
+        InstanceOf instanceOf = new InstanceOf(expressionToCast, typeIdentifier);
+        Label elseCast = new Label("ElseCast"); // Label for invalid cast
+        Label endCast = new Label("EndCast"); // Label for successful cast
+
+        // Generate the instanceOf check
+        instanceOf.codeGenBool(compiler, elseCast, false);
+        expressionToCast.codeGenInst(compiler);
+        compiler.addInstruction(new BRA(endCast));
+
+        // Handle invalid cast
+        compiler.addLabel(elseCast);
+        compiler.addInstruction(new BRA(LabelManager.CAST_ERROR.getLabel()));
+
+        // Finalize the casting process
+        compiler.addLabel(endCast);
+        setDVal(expressionToCast.getDVal(compiler));
     }
 
     @Override
