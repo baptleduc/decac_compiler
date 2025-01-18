@@ -53,7 +53,7 @@ public class Cast extends AbstractExpr {
         }
         if ((typeExpression.isInt() && typeCast.isFloat())
                 || (typeExpression.isFloat() && typeCast.isInt())) {
-            expressionToCast.setType(typeCast);
+            this.setType(typeCast);
             return typeCast;
         }
         if (typeExpression.sameType(typeCast)){
@@ -66,6 +66,7 @@ public class Cast extends AbstractExpr {
                 expressionToCast.getLocation());
         if ((classTypeExpression.isSubClassOf(classTypeCast))
                 || (classTypeCast.isSubClassOf(classTypeExpression))) {
+            this.setType(classTypeCast);
             return classTypeCast;
         } else {
             throw new ContextualError("Can't cast those expressions", expressionToCast.getLocation());
