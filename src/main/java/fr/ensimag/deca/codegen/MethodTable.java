@@ -29,20 +29,11 @@ public class MethodTable {
     private ClassDefinition classDefinition;
     private String className;
     private ArrayList<Label> methods;
-    private DAddr lastMethodAddr;
-
-    public MethodTable(ClassDefinition classDefinition, DAddr lastMethodAddr) {
-        this.classDefinition = classDefinition;
-        this.className = classDefinition.getType().getName().getName();
-        this.methods = initializeMethods();
-        this.lastMethodAddr = lastMethodAddr;
-    }
 
     public MethodTable(ClassDefinition classDefinition) {
         this.classDefinition = classDefinition;
         this.className = classDefinition.getType().getName().getName();
         this.methods = initializeMethods();
-        this.lastMethodAddr = null;
     }
 
     /**
@@ -161,23 +152,30 @@ public class MethodTable {
      */
     public void codeGenTable(DecacCompiler compiler) {
         buildTable(classDefinition, compiler);
+        LOG.debug("Generating method table for class : " + className);
         compiler.addComment("Method Table of class " + className);
 
+        DAddr lastMethodTableAddr = compiler.getLastMethodTableAddr();
+
         // Add Pointer to the last method table
-        if (lastMethodAddr != null) {
-            compiler.addInstruction(new LEA(lastMethodAddr, compiler.getRegister0()));
+        if (lastMethodTableAddr != null) {
+            compiler.addInstruction(new LEA(lastMethodTableAddr, compiler.getRegister0()));
         } else {
             compiler.addInstruction(new LOAD(new NullOperand(), compiler.getRegister0())); // Object case, no pointer to
                                                                                            // last method table
         }
-        compiler.addInstruction(new STORE(compiler.getRegister0(), compiler.getOffsetGB()));
         compiler.incrementOffsetGB();
+        compiler.addInstruction(new STORE(compiler.getRegister0(), compiler.getOffsetGB()));
+        compiler.setLastMethodTableAddr(compiler.getOffsetGB()); // Update the last method table address
+
         for (Label label : methods) {
             DVal labelDVal = new LabelOperand(label);
             compiler.addInstruction(new LOAD(labelDVal, compiler.getRegister0()));
             compiler.addInstruction(new STORE(compiler.getRegister0(), compiler.getOffsetGB()));
             compiler.incrementOffsetGB();
         }
+        classDefinition.setMethodTableAddr(lastMethodTableAddr); // Save the method table address in the class
+                                                                 // definition
     }
 
 }

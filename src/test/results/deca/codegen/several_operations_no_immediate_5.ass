@@ -1,5 +1,5 @@
 	TSTO #8	; 8 (variables) + 0 (saved registers) + 0 (temporaries) + 0 (method parameters x 2)
-	BOV stack_overflow_error_0
+	BOV stack_overflow_error
 	ADDSP #8
 ; start main program
 ; Main program
@@ -25,7 +25,7 @@
 	SUB 4(GB), R3
 	LOAD 5(GB), R2
 	QUO 6(GB), R2
-	BOV divide_by_zero_error_3
+	BOV divide_by_zero_error
 	ADD R2, R3
 	LOAD 7(GB), R2
 	MUL 1(GB), R2
@@ -35,7 +35,7 @@
 	SUB 4(GB), R2
 	MUL 5(GB), R2
 	QUO 6(GB), R2
-	BOV divide_by_zero_error_3
+	BOV divide_by_zero_error
 	ADD R2, R3
 	ADD 7(GB), R3
 	LOAD 1(GB), R2
@@ -44,29 +44,37 @@
 	ADD R2, R3
 	LOAD 4(GB), R2
 	QUO 5(GB), R2
-	BOV divide_by_zero_error_3
+	BOV divide_by_zero_error
 	QUO 6(GB), R2
-	BOV divide_by_zero_error_3
+	BOV divide_by_zero_error
 	SUB R2, R3
 	STORE R3, 8(GB)
 	LOAD 8(GB), R1
 	WINT
 	WNL
 	HALT
-stack_overflow_error_0:
+stack_overflow_error:
 	WSTR "Error: Stack Overflow"
 	WNL
 	ERROR
-overflow_error_2:
+overflow_error:
 	WSTR "Error: Overflow during arithmetic operation"
 	WNL
 	ERROR
-io_error_1:
+io_error:
 	WSTR "Error: Input/Output error"
 	WNL
 	ERROR
-divide_by_zero_error_3:
+divide_by_zero_error:
 	WSTR "Error: Division by zero"
+	WNL
+	ERROR
+heap_overflow_error:
+	WSTR "Error: Heap Overflow"
+	WNL
+	ERROR
+null_pointer_error:
+	WSTR "Error: Deferencing a null pointer"
 	WNL
 	ERROR
 ; end main program

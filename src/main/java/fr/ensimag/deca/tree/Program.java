@@ -59,6 +59,7 @@ public class Program extends AbstractProgram {
         classes.codeGenListDeclClass(compiler);
 
         // Passe 2
+        classes.codeGenConstructors(compiler);
 
         IMAProgram mainIMAProgram = new IMAProgram();
 
@@ -72,10 +73,8 @@ public class Program extends AbstractProgram {
         compiler.addInstruction(new HALT());
 
         // Error handling
-        compiler.generateStackOverflow();
-        compiler.generateOverflowError();
-        compiler.generateIOError();
-        compiler.generateDivideByZeroError();
+        compiler.checkStackOverflow();
+        compiler.generateAllErrors();
     }
 
     @Override

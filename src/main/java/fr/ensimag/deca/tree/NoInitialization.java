@@ -25,6 +25,11 @@ public class NoInitialization extends AbstractInitialization {
         return;
     }
 
+    @Override
+    public boolean isImplicit() {
+        return true;
+    }
+
     /**
      * Node contains no real information, nothing to check.
      */

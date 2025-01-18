@@ -1,6 +1,7 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.DecacCompiler;
+import fr.ensimag.deca.codegen.Constructor;
 import fr.ensimag.deca.codegen.MethodTable;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ClassType;
@@ -105,7 +106,6 @@ public class DeclClass extends AbstractDeclClass {
             throw new ContextualError("Method declared in field environment",
                     classIdentifier.getLocation());
         }
-
         currentClassDef.getMembers().empile(envExpF);
     }
 
@@ -140,14 +140,13 @@ public class DeclClass extends AbstractDeclClass {
 
     @Override
     protected void codeGenDeclClass(DecacCompiler compiler) {
-        MethodTable methodTable = new MethodTable(classIdentifier.getClassDefinition(),
-                compiler.getLastMethodTableAddr());
-
-        // Increment the last method table address by the number of methods in the class
-        compiler.incrementLastMethodTableAddr(classIdentifier.getClassDefinition().getNumberOfMethods());
-
+        MethodTable methodTable = new MethodTable(classIdentifier.getClassDefinition());
         methodTable.codeGenTable(compiler);
-        LOG.debug(methodTable.toString());
+    }
 
+    @Override
+    protected void codeGenConstructor(DecacCompiler compiler) {
+        Constructor constructor = new Constructor(classIdentifier, superClassIdentifier, fields);
+        constructor.codeGenConstructor(compiler);
     }
 }

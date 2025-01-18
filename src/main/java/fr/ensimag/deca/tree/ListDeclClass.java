@@ -57,15 +57,21 @@ public class ListDeclClass extends TreeList<AbstractDeclClass> {
     }
 
     public void codeGenListDeclClass(DecacCompiler compiler) {
-        if (getList().isEmpty()) {
+        if (getList().isEmpty()) { // TODO: to remove
             return;
         }
         ClassDefinition objectClass = compiler.environmentType.OBJECT.getDefinition();
         MethodTable objectMethodTable = new MethodTable(objectClass);
-        compiler.incrementOffsetGB(); // Increment to start building the method table at 1(GB)
         objectMethodTable.codeGenTable(compiler);
         for (AbstractDeclClass declClass : getList()) {
             declClass.codeGenDeclClass(compiler);
         }
     }
+
+    public void codeGenConstructors(DecacCompiler compiler) {
+        for (AbstractDeclClass declClass : getList()) {
+            declClass.codeGenConstructor(compiler);
+        }
+    }
+
 }

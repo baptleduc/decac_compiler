@@ -30,6 +30,10 @@ public abstract class AbstractDeclField extends Tree {
         return vision;
     }
 
+    public abstract AbstractIdentifier getName();
+
+    public abstract AbstractInitialization getInitialization();
+
     /**
      * Pass 2 of [SyntaxeContextuelle]
      */

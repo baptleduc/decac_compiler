@@ -1,14 +1,23 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.DecacCompiler;
+import fr.ensimag.deca.codegen.LabelManager;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.DecacInternalError;
 import fr.ensimag.deca.tools.IndentPrintStream;
-import fr.ensimag.ima.pseudocode.DVal;
+import fr.ensimag.ima.pseudocode.DAddr;
+import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.Label;
+import fr.ensimag.ima.pseudocode.instructions.BOV;
+import fr.ensimag.ima.pseudocode.instructions.BSR;
+import fr.ensimag.ima.pseudocode.instructions.LEA;
+import fr.ensimag.ima.pseudocode.instructions.NEW;
+import fr.ensimag.ima.pseudocode.instructions.POP;
+import fr.ensimag.ima.pseudocode.instructions.PUSH;
+import fr.ensimag.ima.pseudocode.instructions.STORE;
 import java.io.PrintStream;
 
 /**
@@ -56,13 +65,20 @@ public class New extends AbstractExpr {
     }
 
     @Override
-    protected DVal getDVal(DecacCompiler compiler) {
-        throw new UnsupportedOperationException("not yet implemented");
-    }
-
-    @Override
     protected void codeGenInst(DecacCompiler compiler) {
-        throw new UnsupportedOperationException("not yet implemented");
+        ClassDefinition classDef = ident.getClassDefinition();
+        DAddr heapStartAddr = classDef.getMethodTableAddr();
+        GPRegister regDest = compiler.allocGPRegister();
+
+        compiler.addInstruction(new NEW(classDef.getNumberOfFields() + 1, regDest)); // +1 for the method table
+        compiler.addInstruction(new BOV(LabelManager.HEAP_OVERFLOW_ERROR.getLabel()));
+        compiler.addInstruction(new LEA(heapStartAddr, compiler.getRegister0()));
+        compiler.addInstruction(new STORE(compiler.getRegister0(), heapStartAddr));
+        compiler.addInstruction(new PUSH(regDest));
+        compiler.addInstruction(new BSR(LabelManager.getInitLabel(ident)));
+        compiler.addInstruction(new POP(regDest));
+
+        setDVal(regDest);
     }
 
     @Override

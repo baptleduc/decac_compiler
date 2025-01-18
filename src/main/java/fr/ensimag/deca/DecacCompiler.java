@@ -191,26 +191,10 @@ public class DecacCompiler {
 
     /**
      * @see
-     *      fr.ensimag.ima.pseudocode.ErrorManager#generateOverflowError()
+     *      fr.ensimag.ima.pseudocode.ErrorManager#generateAllErrors()
      */
-    public void generateOverflowError() {
-        ErrorManager.generateOverflowError(this);
-    }
-
-    /**
-     * @see
-     *      fr.ensimag.ima.pseudocode.ErrorManager#generateIOError()
-     */
-    public void generateIOError() {
-        ErrorManager.generateIOError(this);
-    }
-
-    /**
-     * @see
-     *      fr.ensimag.ima.pseudocode.ErrorManager#generateDivideByZeroError()
-     */
-    public void generateDivideByZeroError() {
-        ErrorManager.generateDivideByZeroError(this);
+    public void generateAllErrors() {
+        ErrorManager.generateAllErrors(this);
     }
 
     /**
@@ -222,7 +206,7 @@ public class DecacCompiler {
      * @param noVerify
      *            if true, skips adding the stack overflow error-handling code
      */
-    public void generateStackOverflow() {
+    public void checkStackOverflow() {
         if (getCompilerOptions().getNoCheck()) {
             return;
         }
@@ -236,9 +220,6 @@ public class DecacCompiler {
         addFirst(new ADDSP(imm)); // Increment SP by offsetGB
         addFirst(new BOV(LabelManager.STACK_OVERFLOW_ERROR.getLabel())); // Branch to stack overflow error if overflow
         addFirst(new TSTO(d), stackManager.getCommentTSTO());
-
-        // Generate stack overflow error handling block at the end of the program
-        ErrorManager.generateStackOverflowError(this);
     }
 
     /**
