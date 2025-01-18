@@ -76,7 +76,6 @@ public class EnvironmentType {
     public final BooleanType BOOLEAN;
     public final ClassType OBJECT;
     public final NullType NULL;
-	
     public Map<Symbol, TypeDefinition> getEnvTypes() {
         return envTypes;
     }
