@@ -1,7 +1,7 @@
 // Description:
-//    Test Cast
+//    Perfoms an explicit cast (float to int) then an implicit one (int->float)
 // Results:
-//    1
+//    1.00000e+00
 //
 // History:
 //    Created on 16/01/2025
