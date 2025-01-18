@@ -47,7 +47,9 @@ public class New extends AbstractExpr {
 
     @Override
     public void decompile(IndentPrintStream s) {
-        throw new UnsupportedOperationException("not yet implemented");
+        s.print("new ");
+        ident.decompile(s);
+        s.print("()");
     }
 
     @Override
