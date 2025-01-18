@@ -1,15 +1,19 @@
 package fr.ensimag.deca.tree;
 
+import java.io.PrintStream;
+
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
+import fr.ensimag.deca.context.ClassType;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
+import fr.ensimag.deca.context.MethodDefinition;
+import fr.ensimag.deca.context.Signature;
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.DecacInternalError;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.DVal;
 import fr.ensimag.ima.pseudocode.Label;
-import java.io.PrintStream;
 
 /**
  *
@@ -20,18 +24,26 @@ public class MethodCall extends AbstractExpr {
 
     private AbstractExpr leftOperand;
     private AbstractIdentifier rightOperand;
-    private ListExpr param;
+    private ListExpr params;
 
-    public MethodCall(AbstractExpr leftOperand, AbstractIdentifier rightOperand, ListExpr param) {
+    public MethodCall(AbstractExpr leftOperand, AbstractIdentifier rightOperand, ListExpr params) {
         this.leftOperand = leftOperand;
         this.rightOperand = rightOperand;
-        this.param = param;
+        this.params = params;
     }
 
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
+        ClassType classType2 = leftOperand.verifyExpr(compiler, localEnv, currentClass).asClassType("method "+rightOperand.getName()+" can only be called on class types", leftOperand.getLocation());
+        ClassDefinition classDef2 = classType2.getDefinition();
+        EnvironmentExp envExp2 = classDef2.getMembers();
+        MethodDefinition methodDef = rightOperand.verifyIdentifier(localEnv).asMethodDefinition(rightOperand.getName()+ " is not defined as a method", rightOperand.getLocation());
+        Signature sig = methodDef.getSignature();
+        for (AbstractExpr param : params.getList()){
+            param.verifyRValue(compiler, localEnv, currentClass, param.getType());
+        }
+        return methodDef.getType();
     }
 
     @Override
