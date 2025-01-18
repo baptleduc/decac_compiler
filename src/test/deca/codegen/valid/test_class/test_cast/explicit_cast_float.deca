@@ -1,0 +1,13 @@
+// Description:
+//    Unit Test Cast
+// Results:
+//    3.0
+//
+// History:
+//    Created on 16/01/2025
+
+{
+    float a = 3.0;
+    float b = (float) a;
+    println(b);
+}

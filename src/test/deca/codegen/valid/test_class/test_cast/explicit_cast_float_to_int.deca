@@ -1,0 +1,12 @@
+// Description:
+//    Test Cast
+// Results:
+//    5
+//
+// History:
+//    Created on 16/01/2025
+
+{
+    int a = (int) 5.2;
+    println(a);
+}
