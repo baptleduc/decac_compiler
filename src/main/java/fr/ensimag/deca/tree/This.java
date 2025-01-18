@@ -36,7 +36,7 @@ public class This extends AbstractExpr {
             throw new ContextualError("Can not use this outside of a class", this.getLocation());
         }
         try {
-            ClassType currentClassType = currentClass.getType().asClassType("can't use this outisde of a class",
+            ClassType currentClassType = currentClass.getType().asClassType("can't use this outside of a class",
                     this.getLocation());
             return currentClassType;
         } catch (Exception e) {
