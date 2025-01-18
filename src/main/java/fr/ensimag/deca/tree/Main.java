@@ -36,7 +36,6 @@ public class Main extends AbstractMain {
 
         // Create a new local environment
         EnvironmentExp localEnv = new EnvironmentExp(null);
-
         declVariables.verifyListDeclVariable(compiler, localEnv, null);
 
         EnvironmentExp empiledEnv = localEnv.empile(localEnv.getParent());
