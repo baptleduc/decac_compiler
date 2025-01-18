@@ -173,10 +173,11 @@ public class MethodTable {
             DVal labelDVal = new LabelOperand(label);
             compiler.addInstruction(new LOAD(labelDVal, compiler.getRegister0()));
             compiler.addInstruction(new STORE(compiler.getRegister0(), compiler.getOffsetGB()));
-            
+
         }
-        classDefinition.setMethodTableAddr(compiler.getLastMethodTableAddr()); // Save the method table address in the class
-                                                                 // definition
+        classDefinition.setMethodTableAddr(compiler.getLastMethodTableAddr()); // Save the method table address in the
+                                                                               // class
+        // definition
     }
 
 }
