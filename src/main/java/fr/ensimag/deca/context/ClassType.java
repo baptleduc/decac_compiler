@@ -74,6 +74,9 @@ public class ClassType extends Type {
         if (potentialSuperClass.getDefinition() == null) {
             return true;
         }
+        if (this.getDefinition().getType().isNull()) {
+            return true;
+        }
         ClassDefinition superClassDefinition = definition;
         while (!superClassDefinition.getType().sameType(potentialSuperClass)
                 && superClassDefinition.getSuperClass() != null) {
