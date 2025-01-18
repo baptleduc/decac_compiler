@@ -88,7 +88,7 @@ process_deca_file() {
 }
 
 # Directory containing the .deca files, dir can be add as needed.
-DECA_DIR=" ./src/test/deca/codegen/valid/test_arithmetic ./src/test/deca/codegen/valid ./src/test/deca/codegen/valid/test_if ./src/test/deca/codegen/valid/test_while"
+DECA_DIR="./src/test/deca/codegen/valid/test_cast ./src/test/deca/codegen/valid/test_arithmetic ./src/test/deca/codegen/valid ./src/test/deca/codegen/valid/test_if ./src/test/deca/codegen/valid/test_while"
 IMA_EXEC="./env/ima_sources/bin/ima"
 DECAC_EXEC="./src/main/bin/decac"
 
