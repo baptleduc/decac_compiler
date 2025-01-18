@@ -11,6 +11,7 @@ import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.DAddr;
 import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.Label;
+import fr.ensimag.ima.pseudocode.RegisterOffset;
 import fr.ensimag.ima.pseudocode.instructions.BOV;
 import fr.ensimag.ima.pseudocode.instructions.BSR;
 import fr.ensimag.ima.pseudocode.instructions.LEA;
@@ -67,13 +68,13 @@ public class New extends AbstractExpr {
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
         ClassDefinition classDef = ident.getClassDefinition();
-        DAddr heapStartAddr = classDef.getMethodTableAddr();
+        DAddr methodTableAddr = classDef.getMethodTableAddr();
         GPRegister regDest = compiler.allocGPRegister();
 
         compiler.addInstruction(new NEW(classDef.getNumberOfFields() + 1, regDest)); // +1 for the method table
         compiler.addInstruction(new BOV(LabelManager.HEAP_OVERFLOW_ERROR.getLabel()));
-        compiler.addInstruction(new LEA(heapStartAddr, compiler.getRegister0()));
-        compiler.addInstruction(new STORE(compiler.getRegister0(), heapStartAddr));
+        compiler.addInstruction(new LEA(methodTableAddr, compiler.getRegister0()));
+        compiler.addInstruction(new STORE(compiler.getRegister0(), new RegisterOffset(0, regDest)));
         compiler.addInstruction(new PUSH(regDest));
         compiler.addInstruction(new BSR(LabelManager.getInitLabel(ident)));
         compiler.addInstruction(new POP(regDest));
