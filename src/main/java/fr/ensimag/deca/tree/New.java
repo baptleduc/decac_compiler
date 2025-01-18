@@ -11,6 +11,7 @@ import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.DAddr;
 import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.Label;
+import fr.ensimag.ima.pseudocode.instructions.BOV;
 import fr.ensimag.ima.pseudocode.instructions.BSR;
 import fr.ensimag.ima.pseudocode.instructions.LEA;
 import fr.ensimag.ima.pseudocode.instructions.NEW;
@@ -70,6 +71,7 @@ public class New extends AbstractExpr {
         GPRegister regDest = compiler.allocGPRegister();
 
         compiler.addInstruction(new NEW(classDef.getNumberOfFields() + 1, regDest)); // +1 for the method table
+        compiler.addInstruction(new BOV(LabelManager.HEAP_OVERFLOW_ERROR.getLabel()));
         compiler.addInstruction(new LEA(heapStartAddr, compiler.getRegister0()));
         compiler.addInstruction(new STORE(compiler.getRegister0(), heapStartAddr));
         compiler.addInstruction(new PUSH(regDest));
@@ -77,7 +79,6 @@ public class New extends AbstractExpr {
         compiler.addInstruction(new POP(regDest));
 
         setDVal(regDest);
-        // TODO constructor call
     }
 
     @Override
