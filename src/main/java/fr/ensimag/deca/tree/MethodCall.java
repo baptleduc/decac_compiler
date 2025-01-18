@@ -38,11 +38,13 @@ public class MethodCall extends AbstractExpr {
                 "method " + rightOperand.getName() + " can only be called on class types", leftOperand.getLocation());
         ClassDefinition classDef2 = classType2.getDefinition();
         EnvironmentExp envExp2 = classDef2.getMembers();
-        MethodDefinition methodDef = rightOperand.verifyIdentifier(localEnv)
+        MethodDefinition methodDef = rightOperand.verifyIdentifier(envExp2)
                 .asMethodDefinition(rightOperand.getName() + " is not defined as a method", rightOperand.getLocation());
         Signature sig = methodDef.getSignature();
-        for (AbstractExpr param : params.getList()) {
-            param.verifyRValue(compiler, localEnv, currentClass, param.getType());
+	int n = 0;
+	for (AbstractExpr param : params.getList()) {
+            param.verifyRValue(compiler, localEnv, currentClass, sig.paramNumber(n));
+	    n++;
         }
         return methodDef.getType();
     }
