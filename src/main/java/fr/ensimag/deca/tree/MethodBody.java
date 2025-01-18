@@ -58,4 +58,9 @@ public class MethodBody extends AbstractMethodBody {
         listInst.iter(f);
     }
 
+    @Override
+    protected void codeGenMethodBody(DecacCompiler compiler) {
+        throw new UnsupportedOperationException("Not yet supported");
+    }
+
 }

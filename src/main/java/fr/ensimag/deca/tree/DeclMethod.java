@@ -9,6 +9,7 @@ import fr.ensimag.deca.context.MethodDefinition;
 import fr.ensimag.deca.context.Signature;
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.ima.pseudocode.Label;
 import java.io.PrintStream;
 import org.apache.log4j.Logger;
 
@@ -122,4 +123,10 @@ public class DeclMethod extends AbstractDeclMethod {
         body.iter(f);
     }
 
+    @Override
+    protected void codeGenDeclMethod(DecacCompiler compiler) {
+        Label methodLable = methodName.getMethodDefinition().getLabel();
+        compiler.addLabel(methodLable);
+        body.codeGenMethodBody(compiler);
+    }
 }

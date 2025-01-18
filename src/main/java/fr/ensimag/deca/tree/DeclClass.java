@@ -151,4 +151,11 @@ public class DeclClass extends AbstractDeclClass {
         Constructor constructor = new Constructor(classIdentifier, superClassIdentifier, fields);
         constructor.codeGenConstructor(compiler);
     }
+
+    @Override
+    protected void codeGenMethods(DecacCompiler compiler) {
+        for (AbstractDeclMethod method : methods.getList()) {
+            method.codeGenDeclMethod(compiler);
+        }
+    }
 }

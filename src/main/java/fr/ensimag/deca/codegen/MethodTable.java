@@ -89,7 +89,8 @@ public class MethodTable {
      * @param methodName
      *            The name of the method.
      */
-    private void addMethod(int index, String objectName, String methodName) throws DecacInternalError {
+    private void addMethod(int index, String objectName, String methodName, MethodDefinition methodDefinition)
+            throws DecacInternalError {
         LOG.debug("Object: " + objectName + " adding method : " + methodName + " at index : " + index);
 
         if (index < 0 || index >= methods.size()) {
@@ -98,7 +99,9 @@ public class MethodTable {
         }
 
         LOG.debug("methods added");
-        methods.set(index, new Label("code." + objectName + "." + methodName, false));
+        Label methodLabel = new Label("code." + objectName + "." + methodName, false);
+        methodDefinition.setLabel(methodLabel);
+        methods.set(index, methodLabel);
         LOG.debug(methods.toString());
     }
 
@@ -120,7 +123,7 @@ public class MethodTable {
             try {
                 MethodDefinition methodDef = def.asMethodDefinition("Error", classDefinition.getLocation());
                 int idxTable = methodDef.getIndex();
-                addMethod(idxTable, objectName, symbol.getName());
+                addMethod(idxTable, objectName, symbol.getName(), methodDef);
             } catch (ContextualError e) {
                 // Not a method
             }

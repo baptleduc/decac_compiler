@@ -62,6 +62,7 @@ public class Program extends AbstractProgram {
         // Passe 2
         IMAProgram classesProgram = new IMAProgram();
         compiler.withProgram(classesProgram, () -> classes.codeGenConstructors(compiler));
+        // compiler.withProgram(classesProgram, () -> classes.codeGenMethods(compiler));
         // TODO: temporary
         classesProgram.addLabel(LabelManager.OBJECT_EQUALS_LABEL.getLabel());
 
