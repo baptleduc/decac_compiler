@@ -22,6 +22,7 @@ else_1:
 	WNL
 end_2:
 	HALT
+code.Object.equals:
 stack_overflow_error:
 	WSTR "Error: Stack Overflow"
 	WNL

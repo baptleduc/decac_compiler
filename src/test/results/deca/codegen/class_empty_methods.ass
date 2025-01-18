@@ -6,34 +6,35 @@
 	LOAD #null, R0
 	STORE R0, 1(GB)
 	LOAD code.Object.equals, R0
-	STORE R0, 1(GB)
+	STORE R0, 2(GB)
 ; Method Table of class A
 	LEA 1(GB), R0
 	STORE R0, 3(GB)
 	LOAD code.Object.equals, R0
-	STORE R0, 3(GB)
-	LOAD code.A.m, R0
 	STORE R0, 4(GB)
-	LOAD code.A.p, R0
+	LOAD code.A.m, R0
 	STORE R0, 5(GB)
+	LOAD code.A.p, R0
+	STORE R0, 6(GB)
 ; Method Table of class B
 	LEA 3(GB), R0
 	STORE R0, 7(GB)
 	LOAD code.Object.equals, R0
-	STORE R0, 7(GB)
-	LOAD code.A.m, R0
 	STORE R0, 8(GB)
-	LOAD code.B.p, R0
+	LOAD code.A.m, R0
 	STORE R0, 9(GB)
-	LOAD code.B.q, R0
+	LOAD code.B.p, R0
 	STORE R0, 10(GB)
+	LOAD code.B.q, R0
+	STORE R0, 11(GB)
+; Main program
+; Beginning of main instructions:
+	HALT
 init.A:
 	RTS
 init.B:
 	RTS
-; Main program
-; Beginning of main instructions:
-	HALT
+code.Object.equals:
 stack_overflow_error:
 	WSTR "Error: Stack Overflow"
 	WNL

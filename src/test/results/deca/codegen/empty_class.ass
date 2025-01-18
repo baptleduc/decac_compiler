@@ -6,17 +6,18 @@
 	LOAD #null, R0
 	STORE R0, 1(GB)
 	LOAD code.Object.equals, R0
-	STORE R0, 1(GB)
+	STORE R0, 2(GB)
 ; Method Table of class A
 	LEA 1(GB), R0
 	STORE R0, 3(GB)
 	LOAD code.Object.equals, R0
-	STORE R0, 3(GB)
-init.A:
-	RTS
+	STORE R0, 4(GB)
 ; Main program
 ; Beginning of main instructions:
 	HALT
+init.A:
+	RTS
+code.Object.equals:
 stack_overflow_error:
 	WSTR "Error: Stack Overflow"
 	WNL

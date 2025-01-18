@@ -26,6 +26,7 @@ end_4:
 	BRA start_while_0
 end_while_1:
 	HALT
+code.Object.equals:
 stack_overflow_error:
 	WSTR "Error: Stack Overflow"
 	WNL
