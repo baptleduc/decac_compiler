@@ -1,5 +1,5 @@
 // Description:
-//    Program testing pass 1, declare a method with a field name
+//    Program testing pass 2, declare a method with a field name
 //
 // Results:
 //    ok
@@ -15,4 +15,5 @@ class Test{
 	
     }
 }
+
 
