@@ -1,7 +1,7 @@
 // Description:
 //    Unit Test Cast
 // Results:
-//    none
+//    None
 //
 // History:
 //    Created on 16/01/2025
@@ -11,5 +11,4 @@ class B extends A { }
 
 {
 (A) (new B());
-(B) (new A());
 }
