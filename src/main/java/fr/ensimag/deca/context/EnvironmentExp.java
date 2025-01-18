@@ -35,6 +35,10 @@ public class EnvironmentExp {
         return parentEnvironment;
     }
 
+    public void setParent(EnvironmentExp env) {
+        parentEnvironment = env;
+    }
+
     public HashMap<Symbol, ExpDefinition> getCurrentEnvironment() {
         return currentEnvironment;
     }

@@ -29,6 +29,7 @@ public class Return extends AbstractInst {
             throw new ContextualError("can't return a void expression", returnExpr.getLocation());
         }
         returnExpr.setType(returnType);
+        returnExpr.verifyRValue(compiler, localEnv, currentClass, returnType);
         return;
     }
 

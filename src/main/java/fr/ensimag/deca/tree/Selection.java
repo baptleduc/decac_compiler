@@ -42,7 +42,7 @@ public class Selection extends AbstractLValue {
                 .asClassType("only objects of class type have attributes", this.getLocation());
         ClassDefinition defEnv2 = typeClass2.getDefinition();
         EnvironmentExp envExp2 = defEnv2.getMembers();
-        FieldDefinition selectedFieldDefinition = localEnv.getCurrentEnvironment().get(selectedField.getName())
+        FieldDefinition selectedFieldDefinition = envExp2.get(selectedField.getName())
                 .asFieldDefinition("lvalue must be a field definition", this.getLocation());
         if (selectedFieldDefinition.getVisibility().equals(Visibility.PUBLIC)) {
             setType(selectedFieldDefinition.getType());
