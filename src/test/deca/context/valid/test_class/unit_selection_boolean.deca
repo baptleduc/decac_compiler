@@ -7,7 +7,9 @@
 //    Created on 16/01/2025
 
 class A {
-    boolean x = true;
+    float x = 5.6;
+    int y = 3;
+    int test(){}
 }
 
 {

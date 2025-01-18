@@ -18,6 +18,8 @@ import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.NullOperand;
 import fr.ensimag.ima.pseudocode.instructions.BSR;
 import fr.ensimag.ima.pseudocode.instructions.CMP;
+import java.io.PrintStream;
+import org.apache.log4j.Logger;
 
 /**
  * Represents a field selection (e.g., obj.field) in the Deca AST.
@@ -26,6 +28,12 @@ import fr.ensimag.ima.pseudocode.instructions.CMP;
  * @date 13/01/2025
  */
 public class Selection extends AbstractLValue {
+    private static final Logger LOG = Logger.getLogger(AbstractLValue.class);
+
+    @Override
+    protected void checkDecoration() {
+        throw new UnsupportedOperationException("not yet implemented");
+    }
 
     private AbstractExpr selectedObject;
     private AbstractIdentifier selectedField;
@@ -38,10 +46,13 @@ public class Selection extends AbstractLValue {
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
+        LOG.debug("Start verify Selection:");
+        LOG.debug("EnvironmentLocal Selection: " + localEnv.getCurrentEnvironment());
         ClassType typeClass2 = selectedObject.verifyExpr(compiler, localEnv, currentClass)
                 .asClassType("only objects of class type have attributes", this.getLocation());
-        ClassDefinition defEnv2 = typeClass2.getDefinition();
+        ClassDefinition defEnv2 = (ClassDefinition) compiler.environmentType.defOfType(typeClass2.getName());
         EnvironmentExp envExp2 = defEnv2.getMembers();
+        LOG.debug("Environement Local Selection : " + envExp2.getCurrentEnvironment());
         FieldDefinition selectedFieldDefinition = envExp2.get(selectedField.getName())
                 .asFieldDefinition("lvalue must be a field definition", this.getLocation());
         if (selectedFieldDefinition.getVisibility().equals(Visibility.PUBLIC)) {
