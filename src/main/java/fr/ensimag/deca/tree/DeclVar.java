@@ -36,9 +36,10 @@ public class DeclVar extends AbstractDeclVar {
     protected void verifyDeclVar(DecacCompiler compiler,
             EnvironmentExp localEnv, ClassDefinition currentClass)
             throws ContextualError {
+
         // Verified that type is correct
         Type varType = type.verifyType(compiler);
-
+      
         if (varType.isVoid()) {
             throw new ContextualError(varName.getName() + " : can't declare var with type void",
                     varName.getLocation());
