@@ -41,6 +41,16 @@ public class ErrorManager {
     }
 
     /**
+     * Generates the assembly code for handling arithmetic overflow errors.
+     *
+     * @param compiler
+     *            the Deca compiler instance
+     */
+    private static void generateCastError(DecacCompiler compiler) {
+        generateError(LabelManager.CAST_ERROR.getLabel(), "Error: Cast invalid", compiler);
+    }
+
+    /**
      * Generates the assembly code for handling division by zero errors.
      *
      * @param compiler
@@ -98,6 +108,7 @@ public class ErrorManager {
         generateDivideByZeroError(compiler);
         generateHeapOverflowError(compiler);
         generateNullPointerError(compiler);
+        generateCastError(compiler);
     }
 
 }

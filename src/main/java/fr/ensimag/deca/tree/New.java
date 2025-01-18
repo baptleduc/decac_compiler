@@ -42,12 +42,15 @@ public class New extends AbstractExpr {
             throw new ContextualError("Must use a class, not a " + newType.getName() + " to create a new object",
                     ident.getLocation());
         }
+        this.setType(newType);
         return newType;
     }
 
     @Override
     public void decompile(IndentPrintStream s) {
-        throw new UnsupportedOperationException("not yet implemented");
+        s.print("new ");
+        ident.decompile(s);
+        s.print("()");
     }
 
     @Override
