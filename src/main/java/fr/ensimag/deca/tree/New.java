@@ -1,5 +1,7 @@
 package fr.ensimag.deca.tree;
 
+import java.io.PrintStream;
+
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.codegen.LabelManager;
 import fr.ensimag.deca.context.ClassDefinition;
@@ -19,7 +21,6 @@ import fr.ensimag.ima.pseudocode.instructions.NEW;
 import fr.ensimag.ima.pseudocode.instructions.POP;
 import fr.ensimag.ima.pseudocode.instructions.PUSH;
 import fr.ensimag.ima.pseudocode.instructions.STORE;
-import java.io.PrintStream;
 
 /**
  *
@@ -42,6 +43,7 @@ public class New extends AbstractExpr {
             throw new ContextualError("Must use a class, not a " + newType.getName() + " to create a new object",
                     ident.getLocation());
         }
+        this.setType(newType);
         return newType;
     }
 
