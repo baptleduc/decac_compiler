@@ -1,7 +1,5 @@
 package fr.ensimag.arm.instruction;
 
-import fr.ensimag.arm.ARMProgram;
-
 public abstract class AbstractARMInstruction {
  
     protected String instructionLabel;
@@ -41,9 +39,5 @@ public abstract class AbstractARMInstruction {
             res += ", " + p3;
         }
         return res;
-    }
-
-    public void addToProgram(ARMProgram program) {
-        program.addInstruction(this);
     }
 }

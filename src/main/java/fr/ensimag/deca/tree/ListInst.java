@@ -43,7 +43,9 @@ public class ListInst extends TreeList<AbstractInst> {
     }
 
     protected void codeGenListInstARM(DecacCompiler compiler) {
-        // TODO ARM
+        for (AbstractInst i : getList()) {
+            i.codeGenInstARM(compiler);
+        }
     }
 
     @Override

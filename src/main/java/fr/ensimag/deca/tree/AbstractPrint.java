@@ -86,7 +86,7 @@ public abstract class AbstractPrint extends AbstractInst {
         for (AbstractExpr a : getArguments().getList()) {
             if (a.isImmediate()) {
                 a.codeGenInstARM(compiler);
-                format += a.getDValARM().getTrueVal(); // without the instruction decoration
+                format += a.getARMDVal().getTrueVal(); // without the instruction decoration
                 continue;
             } 
             if (a.getType().isInt()) {
@@ -103,8 +103,10 @@ public abstract class AbstractPrint extends AbstractInst {
         int offset = 0;
         for (AbstractExpr a : abExp) {
             a.codeGenInstARM(compiler);
-            program.addInstruction(new ARMDirectStore(a.getDValARM().toString(), offset));
-            program.freeRegister(a.getDValARM().toString());
+            // String reg;
+            // if (a.armIsVariable)
+            program.addInstruction(new ARMDirectStore(a.getARMDVal().toString(), offset));
+            program.freeRegister(a.getARMDVal().toString());
             offset += 8;
         }
 

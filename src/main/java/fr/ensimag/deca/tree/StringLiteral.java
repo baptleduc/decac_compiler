@@ -8,6 +8,7 @@ import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.ImmediateString;
 import fr.ensimag.ima.pseudocode.instructions.WSTR;
+import fr.ensimag.arm.ARMDVal;
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
 
@@ -30,6 +31,12 @@ public class StringLiteral extends AbstractStringLiteral {
         Validate.notNull(value);
         this.value = value;
     }
+
+    @Override
+    protected void codeGenInstARM(DecacCompiler compiler) {
+        setARMDVal(new ARMDVal(value));
+    }
+
 
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
@@ -75,7 +82,7 @@ public class StringLiteral extends AbstractStringLiteral {
 
     @Override
     protected boolean isImmediate() {
-        return false;
+        return true;
     }
 
 }

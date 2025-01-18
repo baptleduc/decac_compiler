@@ -1,12 +1,38 @@
 package fr.ensimag.arm;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Stack;
 
+import org.apache.commons.lang.math.IntRange;
+
+import fr.ensimag.arm.instruction.AbstractARMInstruction;
 import fr.ensimag.deca.context.Type;
 
 public class ARMProgram {
-    static public final int MAX_REGISTERS = 16;
+
+    static public final HashMap<ARMDataType, String> dataSectionLines = new HashMap<ARMDataType, String>() {{
+        put(ARMDataType.ASCIZ, ".asciz");
+        put(ARMDataType.BYTE, ".byte");
+        put(ARMDataType.WORD, ".word");
+        put(ARMDataType.DOUBLE_WORD, ".double");
+    }};
+
+
+    static public final IntRange RANGE_ARG_REGISTER = new IntRange(0, 7);
+    static public final IntRange RANGE_SCRATCH_REGISTERS = new IntRange(9, 15);
+
+    static public final String RETURN_REGISTER = "X0";
+
+    static public final String FRAME_POINTER = "X29";
+
+    static public final String LINK_REGISTER = "X30";
+
+    static public final String STACK_POINTER = "sp";
+
+    static public final String PROGRAM_COUNTER = "pc";
+
+    static public final String ZERO_REGISTER = "XZR";
 
     static public final String WORD = ".word";
 
@@ -14,96 +40,181 @@ public class ARMProgram {
 
     static public final String DOUBLE_WORD = ".double";
 
-    private final Stack<String> registerStack = new Stack<String>();
+    static public final String CALL_KERNEL = "svc #0x80";
 
-    private final LinkedList<String> dataSectionLines = new LinkedList<String>();
+    private final Stack<String> scratchRegisters = new Stack<String>();
 
-    private final LinkedList<String> bssSectionLines = new LinkedList<String>();
+    private final LinkedList<String> stringLines = new LinkedList<String>();
 
-    private final LinkedList<String> textSectionLines = new LinkedList<String>();
+    private final LinkedList<AbstractARMInstruction> mainInstructions = new LinkedList<AbstractARMInstruction>();
 
-    private final LinkedList<String> bodyLines = new LinkedList<String>();
+    private HashMap<String, IntTuple> varOccurences = new HashMap<String, IntTuple>();
+
+    private HashMap<String, Integer> memoryMap = new HashMap<String, Integer>();
+
+    private int occurencesCounter = 0;
+
+    private int stringNameCounter = 0;
+
+    private int printNbParameters = -1; // -1 if no printf call
+
+    public void addInstruction(AbstractARMInstruction inst) {
+        mainInstructions.add(inst);
+    }
 
     public ARMProgram() {
-        for (int i = MAX_REGISTERS-1; i >= 0; i--) {
-            registerStack.push("r" + i);
+        for (int i = RANGE_SCRATCH_REGISTERS.getMaximumInteger(); i >= RANGE_SCRATCH_REGISTERS.getMinimumInteger(); i--) {
+            scratchRegisters.push("X" + i);
         }
+    }
+
+    // ############
+
+    // public boolean isVarInMemory(String varName) {
+    //     return memoryMap.containsKey(varName);
+    // }
+
+    // public int addVarToMemory(String varName) {
+    //     // should only be called by the constructor of ARMStore
+    //     // return the offset of the new variable
+    //     memoryMap.put(varName, actualSpOffset);
+    //     int res = actualSpOffset;
+    //     actualSpOffset += 4;
+    //     return res;
+    // }
+
+    private int computeVarMemory() { // return the max offset, can be optimized, TODO ARM : different size
+        assert memoryMap.isEmpty();
+
+        int offset = 0;
+        for (String varName : varOccurences.keySet()) {
+            for (String varName2 : memoryMap.keySet()) {
+                if (varOccurences.get(varName).getFirst() > varOccurences.get(varName2).getSecond()){
+                    memoryMap.put(varName, memoryMap.get(varName2));
+                    break;
+                }
+            }
+            if (!memoryMap.containsKey(varName)){
+                memoryMap.put(varName, offset);
+                offset += 4;
+            }
+        }
+
+        return offset;
+    }
+
+    public void addVarOccurence(String varName) {
+        if (varOccurences.containsKey(varName)) {
+            varOccurences.get(varName).setSecond(occurencesCounter);
+        } else {
+            varOccurences.put(varName, new IntTuple(occurencesCounter, occurencesCounter));
+        }
+        occurencesCounter++;
+    }
+
+    // ###############
+
+    public int getVarOffset(String varName) {
+        return memoryMap.get(varName);
+    }
+
+    public void setPrintNbParametersIfSup(int nb) {
+        printNbParameters = Math.max(printNbParameters, nb);
     }
 
     public String getAvailableRegister(){
-        return registerStack.pop();
+        return scratchRegisters.pop();
     }
 
     public void freeRegister(String register){
-        registerStack.push(register);
+        scratchRegisters.push(register);
     }
 
-    static public int getSizeForType(String type) {
-        switch (type) {
-            case BYTE:
-                return 1;
-            case WORD:
-                return 4;
-            case DOUBLE_WORD:
-                return 8;
-            default:
-                return 0;
+    // static public int getSizeForType(String type) {
+    //     switch (type) {
+    //         case BYTE:
+    //             return 1;
+    //         case WORD:
+    //             return 4;
+    //         case DOUBLE_WORD:
+    //             return 8;
+    //         default:
+    //             return 0;
+    //     }
+    // }
+
+    public String addStringLine(String value) {
+        String name = "strl_"+ stringNameCounter++;
+        stringLines.add(name + ": .asciz \"" + value + "\"");
+        return name;
+    }
+
+    private int getNextPowerOf2(int n) {
+        if (n <= 0) {
+            throw new IllegalArgumentException("Input must be a positive integer.");
         }
+    
+        // If n is already a power of 2, return n
+        if ((n & (n - 1)) == 0) {
+            return n;
+        }
+    
+        // Find the next power of 2
+        int count = 0;
+        while (n != 0) {
+            n >>= 1;
+            count += 1;
+        }
+    
+        return 1 << count;
+    }
+    
+    private LinkedList<String> genBeginningLines(int spSize) {
+        LinkedList<String> lines = new LinkedList<String>();
+        lines.add(".globl _main");
+        lines.add(".p2align 2");
+        lines.add("_main:");
+        lines.add("sub sp, sp, #" + (spSize + 16));
+        lines.add("stp X29, X30, [sp, #" + spSize + "]" ); // save frame pointer and link register
+        return lines;
     }
 
-    public void addDataSectionLine(String varType, String varName, String value) {
-        assert varType.equals(WORD) || varType.equals(BYTE) || varType.equals(DOUBLE_WORD);
-        dataSectionLines.add(varName + ": " + varType + " " + value);
+    private LinkedList<String> genEndingLines(int spSize) {
+        LinkedList<String> lines = new LinkedList<String>();
+        lines.add("ldp X29, X30, [sp, #" + spSize + "]"); // restore frame pointer and link register
+        lines.add("add sp, sp, #" + (spSize + 16));
+        lines.add("ret");
+        // codeLines.add("mov X0, #0");
+        // codeLines.add("bl _exit");
+        return lines;
     }
 
-    public void addBssSectionLine(String varName, int size) {
-        bssSectionLines.add( ".comm "+ varName + ", " + size);
+    private int getSpSize(int spMaxOffset) {
+        int size = getNextPowerOf2(16 + spMaxOffset + printNbParameters * 8);
+        return size;
     }
 
-    public void addTextSectionLine(String line) {
-        textSectionLines.add(line);
-    }
+    public LinkedList<String> genAssemblyCode() {
+        LinkedList<String> codeLines = new LinkedList<String>();
+        int spMaxOffset = computeVarMemory();
+        int spSize = getSpSize(spMaxOffset);
+        codeLines.addAll(genBeginningLines(spSize));
 
-    public void addBodyLine(String line) {
-        bodyLines.add(line);
-    }
+        for (AbstractARMInstruction inst : mainInstructions) {
+            codeLines.add(inst.toString());
+        }
 
-    public void addInstructionARM(String instruction, String p1) {
-        addBodyLine(instruction + " " + p1);
-    }
+        codeLines.addAll(genEndingLines(spSize));
 
-    public void addInstructionARM(String instruction, String p1, String p2) {
-        addBodyLine(instruction + " " + p1 + ", " + p2);
-    }
+        for (String line : stringLines) {
+            codeLines.add(line);
+        }
 
-    public void addInstructionARM(String instruction, String p1, String p2, String p3) {
-        addBodyLine(instruction + " " + p1 + ", " + p2 + ", " + p3);
-    }
-
-    public void addInstructionSetMem(String varName, String reg) {
-        String regLdr = getAvailableRegister();
-        addBodyLine("ldr " + regLdr + ", =" + varName);
-        addBodyLine("str " + reg + ", [" + regLdr + "]");
-        freeRegister(regLdr);
+        return codeLines;
     }
 
     public void display() {
-        System.out.println(".section .data");
-        for (String line : dataSectionLines) {
-            System.out.println(line);
-        }
-
-        System.out.println(".section .bss");
-        for (String line : bssSectionLines) {
-            System.out.println(line);
-        }
-
-        System.out.println(".section .text");
-        for (String line : textSectionLines) {
-            System.out.println(line);
-        }
-
-        for (String line : bodyLines) {
+        for (String line : genAssemblyCode()) {
             System.out.println(line);
         }
     }

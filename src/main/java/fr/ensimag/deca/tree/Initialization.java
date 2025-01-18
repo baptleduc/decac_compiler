@@ -1,6 +1,8 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.arm.ARMProgram;
+import fr.ensimag.arm.instruction.ARMInstruction;
+import fr.ensimag.arm.instruction.ARMStore;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
@@ -78,11 +80,14 @@ public class Initialization extends AbstractInitialization {
         expression.codeGenInstARM(compiler);
         ARMProgram prog = compiler.getARMProgram();
         if (expression.isImmediate()) {
-            prog.addDataSectionLine(type, varName, expression.getDVal(compiler).toString());
+            String reg = prog.getAvailableRegister();
+            prog.addInstruction(new ARMInstruction("mov", reg, expression.getARMDVal().toString()));
+            prog.addInstruction(new ARMStore(reg, varName, prog));
+            prog.freeRegister(reg);
         } else {
-            prog.addBssSectionLine(varName, ARMProgram.getSizeForType(type));
-            String reg = expression.getDValARM();
-            prog.addInstructionSetMem(varName, reg);
+            expression.codeGenInstARM(compiler);
+            String reg = expression.getARMDVal().toString();
+            prog.addInstruction(new ARMStore(reg, varName, prog));
             prog.freeRegister(reg);
         }
     }

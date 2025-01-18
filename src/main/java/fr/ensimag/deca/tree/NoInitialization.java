@@ -1,6 +1,8 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.arm.ARMProgram;
+import fr.ensimag.arm.instruction.ARMInstruction;
+import fr.ensimag.arm.instruction.ARMStore;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
@@ -56,7 +58,11 @@ public class NoInitialization extends AbstractInitialization {
 
     @Override
     public void codeGenInitializationARM(DecacCompiler compiler, String varName, String type) {
-        compiler.getARMProgram().addBssSectionLine(varName, ARMProgram.getSizeForType(type));
+       ARMProgram prog = compiler.getARMProgram();
+        String reg = prog.getAvailableRegister();
+        prog.addInstruction(new ARMInstruction("mov", reg, 0));
+        prog.addInstruction(new ARMStore(reg, varName, prog));
+        prog.freeRegister(reg);
     }
 
 }

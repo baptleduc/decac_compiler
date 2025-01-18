@@ -1,7 +1,7 @@
 
 package fr.ensimag.arm.instruction;
 
-public abstract class ARMInstruction extends AbstractARMInstruction {
+public class ARMInstruction extends AbstractARMInstruction {
 
     public ARMInstruction(String instructionLabel) {
         this.instructionLabel = instructionLabel;

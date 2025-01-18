@@ -1,5 +1,6 @@
 package fr.ensimag.deca.tree;
 
+import fr.ensimag.arm.ARMDVal;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
@@ -46,14 +47,15 @@ public abstract class AbstractExpr extends AbstractInst {
         this.dval = dval;
     }
 
-    protected void setDValARM(String dvalARM) {
-        this.dvalARM = dvalARM;
+    protected void setARMDVal(ARMDVal ARMDVal) {
+        this.ARMDVal = ARMDVal;
     }
+
 
     private Type type;
     private DVal dval = null; // Register, Immediate or d(XX)
 
-    private String dvalARM = null; // Register or Immediate for ARM
+    private ARMDVal ARMDVal; // Register or Immediate for ARM
 
     @Override
     protected void checkDecoration() {
@@ -165,8 +167,8 @@ public abstract class AbstractExpr extends AbstractInst {
         return dval;
     }
 
-    protected String getDValARM() {
-        return dvalARM;
+    protected ARMDVal getARMDVal() {
+        return ARMDVal;
     }
 
     protected boolean isImmediate() {

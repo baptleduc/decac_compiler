@@ -58,8 +58,7 @@ public class Main extends AbstractMain {
     @Override
     protected void codeGenMainARM(DecacCompiler compiler) {
         declVariables.codeGenListDeclVarARM(compiler);
-        // TODO ARM
-        // insts.codeGenListInstARM(compiler);
+        insts.codeGenListInstARM(compiler);
     }
 
     @Override

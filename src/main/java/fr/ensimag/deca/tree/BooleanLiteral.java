@@ -7,6 +7,7 @@ import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.ImmediateInteger;
+import fr.ensimag.arm.ARMDVal;
 import java.io.PrintStream;
 
 /**
@@ -78,7 +79,8 @@ public class BooleanLiteral extends AbstractExpr {
 
     @Override
     protected void codeGenInstARM(DecacCompiler compiler) {
-        // TODO ARM
+        int value = this.value ? 1 : 0;
+        setARMDVal(new ARMDVal(value));
     }
 
 }

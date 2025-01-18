@@ -1,5 +1,6 @@
 package fr.ensimag.deca.tree;
 
+import fr.ensimag.arm.instruction.ARMInstruction;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.codegen.ErrorManager;
 import fr.ensimag.ima.pseudocode.DVal;
@@ -41,7 +42,7 @@ public class Divide extends AbstractOpArith {
     @Override
     protected void codeGenOperationInstARM(String dest, String left, String right, DecacCompiler compiler) {
         // TODO ARM verifier
-        compiler.getARMProgram().addInstructionARM("udiv", dest, left, right);
+        compiler.getARMProgram().addInstruction(new ARMInstruction("udiv", dest, left, right));
     }
 
     @Override

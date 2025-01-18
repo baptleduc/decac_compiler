@@ -8,6 +8,7 @@ import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.DVal;
 import fr.ensimag.ima.pseudocode.ImmediateInteger;
+import fr.ensimag.arm.ARMDVal;
 import java.io.PrintStream;
 import org.apache.log4j.Logger;
 
@@ -73,7 +74,7 @@ public class IntLiteral extends AbstractExpr {
 
     @Override
     protected void codeGenInstARM(DecacCompiler compiler) {
-        setDValARM("#" + value);
+        setARMDVal(new ARMDVal(value));
     }
 
     @Override

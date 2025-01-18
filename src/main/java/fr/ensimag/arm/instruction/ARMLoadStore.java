@@ -1,18 +1,33 @@
 package fr.ensimag.arm.instruction;
 
+import fr.ensimag.arm.ARMProgram;
+
 public abstract class ARMLoadStore extends AbstractARMInstruction {
 
     protected String varName;
 
     protected String register;
 
-    protected int offset;
+    protected ARMProgram program;
+
+    protected ARMLoadStore(String register, String varName, ARMProgram program) {
+        this.varName = varName;
+        this.register = register;
+        this.program = program;
+        program.addVarOccurence(varName);
+    }
+
+    protected abstract String getInstructionLabel(int offset);
 
     @Override
     public String toString() {
-        if (offset != 0) {
-            return instructionLabel + " " + register + ", [" + varName + ", #" + offset + "]";
+        int offset = program.getVarOffset(varName);
+        if (offset < 0){
+            return getInstructionLabel(offset) + " " + register + ", [X29, #-" + offset + "]";
         }
-        return instructionLabel + " " + register + ", [" + varName + "]";
+        if (offset > 0){
+            return getInstructionLabel(offset) + " " + register + ", [sp, #" + offset + "]";
+        }
+        return getInstructionLabel(offset) + " " + register + ", [sp]";
     }
 }
