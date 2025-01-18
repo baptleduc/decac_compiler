@@ -1,0 +1,21 @@
+// Description:
+//    Program testing pass 2, declare a method with numerous params
+//
+// Results:
+//    ok
+//
+// History:
+//    Created on 17/01/2025
+
+
+class TypeObject{
+    
+}
+
+class Test{
+    void MethodWithParams(int x, float y, boolean z, TypeObject o){
+	
+    }
+}
+
+

@@ -1,0 +1,1 @@
+./src/test/deca/context/invalid/test_pass_2_param_type_void.deca:12:16: Can't declare a param with void type

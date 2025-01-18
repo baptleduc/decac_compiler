@@ -1,0 +1,16 @@
+// Description:
+//    Program testing pass 2, declare 2 times a field with the same name
+//
+// Results:
+//    ok
+//
+// History:
+//    Created on 14/01/2025
+
+
+class Test{
+    int x;
+
+    boolean x;
+}
+

@@ -4,6 +4,7 @@ import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
+import fr.ensimag.deca.context.EnvironmentExp.DirectSumException;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import org.apache.log4j.Logger;
 
@@ -33,8 +34,8 @@ public class ListDeclField extends TreeList<AbstractDeclField> {
             EnvironmentExp envExp = declField.verifyField(compiler, superClassIdentifier, classIdentifier);
             try {
                 envExpR.directSum(envExp);
-            } catch (Exception e) {
-                throw new RuntimeException("Unable to merge environments due to a conflict.", e);
+            } catch (DirectSumException e) {
+                throw new ContextualError("Field " + e.getName() + " aldready declared in this class", e.getLocation());
             }
         }
         LOG.debug("number of fields of " + classIdentifier.getName() + " : "
