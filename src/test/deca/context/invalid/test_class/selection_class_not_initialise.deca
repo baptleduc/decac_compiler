@@ -1,0 +1,17 @@
+// Description:
+//    Unit Test selection 
+// Results:
+//    none
+//
+// History:
+//    Created on 16/01/2025
+
+
+class A {
+    int x = 10;
+}
+
+{
+    A a; // Variable non initialisée
+    println(a.x); // Erreur : a n'a pas été initialisé
+}

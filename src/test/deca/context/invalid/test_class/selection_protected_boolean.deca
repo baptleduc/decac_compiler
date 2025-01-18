@@ -1,0 +1,20 @@
+// Description:
+//    Unit Test selection 
+// Results:
+//    none
+//
+// History:
+//    Created on 16/01/2025
+
+class A {
+    protected boolean x = true;
+
+
+}
+
+{
+    A a = new A();
+    println(a.x);
+}
+
+
