@@ -1,12 +1,12 @@
 // Description:
-//    Test Cast
+//    Unit Test Cast
 // Results:
-//    5
+//    5.00000e+00
 //
 // History:
 //    Created on 16/01/2025
 
 {
-    int a = (int) 5.2;
+    float a = (float) (5);
     println(a);
 }

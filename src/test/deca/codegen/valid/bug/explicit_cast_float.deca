@@ -8,6 +8,6 @@
 
 {
     float a = 3.0;
-    float b = (float) a;
+    float b = (float) (a);
     println(b);
 }

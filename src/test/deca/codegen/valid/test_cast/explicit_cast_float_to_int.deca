@@ -1,13 +1,12 @@
 // Description:
 //    Test Cast
 // Results:
-//    1
+//    5
 //
 // History:
 //    Created on 16/01/2025
 
 {
-    float b = 1.2;
-    float a = (int) b;
+    int a = (int) (5.2);
     println(a);
 }

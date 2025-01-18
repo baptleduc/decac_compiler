@@ -1,13 +1,13 @@
 // Description:
-//    Unit Test Cast
+//    Test Cast
 // Results:
-//    true
+//    1.00000e+00
 //
 // History:
 //    Created on 16/01/2025
 
 {
-    boolean a = true;
-    boolean b = (boolean) a;
+    int b = 1;
+    float a = (float) (b);
     println(a);
 }
