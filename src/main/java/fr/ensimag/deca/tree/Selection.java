@@ -3,8 +3,10 @@ package fr.ensimag.deca.tree;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.codegen.LabelManager;
 import fr.ensimag.deca.context.ClassDefinition;
+import fr.ensimag.deca.context.ClassType;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
+import fr.ensimag.deca.context.FieldDefinition;
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.DecacInternalError;
 import fr.ensimag.deca.tools.IndentPrintStream;
@@ -39,7 +41,22 @@ public class Selection extends AbstractLValue {
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
+        ClassType typeClass2 = selectedObject.verifyExpr(compiler, localEnv, currentClass)
+                .asClassType("only objects of class type have attributes", this.getLocation());
+        ClassDefinition defEnv2 = typeClass2.getDefinition();
+        EnvironmentExp envExp2 = defEnv2.getMembers();
+        FieldDefinition selectedFieldDefinition = localEnv.getCurrentEnvironment().get(selectedField.getName())
+                .asFieldDefinition("lvalue must be a field definition", this.getLocation());
+        if (selectedFieldDefinition.getVisibility().equals(Visibility.PUBLIC)) {
+            return selectedFieldDefinition.getType();
+        } else if (selectedFieldDefinition.getVisibility().equals(Visibility.PROTECTED)) {
+            if (typeClass2.isSubClassOf(currentClass.getType())
+                    && (currentClass.getType().isSubClassOf(selectedFieldDefinition.getType().asClassType(
+                            "can access a protected field only in daughters classes", selectedField.getLocation())))) {
+                return selectedFieldDefinition.getType();
+            }
+        }
+        throw new ContextualError("Can't access to private attribute outside the class", this.getLocation());
     }
 
     @Override

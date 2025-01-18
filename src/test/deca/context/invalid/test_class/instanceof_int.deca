@@ -1,0 +1,17 @@
+// Description:
+//    Unit Test Instanceof
+// Results:
+//    Can't use instanceof with this type A
+//
+// History:
+//    Created on 16/01/2025
+
+class A { }
+class C { }
+
+{
+    int x = 5;
+    if (x instanceof A) { 
+        println("Erreur");
+    }
+}

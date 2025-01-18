@@ -2,6 +2,7 @@ package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
+import fr.ensimag.deca.context.ClassType;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.Type;
@@ -31,7 +32,16 @@ public class This extends AbstractExpr {
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-        throw new UnsupportedOperationException("not yet implemented");
+        if (currentClass.getType().isNull()) {
+            throw new ContextualError("Can not use this outside of a class", this.getLocation());
+        }
+        try {
+            ClassType currentClassType = currentClass.getType().asClassType("can't use this outisde of a class",
+                    this.getLocation());
+            return currentClassType;
+        } catch (Exception e) {
+            throw new ContextualError("Can't use this outside of a class", this.getLocation());
+        }
     }
 
     @Override

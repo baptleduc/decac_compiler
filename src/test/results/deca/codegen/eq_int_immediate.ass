@@ -12,6 +12,7 @@
 end_label_0:
 	STORE R2, 1(GB)
 	HALT
+code.Object.equals:
 stack_overflow_error:
 	WSTR "Error: Stack Overflow"
 	WNL

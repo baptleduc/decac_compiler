@@ -1,6 +1,7 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.DecacCompiler;
+import fr.ensimag.deca.codegen.LabelManager;
 import fr.ensimag.deca.codegen.StackManager;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.tools.IndentPrintStream;
@@ -59,7 +60,10 @@ public class Program extends AbstractProgram {
         classes.codeGenListDeclClass(compiler);
 
         // Passe 2
-        classes.codeGenConstructors(compiler);
+        IMAProgram classesProgram = new IMAProgram();
+        compiler.withProgram(classesProgram, () -> classes.codeGenConstructors(compiler));
+        // TODO: temporary
+        classesProgram.addLabel(LabelManager.OBJECT_EQUALS_LABEL.getLabel());
 
         IMAProgram mainIMAProgram = new IMAProgram();
 
@@ -69,8 +73,7 @@ public class Program extends AbstractProgram {
 
         // Merge the main program with the general program
         stackManager.getProgram().append(mainIMAProgram);
-
-        compiler.addInstruction(new HALT());
+        stackManager.getProgram().append(classesProgram);
 
         // Error handling
         compiler.checkStackOverflow();

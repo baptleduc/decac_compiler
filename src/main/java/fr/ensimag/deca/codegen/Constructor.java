@@ -96,8 +96,8 @@ public class Constructor {
      *            the compiler instance
      */
     private void initializeAllFieldsToZero(DecacCompiler compiler) {
-        compiler.addInstruction(new LOAD(0, compiler.getRegister0()));
         for (AbstractDeclField field : fields.getList()) {
+            compiler.addInstruction(new LOAD(0, compiler.getRegister0()));
             initializeFieldToZero(compiler, field.getName().getFieldDefinition());
         }
     }
@@ -114,14 +114,15 @@ public class Constructor {
             AbstractInitialization init = field.getInitialization();
             FieldDefinition fieldDef = field.getName().getFieldDefinition();
             if (init.isImplicit()) { // If the field is not explicitly initialized, initialize it to zero
+                if (!hasImplicitField) { // Load 0 into R0 only once
+                    compiler.addInstruction(new LOAD(0, compiler.getRegister0()));
+                    hasImplicitField = true;
+                }
                 hasImplicitField = true;
                 initializeFieldToZero(compiler, fieldDef);
             } else {
                 initializeFieldExplicitly(compiler, fieldDef, init);
             }
-        }
-        if (hasImplicitField) {
-            compiler.addInstruction(new LOAD(0, compiler.getRegister0()));
         }
     }
 

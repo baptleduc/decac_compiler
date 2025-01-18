@@ -1,0 +1,17 @@
+// Description:
+//    Minimalistic program using class.
+// Results:
+//    none
+//
+// History:
+//    Created on 16/01/2025
+
+
+class SimpleClass {
+    int number ;
+
+}
+
+{
+    SimpleClass obj = new SimpleClass();
+}

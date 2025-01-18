@@ -1,0 +1,19 @@
+// Description:
+//    Minimalistic program using *.
+// Results:
+//    10
+//
+// History:
+//    Created on 16/01/2025
+
+
+class Mult {
+    int multiply(int a, int b) {
+        return a * b;
+    }
+}
+
+{
+        Mult sub = new Mult();
+        println(sub.multiply(2, 5));
+}

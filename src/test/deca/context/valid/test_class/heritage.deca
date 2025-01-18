@@ -1,0 +1,20 @@
+// Description:
+//    Class inheritance example.
+// Results:
+//    2
+//
+// History:
+//    Created on 16/01/2025
+
+class A {
+    int greet() {
+        return 2;
+    }
+}
+
+class B extends A {}
+
+{
+    B b = new B() ;
+    println(b.greet()) ;
+}

@@ -1,0 +1,39 @@
+// Description:
+//    Tests "instanceof" with A, B, and C hierarchy.
+// Results:
+//    ok1ok2ok3ok4ok5
+//
+// History:
+//    Created on 14/01/2025
+
+class A{
+    int x;
+}
+
+class B extends A{
+}
+class C extends B{
+}
+{
+    A a;
+    B b = new B();	
+    C c = new C();
+    if (b instanceof A){
+        print("ok1");
+    }
+    if (c instanceof B){
+        print("ok2");
+    }
+    if (c instanceof A){
+        print("ok3");
+    }
+    if (b instanceof B){
+        print("ok4");
+    }
+    if (c instanceof C){
+        print("ok5");
+    }
+    if (b instanceof C){
+        println("bug");
+    }
+}

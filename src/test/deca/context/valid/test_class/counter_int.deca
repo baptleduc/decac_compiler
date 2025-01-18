@@ -1,0 +1,29 @@
+// Description:
+//    Minimalistic counter.
+// Results:
+//    2
+//
+// History:
+//    Created on 16/01/2025
+
+
+class Counter {
+    int count = 0;
+
+    void increment() {
+        count = count + 1;
+    }
+
+    int getCount() {
+        return count;
+    }
+}
+
+{
+
+Counter counter = new Counter();
+counter.increment();
+counter.increment();
+println(counter.getCount());
+    
+}

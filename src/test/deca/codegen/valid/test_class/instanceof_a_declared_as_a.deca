@@ -1,0 +1,36 @@
+// Description:
+//    Tests "instanceof" with inheritance. Declares 'a' as an object of class A, assigns it an instance of B, and checks its type relations.
+// Results:
+//    ok1ok2
+// History:
+//    Created on 14/01/2025
+
+// Results:
+//    ok1ok2ok3ok4ok5
+//
+// History:
+//    Created on 14/01/2025
+
+class A{
+    int x;
+}
+
+class B extends A{
+}
+class C extends B{
+}
+{
+    A a;
+    B b ;	
+    a=new B();
+    if(a instanceof C){
+        print("bug");
+    }
+    if(a instanceof B){
+        print("ok1");
+    }
+    if(a instanceof A){
+        print("ok2");
+    }
+
+}

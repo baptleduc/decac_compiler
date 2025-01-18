@@ -5,11 +5,18 @@ import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.Type;
-import fr.ensimag.deca.tools.DecacInternalError;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.DVal;
+import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.Label;
+import fr.ensimag.ima.pseudocode.NullOperand;
+import fr.ensimag.ima.pseudocode.RegisterOffset;
+import fr.ensimag.ima.pseudocode.instructions.BEQ;
+import fr.ensimag.ima.pseudocode.instructions.BNE;
+import fr.ensimag.ima.pseudocode.instructions.CMP;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
 import java.io.PrintStream;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -17,6 +24,7 @@ import java.io.PrintStream;
  * @date 06/01/2025
  */
 public class InstanceOf extends AbstractExpr {
+    private static final Logger LOG = Logger.getLogger(InstanceOf.class);
 
     private AbstractExpr leftOperand;
     private AbstractIdentifier rightOperand;
@@ -72,7 +80,9 @@ public class InstanceOf extends AbstractExpr {
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
-        throw new UnsupportedOperationException("not yet implemented");
+        DVal heapStartAddr = leftOperand.getDVal(compiler);
+        LOG.debug("HeapStartAddr start addr: " + heapStartAddr);
+
     }
 
     @Override
@@ -82,6 +92,20 @@ public class InstanceOf extends AbstractExpr {
 
     @Override
     protected void codeGenBool(DecacCompiler compiler, Label label, boolean branchOn) {
-        throw new DecacInternalError("Should not be called");
+        leftOperand.codeGenInst(compiler);
+        DVal heapStartAddr = leftOperand.getDVal(compiler);
+        GPRegister regHeapStartAddr = heapStartAddr.codeGenToGPRegister(compiler);
+
+        DVal methodTableAddrToCompare = rightOperand.getClassDefinition().getMethodTableAddr();
+        Label labelInstanceOf = new Label("InstanceOf");
+        compiler.addInstruction(new LOAD(new RegisterOffset(0, regHeapStartAddr), regHeapStartAddr));
+        compiler.addLabel(labelInstanceOf);
+        compiler.addInstruction(new CMP(new NullOperand(), regHeapStartAddr));
+        compiler.addInstruction(new BEQ(label));
+
+        compiler.addInstruction(new LOAD(new RegisterOffset(0, regHeapStartAddr), regHeapStartAddr),
+                "Load method table addr"); // Load the address of the method table in R0
+        compiler.addInstruction(new CMP(methodTableAddrToCompare, regHeapStartAddr));
+        compiler.addInstruction(new BNE(labelInstanceOf));
     }
 }
