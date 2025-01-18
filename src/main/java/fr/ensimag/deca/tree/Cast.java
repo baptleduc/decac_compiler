@@ -17,7 +17,6 @@ import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.instructions.BRA;
 import fr.ensimag.ima.pseudocode.instructions.FLOAT;
 import fr.ensimag.ima.pseudocode.instructions.INT;
-import java.io.PrintStream;
 import org.apache.log4j.Logger;
 
 /**
