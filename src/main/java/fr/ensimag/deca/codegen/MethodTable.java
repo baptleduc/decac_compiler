@@ -175,7 +175,7 @@ public class MethodTable {
             compiler.addInstruction(new STORE(compiler.getRegister0(), compiler.getOffsetGB()));
             
         }
-        classDefinition.setMethodTableAddr(lastMethodTableAddr); // Save the method table address in the class
+        classDefinition.setMethodTableAddr(compiler.getLastMethodTableAddr()); // Save the method table address in the class
                                                                  // definition
     }
 
