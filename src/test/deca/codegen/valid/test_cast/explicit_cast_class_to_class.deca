@@ -11,4 +11,5 @@ class B extends A { }
 
 {
 (A) (new B());
+(B) (new A());
 }
