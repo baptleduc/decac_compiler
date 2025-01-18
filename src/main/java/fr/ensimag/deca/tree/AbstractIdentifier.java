@@ -100,7 +100,6 @@ public abstract class AbstractIdentifier extends AbstractLValue {
      * 
      * @param localEnv
      * contains the definition the identifier
-     * 
      * @return the definition corresponding to this identifier
      */
     public abstract Definition verifyIdentifier(EnvironmentExp localEnv) throws ContextualError;
