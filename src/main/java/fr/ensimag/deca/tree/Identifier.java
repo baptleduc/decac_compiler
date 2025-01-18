@@ -1,10 +1,5 @@
 package fr.ensimag.deca.tree;
 
-import java.io.PrintStream;
-
-import org.apache.commons.lang.Validate;
-import org.apache.log4j.Logger;
-
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
@@ -24,6 +19,9 @@ import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.instructions.BEQ;
 import fr.ensimag.ima.pseudocode.instructions.BNE;
 import fr.ensimag.ima.pseudocode.instructions.CMP;
+import java.io.PrintStream;
+import org.apache.commons.lang.Validate;
+import org.apache.log4j.Logger;
 
 /**
  * Deca Identifier
@@ -196,7 +194,7 @@ public class Identifier extends AbstractIdentifier {
 
         if (!exprDef.isExpression()) {
             throw new ContextualError("Variable " + name.getName() + " is not an expression", getLocation());
-        }      
+        }
         setDefinition(exprDef);
         return exprDef;
     }

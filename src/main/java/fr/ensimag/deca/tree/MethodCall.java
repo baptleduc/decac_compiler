@@ -1,7 +1,5 @@
 package fr.ensimag.deca.tree;
 
-import java.io.PrintStream;
-
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ClassType;
@@ -14,6 +12,7 @@ import fr.ensimag.deca.tools.DecacInternalError;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.DVal;
 import fr.ensimag.ima.pseudocode.Label;
+import java.io.PrintStream;
 
 /**
  *
@@ -35,12 +34,14 @@ public class MethodCall extends AbstractExpr {
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-        ClassType classType2 = leftOperand.verifyExpr(compiler, localEnv, currentClass).asClassType("method "+rightOperand.getName()+" can only be called on class types", leftOperand.getLocation());
+        ClassType classType2 = leftOperand.verifyExpr(compiler, localEnv, currentClass).asClassType(
+                "method " + rightOperand.getName() + " can only be called on class types", leftOperand.getLocation());
         ClassDefinition classDef2 = classType2.getDefinition();
         EnvironmentExp envExp2 = classDef2.getMembers();
-        MethodDefinition methodDef = rightOperand.verifyIdentifier(localEnv).asMethodDefinition(rightOperand.getName()+ " is not defined as a method", rightOperand.getLocation());
+        MethodDefinition methodDef = rightOperand.verifyIdentifier(localEnv)
+                .asMethodDefinition(rightOperand.getName() + " is not defined as a method", rightOperand.getLocation());
         Signature sig = methodDef.getSignature();
-        for (AbstractExpr param : params.getList()){
+        for (AbstractExpr param : params.getList()) {
             param.verifyRValue(compiler, localEnv, currentClass, param.getType());
         }
         return methodDef.getType();
