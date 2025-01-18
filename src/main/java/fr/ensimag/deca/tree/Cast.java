@@ -47,7 +47,6 @@ public class Cast extends AbstractExpr {
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
         Type typeExpression = expressionToCast.verifyExpr(compiler, localEnv, currentClass);
-        LOG.debug("typeExpression: " + typeExpression);
         Type typeCast = typeIdentifier.verifyType(compiler);
         if (typeExpression.isVoid()) {
             throw new ContextualError("Can't cast a void", expressionToCast.getLocation());
