@@ -1,5 +1,10 @@
 package fr.ensimag.deca.tree;
 
+import fr.ensimag.arm.ARMDataType;
+import fr.ensimag.arm.ARMProgram;
+import fr.ensimag.arm.instruction.ARMDirectStore;
+import fr.ensimag.arm.instruction.ARMInstruction;
+import fr.ensimag.arm.instruction.ARMStore;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
@@ -11,6 +16,8 @@ import fr.ensimag.ima.pseudocode.instructions.FLOAT;
 import fr.ensimag.ima.pseudocode.instructions.LOAD;
 import fr.ensimag.ima.pseudocode.instructions.WFLOATX;
 import java.io.PrintStream;
+import java.util.LinkedList;
+
 import org.apache.commons.lang.Validate;
 
 /**
@@ -71,7 +78,39 @@ public abstract class AbstractPrint extends AbstractInst {
 
     @Override
     protected void codeGenInstARM(DecacCompiler compiler) {
-        // TODO ARM
+        ARMProgram program = compiler.getARMProgram();
+
+        // we create the string format and we store it in the data section
+        String format = "";
+        LinkedList<AbstractExpr> abExp = new LinkedList<>();
+        for (AbstractExpr a : getArguments().getList()) {
+            if (a.isImmediate()) {
+                a.codeGenInstARM(compiler);
+                format += a.getDValARM().getTrueVal(); // without the instruction decoration
+                continue;
+            } 
+            if (a.getType().isInt()) {
+                format += "%d";
+            } else if (a.getType().isFloat()) {
+                format += "%f";
+            }
+            abExp.add(a);
+        }
+        String stringName = program.addStringLine(format);
+
+        // we put in sp the print parameters
+        program.setPrintNbParametersIfSup(abExp.size());
+        int offset = 0;
+        for (AbstractExpr a : abExp) {
+            a.codeGenInstARM(compiler);
+            program.addInstruction(new ARMDirectStore(a.getDValARM().toString(), offset));
+            program.freeRegister(a.getDValARM().toString());
+            offset += 8;
+        }
+
+        // we call _printf
+        program.addInstruction(new ARMInstruction("adr", "X0", stringName));
+        program.addInstruction(new ARMInstruction("bl", "_printf"));
     }
 
     private boolean getPrintHex() {
