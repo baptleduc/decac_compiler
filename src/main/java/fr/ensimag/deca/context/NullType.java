@@ -15,7 +15,7 @@ public class NullType extends Type {
 
     @Override
     public boolean sameType(Type otherType) {
-	return true;
+        return true;
     }
 
     @Override

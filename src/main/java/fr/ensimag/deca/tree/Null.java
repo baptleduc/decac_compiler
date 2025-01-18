@@ -24,14 +24,14 @@ public class Null extends AbstractExpr {
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-	Type nullType = compiler.environmentType.NULL;
-	this.setType(nullType);
-	return nullType;
+        Type nullType = compiler.environmentType.NULL;
+        this.setType(nullType);
+        return nullType;
     }
 
     @Override
     public void decompile(IndentPrintStream s) {
-	s.print("null");
+        s.print("null");
     }
 
     @Override
