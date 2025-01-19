@@ -56,6 +56,7 @@ public class Selection extends AbstractLValue {
         selectedField.setDefinition(selectedFieldDefinition);
         if (selectedFieldDefinition.getVisibility().equals(Visibility.PUBLIC)) {
             setType(selectedFieldDefinition.getType());
+            selectedField.setDefinition(selectedFieldDefinition);
             return selectedFieldDefinition.getType();
         } else if (selectedFieldDefinition.getVisibility().equals(Visibility.PROTECTED)) {
             if (currentClass == null) {
@@ -65,6 +66,7 @@ public class Selection extends AbstractLValue {
             if (typeClass2.isSubClassOf(currentClass.getType())
                     && (currentClass.getType().isSubClassOf(selectedFieldDefinition.getContainingClass().getType()))) {
                 setType(selectedFieldDefinition.getType());
+                selectedField.setDefinition(selectedFieldDefinition);
                 return selectedFieldDefinition.getType();
             }
         }
