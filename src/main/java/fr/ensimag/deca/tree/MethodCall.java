@@ -12,7 +12,11 @@ import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.DecacInternalError;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.DVal;
+import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.Label;
+import fr.ensimag.ima.pseudocode.instructions.ADDSP;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
+
 import java.io.PrintStream;
 import org.apache.log4j.Logger;
 
@@ -104,7 +108,20 @@ public class MethodCall extends AbstractExpr {
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
-        throw new UnsupportedOperationException("not yet implemented");
+        leftOperand.codeGenInst(compiler);
+        DVal leftDVal = leftOperand.getDVal(compiler);
+
+        GPRegister regLeft = leftDVal.codeGenToGPRegister(compiler);
+
+        compiler.addInstruction(new ADDSP(params.size() + 1)); // +1 for the object itself
+
+        compiler.addInstruction(new LOAD(leftDVal, regLeft));
+        for (AbstractExpr param : params.getList()) {
+            param.codeGenInst(compiler);
+            GPRegister regParam = param.getDVal(compiler).codeGenToGPRegister(compiler);
+            compiler.addInstruction(new LOAD(regParam, regLeft));
+        }
+
     }
 
     @Override
