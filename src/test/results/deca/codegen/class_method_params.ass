@@ -1,6 +1,6 @@
-	TSTO #10	; 10 (variables) + 0 (saved registers) + 0 (temporaries) + 0 (method parameters x 2)
+	TSTO #11	; 11 (variables) + 0 (saved registers) + 0 (temporaries) + 0 (method parameters x 2)
 	BOV stack_overflow_error
-	ADDSP #10
+	ADDSP #11
 ; start main program
 ; Method Table of class Object
 	LOAD #null, R0
@@ -12,65 +12,23 @@
 	STORE R0, 3(GB)
 	LOAD code.Object.equals, R0
 	STORE R0, 4(GB)
+	LOAD code.A.add, R0
+	STORE R0, 5(GB)
+	LOAD code.A.p, R0
+	STORE R0, 6(GB)
 ; Method Table of class B
 	LEA 3(GB), R0
-	STORE R0, 5(GB)
-	LOAD code.Object.equals, R0
-	STORE R0, 6(GB)
-; Method Table of class C
-	LEA 5(GB), R0
 	STORE R0, 7(GB)
 	LOAD code.Object.equals, R0
 	STORE R0, 8(GB)
+	LOAD code.A.add, R0
+	STORE R0, 9(GB)
+	LOAD code.B.p, R0
+	STORE R0, 10(GB)
+	LOAD code.B.q, R0
+	STORE R0, 11(GB)
 ; Main program
 ; Beginning of main instructions:
-	NEW #2, R3
-	BOV heap_overflow_error
-	LEA 5(GB), R0
-	STORE R0, 0(R3)
-	PUSH R3
-	BSR init.B
-	POP R3
-	STORE R3, 9(GB)
-	LOAD 9(GB), R2
-	LOAD 0(R2), R2
-InstanceOf_6:
-	CMP #null, R2
-	BEQ else_4
-	LOAD 0(R2), R2	; Load method table addr
-	CMP 7(GB), R2
-	BNE InstanceOf_6
-then_3:
-	WSTR "bug"
-	BRA end_5
-else_4:
-end_5:
-	LOAD 9(GB), R2
-	LOAD 0(R2), R2
-InstanceOf_10:
-	CMP #null, R2
-	BEQ else_8
-	LOAD 0(R2), R2	; Load method table addr
-	CMP 5(GB), R2
-	BNE InstanceOf_10
-then_7:
-	WSTR "ok1"
-	BRA end_9
-else_8:
-end_9:
-	LOAD 9(GB), R2
-	LOAD 0(R2), R2
-InstanceOf_14:
-	CMP #null, R2
-	BEQ else_12
-	LOAD 0(R2), R2	; Load method table addr
-	CMP 3(GB), R2
-	BNE InstanceOf_14
-then_11:
-	WSTR "ok2"
-	BRA end_13
-else_12:
-end_13:
 	HALT
 ; Code Object
 code.Object.equals:
@@ -98,6 +56,26 @@ init.A:
 	LOAD #0, R0
 	STORE R0, 1(R1)
 	RTS
+code.A.add:
+	TSTO #2
+	BOV stack_overflow_error
+	PUSH R3
+	PUSH R2
+	LOAD -2(LB), R3
+	LOAD -3(LB), R2
+	ADD -4(LB), R2
+	STORE R2, 1(R3)
+	BRA no_return_error
+end_method_3:
+	POP R2
+	POP R3
+	RTS
+code.A.p:
+	TSTO #0
+	BOV stack_overflow_error
+	BRA no_return_error
+end_method_4:
+	RTS
 ; Class B
 init.B:
 	LOAD -2(LB), R1
@@ -105,12 +83,17 @@ init.B:
 	BSR init.A
 	POP R1
 	RTS
-; Class C
-init.C:
-	LOAD -2(LB), R1
-	PUSH R1
-	BSR init.B
-	POP R1
+code.B.p:
+	TSTO #0
+	BOV stack_overflow_error
+	BRA no_return_error
+end_method_5:
+	RTS
+code.B.q:
+	TSTO #0
+	BOV stack_overflow_error
+	BRA no_return_error
+end_method_6:
 	RTS
 stack_overflow_error:
 	WSTR "Error: Stack Overflow"

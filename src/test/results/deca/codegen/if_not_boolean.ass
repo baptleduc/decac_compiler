@@ -13,15 +13,15 @@
 	STORE R3, 3(GB)
 	LOAD 3(GB), R3
 	CMP #0, R3
-	BNE else_3
-then_2:
+	BNE else_4
+then_3:
 	WSTR "The condition is false."
 	WNL
-	BRA end_4
-else_3:
+	BRA end_5
+else_4:
 	WSTR "The condition is true."
 	WNL
-end_4:
+end_5:
 	HALT
 ; Code Object
 code.Object.equals:
@@ -32,12 +32,14 @@ code.Object.equals:
 	LOAD -2(LB), R2
 	LOAD -3(LB), R3
 	CMP R2, R3
-	BNE return_false_0
+	BNE return_false_1
 	LOAD #1, R0
-	BRA end_method_1
-return_false_0:
+	BRA end_method_2
+return_false_1:
 	LOAD #0, R1
-end_method_1:
+end_method_2:
+	BRA no_return_error
+end_method_0:
 	POP R3
 	POP R2
 	RTS
@@ -67,6 +69,10 @@ null_pointer_error:
 	ERROR
 cast_error:
 	WSTR "Error: Cast invalid"
+	WNL
+	ERROR
+no_return_error:
+	WSTR "Error: Exit from method without return"
 	WNL
 	ERROR
 ; end main program

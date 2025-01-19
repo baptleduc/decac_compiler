@@ -10,19 +10,19 @@
 ; Main program
 ; Beginning of main instructions:
 	LOAD #1, R3
-	BRA Not_end_label_2
+	BRA Not_end_label_3
 	LOAD #0, R3
-Not_end_label_2:
+Not_end_label_3:
 	STORE R3, 3(GB)
 	LOAD 3(GB), R3
 	CMP #0, R3
-	BEQ else_4
-then_3:
+	BEQ else_5
+then_4:
 	WSTR "ok"
 	WNL
-	BRA end_5
-else_4:
-end_5:
+	BRA end_6
+else_5:
+end_6:
 	HALT
 ; Code Object
 code.Object.equals:
@@ -33,12 +33,14 @@ code.Object.equals:
 	LOAD -2(LB), R2
 	LOAD -3(LB), R3
 	CMP R2, R3
-	BNE return_false_0
+	BNE return_false_1
 	LOAD #1, R0
-	BRA end_method_1
-return_false_0:
+	BRA end_method_2
+return_false_1:
 	LOAD #0, R1
-end_method_1:
+end_method_2:
+	BRA no_return_error
+end_method_0:
 	POP R3
 	POP R2
 	RTS
@@ -68,6 +70,10 @@ null_pointer_error:
 	ERROR
 cast_error:
 	WSTR "Error: Cast invalid"
+	WNL
+	ERROR
+no_return_error:
+	WSTR "Error: Exit from method without return"
 	WNL
 	ERROR
 ; end main program
