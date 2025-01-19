@@ -1,0 +1,51 @@
+`> [9, 0] Program
+   +> ListDeclClass [List with 1 elements]
+   |  []> [9, 0] DeclClass
+   |      +> [9, 6] Identifier (A)
+   |      |  definition: type defined at [9, 6], type=A
+   |      +> [builtin] Identifier (Object)
+   |      |  definition: type (builtin), type=Object
+   |      +> ListDeclField [List with 1 elements]
+   |      |  []> [10, 10] [visibility=public] DeclField
+   |      |      +> [10, 4] Identifier (float)
+   |      |      |  definition: type (builtin), type=float
+   |      |      +> [10, 10] Identifier (x)
+   |      |      |  definition: field defined at [10, 10], type=float
+   |      |      +> [10, 14] Initialization
+   |      |      |  `> [10, 14] Float (12.5)
+   |      |      |     type: float
+   |      `> ListDeclMethod [List with 1 elements]
+   |         []> [11, 4] DeclMethod
+   |             +> [11, 4] Identifier (float)
+   |             |  definition: type (builtin), type=float
+   |             +> [11, 10] Identifier (getX)
+   |             |  definition: method defined at [11, 10], type=float
+   |             +> ListDeclParam [List with 0 elements]
+   |             `> [11, 14] MethodBody
+   |                +> ListDeclVar [List with 0 elements]
+   |                `> ListInst [List with 1 elements]
+   |                   []> [12, 8] Return
+   |                       `> [12, 15] Identifier (x)
+   |                          definition: field defined at [10, 10], type=float
+   `> [17, 0] Main
+      +> ListDeclVar [List with 1 elements]
+      |  []> [18, 10] DeclVar
+      |      +> [18, 4] Identifier (A)
+      |      |  definition: type defined at [9, 6], type=A
+      |      +> [18, 6] Identifier (a)
+      |      |  definition: variable defined at [18, 6], type=A
+      |      `> [18, 10] Initialization
+      |         `> [18, 10] New
+      |            type: A
+      |            `> [18, 14] Identifier (A)
+      |               definition: type defined at [9, 6], type=A
+      `> ListInst [List with 1 elements]
+         []> [20, 4] Println
+             `> ListExpr [List with 1 elements]
+                []> [20, 13] MethodCall
+                    type: float
+                    +> [20, 12] Identifier (a)
+                    |  definition: variable defined at [18, 6], type=A
+                    +> [20, 14] Identifier (getX)
+                    |  definition: method defined at [11, 10], type=float
+                    `> ListExpr [List with 0 elements]

@@ -1,0 +1,61 @@
+`> [10, 0] Program
+   +> ListDeclClass [List with 1 elements]
+   |  []> [10, 0] DeclClass
+   |      +> [10, 6] Identifier (Adder)
+   |      |  definition: type defined at [10, 6], type=Adder
+   |      +> [builtin] Identifier (Object)
+   |      |  definition: type (builtin), type=Object
+   |      +> ListDeclField [List with 0 elements]
+   |      `> ListDeclMethod [List with 1 elements]
+   |         []> [11, 4] DeclMethod
+   |             +> [11, 4] Identifier (int)
+   |             |  definition: type (builtin), type=int
+   |             +> [11, 8] Identifier (add)
+   |             |  definition: method defined at [11, 8], type=int
+   |             +> ListDeclParam [List with 2 elements]
+   |             |  []> [11, 16] DeclParam
+   |             |  ||  +> [11, 12] Identifier (int)
+   |             |  ||  |  definition: type (builtin), type=int
+   |             |  ||  `> [11, 16] Identifier (a)
+   |             |  ||     definition: parameter defined at [11, 16], type=int
+   |             |  []> [11, 23] DeclParam
+   |             |      +> [11, 19] Identifier (int)
+   |             |      |  definition: type (builtin), type=int
+   |             |      `> [11, 23] Identifier (b)
+   |             |         definition: parameter defined at [11, 23], type=int
+   |             `> [11, 11] MethodBody
+   |                +> ListDeclVar [List with 0 elements]
+   |                `> ListInst [List with 1 elements]
+   |                   []> [12, 8] Return
+   |                       `> [12, 17] Plus
+   |                          type: int
+   |                          +> [12, 15] Identifier (a)
+   |                          |  definition: parameter defined at [11, 16], type=int
+   |                          `> [12, 19] Identifier (b)
+   |                             definition: parameter defined at [11, 23], type=int
+   `> [16, 0] Main
+      +> ListDeclVar [List with 1 elements]
+      |  []> [17, 22] DeclVar
+      |      +> [17, 8] Identifier (Adder)
+      |      |  definition: type defined at [10, 6], type=Adder
+      |      +> [17, 14] Identifier (adder)
+      |      |  definition: variable defined at [17, 14], type=Adder
+      |      `> [17, 22] Initialization
+      |         `> [17, 22] New
+      |            type: Adder
+      |            `> [17, 26] Identifier (Adder)
+      |               definition: type defined at [10, 6], type=Adder
+      `> ListInst [List with 1 elements]
+         []> [18, 8] Println
+             `> ListExpr [List with 1 elements]
+                []> [18, 21] MethodCall
+                    type: int
+                    +> [18, 16] Identifier (adder)
+                    |  definition: variable defined at [17, 14], type=Adder
+                    +> [18, 22] Identifier (add)
+                    |  definition: method defined at [11, 8], type=int
+                    `> ListExpr [List with 2 elements]
+                       []> [18, 26] Int (3)
+                       ||  type: int
+                       []> [18, 29] Int (5)
+                           type: int

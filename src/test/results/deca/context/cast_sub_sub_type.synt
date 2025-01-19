@@ -49,8 +49,8 @@
       |  ||  `> [11, 10] Initialization
       |  ||     `> [11, 10] New
       |  ||        type: A
-      |  ||        +> [11, 14] Identifier (A)
-      |  ||        |  definition: type defined at [1, 6], type=A
+      |  ||        `> [11, 14] Identifier (A)
+      |  ||           definition: type defined at [1, 6], type=A
       |  []> [12, 10] DeclVar
       |      +> [12, 4] Identifier (C)
       |      |  definition: type defined at [7, 6], type=C

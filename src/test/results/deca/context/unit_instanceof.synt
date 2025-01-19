@@ -1,0 +1,46 @@
+`> [10, 0] Program
+   +> ListDeclClass [List with 2 elements]
+   |  []> [10, 0] DeclClass
+   |  ||  +> [10, 6] Identifier (A)
+   |  ||  |  definition: type defined at [10, 6], type=A
+   |  ||  +> [builtin] Identifier (Object)
+   |  ||  |  definition: type (builtin), type=Object
+   |  ||  +> ListDeclField [List with 0 elements]
+   |  ||  `> ListDeclMethod [List with 0 elements]
+   |  []> [11, 0] DeclClass
+   |      +> [11, 6] Identifier (B)
+   |      |  definition: type defined at [11, 6], type=B
+   |      +> [11, 16] Identifier (A)
+   |      |  definition: type defined at [10, 6], type=A
+   |      +> ListDeclField [List with 0 elements]
+   |      `> ListDeclMethod [List with 0 elements]
+   `> [13, 0] Main
+      +> ListDeclVar [List with 1 elements]
+      |  []> [14, 10] DeclVar
+      |      +> [14, 4] Identifier (A)
+      |      |  definition: type defined at [10, 6], type=A
+      |      +> [14, 6] Identifier (a)
+      |      |  definition: variable defined at [14, 6], type=A
+      |      `> [14, 10] Initialization
+      |         `> [14, 10] New
+      |            type: A
+      |            `> [14, 14] Identifier (B)
+      |               definition: type defined at [11, 6], type=B
+      `> ListInst [List with 1 elements]
+         []> [15, 4] IfThenElse
+             +> [15, 10] instanceof
+             |  type: boolean
+             |  +> [15, 8] Identifier (a)
+             |  |  definition: variable defined at [14, 6], type=A
+             |  `> [15, 21] Identifier (B)
+             |     definition: type defined at [11, 6], type=B
+             +> ListInst [List with 1 elements]
+             |  []> [16, 1] Println
+             |      `> ListExpr [List with 1 elements]
+             |         []> [16, 9] Int (1)
+             |             type: int
+             `> ListInst [List with 1 elements]
+                []> [19, 1] Println
+                    `> ListExpr [List with 1 elements]
+                       []> [19, 9] Int (0)
+                           type: int

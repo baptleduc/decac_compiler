@@ -1,0 +1,84 @@
+`> [10, 0] Program
+   +> ListDeclClass [List with 1 elements]
+   |  []> [10, 0] DeclClass
+   |      +> [10, 6] Identifier (Counter)
+   |      |  definition: type defined at [10, 6], type=Counter
+   |      +> [builtin] Identifier (Object)
+   |      |  definition: type (builtin), type=Object
+   |      +> ListDeclField [List with 1 elements]
+   |      |  []> [11, 8] [visibility=public] DeclField
+   |      |      +> [11, 4] Identifier (int)
+   |      |      |  definition: type (builtin), type=int
+   |      |      +> [11, 8] Identifier (count)
+   |      |      |  definition: field defined at [11, 8], type=int
+   |      |      +> [11, 16] Initialization
+   |      |      |  `> [11, 16] Int (0)
+   |      |      |     type: int
+   |      `> ListDeclMethod [List with 2 elements]
+   |         []> [13, 4] DeclMethod
+   |         ||  +> [13, 4] Identifier (void)
+   |         ||  |  definition: type (builtin), type=void
+   |         ||  +> [13, 9] Identifier (increment)
+   |         ||  |  definition: method defined at [13, 9], type=void
+   |         ||  +> ListDeclParam [List with 0 elements]
+   |         ||  `> [13, 18] MethodBody
+   |         ||     +> ListDeclVar [List with 0 elements]
+   |         ||     `> ListInst [List with 1 elements]
+   |         ||        []> [14, 14] Assign
+   |         ||            type: int
+   |         ||            +> [14, 8] Identifier (count)
+   |         ||            |  definition: field defined at [11, 8], type=int
+   |         ||            `> [14, 22] Plus
+   |         ||               type: int
+   |         ||               +> [14, 16] Identifier (count)
+   |         ||               |  definition: field defined at [11, 8], type=int
+   |         ||               `> [14, 24] Int (1)
+   |         ||                  type: int
+   |         []> [17, 4] DeclMethod
+   |             +> [17, 4] Identifier (int)
+   |             |  definition: type (builtin), type=int
+   |             +> [17, 8] Identifier (getCount)
+   |             |  definition: method defined at [17, 8], type=int
+   |             +> ListDeclParam [List with 0 elements]
+   |             `> [17, 16] MethodBody
+   |                +> ListDeclVar [List with 0 elements]
+   |                `> ListInst [List with 1 elements]
+   |                   []> [18, 8] Return
+   |                       `> [18, 15] Identifier (count)
+   |                          definition: field defined at [11, 8], type=int
+   `> [22, 0] Main
+      +> ListDeclVar [List with 1 elements]
+      |  []> [24, 18] DeclVar
+      |      +> [24, 0] Identifier (Counter)
+      |      |  definition: type defined at [10, 6], type=Counter
+      |      +> [24, 8] Identifier (counter)
+      |      |  definition: variable defined at [24, 8], type=Counter
+      |      `> [24, 18] Initialization
+      |         `> [24, 18] New
+      |            type: Counter
+      |            `> [24, 22] Identifier (Counter)
+      |               definition: type defined at [10, 6], type=Counter
+      `> ListInst [List with 3 elements]
+         []> [25, 7] MethodCall
+         ||  type: void
+         ||  +> [25, 0] Identifier (counter)
+         ||  |  definition: variable defined at [24, 8], type=Counter
+         ||  +> [25, 8] Identifier (increment)
+         ||  |  definition: method defined at [13, 9], type=void
+         ||  `> ListExpr [List with 0 elements]
+         []> [26, 7] MethodCall
+         ||  type: void
+         ||  +> [26, 0] Identifier (counter)
+         ||  |  definition: variable defined at [24, 8], type=Counter
+         ||  +> [26, 8] Identifier (increment)
+         ||  |  definition: method defined at [13, 9], type=void
+         ||  `> ListExpr [List with 0 elements]
+         []> [27, 0] Println
+             `> ListExpr [List with 1 elements]
+                []> [27, 15] MethodCall
+                    type: int
+                    +> [27, 8] Identifier (counter)
+                    |  definition: variable defined at [24, 8], type=Counter
+                    +> [27, 16] Identifier (getCount)
+                    |  definition: method defined at [17, 8], type=int
+                    `> ListExpr [List with 0 elements]
