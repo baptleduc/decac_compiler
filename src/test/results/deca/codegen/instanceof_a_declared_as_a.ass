@@ -24,59 +24,79 @@
 	STORE R0, 8(GB)
 ; Main program
 ; Beginning of main instructions:
-	NEW #2, R2
+	NEW #2, R4
 	BOV heap_overflow_error
 	LEA 5(GB), R0
-	STORE R0, 0(R2)
-	PUSH R2
+	STORE R0, 0(R4)
+	PUSH R4
 	BSR init.B
-	POP R2
-	STORE R2, 9(GB)
-	LOAD 9(GB), R3
-	LOAD 0(R3), R3
-InstanceOf_3:
-	CMP #null, R3
-	BEQ else_1
-	LOAD 0(R3), R3	; Load method table addr
-	CMP 7(GB), R3
-	BNE InstanceOf_3
-then_0:
-	WSTR "bug"
-	BRA end_2
-else_1:
-end_2:
-	LOAD 9(GB), R4
-	LOAD 0(R4), R4
-InstanceOf_7:
-	CMP #null, R4
-	BEQ else_5
-	LOAD 0(R4), R4	; Load method table addr
-	CMP 5(GB), R4
-	BNE InstanceOf_7
-then_4:
-	WSTR "ok1"
-	BRA end_6
-else_5:
-end_6:
+	POP R4
+	STORE R4, 9(GB)
 	LOAD 9(GB), R5
 	LOAD 0(R5), R5
-InstanceOf_11:
+InstanceOf_5:
 	CMP #null, R5
-	BEQ else_9
+	BEQ else_3
 	LOAD 0(R5), R5	; Load method table addr
-	CMP 3(GB), R5
-	BNE InstanceOf_11
-then_8:
+	CMP 7(GB), R5
+	BNE InstanceOf_5
+then_2:
+	WSTR "bug"
+	BRA end_4
+else_3:
+end_4:
+	LOAD 9(GB), R6
+	LOAD 0(R6), R6
+InstanceOf_9:
+	CMP #null, R6
+	BEQ else_7
+	LOAD 0(R6), R6	; Load method table addr
+	CMP 5(GB), R6
+	BNE InstanceOf_9
+then_6:
+	WSTR "ok1"
+	BRA end_8
+else_7:
+end_8:
+	LOAD 9(GB), R7
+	LOAD 0(R7), R7
+InstanceOf_13:
+	CMP #null, R7
+	BEQ else_11
+	LOAD 0(R7), R7	; Load method table addr
+	CMP 3(GB), R7
+	BNE InstanceOf_13
+then_10:
 	WSTR "ok2"
-	BRA end_10
-else_9:
-end_10:
+	BRA end_12
+else_11:
+end_12:
 	HALT
+; Code Object
+code.Object.equals:
+	TSTO #2
+	BOV stack_overflow_error
+	PUSH R2
+	PUSH R3
+	LOAD -2(LB), R2
+	LOAD -3(LB), R3
+	CMP R2, R3
+	BNE return_false_0
+	LOAD #1, R0
+	BRA end_method_1
+return_false_0:
+	LOAD #0, R1
+end_method_1:
+	POP R3
+	POP R2
+	RTS
+; Class A
 init.A:
 	LOAD -2(LB), R1
 	LOAD #0, R0
 	STORE R0, 1(R1)
 	RTS
+; Class B
 init.B:
 	LOAD -2(LB), R1
 	PUSH R1
@@ -84,6 +104,7 @@ init.B:
 	SUBSP #1
 	LOAD -2(LB), R1
 	RTS
+; Class C
 init.C:
 	LOAD -2(LB), R1
 	PUSH R1
@@ -91,7 +112,6 @@ init.C:
 	SUBSP #1
 	LOAD -2(LB), R1
 	RTS
-code.Object.equals:
 stack_overflow_error:
 	WSTR "Error: Stack Overflow"
 	WNL

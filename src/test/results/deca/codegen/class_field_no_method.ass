@@ -19,31 +19,51 @@
 	STORE R0, 6(GB)
 ; Main program
 ; Beginning of main instructions:
-	NEW #4, R2
+	NEW #4, R4
 	BOV heap_overflow_error
 	LEA 3(GB), R0
-	STORE R0, 0(R2)
-	PUSH R2
+	STORE R0, 0(R4)
+	PUSH R4
 	BSR init.A
-	POP R2
-	STORE R2, 7(GB)
-	NEW #7, R2
+	POP R4
+	STORE R4, 7(GB)
+	NEW #7, R4
 	BOV heap_overflow_error
 	LEA 5(GB), R0
-	STORE R0, 0(R2)
-	PUSH R2
+	STORE R0, 0(R4)
+	PUSH R4
 	BSR init.B
-	POP R2
-	STORE R2, 8(GB)
+	POP R4
+	STORE R4, 8(GB)
 	HALT
+; Code Object
+code.Object.equals:
+	TSTO #2
+	BOV stack_overflow_error
+	PUSH R2
+	PUSH R3
+	LOAD -2(LB), R2
+	LOAD -3(LB), R3
+	CMP R2, R3
+	BNE return_false_0
+	LOAD #1, R0
+	BRA end_method_1
+return_false_0:
+	LOAD #0, R1
+end_method_1:
+	POP R3
+	POP R2
+	RTS
+; Class A
 init.A:
 	LOAD -2(LB), R1
 	LOAD #0, R0
 	STORE R0, 1(R1)
 	STORE R0, 2(R1)
-	LOAD #1, R2
-	STORE R2, 3(R1)
+	LOAD #1, R4
+	STORE R4, 3(R1)
 	RTS
+; Class B
 init.B:
 	LOAD -2(LB), R1
 	LOAD #0, R0
@@ -56,12 +76,11 @@ init.B:
 	BSR init.A
 	SUBSP #1
 	LOAD -2(LB), R1
-	LOAD #3, R2
-	STORE R2, 4(R1)
-	LOAD #2, R2
-	STORE R2, 6(R1)
+	LOAD #3, R4
+	STORE R4, 4(R1)
+	LOAD #2, R4
+	STORE R4, 6(R1)
 	RTS
-code.Object.equals:
 stack_overflow_error:
 	WSTR "Error: Stack Overflow"
 	WNL

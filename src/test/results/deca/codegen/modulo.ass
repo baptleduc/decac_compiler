@@ -1,17 +1,39 @@
-	TSTO #1	; 1 (variables) + 0 (saved registers) + 0 (temporaries) + 0 (method parameters x 2)
+	TSTO #3	; 3 (variables) + 0 (saved registers) + 0 (temporaries) + 0 (method parameters x 2)
 	BOV stack_overflow_error
-	ADDSP #1
+	ADDSP #3
 ; start main program
+; Method Table of class Object
+	LOAD #null, R0
+	STORE R0, 1(GB)
+	LOAD code.Object.equals, R0
+	STORE R0, 2(GB)
 ; Main program
 ; Beginning of main instructions:
-	LOAD #10, R2
-	REM #2, R2
-	STORE R2, 1(GB)
-	LOAD 1(GB), R1
+	LOAD #10, R4
+	REM #2, R4
+	STORE R4, 3(GB)
+	LOAD 3(GB), R1
 	WINT
 	WNL
 	HALT
+; Code Object
 code.Object.equals:
+	TSTO #2
+	BOV stack_overflow_error
+	PUSH R2
+	PUSH R3
+	LOAD -2(LB), R2
+	LOAD -3(LB), R3
+	CMP R2, R3
+	BNE return_false_0
+	LOAD #1, R0
+	BRA end_method_1
+return_false_0:
+	LOAD #0, R1
+end_method_1:
+	POP R3
+	POP R2
+	RTS
 stack_overflow_error:
 	WSTR "Error: Stack Overflow"
 	WNL
