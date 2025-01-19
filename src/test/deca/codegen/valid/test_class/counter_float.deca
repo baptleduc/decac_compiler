@@ -1,0 +1,29 @@
+// Description:
+//    Minimalistic counter.
+// Results:
+//    1.00000e+00
+//
+// History:
+//    Created on 16/01/2025
+
+
+class Counter {
+    float count = 0;
+
+    void increment() {
+        count = count + 0.5;
+    }
+
+    float getCount() {
+        return count;
+    }
+}
+
+{
+
+Counter counter = new Counter();
+counter.increment();
+counter.increment();
+println(counter.getCount());
+    
+}

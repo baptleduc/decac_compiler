@@ -1,0 +1,109 @@
+	TSTO #6	; 6 (variables) + 0 (saved registers) + 0 (temporaries) + 0 (method parameters x 2)
+	BOV stack_overflow_error
+	ADDSP #6
+; start main program
+; Method Table of class Object
+	LOAD #null, R0
+	STORE R0, 1(GB)
+	LOAD code.Object.equals, R0
+	STORE R0, 2(GB)
+; Method Table of class Sub
+	LEA 1(GB), R0
+	STORE R0, 3(GB)
+	LOAD code.Object.equals, R0
+	STORE R0, 4(GB)
+	LOAD code.Sub.substraction, R0
+	STORE R0, 5(GB)
+; Main program
+; Beginning of main instructions:
+	NEW #1, R2
+	BOV heap_overflow_error
+	LEA 3(GB), R0
+	STORE R0, 0(R2)
+	PUSH R2
+	BSR init.Sub
+	POP R2
+	STORE R2, 6(GB)
+	LOAD #5, R2
+	PUSH R2
+	LOAD #13, R2
+	PUSH R2
+	LOAD 6(GB), R2
+	CMP #null, R2
+	BEQ null_pointer_error
+	PUSH R2
+	LOAD 0(R2), R2
+	BSR 2(R2)
+	SUBSP #3
+	LOAD R0, R1
+	WINT
+	WNL
+	HALT
+; Code Object
+code.Object.equals:
+	TSTO #2
+	BOV stack_overflow_error
+	PUSH R2
+	PUSH R3
+	LOAD -2(LB), R2
+	LOAD -3(LB), R3
+	CMP R2, R3
+	BNE return_false_2
+	LOAD #1, R0
+	BRA end_method_1
+return_false_2:
+	LOAD #0, R1
+	BRA end_method_1
+	BRA no_return_error
+end_method_1:
+	POP R3
+	POP R2
+	RTS
+; Class Sub
+init.Sub:
+	RTS
+code.Sub.substraction:
+	TSTO #1
+	BOV stack_overflow_error
+	PUSH R3
+	LOAD -3(LB), R3
+	SUB -4(LB), R3
+	LOAD R3, R0
+	BRA end_method_3
+	BRA no_return_error
+end_method_3:
+	POP R3
+	RTS
+stack_overflow_error:
+	WSTR "Error: Stack Overflow"
+	WNL
+	ERROR
+overflow_error:
+	WSTR "Error: Overflow during arithmetic operation"
+	WNL
+	ERROR
+io_error:
+	WSTR "Error: Input/Output error"
+	WNL
+	ERROR
+divide_by_zero_error:
+	WSTR "Error: Division by zero"
+	WNL
+	ERROR
+heap_overflow_error:
+	WSTR "Error: Heap Overflow"
+	WNL
+	ERROR
+null_pointer_error:
+	WSTR "Error: Deferencing a null pointer"
+	WNL
+	ERROR
+cast_error:
+	WSTR "Error: Cast invalid"
+	WNL
+	ERROR
+no_return_error:
+	WSTR "Error: Exit from method without return"
+	WNL
+	ERROR
+; end main program

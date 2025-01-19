@@ -5,7 +5,6 @@ import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.IndentPrintStream;
-import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.instructions.RTS;
 import java.io.PrintStream;
 
@@ -61,10 +60,8 @@ public class MethodBody extends AbstractMethodBody {
     }
 
     @Override
-    protected void codeGenMethodBody(DecacCompiler compiler) {
-
+    protected void codeGenMethodBody(DecacCompiler compiler, boolean hasReturn) {
         compiler.startNewMethod();
-        Label labelEndMethod = compiler.getEndMethodLabel();
 
         for (AbstractDeclVar declVar : listDeclVar.getList()) {
             declVar.codeGenDeclVarLoc(compiler);
@@ -74,7 +71,7 @@ public class MethodBody extends AbstractMethodBody {
         }
 
         compiler.codeGenMethodPrologue();
-        compiler.codeGenMethodEpilogue();
+        compiler.codeGenMethodEpilogue(hasReturn);
         compiler.addInstruction(new RTS());
     }
 }

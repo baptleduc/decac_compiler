@@ -357,10 +357,6 @@ public class DecacCompiler {
         return reg;
     }
 
-    public void resetUsedRegistersMethod() {
-        stackManager.initStackForMethod();
-    }
-
     public void codeGenMethodPrologue() {
         int counter = 0;
         for (int regIndex : stackManager.getUsedRegistersMethod()) {
@@ -371,8 +367,10 @@ public class DecacCompiler {
         addFirst(new TSTO(counter));
     }
 
-    public void codeGenMethodEpilogue() {
-        addInstruction(new BRA(LabelManager.NO_RETURN_ERROR.getLabel()));
+    public void codeGenMethodEpilogue(boolean hasReturn) {
+        if (hasReturn) {
+            addInstruction(new BRA(LabelManager.NO_RETURN_ERROR.getLabel()));
+        }
         addLabel(endMethodLabel);
         while (!stackManager.getUsedRegistersMethod().isEmpty()) {
             int regIndex = stackManager.popUsedRegisterMethod();
