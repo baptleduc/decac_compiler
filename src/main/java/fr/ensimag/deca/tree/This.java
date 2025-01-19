@@ -1,5 +1,7 @@
 package fr.ensimag.deca.tree;
 
+import java.io.PrintStream;
+
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ClassType;
@@ -10,7 +12,6 @@ import fr.ensimag.deca.tools.DecacInternalError;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.DVal;
 import fr.ensimag.ima.pseudocode.Label;
-import java.io.PrintStream;
 
 /**
  *
@@ -38,6 +39,7 @@ public class This extends AbstractExpr {
         try {
             ClassType currentClassType = currentClass.getType().asClassType("can't use this outside of a class",
                     this.getLocation());
+            this.setType(currentClassType);
             return currentClassType;
         } catch (Exception e) {
             throw new ContextualError("Can't use this outside of a class", this.getLocation());

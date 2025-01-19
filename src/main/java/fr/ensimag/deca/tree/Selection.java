@@ -1,5 +1,7 @@
 package fr.ensimag.deca.tree;
 
+import java.io.PrintStream;
+
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.codegen.LabelManager;
 import fr.ensimag.deca.context.ClassDefinition;
@@ -16,7 +18,6 @@ import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.NullOperand;
 import fr.ensimag.ima.pseudocode.instructions.BSR;
 import fr.ensimag.ima.pseudocode.instructions.CMP;
-import java.io.PrintStream;
 
 /**
  * Represents a field selection (e.g., obj.field) in the Deca AST.
@@ -48,11 +49,13 @@ public class Selection extends AbstractLValue {
         FieldDefinition selectedFieldDefinition = localEnv.getCurrentEnvironment().get(selectedField.getName())
                 .asFieldDefinition("lvalue must be a field definition", this.getLocation());
         if (selectedFieldDefinition.getVisibility().equals(Visibility.PUBLIC)) {
+            setType(selectedFieldDefinition.getType());
             return selectedFieldDefinition.getType();
         } else if (selectedFieldDefinition.getVisibility().equals(Visibility.PROTECTED)) {
             if (typeClass2.isSubClassOf(currentClass.getType())
                     && (currentClass.getType().isSubClassOf(selectedFieldDefinition.getType().asClassType(
                             "can access a protected field only in daughters classes", selectedField.getLocation())))) {
+                setType(selectedFieldDefinition.getType());
                 return selectedFieldDefinition.getType();
             }
         }
