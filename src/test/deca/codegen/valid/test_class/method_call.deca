@@ -1,0 +1,26 @@
+// Description:
+//    Minimalistic program making a method call
+// Results:
+//    3
+//
+// History:
+//    Created on 14/01/2025
+
+class A{
+    int add(int a, int b){
+        int x = a + b;
+        return x;
+    }
+    void p(){
+    }
+}
+
+class B extends A{
+    void p(){}
+    int q(){}
+}
+
+{
+    A a = new A();
+    print(a.add(1, 2));
+}
