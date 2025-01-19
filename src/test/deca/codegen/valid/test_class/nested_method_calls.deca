@@ -1,0 +1,23 @@
+// Description:
+//    Simple program testing nested method calls
+// Results:
+//    fromBfromA
+//
+// History:
+//    Created on 11/01/2025
+class B{
+    void a(){
+        println("fromB");
+    }
+}
+class A{
+    void a(B b){
+        b.a();
+        print("fromA");
+    }
+}
+{
+    A a = new A();
+    B b = new B();
+    a.a(b);
+}
