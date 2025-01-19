@@ -1,7 +1,5 @@
 package fr.ensimag.deca.tree;
 
-import java.io.PrintStream;
-
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.codegen.LabelManager;
 import fr.ensimag.deca.context.ClassDefinition;
@@ -30,7 +28,6 @@ import org.apache.log4j.Logger;
 public class Selection extends AbstractLValue {
     private static final Logger LOG = Logger.getLogger(AbstractLValue.class);
 
-
     private AbstractExpr selectedObject;
     private AbstractIdentifier selectedField;
 
@@ -51,13 +48,13 @@ public class Selection extends AbstractLValue {
         LOG.debug("Environement Local Selection : " + envExp2.getCurrentEnvironment());
         FieldDefinition selectedFieldDefinition = envExp2.get(selectedField.getName())
                 .asFieldDefinition("lvalue must be a field definition", this.getLocation());
-	selectedField.setDefinition(selectedFieldDefinition);
+        selectedField.setDefinition(selectedFieldDefinition);
         if (selectedFieldDefinition.getVisibility().equals(Visibility.PUBLIC)) {
             setType(selectedFieldDefinition.getType());
             return selectedFieldDefinition.getType();
         } else if (selectedFieldDefinition.getVisibility().equals(Visibility.PROTECTED)) {
             if (typeClass2.isSubClassOf(currentClass.getType())
-		&& (currentClass.getType().isSubClassOf(selectedFieldDefinition.getContainingClass().getType()))) {
+                    && (currentClass.getType().isSubClassOf(selectedFieldDefinition.getContainingClass().getType()))) {
                 setType(selectedFieldDefinition.getType());
                 return selectedFieldDefinition.getType();
             }
