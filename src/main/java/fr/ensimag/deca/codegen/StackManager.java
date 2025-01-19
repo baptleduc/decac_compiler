@@ -53,7 +53,7 @@ public class StackManager {
 
     public void initStackForMethod() {
         offsetLB = 0;
-        assert (usedRegistersMethod.isEmpty());
+        usedRegistersMethod.clear();
     }
 
     public void markRegisterUsedMethod(GPRegister reg) {
