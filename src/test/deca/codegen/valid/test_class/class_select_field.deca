@@ -1,0 +1,28 @@
+// Description:
+//    Minimalistic program making a class field selection
+// Results:
+//    1234
+//
+// History:
+//    Created on 17/01/2025
+
+class A{
+    int x;
+    int y = 3;
+    int z=3;
+}
+
+class B extends A {
+    int x=4;
+}
+
+{
+    A a = new A();
+    B b = new B();
+    a.x =1;
+    print(a.x);
+    a.y = 2;
+    print(a.y);
+    print(a.z);
+    print(b.x);
+}

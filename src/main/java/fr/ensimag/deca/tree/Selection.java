@@ -14,7 +14,8 @@ import fr.ensimag.ima.pseudocode.DVal;
 import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.NullOperand;
-import fr.ensimag.ima.pseudocode.instructions.BSR;
+import fr.ensimag.ima.pseudocode.RegisterOffset;
+import fr.ensimag.ima.pseudocode.instructions.BEQ;
 import fr.ensimag.ima.pseudocode.instructions.CMP;
 import java.io.PrintStream;
 import org.apache.log4j.Logger;
@@ -26,7 +27,7 @@ import org.apache.log4j.Logger;
  * @date 13/01/2025
  */
 public class Selection extends AbstractLValue {
-    private static final Logger LOG = Logger.getLogger(AbstractLValue.class);
+    private static final Logger LOG = Logger.getLogger(Selection.class);
 
     private AbstractExpr selectedObject;
     private AbstractIdentifier selectedField;
@@ -83,14 +84,23 @@ public class Selection extends AbstractLValue {
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
-        DVal objectDVal = selectedObject.getDVal(compiler);
-        DVal fieldDVal = selectedField.getDVal(compiler);
+        selectedObject.codeGenInst(compiler);
+        try {
+            int indexField = selectedField.getDefinition().asFieldDefinition(null, getLocation()).getIndex();
+            DVal objectDVal = selectedObject.getDVal(compiler);
+            DVal fieldDVal = selectedField.getDVal(compiler);
+            LOG.debug("ObjectDVal: " + objectDVal);
+            LOG.debug("FieldDVal: " + fieldDVal);
 
-        GPRegister regObject = objectDVal.codeGenToGPRegister(compiler);
-        compiler.addInstruction(new CMP(new NullOperand(), regObject));
-        compiler.addInstruction(new BSR(LabelManager.NULL_POINTER_ERROR.getLabel()));
+            GPRegister regObject = objectDVal.codeGenToGPRegister(compiler);
+            compiler.addInstruction(new CMP(new NullOperand(), regObject));
+            compiler.addInstruction(new BEQ(LabelManager.NULL_POINTER_ERROR.getLabel()));
 
-        setDVal(fieldDVal);
+            setDVal(new RegisterOffset(indexField, regObject));
+
+        } catch (Exception e) {
+            throw new DecacInternalError("Should not be called");
+        }
     }
 
     @Override

@@ -20,6 +20,7 @@ import fr.ensimag.ima.pseudocode.instructions.POP;
 import fr.ensimag.ima.pseudocode.instructions.PUSH;
 import fr.ensimag.ima.pseudocode.instructions.STORE;
 import java.io.PrintStream;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -27,6 +28,7 @@ import java.io.PrintStream;
  * @date 13/01/2025
  */
 public class New extends AbstractExpr {
+    private static final Logger LOG = Logger.getLogger(New.class);
 
     private AbstractIdentifier ident;
 
@@ -81,6 +83,8 @@ public class New extends AbstractExpr {
         compiler.addInstruction(new PUSH(regDest));
         compiler.addInstruction(new BSR(LabelManager.getInitLabel(ident)));
         compiler.addInstruction(new POP(regDest));
+
+        LOG.debug("New object created in register " + regDest);
 
         setDVal(regDest);
     }
