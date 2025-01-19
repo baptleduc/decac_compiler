@@ -1,0 +1,78 @@
+`> [10, 0] Program
+   +> ListDeclClass [List with 1 elements]
+   |  []> [10, 0] DeclClass
+   |      +> [10, 6] Identifier (SimpleClass)
+   |      |  definition: type defined at [10, 6], type=SimpleClass
+   |      +> [builtin] Identifier (Object)
+   |      |  definition: type (builtin), type=Object
+   |      +> ListDeclField [List with 1 elements]
+   |      |  []> [11, 8] [visibility=public] DeclField
+   |      |      +> [11, 4] Identifier (int)
+   |      |      |  definition: type (builtin), type=int
+   |      |      +> [11, 8] Identifier (number)
+   |      |      |  definition: field defined at [11, 8], type=int
+   |      |      +> NoInitialization
+   |      `> ListDeclMethod [List with 2 elements]
+   |         []> [13, 4] DeclMethod
+   |         ||  +> [13, 4] Identifier (void)
+   |         ||  |  definition: type (builtin), type=void
+   |         ||  +> [13, 9] Identifier (setNumber)
+   |         ||  |  definition: method defined at [13, 9], type=void
+   |         ||  +> ListDeclParam [List with 1 elements]
+   |         ||  |  []> [13, 23] DeclParam
+   |         ||  |      +> [13, 19] Identifier (int)
+   |         ||  |      |  definition: type (builtin), type=int
+   |         ||  |      `> [13, 23] Identifier (n)
+   |         ||  |         definition: parameter defined at [13, 23], type=int
+   |         ||  `> [13, 18] MethodBody
+   |         ||     +> ListDeclVar [List with 0 elements]
+   |         ||     `> ListInst [List with 1 elements]
+   |         ||        []> [14, 15] Assign
+   |         ||            type: int
+   |         ||            +> [14, 8] Identifier (number)
+   |         ||            |  definition: field defined at [11, 8], type=int
+   |         ||            `> [14, 17] Identifier (n)
+   |         ||               definition: parameter defined at [13, 23], type=int
+   |         []> [17, 4] DeclMethod
+   |             +> [17, 4] Identifier (int)
+   |             |  definition: type (builtin), type=int
+   |             +> [17, 8] Identifier (getNumber)
+   |             |  definition: method defined at [17, 8], type=int
+   |             +> ListDeclParam [List with 0 elements]
+   |             `> [17, 17] MethodBody
+   |                +> ListDeclVar [List with 0 elements]
+   |                `> ListInst [List with 1 elements]
+   |                   []> [18, 8] Return
+   |                       `> [18, 15] Identifier (number)
+   |                          definition: field defined at [11, 8], type=int
+   `> [22, 0] Main
+      +> ListDeclVar [List with 1 elements]
+      |  []> [23, 22] DeclVar
+      |      +> [23, 4] Identifier (SimpleClass)
+      |      |  definition: type defined at [10, 6], type=SimpleClass
+      |      +> [23, 16] Identifier (obj)
+      |      |  definition: variable defined at [23, 16], type=SimpleClass
+      |      `> [23, 22] Initialization
+      |         `> [23, 22] New
+      |            type: SimpleClass
+      |            `> [23, 26] Identifier (SimpleClass)
+      |               definition: type defined at [10, 6], type=SimpleClass
+      `> ListInst [List with 2 elements]
+         []> [24, 7] MethodCall
+         ||  type: void
+         ||  +> [24, 4] Identifier (obj)
+         ||  |  definition: variable defined at [23, 16], type=SimpleClass
+         ||  +> [24, 8] Identifier (setNumber)
+         ||  |  definition: method defined at [13, 9], type=void
+         ||  `> ListExpr [List with 1 elements]
+         ||     []> [24, 18] Int (42)
+         ||         type: int
+         []> [25, 4] Println
+             `> ListExpr [List with 1 elements]
+                []> [25, 15] MethodCall
+                    type: int
+                    +> [25, 12] Identifier (obj)
+                    |  definition: variable defined at [23, 16], type=SimpleClass
+                    +> [25, 16] Identifier (getNumber)
+                    |  definition: method defined at [17, 8], type=int
+                    `> ListExpr [List with 0 elements]

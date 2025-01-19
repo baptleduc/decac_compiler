@@ -65,7 +65,7 @@ public class New extends AbstractExpr {
 
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
-        ident.prettyPrint(s, prefix, false);
+        ident.prettyPrint(s, prefix, true);
     }
 
     @Override

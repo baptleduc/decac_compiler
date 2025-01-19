@@ -1,0 +1,17 @@
+// Description:
+//    Unit Test selection 
+// Results:
+//    none
+//
+// History:
+//    Created on 16/01/2025
+
+
+class A {
+    int x = 10;
+}
+
+{
+    int a = 5;
+    println(a.x); // Erreur : a n'est pas une instance de classe, pas de champ x
+}

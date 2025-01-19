@@ -1,0 +1,77 @@
+`> [9, 0] Program
+   +> ListDeclClass [List with 1 elements]
+   |  []> [9, 0] DeclClass
+   |      +> [9, 6] Identifier (A)
+   |      |  definition: type defined at [9, 6], type=A
+   |      +> [builtin] Identifier (Object)
+   |      |  definition: type (builtin), type=Object
+   |      +> ListDeclField [List with 0 elements]
+   |      `> ListDeclMethod [List with 1 elements]
+   |         []> [10, 4] DeclMethod
+   |             +> [10, 4] Identifier (int)
+   |             |  definition: type (builtin), type=int
+   |             +> [10, 8] Identifier (factorial)
+   |             |  definition: method defined at [10, 8], type=int
+   |             +> ListDeclParam [List with 1 elements]
+   |             |  []> [10, 22] DeclParam
+   |             |      +> [10, 18] Identifier (int)
+   |             |      |  definition: type (builtin), type=int
+   |             |      `> [10, 22] Identifier (n)
+   |             |         definition: parameter defined at [10, 22], type=int
+   |             `> [10, 17] MethodBody
+   |                +> ListDeclVar [List with 0 elements]
+   |                `> ListInst [List with 1 elements]
+   |                   []> [11, 8] IfThenElse
+   |                       +> [11, 14] Equals
+   |                       |  type: boolean
+   |                       |  +> [11, 12] Identifier (n)
+   |                       |  |  definition: parameter defined at [10, 22], type=int
+   |                       |  `> [11, 17] Int (0)
+   |                       |     type: int
+   |                       +> ListInst [List with 1 elements]
+   |                       |  []> [12, 12] Return
+   |                       |      `> [12, 19] Int (1)
+   |                       |         type: int
+   |                       `> ListInst [List with 1 elements]
+   |                          []> [14, 12] Return
+   |                              `> [14, 21] Multiply
+   |                                 type: int
+   |                                 +> [14, 19] Identifier (n)
+   |                                 |  definition: parameter defined at [10, 22], type=int
+   |                                 `> [14, 23] MethodCall
+   |                                    type: int
+   |                                    +> [14, 23] This
+   |                                    |  type: A
+   |                                    +> [14, 23] Identifier (factorial)
+   |                                    |  definition: method defined at [10, 8], type=int
+   |                                    `> ListExpr [List with 1 elements]
+   |                                       []> [14, 35] Minus
+   |                                           type: int
+   |                                           +> [14, 33] Identifier (n)
+   |                                           |  definition: parameter defined at [10, 22], type=int
+   |                                           `> [14, 37] Int (1)
+   |                                              type: int
+   `> [19, 0] Main
+      +> ListDeclVar [List with 1 elements]
+      |  []> [20, 10] DeclVar
+      |      +> [20, 4] Identifier (A)
+      |      |  definition: type defined at [9, 6], type=A
+      |      +> [20, 6] Identifier (a)
+      |      |  definition: variable defined at [20, 6], type=A
+      |      `> [20, 10] Initialization
+      |         `> [20, 10] New
+      |            type: A
+      |            `> [20, 14] Identifier (A)
+      |               definition: type defined at [9, 6], type=A
+      `> ListInst [List with 1 elements]
+         []> [21, 4] Println
+             `> ListExpr [List with 1 elements]
+                []> [21, 13] MethodCall
+                    type: int
+                    +> [21, 12] Identifier (a)
+                    |  definition: variable defined at [20, 6], type=A
+                    +> [21, 14] Identifier (factorial)
+                    |  definition: method defined at [10, 8], type=int
+                    `> ListExpr [List with 1 elements]
+                       []> [21, 24] Int (5)
+                           type: int

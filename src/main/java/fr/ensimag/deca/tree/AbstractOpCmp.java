@@ -26,8 +26,8 @@ public abstract class AbstractOpCmp extends AbstractBinaryExpr {
             ClassDefinition currentClass) throws ContextualError {
         Type rightType = this.getRightOperand().verifyExpr(compiler, localEnv, currentClass);
         Type leftType = this.getLeftOperand().verifyExpr(compiler, localEnv, currentClass);
-
-        if (this instanceof AbstractOpExactCmp) {
+        if ((this instanceof AbstractOpExactCmp) && ((rightType.isBoolean() && leftType.isBoolean())
+                || ((leftType.isClass() || leftType.isNull()) && (rightType.isClass() || rightType.isNull())))) {
             setType(compiler.environmentType.BOOLEAN);
             return compiler.environmentType.BOOLEAN;
         } else if ((rightType.sameType(compiler.environmentType.INT)
@@ -37,7 +37,7 @@ public abstract class AbstractOpCmp extends AbstractBinaryExpr {
             setType(compiler.environmentType.BOOLEAN);
             return compiler.environmentType.BOOLEAN;
         }
-        throw new ContextualError("Vars " + rightType.getName() + " and " + leftType.getName() + " can't be compared",
+        throw new ContextualError(rightType.getName() + " and " + leftType.getName() + " can't be compared",
                 this.getRightOperand().getLocation());
     }
 

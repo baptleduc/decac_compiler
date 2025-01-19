@@ -58,7 +58,6 @@ public class Cast extends AbstractExpr {
         if (typeExpression.sameType(typeCast)) {
             return typeCast;
         }
-
         ClassType classTypeExpression = typeExpression.asClassType(" can only cast from a class type or int, float",
                 expressionToCast.getLocation());
         ClassType classTypeCast = typeCast.asClassType(" can only cast to a class type or int, float",

@@ -171,9 +171,22 @@ public class Identifier extends AbstractIdentifier {
         this.name = name;
     }
 
+    /*
+     * 3.67
+     */
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
+        Definition exprDef = verifyIdentifier(localEnv);
+        Type type = exprDef.getType();
+        setType(type);
+        return type;
+    }
+
+    /*
+     * 0.1
+     */
+    public Definition verifyIdentifier(EnvironmentExp localEnv) throws ContextualError {
         ExpDefinition exprDef = localEnv.get(name);
         if (exprDef == null) {
             throw new ContextualError("Variable " + name.getName() + " is not declared", getLocation());
@@ -182,15 +195,12 @@ public class Identifier extends AbstractIdentifier {
         if (!exprDef.isExpression()) {
             throw new ContextualError("Variable " + name.getName() + " is not an expression", getLocation());
         }
-
-        Type type = exprDef.getType();
         setDefinition(exprDef);
-        setType(type);
-        return type;
+        return exprDef;
     }
 
     /**
-     * Implements non-terminal "type" of [SyntaxeContextuelle] in the 3 passes
+     * Implements non-terminal "type" of [SyntaxeContextuelle] in the 3 passes (0.2)
      * 
      * @param compiler
      *            contains "env_types" attribute

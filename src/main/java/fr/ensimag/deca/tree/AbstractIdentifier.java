@@ -4,6 +4,7 @@ import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.Definition;
+import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.ExpDefinition;
 import fr.ensimag.deca.context.FieldDefinition;
 import fr.ensimag.deca.context.MethodDefinition;
@@ -93,4 +94,14 @@ public abstract class AbstractIdentifier extends AbstractLValue {
      *         (corresponds to the "type" attribute)
      */
     public abstract Type verifyType(DecacCompiler compiler) throws ContextualError;
+
+    /*
+     * Implements non-terminal "type" of [SyntaxeContextuelle] in the 3 passes
+     * 
+     * @param localEnv
+     * contains the definition the identifier
+     * 
+     * @return the definition corresponding to this identifier
+     */
+    public abstract Definition verifyIdentifier(EnvironmentExp localEnv) throws ContextualError;
 }

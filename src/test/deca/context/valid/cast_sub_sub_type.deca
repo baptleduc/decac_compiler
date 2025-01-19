@@ -1,0 +1,13 @@
+class A{
+    int x;
+}
+class B extends A{
+    int y;
+}
+class C extends B{
+    int z;
+}
+{
+    A a = new A();
+    C c = (C) (a); 
+}

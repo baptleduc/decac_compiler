@@ -83,4 +83,12 @@ public abstract class Type {
         throw new ContextualError(errorMessage, l);
     }
 
+    /**
+     * Return true if potentialSuperClass is a superclass of this class.
+     */
+
+    public boolean isSubClassOf(ClassType potentialSuperClass) {
+        return false;
+    }
+
 }
