@@ -1,0 +1,20 @@
+`> [10, 0] Program
+   +> ListDeclClass [List with 1 elements]
+   |  []> [10, 0] DeclClass
+   |      +> [10, 6] Identifier (A)
+   |      |  definition: type defined at [10, 6], type=A
+   |      +> [builtin] Identifier (Object)
+   |      |  definition: type (builtin), type=Object
+   |      +> ListDeclField [List with 0 elements]
+   |      `> ListDeclMethod [List with 0 elements]
+   `> [12, 0] Main
+      +> ListDeclVar [List with 1 elements]
+      |  []> [13, 10] DeclVar
+      |      +> [13, 4] Identifier (A)
+      |      |  definition: type defined at [10, 6], type=A
+      |      +> [13, 6] Identifier (a)
+      |      |  definition: variable defined at [13, 6], type=A
+      |      `> [13, 10] Initialization
+      |         `> [13, 10] Null
+      |            type: null
+      `> ListInst [List with 0 elements]

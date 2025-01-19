@@ -39,7 +39,7 @@ INPUT_DIRS_SYNTAX="./src/test/deca/syntax/valid/ ./src/test/deca/syntax/valid/pr
 INPUT_DIR_DECOMPILE="./src/test/deca/decompile/valid/"
 INPUT_DIR_CODEGEN="./src/test/deca/codegen/valid/ ./src/test/deca/codegen/valid/provided/ ./src/test/deca/codegen/valid/test_arithmetic/ ./src/test/deca/codegen/valid/test_class/ ./src/test/deca/codegen/valid/test_if/ ./src/test/deca/codegen/valid/test_while/"
 INPUT_DIR_CONTEXT="./src/test/deca/context/valid/ ./src/test/deca/context/valid/provided/ ./src/test/deca/context/valid/test_class/"
-INPUT_DIR_INVALID_CONTEXT="./src/test/deca/context/invalid/ ./src/test/deca/context/invalid/provided/"
+INPUT_DIR_INVALID_CONTEXT="./src/test/deca/context/invalid/ ./src/test/deca/context/invalid/test_class/ ./src/test/deca/context/invalid/provided/"
 
 # SYNTAX TESTS CONFIGURATION
 NAME_TEST_LEX="testlex"
@@ -362,7 +362,7 @@ run_non_regression_tests() {
                 # If the output file does not exist, remove the temporary output
                 echo "Warning: $output_file does not exist."
                 rm "$tmp_file"
-                #mv "$tmp_file" "$output_file"
+                # mv "$tmp_file" "$output_file"
             fi
         fi
     done

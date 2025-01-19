@@ -1,0 +1,1 @@
+./src/test/deca/context/invalid/test_class/selection_protected_boolean.deca:17:14: can access a protected field only in daughters classes
