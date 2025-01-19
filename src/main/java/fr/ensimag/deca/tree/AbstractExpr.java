@@ -107,11 +107,17 @@ public abstract class AbstractExpr extends AbstractInst {
             AbstractExpr rValueConv = new ConvFloat(this);
             rValueConv.verifyExpr(compiler, localEnv, currentClass);
             return rValueConv;
-        } else if (rvalueType.isClass() && expectedType.isClass()) {
-            ClassType classTypeRvalue = rvalueType.asClassType(" need to assign to a compatible class",
-                    this.getLocation());
+        } else if ((rvalueType.isClass() || rvalueType.isNull()) && expectedType.isClass()) {
+
             ClassType classTypeExpected = expectedType.asClassType(" the var can't be assigned to this class",
                     this.getLocation());
+	    if (rvalueType.isNull()){
+		this.setType(rvalueType);
+                return this;
+	    }
+	     ClassType classTypeRvalue = rvalueType.asClassType(" need to assign to a compatible class",
+                    this.getLocation());
+           
             if ((classTypeRvalue.isSubClassOf(classTypeExpected))) {
                 this.setType(classTypeExpected);
                 return this;

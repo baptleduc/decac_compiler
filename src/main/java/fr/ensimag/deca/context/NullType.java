@@ -28,6 +28,7 @@ public class NullType extends Type {
         return true;
     }
 
+  
     @Override
 
     public boolean isSubClassOf(ClassType potentialSuperClass) {
