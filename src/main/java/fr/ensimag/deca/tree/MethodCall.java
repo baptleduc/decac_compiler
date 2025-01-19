@@ -51,7 +51,14 @@ public class MethodCall extends AbstractExpr {
 
     @Override
     public void decompile(IndentPrintStream s) {
-        throw new UnsupportedOperationException("not yet implemented");
+	if (leftOperand != null) {
+	    leftOperand.decompile(s);
+	    s.print(".");
+	}
+	rightOperand.decompile(s);
+	s.print("(");
+	params.decompile(s);
+	s.print(")");
     }
 
     @Override
@@ -61,12 +68,20 @@ public class MethodCall extends AbstractExpr {
 
     @Override
     protected void iterChildren(TreeFunction f) {
-        throw new UnsupportedOperationException("not yet implemented");
+	if (leftOperand != null){
+	    leftOperand.iter(f);   
+	}
+	rightOperand.iter(f);
+	params.iter(f);
     }
 
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
-        throw new UnsupportedOperationException("not yet implemented");
+	if (leftOperand != null){
+	    leftOperand.prettyPrint(s, prefix, false);
+	}
+	rightOperand.prettyPrint(s, prefix, false);
+	params.prettyPrint(s, prefix, false);
     }
 
     @Override
