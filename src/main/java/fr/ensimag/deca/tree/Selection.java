@@ -47,13 +47,20 @@ public class Selection extends AbstractLValue {
         ClassDefinition defEnv2 = (ClassDefinition) compiler.environmentType.defOfType(typeClass2.getName());
         EnvironmentExp envExp2 = defEnv2.getMembers();
         LOG.debug("Environement Local Selection : " + envExp2.getCurrentEnvironment());
+	if (!envExp2.getCurrentEnvironment().containsKey(selectedField.getName())){
+	    throw new ContextualError(selectedField.getName() + " is not a field of class " + typeClass2.getName(), selectedField.getLocation());
+	}
         FieldDefinition selectedFieldDefinition = envExp2.get(selectedField.getName())
                 .asFieldDefinition("lvalue must be a field definition", this.getLocation());
         selectedField.setDefinition(selectedFieldDefinition);
+	System.out.println("Current Class is void: " + currentClass);
         if (selectedFieldDefinition.getVisibility().equals(Visibility.PUBLIC)) {
             setType(selectedFieldDefinition.getType());
             return selectedFieldDefinition.getType();
         } else if (selectedFieldDefinition.getVisibility().equals(Visibility.PROTECTED)) {
+	    if (currentClass == null){
+		throw new ContextualError("can access a protected field only in daughters classes", selectedField.getLocation());
+	    }
             if (typeClass2.isSubClassOf(currentClass.getType())
                     && (currentClass.getType().isSubClassOf(selectedFieldDefinition.getContainingClass().getType()))) {
                 setType(selectedFieldDefinition.getType());
