@@ -52,7 +52,7 @@ code.Object.equals:
 	LOAD #1, R0
 	BRA end_method_1
 return_false_2:
-	LOAD #0, R1
+	LOAD #0, R0
 	BRA end_method_1
 	BRA no_return_error
 end_method_1:
