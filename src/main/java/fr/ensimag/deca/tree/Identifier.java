@@ -2,7 +2,6 @@ package fr.ensimag.deca.tree;
 
 import fr.ensimag.arm.ARMProgram;
 import fr.ensimag.arm.ARMDVal;
-import fr.ensimag.arm.instruction.ARMInstruction;
 import fr.ensimag.arm.instruction.ARMLoad;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
@@ -252,7 +251,7 @@ public class Identifier extends AbstractIdentifier {
         ARMProgram program = compiler.getARMProgram();
         String reg = program.getAvailableRegister();
         program.addInstruction(new ARMLoad(reg, name.toString() , program));
-        setARMDVal(new ARMDVal(reg));
+        setARMDVal(new ARMDVal(reg, name.toString()));
     }
 
     @Override

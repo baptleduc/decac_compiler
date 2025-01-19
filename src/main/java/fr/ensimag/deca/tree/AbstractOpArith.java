@@ -1,5 +1,8 @@
 package fr.ensimag.deca.tree;
 
+import fr.ensimag.arm.ARMDVal;
+import fr.ensimag.arm.ARMProgram;
+import fr.ensimag.arm.instruction.ARMInstruction;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.codegen.ErrorManager;
 import fr.ensimag.deca.context.ClassDefinition;
@@ -44,7 +47,7 @@ public abstract class AbstractOpArith extends AbstractBinaryExpr {
      */
     abstract protected void codeGenOperationInst(GPRegister dest, DVal source, DecacCompiler compiler);
 
-    abstract protected void codeGenOperationInstARM(String dest, String left, String right, DecacCompiler compiler);
+    abstract protected void codeGenOperationInstARM(String dest, String left, ARMDVal right, DecacCompiler compiler);
 
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
@@ -151,34 +154,30 @@ public abstract class AbstractOpArith extends AbstractBinaryExpr {
 
     @Override
     protected void codeGenInstARM(DecacCompiler compiler) {
-        // //  TODO ARM : revoir
-        // getLeftOperand().codeGenInstARM(compiler);
-        // getRightOperand().codeGenInstARM(compiler);
+        ARMProgram prog = compiler.getARMProgram();
 
-        // int left = getLeftOperand().getDValARM();
-        // int right = getRightOperand().getDValARM();
-        // String regDest = "X" + left;
-        // String trueLeft = "X" + left;
-        // String trueRight = "X" + right;
+        getLeftOperand().codeGenInstARM(compiler);
+        getRightOperand().codeGenInstARM(compiler);
 
-        // if (getLeftOperand().isImmediate() && getRightOperand().isImmediate()) {
-        //     regDest = compiler.getARMProgram().getAvailableRegister();
-        //     compiler.getARMProgram().addInstructionARM("mov", regDest, left);
-        //     trueLeft = regDest;
-        // }
-        // else if (getLeftOperand().isImmediate()) {
-        //     regDest = "X" + getRightOperand().getDValARM();
-        //     right = left;
-        //     trueLeft = regDest;
-        // }
+        ARMDVal left = getLeftOperand().getARMDVal();
+        ARMDVal right = getRightOperand().getARMDVal();
+        String regDest = left.toString();
 
-        // codeGenOperationInstARM(regDest, "X" + left, "#" + right, compiler); // a modif
+        if (getLeftOperand().isImmediate() && getRightOperand().isImmediate()) {
+            regDest = compiler.getARMProgram().getAvailableRegister();
+            prog.addInstruction(new ARMInstruction("mov", regDest, left.toString()));
+        }
+        else if (getLeftOperand().isImmediate()) {
+            regDest = getRightOperand().getARMDVal().toString();
+            right = left;
+        }
 
-        // // setDValARM(regDest);
-        // setDValARM(left);
+        codeGenOperationInstARM(regDest, regDest, right, compiler);
 
-        // if (!getRightOperand().isImmediate() && !getLeftOperand().isImmediate()) {
-        //     compiler.getARMProgram().freeRegister(trueRight); // a modif
-        // }
+        setARMDVal(new ARMDVal(regDest));
+
+        if (!getRightOperand().isImmediate() && !getLeftOperand().isImmediate()) {
+            compiler.getARMProgram().freeRegister(right.toString());
+        }
     }
 }

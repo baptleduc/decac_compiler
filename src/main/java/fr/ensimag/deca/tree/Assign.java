@@ -1,5 +1,10 @@
 package fr.ensimag.deca.tree;
 
+import fr.ensimag.arm.ARMDVal;
+import fr.ensimag.arm.ARMProgram;
+import fr.ensimag.arm.instruction.ARMInstruction;
+import fr.ensimag.arm.instruction.ARMLoad;
+import fr.ensimag.arm.instruction.ARMStore;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
@@ -74,7 +79,25 @@ public class Assign extends AbstractBinaryExpr {
 
     @Override
     protected void codeGenInstARM(DecacCompiler compiler) {
-        // TODO ARM
+        getLeftOperand().codeGenInstARM(compiler);
+        getRightOperand().codeGenInstARM(compiler);
+
+        ARMProgram program = compiler.getARMProgram();
+
+        String rightReg;
+        if (getRightOperand().isImmediate()) {
+            rightReg = program.getAvailableRegister();
+            program.addInstruction(new ARMInstruction("mov", rightReg, getRightOperand().getARMDVal().toString()));
+        } else {
+            rightReg = getRightOperand().getARMDVal().toString();
+        }
+        program.addInstruction(new ARMStore(
+            rightReg, 
+            getLeftOperand().getARMDVal().getVarName(),
+            program
+        ));
+
+        program.freeRegister(rightReg);
     }
 
 }

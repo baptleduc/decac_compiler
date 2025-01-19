@@ -6,6 +6,8 @@ public class ARMDVal {
 
     String trueVal;
 
+    String varName;
+
     int valueInt;
 
     public ARMDVal(String val) {
@@ -19,6 +21,12 @@ public class ARMDVal {
         this.valueInt = val;
     }
 
+    public ARMDVal(String val, String name) {
+        this.forInstructionVal = val;
+        this.trueVal = val;
+        this.varName = name;
+    }
+
     public int getValueInt() {
         return valueInt;
     }
@@ -29,6 +37,10 @@ public class ARMDVal {
 
     public String getTrueVal() {
         return trueVal;
+    }
+
+    public String getVarName() {
+        return varName;
     }
 
     @Override
