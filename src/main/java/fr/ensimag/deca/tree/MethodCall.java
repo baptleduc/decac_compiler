@@ -126,7 +126,7 @@ public class MethodCall extends AbstractExpr {
         compiler.addInstruction(new BEQ(LabelManager.NULL_POINTER_ERROR.getLabel()));
         compiler.addInstruction(new PUSH(regLeft));
         compiler.addInstruction(new LOAD(new RegisterOffset(0, regLeft), regLeft));
-        
+
         compiler.addInstruction(
                 new BSR(new RegisterOffset(rightOperand.getMethodDefinition().getIndex() + 1, regLeft))); // +1 because
                                                                                                           // of the
