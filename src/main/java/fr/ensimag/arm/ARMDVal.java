@@ -47,5 +47,5 @@ public class ARMDVal {
     public String toString() {
         return forInstructionVal;
     }
-    
+
 }

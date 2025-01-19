@@ -1,5 +1,6 @@
 package fr.ensimag.deca.tree;
 
+import fr.ensimag.arm.ARMDVal;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
@@ -8,7 +9,6 @@ import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.ImmediateString;
 import fr.ensimag.ima.pseudocode.instructions.WSTR;
-import fr.ensimag.arm.ARMDVal;
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
 
@@ -36,7 +36,6 @@ public class StringLiteral extends AbstractStringLiteral {
     protected void codeGenInstARM(DecacCompiler compiler) {
         setARMDVal(new ARMDVal(value));
     }
-
 
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,

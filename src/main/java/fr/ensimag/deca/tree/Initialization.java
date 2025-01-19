@@ -85,7 +85,6 @@ public class Initialization extends AbstractInitialization {
             prog.addInstruction(new ARMStore(reg, varName, prog));
             prog.freeRegister(reg);
         } else {
-            expression.codeGenInstARM(compiler);
             String reg = expression.getARMDVal().toString();
             prog.addInstruction(new ARMStore(reg, varName, prog));
             prog.freeRegister(reg);

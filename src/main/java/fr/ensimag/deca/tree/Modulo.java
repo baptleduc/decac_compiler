@@ -1,6 +1,5 @@
 package fr.ensimag.deca.tree;
 
-import fr.ensimag.arm.ARMDVal;
 import fr.ensimag.arm.ARMProgram;
 import fr.ensimag.arm.instruction.ARMInstruction;
 import fr.ensimag.deca.DecacCompiler;
@@ -56,11 +55,10 @@ public class Modulo extends AbstractOpArith {
         ARMProgram program = compiler.getARMProgram();
 
         String rightRg;
-        if (right.isImmediate()){
+        if (right.isImmediate()) {
             rightRg = program.getAvailableRegister();
             program.addInstruction(new ARMInstruction("mov", rightRg, right.getARMDVal().toString()));
-        }
-        else{
+        } else {
             rightRg = right.getARMDVal().toString();
         }
         String tmpReg = program.getAvailableRegister();
@@ -68,7 +66,7 @@ public class Modulo extends AbstractOpArith {
         program.addInstruction(new ARMInstruction("mul", tmpReg, tmpReg, rightRg));
         program.addInstruction(new ARMInstruction("sub", dest, left, tmpReg));
         program.freeRegister(tmpReg);
-        if (right.isImmediate()){
+        if (right.isImmediate()) {
             program.freeRegister(rightRg);
         }
     }

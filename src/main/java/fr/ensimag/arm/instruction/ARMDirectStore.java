@@ -9,11 +9,11 @@ public class ARMDirectStore extends AbstractARMInstruction {
         this.instructionLabel = "str";
         this.register = register;
         this.offset = offset;
-    }    
+    }
 
     @Override
     public String toString() {
-        if (offset > 0){
+        if (offset > 0) {
             return instructionLabel + " " + register + ", [sp, #" + offset + "]";
         }
         return instructionLabel + " " + register + ", [sp]";

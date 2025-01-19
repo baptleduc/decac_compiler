@@ -1,9 +1,7 @@
 package fr.ensimag.deca.tree;
 
-import fr.ensimag.arm.ARMDVal;
 import fr.ensimag.arm.ARMProgram;
 import fr.ensimag.arm.instruction.ARMInstruction;
-import fr.ensimag.arm.instruction.ARMLoad;
 import fr.ensimag.arm.instruction.ARMStore;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
@@ -92,10 +90,9 @@ public class Assign extends AbstractBinaryExpr {
             rightReg = getRightOperand().getARMDVal().toString();
         }
         program.addInstruction(new ARMStore(
-            rightReg, 
-            getLeftOperand().getARMDVal().getVarName(),
-            program
-        ));
+                rightReg,
+                getLeftOperand().getARMDVal().getVarName(),
+                program));
 
         program.freeRegister(rightReg);
     }

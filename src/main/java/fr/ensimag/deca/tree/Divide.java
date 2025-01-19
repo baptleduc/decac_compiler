@@ -1,6 +1,5 @@
 package fr.ensimag.deca.tree;
 
-import fr.ensimag.arm.ARMDVal;
 import fr.ensimag.arm.ARMProgram;
 import fr.ensimag.arm.instruction.ARMInstruction;
 import fr.ensimag.deca.DecacCompiler;
@@ -46,16 +45,15 @@ public class Divide extends AbstractOpArith {
         ARMProgram program = compiler.getARMProgram();
 
         String rightRg;
-        if (right.isImmediate()){
+        if (right.isImmediate()) {
             rightRg = program.getAvailableRegister();
             program.addInstruction(new ARMInstruction("mov", rightRg, right.getARMDVal().toString()));
-        }
-        else{
+        } else {
             rightRg = right.getARMDVal().toString();
         }
         compiler.getARMProgram().addInstruction(new ARMInstruction("udiv", dest, left, rightRg));
 
-        if (right.isImmediate()){
+        if (right.isImmediate()) {
             program.freeRegister(rightRg);
         }
     }

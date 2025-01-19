@@ -51,7 +51,6 @@ public abstract class AbstractExpr extends AbstractInst {
         this.ARMDVal = ARMDVal;
     }
 
-
     private Type type;
     private DVal dval = null; // Register, Immediate or d(XX)
 

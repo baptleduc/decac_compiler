@@ -1,10 +1,8 @@
 package fr.ensimag.deca.tree;
 
-import fr.ensimag.arm.ARMDataType;
 import fr.ensimag.arm.ARMProgram;
 import fr.ensimag.arm.instruction.ARMDirectStore;
 import fr.ensimag.arm.instruction.ARMInstruction;
-import fr.ensimag.arm.instruction.ARMStore;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
@@ -17,7 +15,6 @@ import fr.ensimag.ima.pseudocode.instructions.LOAD;
 import fr.ensimag.ima.pseudocode.instructions.WFLOATX;
 import java.io.PrintStream;
 import java.util.LinkedList;
-
 import org.apache.commons.lang.Validate;
 
 /**
@@ -32,6 +29,8 @@ public abstract class AbstractPrint extends AbstractInst {
     private ListExpr arguments = new ListExpr();
 
     abstract String getSuffix();
+
+    abstract String getARMPrintModification(String format);
 
     public AbstractPrint(boolean printHex, ListExpr arguments) {
         Validate.notNull(arguments);
@@ -88,7 +87,7 @@ public abstract class AbstractPrint extends AbstractInst {
                 a.codeGenInstARM(compiler);
                 format += a.getARMDVal().getTrueVal(); // without the instruction decoration
                 continue;
-            } 
+            }
             if (a.getType().isInt()) {
                 format += "%d";
             } else if (a.getType().isFloat()) {
@@ -96,7 +95,7 @@ public abstract class AbstractPrint extends AbstractInst {
             }
             abExp.add(a);
         }
-        String stringName = program.addStringLine(format);
+        String stringName = program.addStringLine(getARMPrintModification(format));
 
         // we put in sp the print parameters
         program.setPrintNbParametersIfSup(abExp.size());

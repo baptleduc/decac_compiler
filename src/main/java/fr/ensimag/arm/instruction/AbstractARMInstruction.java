@@ -1,7 +1,7 @@
 package fr.ensimag.arm.instruction;
 
 public abstract class AbstractARMInstruction {
- 
+
     protected String instructionLabel;
 
     protected String p1 = null;

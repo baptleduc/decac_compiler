@@ -1,23 +1,22 @@
 package fr.ensimag.arm;
 
+import fr.ensimag.arm.instruction.AbstractARMInstruction;
+import fr.ensimag.deca.context.Type;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Stack;
-
 import org.apache.commons.lang.math.IntRange;
-
-import fr.ensimag.arm.instruction.AbstractARMInstruction;
-import fr.ensimag.deca.context.Type;
 
 public class ARMProgram {
 
-    static public final HashMap<ARMDataType, String> dataSectionLines = new HashMap<ARMDataType, String>() {{
-        put(ARMDataType.ASCIZ, ".asciz");
-        put(ARMDataType.BYTE, ".byte");
-        put(ARMDataType.WORD, ".word");
-        put(ARMDataType.DOUBLE_WORD, ".double");
-    }};
-
+    static public final HashMap<ARMDataType, String> dataSectionLines = new HashMap<ARMDataType, String>() {
+        {
+            put(ARMDataType.ASCIZ, ".asciz");
+            put(ARMDataType.BYTE, ".byte");
+            put(ARMDataType.WORD, ".word");
+            put(ARMDataType.DOUBLE_WORD, ".double");
+        }
+    };
 
     static public final IntRange RANGE_ARG_REGISTER = new IntRange(0, 7);
     static public final IntRange RANGE_SCRATCH_REGISTERS = new IntRange(9, 15);
@@ -63,7 +62,8 @@ public class ARMProgram {
     }
 
     public ARMProgram() {
-        for (int i = RANGE_SCRATCH_REGISTERS.getMaximumInteger(); i >= RANGE_SCRATCH_REGISTERS.getMinimumInteger(); i--) {
+        for (int i = RANGE_SCRATCH_REGISTERS.getMaximumInteger(); i >= RANGE_SCRATCH_REGISTERS
+                .getMinimumInteger(); i--) {
             scratchRegisters.push("X" + i);
         }
     }
@@ -71,32 +71,35 @@ public class ARMProgram {
     // ############
 
     // public boolean isVarInMemory(String varName) {
-    //     return memoryMap.containsKey(varName);
+    // return memoryMap.containsKey(varName);
     // }
 
     // public int addVarToMemory(String varName) {
-    //     // should only be called by the constructor of ARMStore
-    //     // return the offset of the new variable
-    //     memoryMap.put(varName, actualSpOffset);
-    //     int res = actualSpOffset;
-    //     actualSpOffset += 4;
-    //     return res;
+    // // should only be called by the constructor of ARMStore
+    // // return the offset of the new variable
+    // memoryMap.put(varName, actualSpOffset);
+    // int res = actualSpOffset;
+    // actualSpOffset += 4;
+    // return res;
     // }
 
     private int computeVarMemory() { // return the max offset, can be optimized, TODO ARM : different size
         assert memoryMap.isEmpty();
-        int multiplier = printNbParameters == -1 ? 1 : -1; // the offset is negative (we use the frame pointer to store variables) if there is a printf call
+        int multiplier = printNbParameters == -1 ? 1 : -1; // the offset is negative (we use the frame pointer to store
+                                                           // variables) if there is a printf call
         int offset = printNbParameters == -1 ? 0 : -4;
 
         for (String varName : varOccurences.keySet()) {
             for (String varName2 : memoryMap.keySet()) {
-                if (varOccurences.get(varName).getFirst() > varOccurences.get(varName2).getSecond()){
+                if (varOccurences.get(varName).getFirst() > varOccurences.get(varName2).getSecond()) {
                     memoryMap.put(varName, memoryMap.get(varName2));
-                    varOccurences.get(varName2).setSecond(varOccurences.get(varName).getSecond()); // work around to avoid offset conflict
+                    varOccurences.get(varName2).setSecond(varOccurences.get(varName).getSecond()); // work around to
+                                                                                                   // avoid offset
+                                                                                                   // conflict
                     break;
                 }
             }
-            if (!memoryMap.containsKey(varName)){
+            if (!memoryMap.containsKey(varName)) {
                 memoryMap.put(varName, offset);
                 offset += 4 * multiplier; // only one size for now
             }
@@ -124,29 +127,29 @@ public class ARMProgram {
         printNbParameters = Math.max(printNbParameters, nb);
     }
 
-    public String getAvailableRegister(){
+    public String getAvailableRegister() {
         return scratchRegisters.pop();
     }
 
-    public void freeRegister(String register){
+    public void freeRegister(String register) {
         scratchRegisters.push(register);
     }
 
     // static public int getSizeForType(String type) {
-    //     switch (type) {
-    //         case BYTE:
-    //             return 1;
-    //         case WORD:
-    //             return 4;
-    //         case DOUBLE_WORD:
-    //             return 8;
-    //         default:
-    //             return 0;
-    //     }
+    // switch (type) {
+    // case BYTE:
+    // return 1;
+    // case WORD:
+    // return 4;
+    // case DOUBLE_WORD:
+    // return 8;
+    // default:
+    // return 0;
+    // }
     // }
 
     public String addStringLine(String value) {
-        String name = "strl_"+ stringNameCounter++;
+        String name = "strl_" + stringNameCounter++;
         stringLines.add(name + ": .asciz \"" + value + "\"");
         return name;
     }
@@ -155,29 +158,30 @@ public class ARMProgram {
         if (n <= 0) {
             throw new IllegalArgumentException("Input must be a positive integer.");
         }
-    
+
         // If n is already a power of 2, return n
         if ((n & (n - 1)) == 0) {
             return n;
         }
-    
+
         // Find the next power of 2
         int count = 0;
         while (n != 0) {
             n >>= 1;
             count += 1;
         }
-    
+
         return 1 << count;
     }
-    
+
     private LinkedList<String> genBeginningLines(int spSize) {
         LinkedList<String> lines = new LinkedList<String>();
         lines.add(".globl _main");
         lines.add(".p2align 2");
         lines.add("_main:");
         lines.add("sub sp, sp, #" + (spSize + 16));
-        lines.add("stp X29, X30, [sp, #" + spSize + "]" ); // save frame pointer and link register
+        lines.add("stp X29, X30, [sp, #" + spSize + "]"); // save frame pointer and link register
+        lines.add("add X29, sp, #" + spSize);
         return lines;
     }
 

@@ -19,4 +19,9 @@ public class Print extends AbstractPrint {
     String getSuffix() {
         return "";
     }
+
+    @Override
+    String getARMPrintModification(String format) {
+        return format;
+    }
 }
