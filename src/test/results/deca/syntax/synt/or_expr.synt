@@ -1,0 +1,19 @@
+`> [9, 0] Program
+   +> ListDeclClass [List with 0 elements]
+   `> [9, 0] Main
+      +> ListDeclVar [List with 0 elements]
+      `> ListInst [List with 2 elements]
+         []> [10, 4] Print
+         ||  `> ListExpr [List with 1 elements]
+         ||     []> [10, 24] Or
+         ||         +> [10, 15] Or
+         ||         |  +> [10, 10] BooleanLiteral (true)
+         ||         |  `> [10, 18] BooleanLiteral (false)
+         ||         `> [10, 27] BooleanLiteral (true)
+         []> [11, 4] Print
+             `> ListExpr [List with 1 elements]
+                []> [11, 16] Or
+                    +> [11, 10] BooleanLiteral (false)
+                    `> [11, 25] And
+                       +> [11, 20] BooleanLiteral (true)
+                       `> [11, 28] BooleanLiteral (false)

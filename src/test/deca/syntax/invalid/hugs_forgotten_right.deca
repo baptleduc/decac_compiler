@@ -1,0 +1,11 @@
+// Description:
+//    Program testing the raising of an exception Forgotten hugs.
+//
+// Results:
+//    Line 10: missing '}' at '<EOF>'
+//
+// History:
+//    Created on 19/01/2025
+{
+    int x;  
+

@@ -1,0 +1,12 @@
+// Description:
+//    Test for mult_expr precedence.
+//
+// Results:
+//    None
+//
+// History:
+//    Created on 6/1/2025
+{
+    print(4 * 3 / 2 % 1);
+    print((2 + 3) * 4);
+}

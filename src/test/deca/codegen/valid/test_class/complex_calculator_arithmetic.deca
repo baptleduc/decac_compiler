@@ -1,0 +1,32 @@
+// Description:
+//    complex class with arithmetic
+//
+// Results:
+//    45
+//
+// History:
+//    Created on 6/1/2025
+
+class Calculator {
+        int add(int x, int y) {
+            return x + y;
+        }
+
+
+        int subtract(int x, int y) {
+            return x - y;
+        }
+
+
+        int multiply(int x, int y) {
+            return x * y;
+        }
+ }
+
+
+{
+    Calculator calc = new Calculator();
+    // Appel de méthodes statiques
+    print(calc.add(5, 10)+calc.multiply(3, 5)+calc.subtract(20, 5));
+
+}

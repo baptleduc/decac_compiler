@@ -1,0 +1,19 @@
+`> [9, 0] Program
+   +> ListDeclClass [List with 0 elements]
+   `> [9, 0] Main
+      +> ListDeclVar [List with 0 elements]
+      `> ListInst [List with 2 elements]
+         []> [10, 4] Print
+         ||  `> ListExpr [List with 1 elements]
+         ||     []> [10, 13] Selection
+         ||         +> [10, 11] Selection
+         ||         |  +> [10, 10] Identifier (x)
+         ||         |  `> [10, 12] Identifier (y)
+         ||         `> [10, 14] Identifier (z)
+         []> [11, 4] Print
+             `> ListExpr [List with 1 elements]
+                []> [11, 15] Selection
+                    +> [11, 12] Selection
+                    |  +> [11, 11] Identifier (a)
+                    |  `> [11, 13] Identifier (b)
+                    `> [11, 16] Identifier (c)

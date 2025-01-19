@@ -1,0 +1,25 @@
+`> [9, 0] Program
+   +> ListDeclClass [List with 0 elements]
+   `> [9, 0] Main
+      +> ListDeclVar [List with 0 elements]
+      `> ListInst [List with 5 elements]
+         []> [10, 4] Println
+         ||  `> ListExpr [List with 4 elements]
+         ||     []> [10, 12] StringLiteral (Result:)
+         ||     []> [10, 25] Plus
+         ||     ||  +> [10, 23] Int (5)
+         ||     ||  `> [10, 27] Int (3)
+         ||     []> [10, 30] BooleanLiteral (true)
+         ||     []> [10, 36] Float (3.14)
+         []> [11, 4] Println
+         ||  `> ListExpr [List with 1 elements]
+         ||     []> [11, 12] Int (3)
+         []> [12, 4] Println
+         ||  `> ListExpr [List with 1 elements]
+         ||     []> [12, 12] StringLiteral (a)
+         []> [13, 4] Println
+         ||  `> ListExpr [List with 1 elements]
+         ||     []> [13, 12] Float (12.3)
+         []> [14, 4] Println
+             `> ListExpr [List with 1 elements]
+                []> [14, 12] BooleanLiteral (true)

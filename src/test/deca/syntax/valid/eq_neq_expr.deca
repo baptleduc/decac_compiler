@@ -1,0 +1,12 @@
+// Description:
+//    Test for eq_neq_expr precedence.
+//
+// Results:
+//    None
+//
+// History:
+//    Created on 6/1/2025
+{
+    print(3 == 3 != 4);
+    print((3 + 2) == 5);
+}

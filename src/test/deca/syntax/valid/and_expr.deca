@@ -1,0 +1,12 @@
+// Description:
+//    Test for and_expr precedence.
+//
+// Results:
+//    None
+//
+// History:
+//    Created on 6/1/2025
+{
+    print(true && false && true);
+    print((false || true) && false);
+}

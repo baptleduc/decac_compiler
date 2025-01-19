@@ -1,0 +1,13 @@
+// Description:
+//    Minimalistic program to test division by zero (syntactically valid).
+//
+// Results:
+//    None
+//
+// History:
+//    Created on 19/01/2025
+{
+    int a = 10;
+    int b = 0;
+    print(a / b);  // Ne causera une erreur qu'à l'exécution.
+}
