@@ -60,7 +60,12 @@ public class MethodBody extends AbstractMethodBody {
 
     @Override
     protected void codeGenMethodBody(DecacCompiler compiler) {
-        compiler.addComment("Method Body");
+        for (AbstractDeclVar declVar : listDeclVar.getList()) {
+            declVar.codeGenDeclVarLoc(compiler);
+        }
+        for (AbstractInst inst : listInst.getList()) {
+            inst.codeGenInst(compiler);
+        }
     }
 
 }

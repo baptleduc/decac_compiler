@@ -237,6 +237,14 @@ public class DecacCompiler {
 
     /**
      * @see
+     *      fr.ensimag.deca.codegen.StackManager#addLocalVariable()
+     */
+    public RegisterOffset addLocalVariable() {
+        return stackManager.addLocalVariable();
+    }
+
+    /**
+     * @see
      *      fr.ensimag.deca.codegen.StackManager#IncrementOffsetGB()
      */
     public void incrementOffsetGB() {
@@ -347,7 +355,7 @@ public class DecacCompiler {
     }
 
     public void resetUsedRegistersMethod() {
-        stackManager.resetUsedRegistersMethod();
+        stackManager.initStackForMethod();
     }
 
     public void codeGenMethodPrologue() {

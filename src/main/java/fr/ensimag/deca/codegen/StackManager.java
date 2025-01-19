@@ -51,7 +51,8 @@ public class StackManager {
         }
     }
 
-    public void resetUsedRegistersMethod() {
+    public void initStackForMethod() {
+        offsetLB = 0;
         assert (usedRegistersMethod.isEmpty());
     }
 
@@ -186,6 +187,11 @@ public class StackManager {
         LOG.debug("Adding global variable at offset " + offsetGB);
         // TODO: switch case to determine the size of the offset and add type in arg
         return new RegisterOffset(++offsetGB, GB);
+    }
+
+    public RegisterOffset addLocalVariable() {
+        LOG.debug("Adding local variable at offset " + offsetLB);
+        return new RegisterOffset(++offsetLB, LB);
     }
 
     /**
