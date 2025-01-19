@@ -54,7 +54,6 @@ public class Selection extends AbstractLValue {
         FieldDefinition selectedFieldDefinition = envExp2.get(selectedField.getName())
                 .asFieldDefinition("lvalue must be a field definition", this.getLocation());
         selectedField.setDefinition(selectedFieldDefinition);
-        System.out.println("Current Class is void: " + currentClass);
         if (selectedFieldDefinition.getVisibility().equals(Visibility.PUBLIC)) {
             setType(selectedFieldDefinition.getType());
             return selectedFieldDefinition.getType();
