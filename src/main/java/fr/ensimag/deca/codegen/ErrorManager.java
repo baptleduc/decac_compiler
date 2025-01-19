@@ -81,6 +81,16 @@ public class ErrorManager {
     }
 
     /**
+     * Generates the assembly code for handling no return errors.
+     *
+     * @param compiler
+     *            the Deca compiler instance
+     */
+    private static void generateNoReturnError(DecacCompiler compiler) {
+        generateError(LabelManager.NO_RETURN_ERROR.getLabel(), "Error: Exit from method without return", compiler);
+    }
+
+    /**
      * Generates the assembly code for a specific error handler.
      *
      * @param label
@@ -109,6 +119,7 @@ public class ErrorManager {
         generateHeapOverflowError(compiler);
         generateNullPointerError(compiler);
         generateCastError(compiler);
+        generateNoReturnError(compiler);
     }
 
 }

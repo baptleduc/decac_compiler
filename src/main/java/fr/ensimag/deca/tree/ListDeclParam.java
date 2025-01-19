@@ -7,10 +7,6 @@ import fr.ensimag.deca.context.EnvironmentExp.DirectSumException;
 import fr.ensimag.deca.context.Signature;
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.IndentPrintStream;
-import fr.ensimag.ima.pseudocode.GPRegister;
-import fr.ensimag.ima.pseudocode.Register;
-import fr.ensimag.ima.pseudocode.RegisterOffset;
-import fr.ensimag.ima.pseudocode.instructions.LOAD;
 import org.apache.log4j.Logger;
 
 /**
@@ -60,8 +56,6 @@ public class ListDeclParam extends TreeList<AbstractDeclParam> {
 
     public void codeGenDeclParams(DecacCompiler compiler) {
         int counterOffset = -2; // We start at -2(LB) because it is the object addr
-        GPRegister reg = compiler.allocGPRegister();
-        compiler.addInstruction(new LOAD(new RegisterOffset(counterOffset, Register.LB), reg));
         for (AbstractDeclParam param : getList()) {
             param.codeGenDeclParam(compiler, --counterOffset);
         }

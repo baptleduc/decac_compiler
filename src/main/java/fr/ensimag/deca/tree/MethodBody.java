@@ -62,6 +62,10 @@ public class MethodBody extends AbstractMethodBody {
 
     @Override
     protected void codeGenMethodBody(DecacCompiler compiler) {
+
+        compiler.startNewMethod();
+        Label labelEndMethod = compiler.getEndMethodLabel();
+
         for (AbstractDeclVar declVar : listDeclVar.getList()) {
             declVar.codeGenDeclVarLoc(compiler);
         }
@@ -69,8 +73,6 @@ public class MethodBody extends AbstractMethodBody {
             inst.codeGenInst(compiler);
         }
 
-        Label labelEndMethod = new Label("end_method");
-        compiler.addLabel(labelEndMethod);
         compiler.codeGenMethodPrologue();
         compiler.codeGenMethodEpilogue();
         compiler.addInstruction(new RTS());

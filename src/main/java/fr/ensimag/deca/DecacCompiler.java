@@ -23,6 +23,7 @@ import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.RegisterOffset;
 import fr.ensimag.ima.pseudocode.instructions.ADDSP;
 import fr.ensimag.ima.pseudocode.instructions.BOV;
+import fr.ensimag.ima.pseudocode.instructions.BRA;
 import fr.ensimag.ima.pseudocode.instructions.POP;
 import fr.ensimag.ima.pseudocode.instructions.PUSH;
 import fr.ensimag.ima.pseudocode.instructions.TSTO;
@@ -94,6 +95,8 @@ public class DecacCompiler {
      * The main program. Every instruction generated will eventually end up here.
      */
     private IMAProgram program = new IMAProgram();
+
+    private Label endMethodLabel = new Label("end_method");
 
     /**
      * Stack management to handle registers and stack.
@@ -369,10 +372,21 @@ public class DecacCompiler {
     }
 
     public void codeGenMethodEpilogue() {
+        addInstruction(new BRA(LabelManager.NO_RETURN_ERROR.getLabel()));
+        addLabel(endMethodLabel);
         while (!stackManager.getUsedRegistersMethod().isEmpty()) {
             int regIndex = stackManager.popUsedRegisterMethod();
             addInstruction(new POP(Register.getR(regIndex)));
         }
+    }
+
+    public void startNewMethod() {
+        stackManager.initStackForMethod();
+        endMethodLabel = LabelManager.getEndMethodLabel();
+    }
+
+    public Label getEndMethodLabel() {
+        return endMethodLabel;
     }
 
     /**

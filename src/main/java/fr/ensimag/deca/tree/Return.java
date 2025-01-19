@@ -6,6 +6,9 @@ import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.ima.pseudocode.DVal;
+import fr.ensimag.ima.pseudocode.instructions.BRA;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
 import java.io.PrintStream;
 
 /**
@@ -51,7 +54,9 @@ public class Return extends AbstractInst {
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
-        throw new UnsupportedOperationException("not yet implemented");
+        returnExpr.codeGenInst(compiler);
+        DVal dval = returnExpr.getDVal(compiler);
+        compiler.addInstruction(new LOAD(dval, compiler.getRegister0()));
+        compiler.addInstruction(new BRA(compiler.getEndMethodLabel()));
     }
-
 }
