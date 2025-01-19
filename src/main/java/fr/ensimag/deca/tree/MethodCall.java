@@ -63,6 +63,8 @@ public class MethodCall extends AbstractExpr {
         Signature sig = methodDef.getSignature();
         int n = 0;
         for (AbstractExpr param : params.getList()) {
+            AbstractExpr convType = param.verifyRValue(compiler, localEnv, currentClass, sig.paramNumber(n));
+            params.set(n,convType); 
             param.verifyRValue(compiler, localEnv, currentClass, sig.paramNumber(n));
             n++;
         }
