@@ -1,6 +1,7 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.arm.ARMDVal;
+import fr.ensimag.arm.ARMProgram;
 import fr.ensimag.arm.instruction.ARMInstruction;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
@@ -51,9 +52,25 @@ public class Modulo extends AbstractOpArith {
     }
 
     @Override
-    protected void codeGenOperationInstARM(String dest, String left, ARMDVal right, DecacCompiler compiler) {
-        // TODO ARM
-        // compiler.getARMProgram().addInstruction(new ARMInstruction("udiv", dest, left, right.toString()));
+    protected void codeGenOperationInstARM(String dest, String left, AbstractExpr right, DecacCompiler compiler) {
+        ARMProgram program = compiler.getARMProgram();
+
+        String rightRg;
+        if (right.isImmediate()){
+            rightRg = program.getAvailableRegister();
+            program.addInstruction(new ARMInstruction("mov", rightRg, right.getARMDVal().toString()));
+        }
+        else{
+            rightRg = right.getARMDVal().toString();
+        }
+        String tmpReg = program.getAvailableRegister();
+        program.addInstruction(new ARMInstruction("udiv", tmpReg, left, rightRg));
+        program.addInstruction(new ARMInstruction("mul", tmpReg, tmpReg, rightRg));
+        program.addInstruction(new ARMInstruction("sub", dest, left, tmpReg));
+        program.freeRegister(tmpReg);
+        if (right.isImmediate()){
+            program.freeRegister(rightRg);
+        }
     }
 
     @Override

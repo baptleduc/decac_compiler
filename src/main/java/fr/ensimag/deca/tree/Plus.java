@@ -31,8 +31,8 @@ public class Plus extends AbstractOpArith {
     }
 
     @Override
-    protected void codeGenOperationInstARM(String dest, String left, ARMDVal right, DecacCompiler compiler) {
-        compiler.getARMProgram().addInstruction(new ARMInstruction("add", dest, left, right.toString()));
+    protected void codeGenOperationInstARM(String dest, String left, AbstractExpr right, DecacCompiler compiler) {
+        compiler.getARMProgram().addInstruction(new ARMInstruction("add", dest, left, right.getARMDVal().toString()));
     }
 
     @Override

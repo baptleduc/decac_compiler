@@ -47,7 +47,7 @@ public abstract class AbstractOpArith extends AbstractBinaryExpr {
      */
     abstract protected void codeGenOperationInst(GPRegister dest, DVal source, DecacCompiler compiler);
 
-    abstract protected void codeGenOperationInstARM(String dest, String left, ARMDVal right, DecacCompiler compiler);
+    abstract protected void codeGenOperationInstARM(String dest, String left, AbstractExpr right, DecacCompiler compiler);
 
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
@@ -155,19 +155,19 @@ public abstract class AbstractOpArith extends AbstractBinaryExpr {
     @Override
     protected void codeGenInstARM(DecacCompiler compiler) {
         ARMProgram prog = compiler.getARMProgram();
+        AbstractExpr left = getLeftOperand();
+        AbstractExpr right = getRightOperand();
 
-        getLeftOperand().codeGenInstARM(compiler);
-        getRightOperand().codeGenInstARM(compiler);
+        left.codeGenInstARM(compiler);
+        right.codeGenInstARM(compiler);
+        
+        String regDest = left.getARMDVal().toString();
 
-        ARMDVal left = getLeftOperand().getARMDVal();
-        ARMDVal right = getRightOperand().getARMDVal();
-        String regDest = left.toString();
-
-        if (getLeftOperand().isImmediate() && getRightOperand().isImmediate()) {
+        if (left.isImmediate() && right.isImmediate()) {
             regDest = compiler.getARMProgram().getAvailableRegister();
-            prog.addInstruction(new ARMInstruction("mov", regDest, left.toString()));
+            prog.addInstruction(new ARMInstruction("mov", regDest, left.getARMDVal().toString()));
         }
-        else if (getLeftOperand().isImmediate()) {
+        else if (left.isImmediate()) {
             regDest = getRightOperand().getARMDVal().toString();
             right = left;
         }
@@ -176,7 +176,7 @@ public abstract class AbstractOpArith extends AbstractBinaryExpr {
 
         setARMDVal(new ARMDVal(regDest));
 
-        if (!getRightOperand().isImmediate() && !getLeftOperand().isImmediate()) {
+        if (!right.isImmediate() && !left.isImmediate()) {
             compiler.getARMProgram().freeRegister(right.toString());
         }
     }

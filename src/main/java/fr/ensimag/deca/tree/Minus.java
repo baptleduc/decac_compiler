@@ -27,8 +27,8 @@ public class Minus extends AbstractOpArith {
     }
 
     @Override
-    protected void codeGenOperationInstARM(String dest, String left, ARMDVal right, DecacCompiler compiler) {
-        compiler.getARMProgram().addInstruction(new ARMInstruction("sub", dest, left, right.toString()));
+    protected void codeGenOperationInstARM(String dest, String left, AbstractExpr right, DecacCompiler compiler) {
+        compiler.getARMProgram().addInstruction(new ARMInstruction("sub", dest, left, right.getARMDVal().toString()));
     }
 
     @Override
