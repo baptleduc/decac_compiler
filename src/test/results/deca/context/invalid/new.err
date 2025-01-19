@@ -1,0 +1,1 @@
+./src/test/deca/context/invalid/test_class/new.deca:10:16: Must use a class, not a int to create a new object

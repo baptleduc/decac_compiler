@@ -1,0 +1,1 @@
+./src/test/deca/context/invalid/test_class/instanceof_int_droite.deca:14:21: Can't use instanceof with this type int

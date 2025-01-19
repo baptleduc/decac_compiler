@@ -10,6 +10,6 @@ class A { }
 class C { }
 
 {
-    a = new C();
-    (A) a  // Erreur : Pas de relation d'héritage entre A et C
+    C a = new C();
+    (A) (a);  // Erreur : Pas de relation d'héritage entre A et C
 }
