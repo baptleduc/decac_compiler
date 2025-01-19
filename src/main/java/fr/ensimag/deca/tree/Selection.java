@@ -26,10 +26,6 @@ import fr.ensimag.ima.pseudocode.instructions.CMP;
  * @date 13/01/2025
  */
 public class Selection extends AbstractLValue {
-    @Override
-    protected void checkDecoration() {
-        throw new UnsupportedOperationException("not yet implemented");
-    }
 
     private AbstractExpr selectedObject;
     private AbstractIdentifier selectedField;
