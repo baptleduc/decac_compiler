@@ -18,6 +18,7 @@ import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.NullOperand;
 import fr.ensimag.ima.pseudocode.RegisterOffset;
 import fr.ensimag.ima.pseudocode.instructions.BEQ;
+import fr.ensimag.ima.pseudocode.instructions.BNE;
 import fr.ensimag.ima.pseudocode.instructions.BSR;
 import fr.ensimag.ima.pseudocode.instructions.CMP;
 import fr.ensimag.ima.pseudocode.instructions.LOAD;
@@ -144,7 +145,16 @@ public class MethodCall extends AbstractExpr {
 
     @Override
     protected void codeGenBool(DecacCompiler compiler, Label label, boolean branchOn) {
-        throw new DecacInternalError("Should not be called");
+        codeGenInst(compiler);
+        GPRegister regDest = getDVal(compiler).codeGenToGPRegister(compiler);
+        compiler.addInstruction(new CMP(0, regDest));
+        if (branchOn) {
+            compiler.addInstruction(new BNE(label));
+        } else {
+            compiler.addInstruction(new BEQ(label));
+        }
+
+        compiler.freeRegister(regDest);
     }
 
 }

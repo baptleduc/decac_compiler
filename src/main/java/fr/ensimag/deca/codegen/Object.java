@@ -57,7 +57,7 @@ public class Object {
         compiler.addInstruction(new BRA(compiler.getEndMethodLabel()));
 
         compiler.addLabel(returnFalseLabel);
-        compiler.addInstruction(new LOAD(0, compiler.getRegister1()));
+        compiler.addInstruction(new LOAD(0, compiler.getRegister0()));
         compiler.addInstruction(new BRA(compiler.getEndMethodLabel()));
 
         compiler.codeGenMethodPrologue();
