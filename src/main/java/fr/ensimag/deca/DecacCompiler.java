@@ -357,10 +357,6 @@ public class DecacCompiler {
         return reg;
     }
 
-    public void resetUsedRegistersMethod() {
-        stackManager.initStackForMethod();
-    }
-
     public void codeGenMethodPrologue() {
         int counter = 0;
         for (int regIndex : stackManager.getUsedRegistersMethod()) {

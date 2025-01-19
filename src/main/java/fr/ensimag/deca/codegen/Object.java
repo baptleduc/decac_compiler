@@ -42,25 +42,24 @@ public class Object {
     }
 
     private static void codeGenEqualsMethodBody(DecacCompiler compiler) {
-        compiler.resetUsedRegistersMethod();
+        compiler.startNewMethod();
 
         GPRegister regThisObject = compiler.allocGPRegister();
         GPRegister regOtherObject = compiler.allocGPRegister();
 
         Label returnFalseLabel = new Label("return_false");
-        Label endLabel = new Label("end_method");
 
         compiler.addInstruction(new LOAD(new RegisterOffset(-2, Register.LB), regThisObject));
         compiler.addInstruction(new LOAD(new RegisterOffset(-3, Register.LB), regOtherObject));
         compiler.addInstruction(new CMP(regThisObject, regOtherObject));
         compiler.addInstruction(new BNE(returnFalseLabel));
         compiler.addInstruction(new LOAD(1, compiler.getRegister0()));
-        compiler.addInstruction(new BRA(endLabel));
+        compiler.addInstruction(new BRA(compiler.getEndMethodLabel()));
 
         compiler.addLabel(returnFalseLabel);
         compiler.addInstruction(new LOAD(0, compiler.getRegister1()));
+        compiler.addInstruction(new BRA(compiler.getEndMethodLabel()));
 
-        compiler.addLabel(endLabel);
         compiler.codeGenMethodPrologue();
         compiler.codeGenMethodEpilogue();
         regThisObject.freeGPRegister(compiler);
