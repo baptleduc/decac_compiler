@@ -111,13 +111,13 @@ public abstract class AbstractExpr extends AbstractInst {
 
             ClassType classTypeExpected = expectedType.asClassType(" the var can't be assigned to this class",
                     this.getLocation());
-	    if (rvalueType.isNull()){
-		this.setType(rvalueType);
+            if (rvalueType.isNull()) {
+                this.setType(rvalueType);
                 return this;
-	    }
-	     ClassType classTypeRvalue = rvalueType.asClassType(" need to assign to a compatible class",
+            }
+            ClassType classTypeRvalue = rvalueType.asClassType(" need to assign to a compatible class",
                     this.getLocation());
-           
+
             if ((classTypeRvalue.isSubClassOf(classTypeExpected))) {
                 this.setType(classTypeExpected);
                 return this;
