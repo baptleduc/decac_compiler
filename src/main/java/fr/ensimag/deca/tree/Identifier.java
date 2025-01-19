@@ -194,7 +194,7 @@ public class Identifier extends AbstractIdentifier {
 
         if (!exprDef.isExpression()) {
             throw new ContextualError("Variable " + name.getName() + " is not an expression", getLocation());
-        }      
+        }
         setDefinition(exprDef);
         return exprDef;
     }
