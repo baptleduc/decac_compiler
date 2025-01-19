@@ -129,14 +129,14 @@ code.Object.equals:
 	LOAD -2(LB), R2
 	LOAD -3(LB), R3
 	CMP R2, R3
-	BNE return_false_1
+	BNE return_false_2
 	LOAD #1, R0
-	BRA end_method_2
-return_false_1:
+	BRA end_method_1
+return_false_2:
 	LOAD #0, R1
-end_method_2:
+	BRA end_method_1
 	BRA no_return_error
-end_method_0:
+end_method_1:
 	POP R3
 	POP R2
 	RTS
