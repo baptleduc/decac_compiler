@@ -1,6 +1,7 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.DecacCompiler;
+import fr.ensimag.deca.codegen.LabelManager;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ClassType;
 import fr.ensimag.deca.context.ContextualError;
@@ -12,7 +13,16 @@ import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.DecacInternalError;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.DVal;
+import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.Label;
+import fr.ensimag.ima.pseudocode.NullOperand;
+import fr.ensimag.ima.pseudocode.RegisterOffset;
+import fr.ensimag.ima.pseudocode.instructions.BEQ;
+import fr.ensimag.ima.pseudocode.instructions.BSR;
+import fr.ensimag.ima.pseudocode.instructions.CMP;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
+import fr.ensimag.ima.pseudocode.instructions.PUSH;
+import fr.ensimag.ima.pseudocode.instructions.SUBSP;
 import java.io.PrintStream;
 import org.apache.log4j.Logger;
 
@@ -53,7 +63,8 @@ public class MethodCall extends AbstractExpr {
         Signature sig = methodDef.getSignature();
         int n = 0;
         for (AbstractExpr param : params.getList()) {
-            param.verifyRValue(compiler, localEnv, currentClass, sig.paramNumber(n));
+            AbstractExpr convType = param.verifyRValue(compiler, localEnv, currentClass, sig.paramNumber(n));
+            params.set(n, convType);
             n++;
         }
         LOG.debug("End verify MethodCall");
@@ -98,13 +109,31 @@ public class MethodCall extends AbstractExpr {
     }
 
     @Override
-    protected DVal getDVal(DecacCompiler compiler) {
-        throw new UnsupportedOperationException("not yet implemented");
-    }
-
-    @Override
     protected void codeGenInst(DecacCompiler compiler) {
-        throw new UnsupportedOperationException("not yet implemented");
+
+        for (int i = params.getList().size() - 1; i >= 0; i--) {
+            AbstractExpr param = params.getList().get(i);
+            param.codeGenInst(compiler);
+            GPRegister regParam = param.getDVal(compiler).codeGenToGPRegister(compiler);
+            compiler.addInstruction(new PUSH(regParam));
+            compiler.freeRegister(regParam);
+        }
+
+        leftOperand.codeGenInst(compiler);
+        DVal leftDVal = leftOperand.getDVal(compiler);
+        GPRegister regLeft = leftDVal.codeGenToGPRegister(compiler);
+        compiler.addInstruction(new CMP(new NullOperand(), regLeft));
+        compiler.addInstruction(new BEQ(LabelManager.NULL_POINTER_ERROR.getLabel()));
+        compiler.addInstruction(new LOAD(new RegisterOffset(0, regLeft), regLeft));
+        compiler.addInstruction(new PUSH(regLeft));
+        compiler.addInstruction(
+                new BSR(new RegisterOffset(rightOperand.getMethodDefinition().getIndex() + 1, regLeft))); // +1 because
+                                                                                                          // of the
+                                                                                                          // method
+                                                                                                          // table
+        compiler.addInstruction(new SUBSP(params.getList().size() + 1)); // +1 for the object
+
+        setDVal(compiler.getRegister0());
     }
 
     @Override

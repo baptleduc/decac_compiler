@@ -16,9 +16,12 @@ import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.deca.tools.SymbolTable.Symbol;
 import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.Label;
+import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.RegisterOffset;
 import fr.ensimag.ima.pseudocode.instructions.BEQ;
 import fr.ensimag.ima.pseudocode.instructions.BNE;
 import fr.ensimag.ima.pseudocode.instructions.CMP;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
 import org.apache.log4j.Logger;
@@ -257,7 +260,14 @@ public class Identifier extends AbstractIdentifier {
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
-        setDVal(((VariableDefinition) getDefinition()).getOperand());
+        try {
+            int idx = getExpDefinition().asFieldDefinition(null, getLocation()).getIndex();
+            GPRegister regThis = compiler.allocGPRegister();
+            compiler.addInstruction(new LOAD(new RegisterOffset(-2, Register.LB), regThis));
+            setDVal(new RegisterOffset(idx, regThis));
+        } catch (ContextualError e) {
+            setDVal(getExpDefinition().getOperand());
+        }
     }
 
     @Override

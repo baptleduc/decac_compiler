@@ -6,6 +6,8 @@ import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.ParamDefinition;
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.RegisterOffset;
 import java.io.PrintStream;
 
 /**
@@ -67,6 +69,13 @@ public class DeclParam extends AbstractDeclParam {
     protected void iterChildren(TreeFunction f) {
         paramType.iter(f);
         paramName.iter(f);
+    }
+
+    @Override
+    protected void codeGenDeclParam(DecacCompiler compiler, int offset) {
+        ((ParamDefinition) paramName.getDefinition()).setOperand(new RegisterOffset(offset, Register.LB));
+        paramName.setDVal(new RegisterOffset(offset, Register.LB));
+
     }
 
 }

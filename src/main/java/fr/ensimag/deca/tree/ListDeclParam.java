@@ -53,4 +53,12 @@ public class ListDeclParam extends TreeList<AbstractDeclParam> {
         }
         return envExpR;
     }
+
+    public void codeGenDeclParams(DecacCompiler compiler) {
+        int counterOffset = -2; // We start at -2(LB) because it is the object addr
+        for (AbstractDeclParam param : getList()) {
+            param.codeGenDeclParam(compiler, --counterOffset);
+        }
+    }
+
 }

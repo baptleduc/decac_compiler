@@ -13,38 +13,38 @@
 	STORE R3, 3(GB)
 	LOAD 3(GB), R3
 	CMP #0, R3
-	BLE else_3
-then_2:
+	BLE else_4
+then_3:
 	LOAD 3(GB), R3
 	CMP #12, R3
-	BGE else_6
+	BGE else_7
 	LOAD 3(GB), R3
 	CMP #8, R3
-	BLE else_6
-And_end_label_8:
-then_5:
+	BLE else_7
+And_end_label_9:
+then_6:
 	LOAD 3(GB), R3
 	CMP #10, R3
-	BNE else_10
-then_9:
+	BNE else_11
+then_10:
 	LOAD 3(GB), R1
 	WINT
 	WNL
-	BRA end_11
-else_10:
+	BRA end_12
+else_11:
 	WSTR "x is either 9 or 11"
 	WNL
-end_11:
-	BRA end_7
-else_6:
+end_12:
+	BRA end_8
+else_7:
 	WSTR "x is outside the range (8, 12)"
 	WNL
-end_7:
-	BRA end_4
-else_3:
+end_8:
+	BRA end_5
+else_4:
 	WSTR "x is negative"
 	WNL
-end_4:
+end_5:
 	HALT
 ; Code Object
 code.Object.equals:
@@ -55,12 +55,14 @@ code.Object.equals:
 	LOAD -2(LB), R2
 	LOAD -3(LB), R3
 	CMP R2, R3
-	BNE return_false_0
+	BNE return_false_1
 	LOAD #1, R0
-	BRA end_method_1
-return_false_0:
+	BRA end_method_2
+return_false_1:
 	LOAD #0, R1
-end_method_1:
+end_method_2:
+	BRA no_return_error
+end_method_0:
 	POP R3
 	POP R2
 	RTS
@@ -90,6 +92,10 @@ null_pointer_error:
 	ERROR
 cast_error:
 	WSTR "Error: Cast invalid"
+	WNL
+	ERROR
+no_return_error:
+	WSTR "Error: Exit from method without return"
 	WNL
 	ERROR
 ; end main program

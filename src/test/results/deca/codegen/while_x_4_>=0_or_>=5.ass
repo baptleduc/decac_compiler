@@ -11,29 +11,29 @@
 ; Beginning of main instructions:
 	LOAD #4, R3
 	STORE R3, 3(GB)
-start_while_2:
+start_while_3:
 	LOAD 3(GB), R3
 	CMP #0, R3
-	BGE Or_end_label_4
+	BGE Or_end_label_5
 	LOAD 3(GB), R3
 	CMP #5, R3
-	BLT end_while_3
-Or_end_label_4:
+	BLT end_while_4
+Or_end_label_5:
 	LOAD 3(GB), R3
 	ADD #1, R3
 	STORE R3, 3(GB)
 	LOAD 3(GB), R2
 	CMP #100, R2
-	BNE else_6
-then_5:
+	BNE else_7
+then_6:
 	LOAD #1, R2
 	OPP #1, R2
 	STORE R2, 3(GB)
-	BRA end_7
-else_6:
-end_7:
-	BRA start_while_2
-end_while_3:
+	BRA end_8
+else_7:
+end_8:
+	BRA start_while_3
+end_while_4:
 	LOAD 3(GB), R1
 	WINT
 	WNL
@@ -47,12 +47,14 @@ code.Object.equals:
 	LOAD -2(LB), R2
 	LOAD -3(LB), R3
 	CMP R2, R3
-	BNE return_false_0
+	BNE return_false_1
 	LOAD #1, R0
-	BRA end_method_1
-return_false_0:
+	BRA end_method_2
+return_false_1:
 	LOAD #0, R1
-end_method_1:
+end_method_2:
+	BRA no_return_error
+end_method_0:
 	POP R3
 	POP R2
 	RTS
@@ -82,6 +84,10 @@ null_pointer_error:
 	ERROR
 cast_error:
 	WSTR "Error: Cast invalid"
+	WNL
+	ERROR
+no_return_error:
+	WSTR "Error: Exit from method without return"
 	WNL
 	ERROR
 ; end main program
