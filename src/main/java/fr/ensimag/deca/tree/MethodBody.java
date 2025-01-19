@@ -7,7 +7,6 @@ import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.instructions.RTS;
-
 import java.io.PrintStream;
 
 /**
@@ -69,7 +68,7 @@ public class MethodBody extends AbstractMethodBody {
         for (AbstractInst inst : listInst.getList()) {
             inst.codeGenInst(compiler);
         }
-        
+
         Label labelEndMethod = new Label("end_method");
         compiler.addLabel(labelEndMethod);
         compiler.codeGenMethodPrologue();

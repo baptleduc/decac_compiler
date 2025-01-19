@@ -15,4 +15,6 @@ public abstract class AbstractDeclParam extends Tree {
     public abstract Type verifyParamType(DecacCompiler compiler) throws ContextualError;
 
     public abstract EnvironmentExp verifyParamBody(DecacCompiler compiler) throws ContextualError;
+
+    protected abstract void codeGenDeclParam(DecacCompiler compiler, int counterOffset);
 }

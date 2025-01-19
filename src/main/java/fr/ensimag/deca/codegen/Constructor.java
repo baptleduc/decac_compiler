@@ -7,7 +7,6 @@ import fr.ensimag.deca.tree.AbstractDeclField;
 import fr.ensimag.deca.tree.AbstractIdentifier;
 import fr.ensimag.deca.tree.AbstractInitialization;
 import fr.ensimag.deca.tree.ListDeclField;
-import fr.ensimag.ima.pseudocode.ImmediateInteger;
 import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.RegisterOffset;
@@ -17,7 +16,6 @@ import fr.ensimag.ima.pseudocode.instructions.POP;
 import fr.ensimag.ima.pseudocode.instructions.PUSH;
 import fr.ensimag.ima.pseudocode.instructions.RTS;
 import fr.ensimag.ima.pseudocode.instructions.STORE;
-import fr.ensimag.ima.pseudocode.instructions.SUBSP;
 import org.apache.log4j.Logger;
 
 public class Constructor {

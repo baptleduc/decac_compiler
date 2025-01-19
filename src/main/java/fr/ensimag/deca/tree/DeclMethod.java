@@ -130,6 +130,7 @@ public class DeclMethod extends AbstractDeclMethod {
         compiler.addLabel(methodLabel);
 
         IMAProgram methodBody = new IMAProgram();
+        compiler.withProgram(methodBody, () -> params.codeGenDeclParams(compiler));
         compiler.withProgram(methodBody, () -> body.codeGenMethodBody(compiler));
         compiler.getProgram().append(methodBody);
     }
