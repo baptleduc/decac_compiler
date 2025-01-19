@@ -56,7 +56,8 @@ public class DeclMethod extends AbstractDeclMethod {
         int indexMethod = defClass.getNumberOfMethods();
 
         if (envExpSuper.getCurrentEnvironment().containsKey(methodName.getName())) {
-            methodSuperClass = superClassDefinition.asMethodDefinition("is not a method definition",
+            methodSuperClass = superClassDefinition.asMethodDefinition(
+                    methodName.getName() + " is already declared as a field in a parent class",
                     methodName.getLocation());
             sign2 = methodSuperClass.getSignature();
             type2 = methodSuperClass.getType();
