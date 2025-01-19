@@ -76,7 +76,6 @@ code.B.a:
 	TSTO #0
 	BOV stack_overflow_error
 	WSTR "fromB"
-	WNL
 end_method_3:
 	RTS
 ; Class A
