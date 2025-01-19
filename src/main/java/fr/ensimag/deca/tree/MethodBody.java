@@ -61,7 +61,7 @@ public class MethodBody extends AbstractMethodBody {
     }
 
     @Override
-    protected void codeGenMethodBody(DecacCompiler compiler) {
+    protected void codeGenMethodBody(DecacCompiler compiler, boolean hasReturn) {
         compiler.startNewMethod();
 
         for (AbstractDeclVar declVar : listDeclVar.getList()) {
@@ -72,7 +72,7 @@ public class MethodBody extends AbstractMethodBody {
         }
 
         compiler.codeGenMethodPrologue();
-        compiler.codeGenMethodEpilogue();
+        compiler.codeGenMethodEpilogue(hasReturn);
         compiler.addInstruction(new RTS());
     }
 }

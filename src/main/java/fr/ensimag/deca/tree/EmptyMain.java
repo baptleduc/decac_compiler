@@ -3,6 +3,8 @@ package fr.ensimag.deca.tree;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.ima.pseudocode.instructions.HALT;
+
 import java.io.PrintStream;
 
 /**
@@ -21,6 +23,7 @@ public class EmptyMain extends AbstractMain {
     protected void codeGenMain(DecacCompiler compiler) {
         compiler.addComment("Main program");
         compiler.addComment("Beginning of main instructions:");
+        compiler.addInstruction(new HALT());
     }
 
     /**

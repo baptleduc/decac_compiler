@@ -61,7 +61,7 @@ public class Object {
         compiler.addInstruction(new BRA(compiler.getEndMethodLabel()));
 
         compiler.codeGenMethodPrologue();
-        compiler.codeGenMethodEpilogue();
+        compiler.codeGenMethodEpilogue(true);
         regThisObject.freeGPRegister(compiler);
         regOtherObject.freeGPRegister(compiler);
         compiler.addInstruction(new RTS());
