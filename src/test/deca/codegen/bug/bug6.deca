@@ -1,0 +1,27 @@
+// Description:
+//    bug
+// Results:
+//    None
+//
+// History:
+//    Created on 11/01/2025
+class B{
+    void a(A a){
+        println("de B");
+    }
+}
+class A{
+    void a(B b){
+        println("de A");
+    }
+}
+{
+    A a = new A();
+    A b = new A();
+    if (a.equals(b)){
+        println("1");
+    }
+    else{
+        println("0");
+    }
+}

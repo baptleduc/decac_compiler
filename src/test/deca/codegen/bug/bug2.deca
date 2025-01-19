@@ -1,0 +1,14 @@
+// Description:
+//    version simplifiée du bug de ryan
+// Results:
+//    None
+//
+// History:
+//    Created on 11/01/2025
+       
+class A{
+    int b = 0;
+    int getB(){
+        return b;
+    }
+}
