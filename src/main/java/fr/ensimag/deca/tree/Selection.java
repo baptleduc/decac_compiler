@@ -30,10 +30,6 @@ import org.apache.log4j.Logger;
 public class Selection extends AbstractLValue {
     private static final Logger LOG = Logger.getLogger(AbstractLValue.class);
 
-    @Override
-    protected void checkDecoration() {
-        throw new UnsupportedOperationException("not yet implemented");
-    }
 
     private AbstractExpr selectedObject;
     private AbstractIdentifier selectedField;
@@ -55,13 +51,13 @@ public class Selection extends AbstractLValue {
         LOG.debug("Environement Local Selection : " + envExp2.getCurrentEnvironment());
         FieldDefinition selectedFieldDefinition = envExp2.get(selectedField.getName())
                 .asFieldDefinition("lvalue must be a field definition", this.getLocation());
+	selectedField.setDefinition(selectedFieldDefinition);
         if (selectedFieldDefinition.getVisibility().equals(Visibility.PUBLIC)) {
             setType(selectedFieldDefinition.getType());
             return selectedFieldDefinition.getType();
         } else if (selectedFieldDefinition.getVisibility().equals(Visibility.PROTECTED)) {
             if (typeClass2.isSubClassOf(currentClass.getType())
-                    && (currentClass.getType().isSubClassOf(selectedFieldDefinition.getType().asClassType(
-                            "can access a protected field only in daughters classes", selectedField.getLocation())))) {
+		&& (currentClass.getType().isSubClassOf(selectedFieldDefinition.getContainingClass().getType()))) {
                 setType(selectedFieldDefinition.getType());
                 return selectedFieldDefinition.getType();
             }

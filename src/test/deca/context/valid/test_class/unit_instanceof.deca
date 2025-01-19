@@ -12,5 +12,10 @@ class B extends A { }
 
 {
     A a = new B();
-    print(a instanceof B);
+    if (a instanceof B){
+	println(1);
+    }
+    else {
+	println(0);	
+    }
 }

@@ -13,6 +13,8 @@ import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.DVal;
 import fr.ensimag.ima.pseudocode.Label;
 import java.io.PrintStream;
+import org.apache.log4j.Logger;
+import fr.ensimag.deca.context.ExpDefinition;
 
 /**
  *
@@ -20,6 +22,7 @@ import java.io.PrintStream;
  * @date 13/01/2025
  */
 public class MethodCall extends AbstractExpr {
+    private static final Logger LOG = Logger.getLogger(MethodCall.class);
 
     private AbstractExpr leftOperand;
     private AbstractIdentifier rightOperand;
@@ -34,18 +37,26 @@ public class MethodCall extends AbstractExpr {
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
+	LOG.debug("Start verify MethodCall");
         ClassType classType2 = leftOperand.verifyExpr(compiler, localEnv, currentClass).asClassType(
                 "method " + rightOperand.getName() + " can only be called on class types", leftOperand.getLocation());
-        ClassDefinition classDef2 = classType2.getDefinition();
+        ClassDefinition classDef2 = (ClassDefinition)compiler.environmentType.defOfType(classType2.getName());
         EnvironmentExp envExp2 = classDef2.getMembers();
-        MethodDefinition methodDef = rightOperand.verifyIdentifier(envExp2)
-                .asMethodDefinition(rightOperand.getName() + " is not defined as a method", rightOperand.getLocation());
+	LOG.debug("EnvironmentExp of " + classDef2 + " : " + envExp2.getCurrentEnvironment());
+	ExpDefinition methodExpDef = envExp2.get(rightOperand.getName());
+	if (methodExpDef == null){
+	    throw new ContextualError(rightOperand.getName() + " is not defined as a method", rightOperand.getLocation());
+	}
+	MethodDefinition methodDef = methodExpDef.asMethodDefinition(rightOperand.getName() + " is not defined as a method", rightOperand.getLocation());
         Signature sig = methodDef.getSignature();
 	int n = 0;
 	for (AbstractExpr param : params.getList()) {
             param.verifyRValue(compiler, localEnv, currentClass, sig.paramNumber(n));
 	    n++;
         }
+	LOG.debug("End verify MethodCall");
+	setType(methodDef.getType());
+	rightOperand.setDefinition(methodDef);
         return methodDef.getType();
     }
 
@@ -63,7 +74,7 @@ public class MethodCall extends AbstractExpr {
 
     @Override
     String prettyPrintNode() {
-        throw new UnsupportedOperationException("not yet implemented");
+	return "MethodCall";
     }
 
     @Override
