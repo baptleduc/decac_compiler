@@ -32,7 +32,7 @@ public class This extends AbstractExpr {
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
-        if (currentClass.getType().isNull()) {
+        if (currentClass == null || currentClass.getType().isNull()) {
             throw new ContextualError("Can not use this outside of a class", this.getLocation());
         }
         try {
