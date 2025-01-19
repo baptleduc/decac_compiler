@@ -65,7 +65,6 @@ public class MethodCall extends AbstractExpr {
         for (AbstractExpr param : params.getList()) {
             AbstractExpr convType = param.verifyRValue(compiler, localEnv, currentClass, sig.paramNumber(n));
             params.set(n, convType);
-            param.verifyRValue(compiler, localEnv, currentClass, sig.paramNumber(n));
             n++;
         }
         LOG.debug("End verify MethodCall");
