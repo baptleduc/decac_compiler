@@ -13,6 +13,7 @@ import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.RegisterOffset;
 import fr.ensimag.ima.pseudocode.instructions.BSR;
 import fr.ensimag.ima.pseudocode.instructions.LOAD;
+import fr.ensimag.ima.pseudocode.instructions.POP;
 import fr.ensimag.ima.pseudocode.instructions.PUSH;
 import fr.ensimag.ima.pseudocode.instructions.RTS;
 import fr.ensimag.ima.pseudocode.instructions.STORE;
@@ -138,8 +139,7 @@ public class Constructor {
         Label labelInitSuperClass = LabelManager.getInitLabel(superClassIdentifier);
         compiler.addInstruction(new PUSH(compiler.getRegister1()));
         compiler.addInstruction(new BSR(labelInitSuperClass));
-        compiler.addInstruction(new SUBSP(new ImmediateInteger(1)));
-        compiler.addInstruction(new LOAD(INSTANCE_OFFSET, compiler.getRegister1()));
+        compiler.addInstruction(new POP(compiler.getRegister1()));
 
         initializeAllFieldsExplicitly(classDefinition, compiler);
     }
