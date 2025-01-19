@@ -9,49 +9,49 @@
 	STORE R0, 2(GB)
 ; Main program
 ; Beginning of main instructions:
-	LOAD #15, R4
-	STORE R4, 3(GB)
-	LOAD #24, R4
-	STORE R4, 4(GB)
-	LOAD #30, R4
-	STORE R4, 5(GB)
-	LOAD #1265, R4
-	STORE R4, 6(GB)
-	LOAD #4, R4
-	STORE R4, 7(GB)
-	LOAD #8, R4
-	STORE R4, 8(GB)
-	LOAD #52, R4
-	STORE R4, 9(GB)
-	LOAD 3(GB), R4
-	MUL 4(GB), R4
-	ADD 5(GB), R4
-	LOAD 6(GB), R5
-	QUO 7(GB), R5
+	LOAD #15, R3
+	STORE R3, 3(GB)
+	LOAD #24, R3
+	STORE R3, 4(GB)
+	LOAD #30, R3
+	STORE R3, 5(GB)
+	LOAD #1265, R3
+	STORE R3, 6(GB)
+	LOAD #4, R3
+	STORE R3, 7(GB)
+	LOAD #8, R3
+	STORE R3, 8(GB)
+	LOAD #52, R3
+	STORE R3, 9(GB)
+	LOAD 3(GB), R3
+	MUL 4(GB), R3
+	ADD 5(GB), R3
+	LOAD 6(GB), R2
+	QUO 7(GB), R2
 	BOV divide_by_zero_error
-	SUB R5, R4
-	LOAD 8(GB), R5
-	SUB 9(GB), R5
-	ADD 3(GB), R5
-	LOAD 4(GB), R6
-	MUL 5(GB), R6
-	QUO R6, R5
+	SUB R2, R3
+	LOAD 8(GB), R2
+	SUB 9(GB), R2
+	ADD 3(GB), R2
+	LOAD 4(GB), R4
+	MUL 5(GB), R4
+	QUO R4, R2
 	BOV divide_by_zero_error
-	MUL R5, R4
-	LOAD 6(GB), R5
-	ADD 7(GB), R5
-	LOAD 8(GB), R6
-	MUL 9(GB), R6
-	SUB R6, R5
-	ADD R5, R4
-	LOAD 3(GB), R5
-	QUO 4(GB), R5
+	MUL R2, R3
+	LOAD 6(GB), R2
+	ADD 7(GB), R2
+	LOAD 8(GB), R4
+	MUL 9(GB), R4
+	SUB R4, R2
+	ADD R2, R3
+	LOAD 3(GB), R2
+	QUO 4(GB), R2
 	BOV divide_by_zero_error
-	LOAD 5(GB), R6
-	MUL 6(GB), R6
-	SUB R6, R5
-	ADD R5, R4
-	STORE R4, 10(GB)
+	LOAD 5(GB), R4
+	MUL 6(GB), R4
+	SUB R4, R2
+	ADD R2, R3
+	STORE R3, 10(GB)
 	LOAD 10(GB), R1
 	WINT
 	WNL

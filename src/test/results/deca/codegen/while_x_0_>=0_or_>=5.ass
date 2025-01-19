@@ -9,26 +9,26 @@
 	STORE R0, 2(GB)
 ; Main program
 ; Beginning of main instructions:
-	LOAD #0, R4
-	STORE R4, 3(GB)
+	LOAD #0, R3
+	STORE R3, 3(GB)
 start_while_2:
-	LOAD 3(GB), R4
-	CMP #0, R4
+	LOAD 3(GB), R3
+	CMP #0, R3
 	BGE Or_end_label_4
-	LOAD 3(GB), R4
-	CMP #5, R4
+	LOAD 3(GB), R3
+	CMP #5, R3
 	BLT end_while_3
 Or_end_label_4:
-	LOAD 3(GB), R4
-	ADD #1, R4
-	STORE R4, 3(GB)
-	LOAD 3(GB), R5
-	CMP #100, R5
+	LOAD 3(GB), R3
+	ADD #1, R3
+	STORE R3, 3(GB)
+	LOAD 3(GB), R2
+	CMP #100, R2
 	BNE else_6
 then_5:
-	LOAD #1, R5
-	OPP #1, R5
-	STORE R5, 3(GB)
+	LOAD #1, R2
+	OPP #1, R2
+	STORE R2, 3(GB)
 	BRA end_7
 else_6:
 end_7:

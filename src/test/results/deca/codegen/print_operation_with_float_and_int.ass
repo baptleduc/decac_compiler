@@ -9,11 +9,11 @@
 	STORE R0, 2(GB)
 ; Main program
 ; Beginning of main instructions:
-	LOAD #3, R4
-	FLOAT #3, R4
-	ADD #0x1.466666p3, R4
+	LOAD #3, R3
+	FLOAT #3, R3
+	ADD #0x1.466666p3, R3
 	BOV overflow_error
-	LOAD R4, R1
+	LOAD R3, R1
 	WFLOAT
 	HALT
 ; Code Object

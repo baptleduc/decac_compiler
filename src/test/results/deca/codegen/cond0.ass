@@ -9,8 +9,8 @@
 	STORE R0, 2(GB)
 ; Main program
 ; Beginning of main instructions:
-	LOAD #1, R4
-	CMP #0, R4
+	LOAD #1, R3
+	CMP #0, R3
 	BLT else_3
 then_2:
 	WSTR "ok"

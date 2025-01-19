@@ -9,8 +9,8 @@
 	STORE R0, 2(GB)
 ; Main program
 ; Beginning of main instructions:
-	LOAD #1, R4
-	STORE R4, 3(GB)
+	LOAD #1, R3
+	STORE R3, 3(GB)
 	HALT
 ; Code Object
 code.Object.equals:

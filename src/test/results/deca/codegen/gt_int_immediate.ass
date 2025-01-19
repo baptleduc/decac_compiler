@@ -9,13 +9,13 @@
 	STORE R0, 2(GB)
 ; Main program
 ; Beginning of main instructions:
-	LOAD #1, R4
-	LOAD #3, R5
-	CMP #2, R5
+	LOAD #1, R3
+	LOAD #3, R2
+	CMP #2, R2
 	BGT end_label_2
-	LOAD #0, R4
+	LOAD #0, R3
 end_label_2:
-	STORE R4, 3(GB)
+	STORE R3, 3(GB)
 	HALT
 ; Code Object
 code.Object.equals:

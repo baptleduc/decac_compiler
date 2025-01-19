@@ -9,12 +9,12 @@
 	STORE R0, 2(GB)
 ; Main program
 ; Beginning of main instructions:
-	LOAD #20, R4
-	STORE R4, 3(GB)
-	LOAD 3(GB), R4
-	QUO #2, R4
+	LOAD #20, R3
+	STORE R3, 3(GB)
+	LOAD 3(GB), R3
+	QUO #2, R3
 	BOV divide_by_zero_error
-	STORE R4, 4(GB)
+	STORE R3, 4(GB)
 	LOAD 4(GB), R1
 	WINT
 	WNL

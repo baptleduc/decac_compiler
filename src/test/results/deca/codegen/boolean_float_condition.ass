@@ -9,10 +9,10 @@
 	STORE R0, 2(GB)
 ; Main program
 ; Beginning of main instructions:
-	LOAD #0x1.666666p0, R4
-	STORE R4, 3(GB)
-	LOAD 3(GB), R4
-	CMP #0x1.266666p1, R4
+	LOAD #0x1.666666p0, R3
+	STORE R3, 3(GB)
+	LOAD 3(GB), R3
+	CMP #0x1.266666p1, R3
 	BGE else_3
 then_2:
 	LOAD #10, R1

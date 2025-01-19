@@ -9,11 +9,11 @@
 	STORE R0, 2(GB)
 ; Main program
 ; Beginning of main instructions:
-	LOAD #1, R4
+	LOAD #1, R3
 And_end_label_3:
-	LOAD #0, R4
+	LOAD #0, R3
 end_label_2:
-	STORE R4, 3(GB)
+	STORE R3, 3(GB)
 	HALT
 ; Code Object
 code.Object.equals:

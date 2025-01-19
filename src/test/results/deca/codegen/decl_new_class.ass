@@ -14,14 +14,14 @@
 	STORE R0, 4(GB)
 ; Main program
 ; Beginning of main instructions:
-	NEW #3, R4
+	NEW #3, R3
 	BOV heap_overflow_error
 	LEA 3(GB), R0
-	STORE R0, 0(R4)
-	PUSH R4
+	STORE R0, 0(R3)
+	PUSH R3
 	BSR init.A
-	POP R4
-	STORE R4, 5(GB)
+	POP R3
+	STORE R3, 5(GB)
 	HALT
 ; Code Object
 code.Object.equals:
@@ -46,8 +46,8 @@ init.A:
 	LOAD -2(LB), R1
 	LOAD #0, R0
 	STORE R0, 1(R1)
-	LOAD #1, R4
-	STORE R4, 2(R1)
+	LOAD #1, R3
+	STORE R3, 2(R1)
 	RTS
 stack_overflow_error:
 	WSTR "Error: Stack Overflow"

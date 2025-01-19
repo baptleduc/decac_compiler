@@ -9,14 +9,14 @@
 	STORE R0, 2(GB)
 ; Main program
 ; Beginning of main instructions:
-	LOAD #1, R4
-	STORE R4, 3(GB)
+	LOAD #1, R3
+	STORE R3, 3(GB)
 	LOAD 3(GB), R1
 	WINT
 	WNL
-	LOAD 3(GB), R5
-	ADD #1, R5
-	STORE R5, 3(GB)
+	LOAD 3(GB), R2
+	ADD #1, R2
+	STORE R2, 3(GB)
 	LOAD 3(GB), R1
 	WINT
 	WNL

@@ -9,18 +9,18 @@
 	STORE R0, 2(GB)
 ; Main program
 ; Beginning of main instructions:
-	LOAD #0, R4
-	STORE R4, 3(GB)
-	LOAD 3(GB), R4
-	CMP #3, R4
+	LOAD #0, R3
+	STORE R3, 3(GB)
+	LOAD 3(GB), R3
+	CMP #3, R3
 	BNE else_3
 then_2:
 	WSTR "wrong result"
 	WNL
 	BRA end_4
 else_3:
-	LOAD 3(GB), R4
-	CMP #0, R4
+	LOAD 3(GB), R3
+	CMP #0, R3
 	BNE else_6
 then_5:
 	WSTR "right result"

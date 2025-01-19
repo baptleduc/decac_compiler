@@ -9,15 +9,15 @@
 	STORE R0, 2(GB)
 ; Main program
 ; Beginning of main instructions:
-	LOAD #10, R4
-	STORE R4, 3(GB)
-	LOAD #20, R4
-	STORE R4, 4(GB)
-	LOAD 3(GB), R4
-	CMP #5, R4
+	LOAD #10, R3
+	STORE R3, 3(GB)
+	LOAD #20, R3
+	STORE R3, 4(GB)
+	LOAD 3(GB), R3
+	CMP #5, R3
 	BLE else_3
-	LOAD 4(GB), R4
-	CMP #25, R4
+	LOAD 4(GB), R3
+	CMP #25, R3
 	BGE else_3
 And_end_label_5:
 then_2:

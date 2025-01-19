@@ -9,36 +9,36 @@
 	STORE R0, 2(GB)
 ; Main program
 ; Beginning of main instructions:
-	LOAD #15, R4
-	STORE R4, 3(GB)
-	LOAD #24, R4
-	STORE R4, 4(GB)
-	LOAD #30, R4
-	STORE R4, 5(GB)
-	LOAD #1265, R4
-	STORE R4, 6(GB)
-	LOAD #4, R4
-	STORE R4, 7(GB)
-	LOAD #8, R4
-	STORE R4, 8(GB)
-	LOAD #52, R4
-	STORE R4, 9(GB)
-	LOAD 3(GB), R4
-	MUL 4(GB), R4
-	LOAD 5(GB), R5
-	ADD 6(GB), R5
-	MUL 7(GB), R5
-	ADD R5, R4
-	LOAD 9(GB), R5
-	ADD 7(GB), R5
-	LOAD 8(GB), R6
-	MUL R5, R6
-	ADD R6, R4
-	LOAD 8(GB), R6
-	QUO 7(GB), R6
+	LOAD #15, R3
+	STORE R3, 3(GB)
+	LOAD #24, R3
+	STORE R3, 4(GB)
+	LOAD #30, R3
+	STORE R3, 5(GB)
+	LOAD #1265, R3
+	STORE R3, 6(GB)
+	LOAD #4, R3
+	STORE R3, 7(GB)
+	LOAD #8, R3
+	STORE R3, 8(GB)
+	LOAD #52, R3
+	STORE R3, 9(GB)
+	LOAD 3(GB), R3
+	MUL 4(GB), R3
+	LOAD 5(GB), R2
+	ADD 6(GB), R2
+	MUL 7(GB), R2
+	ADD R2, R3
+	LOAD 9(GB), R2
+	ADD 7(GB), R2
+	LOAD 8(GB), R4
+	MUL R2, R4
+	ADD R4, R3
+	LOAD 8(GB), R4
+	QUO 7(GB), R4
 	BOV divide_by_zero_error
-	ADD R6, R4
-	STORE R4, 10(GB)
+	ADD R4, R3
+	STORE R3, 10(GB)
 	LOAD 10(GB), R1
 	WINT
 	WNL

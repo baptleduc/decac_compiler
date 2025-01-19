@@ -24,47 +24,47 @@
 	STORE R0, 8(GB)
 ; Main program
 ; Beginning of main instructions:
-	NEW #2, R4
+	NEW #2, R3
 	BOV heap_overflow_error
 	LEA 5(GB), R0
-	STORE R0, 0(R4)
-	PUSH R4
+	STORE R0, 0(R3)
+	PUSH R3
 	BSR init.B
-	POP R4
-	STORE R4, 9(GB)
-	LOAD 9(GB), R5
-	LOAD 0(R5), R5
+	POP R3
+	STORE R3, 9(GB)
+	LOAD 9(GB), R2
+	LOAD 0(R2), R2
 InstanceOf_5:
-	CMP #null, R5
+	CMP #null, R2
 	BEQ else_3
-	LOAD 0(R5), R5	; Load method table addr
-	CMP 7(GB), R5
+	LOAD 0(R2), R2	; Load method table addr
+	CMP 7(GB), R2
 	BNE InstanceOf_5
 then_2:
 	WSTR "bug"
 	BRA end_4
 else_3:
 end_4:
-	LOAD 9(GB), R6
-	LOAD 0(R6), R6
+	LOAD 9(GB), R2
+	LOAD 0(R2), R2
 InstanceOf_9:
-	CMP #null, R6
+	CMP #null, R2
 	BEQ else_7
-	LOAD 0(R6), R6	; Load method table addr
-	CMP 5(GB), R6
+	LOAD 0(R2), R2	; Load method table addr
+	CMP 5(GB), R2
 	BNE InstanceOf_9
 then_6:
 	WSTR "ok1"
 	BRA end_8
 else_7:
 end_8:
-	LOAD 9(GB), R7
-	LOAD 0(R7), R7
+	LOAD 9(GB), R2
+	LOAD 0(R2), R2
 InstanceOf_13:
-	CMP #null, R7
+	CMP #null, R2
 	BEQ else_11
-	LOAD 0(R7), R7	; Load method table addr
-	CMP 3(GB), R7
+	LOAD 0(R2), R2	; Load method table addr
+	CMP 3(GB), R2
 	BNE InstanceOf_13
 then_10:
 	WSTR "ok2"
