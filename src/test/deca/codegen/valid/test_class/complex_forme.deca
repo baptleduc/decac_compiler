@@ -1,0 +1,72 @@
+// Description:
+//    Test of a class with inheritance and methods
+//
+// Results:
+//    
+//
+// History:
+//    Created on 6/1/2025
+
+
+
+    class Shape {
+        // Méthode pour calculer l'aire (sera redéfinie dans les classes dérivées)
+        float area() {
+            return 0.0;  // Valeur par défaut, car Shape est abstraite
+        }
+
+        // Méthode pour afficher un message
+        void display() {
+            print("I am a shape.");
+        }
+    }
+
+    
+    class Circle extends Shape {
+        float radius;
+
+        // Méthode pour calculer l'aire du cercle
+        float area() {
+            return 3.14 * this.radius * this.radius;
+        }
+
+        // Méthode pour afficher un message spécifique au cercle
+        void display() {
+            print("I am a circle.");
+        }
+    }
+
+    
+    class Square extends Shape {
+        float side;
+
+        // Méthode pour calculer l'aire du carré
+        float area() {
+            return this.side * this.side;
+        }
+
+        // Méthode pour afficher un message spécifique au carré
+        void display() {
+            print("I am a square.");
+        }
+    }
+
+{
+    
+
+    // Programme principal
+    Shape s = new Shape();
+   
+
+    Circle c = new Circle();
+    
+
+    Square sq = new Square();
+    s.display();              // Affiche "I am a shape."
+    c.radius = 5.0;
+    c.display();              // Affiche "I am a circle."
+    print(c.area());          // Affiche l'aire du cercle
+    sq.side = 4.0;
+    sq.display();             // Affiche "I am a square."
+    print(sq.area());         // Affiche l'aire du carré
+}

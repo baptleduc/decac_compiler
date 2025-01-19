@@ -1,0 +1,13 @@
+// Description:
+//    Program testing the raising of an exception no name class.
+//
+// Results:
+//    Line 10: extraneous input '{' expecting IDENT
+//
+// History:
+//    Created on 19/01/2025
+
+class {
+    int x;
+}
+

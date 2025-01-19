@@ -1,0 +1,11 @@
+// Description:
+//    Minimalistic program to test comparison expressions.
+//
+// Results:
+//    None
+//
+// History:
+//    Created on 19/01/2025
+{
+    print(3 < 5, 10 > 20, 7 == 7, 8 != 9);
+}

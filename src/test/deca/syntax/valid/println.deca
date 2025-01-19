@@ -1,0 +1,16 @@
+// Description:
+//    Minimalistic program to test mixed type printing.
+//
+// Results:
+//    None
+//
+// History:
+//    Created on 19/01/2025
+{
+    println("Result:", 5 + 3, true, 3.14);
+    println(3);
+    println("a");
+    println(12.3);
+    println(true);
+
+}

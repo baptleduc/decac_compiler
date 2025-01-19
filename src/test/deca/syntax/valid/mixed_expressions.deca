@@ -1,0 +1,11 @@
+// Description:
+//    Minimalistic program to test mixed expressions.
+//
+// Results:
+//    None
+//
+// History:
+//    Created on 19/01/2025
+{
+    print((4 + 2) * 3, true && (5 > 3), !(4 <= 2));
+}
