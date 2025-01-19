@@ -1,32 +1,47 @@
-	TSTO #3	; 3 (variables) + 0 (saved registers) + 0 (temporaries) + 0 (method parameters x 2)
+	TSTO #7	; 7 (variables) + 0 (saved registers) + 0 (temporaries) + 0 (method parameters x 2)
 	BOV stack_overflow_error
-	ADDSP #3
+	ADDSP #7
 ; start main program
 ; Method Table of class Object
 	LOAD #null, R0
 	STORE R0, 1(GB)
 	LOAD code.Object.equals, R0
 	STORE R0, 2(GB)
+; Method Table of class A
+	LEA 1(GB), R0
+	STORE R0, 3(GB)
+	LOAD code.Object.equals, R0
+	STORE R0, 4(GB)
+	LOAD code.A.setA, R0
+	STORE R0, 5(GB)
+	LOAD code.A.test, R0
+	STORE R0, 6(GB)
 ; Main program
 ; Beginning of main instructions:
-	LOAD #0, R3
-	STORE R3, 3(GB)
-start_while_3:
-	LOAD 3(GB), R3
-	CMP #0, R3
-	BEQ end_while_4
-	LOAD 3(GB), R3
-	CMP #5, R3
-	BEQ end_while_4
-And_end_label_5:
-	LOAD 3(GB), R3
-	ADD #1, R3
-	STORE R3, 3(GB)
-	BRA start_while_3
-end_while_4:
-	LOAD 3(GB), R1
-	WINT
-	WNL
+	NEW #2, R5
+	BOV heap_overflow_error
+	LEA 3(GB), R0
+	STORE R0, 0(R5)
+	PUSH R5
+	BSR init.A
+	POP R5
+	STORE R5, 7(GB)
+	LOAD #5, R5
+	PUSH R5
+	LOAD 7(GB), R5
+	CMP #null, R5
+	BEQ null_pointer_error
+	PUSH R5
+	LOAD 0(R5), R5
+	BSR 2(R5)
+	SUBSP #2
+	LOAD 7(GB), R6
+	CMP #null, R6
+	BEQ null_pointer_error
+	PUSH R6
+	LOAD 0(R6), R6
+	BSR 3(R6)
+	SUBSP #1
 	HALT
 ; Code Object
 code.Object.equals:
@@ -47,6 +62,37 @@ return_false_2:
 end_method_1:
 	POP R3
 	POP R2
+	RTS
+; Class A
+init.A:
+	LOAD -2(LB), R1
+	LOAD #0, R0
+	STORE R0, 1(R1)
+	RTS
+code.A.setA:
+	TSTO #2
+	BOV stack_overflow_error
+	PUSH R3
+	PUSH R2
+	LOAD -2(LB), R3
+	CMP #null, R3
+	BEQ null_pointer_error
+	LOAD -3(LB), R2
+	STORE R2, 1(R3)
+end_method_3:
+	POP R2
+	POP R3
+	RTS
+code.A.test:
+	TSTO #1
+	BOV stack_overflow_error
+	PUSH R4
+	LOAD -2(LB), R4
+	LOAD 1(R4), R1
+	WINT
+	WNL
+end_method_4:
+	POP R4
 	RTS
 stack_overflow_error:
 	WSTR "Error: Stack Overflow"
