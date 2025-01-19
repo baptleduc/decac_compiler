@@ -23,7 +23,7 @@ public abstract class ARMLoadStore extends AbstractARMInstruction {
     public String toString() {
         int offset = program.getVarOffset(varName);
         if (offset < 0){
-            return getInstructionLabel(offset) + " " + register + ", [X29, #-" + offset + "]";
+            return getInstructionLabel(offset) + " " + register + ", [X29, #" + offset + "]";
         }
         if (offset > 0){
             return getInstructionLabel(offset) + " " + register + ", [sp, #" + offset + "]";

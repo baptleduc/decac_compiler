@@ -85,22 +85,24 @@ public class ARMProgram {
 
     private int computeVarMemory() { // return the max offset, can be optimized, TODO ARM : different size
         assert memoryMap.isEmpty();
+        int multiplier = printNbParameters == -1 ? 1 : -1; // the offset is negative (we use the frame pointer to store variables) if there is a printf call
+        int offset = printNbParameters == -1 ? 0 : -4;
 
-        int offset = 0;
         for (String varName : varOccurences.keySet()) {
             for (String varName2 : memoryMap.keySet()) {
                 if (varOccurences.get(varName).getFirst() > varOccurences.get(varName2).getSecond()){
                     memoryMap.put(varName, memoryMap.get(varName2));
+                    varOccurences.get(varName2).setSecond(varOccurences.get(varName).getSecond()); // work around to avoid offset conflict
                     break;
                 }
             }
             if (!memoryMap.containsKey(varName)){
                 memoryMap.put(varName, offset);
-                offset += 4;
+                offset += 4 * multiplier; // only one size for now
             }
         }
 
-        return offset;
+        return offset * multiplier; // the value is positive
     }
 
     public void addVarOccurence(String varName) {
