@@ -22,7 +22,6 @@ public enum LabelManager {
 
     // Map to store dynamically created labels
     private static final Map<String, Label> initLabels = new HashMap<>();
-    private static final Map<String, Label> methodLabels = new HashMap<>();
 
     /**
      * Constructor for the enum values.

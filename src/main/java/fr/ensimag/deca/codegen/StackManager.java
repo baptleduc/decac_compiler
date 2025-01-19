@@ -27,6 +27,8 @@ public class StackManager {
     private LinkedList<Integer> idxAvailableGPRegisters;
     private LinkedList<Integer> idxUsedGPRegisters;
 
+    private LinkedList<Integer> usedRegistersMethod;
+
     private int offsetGB = 0;
     private int offsetLB = 0;
     private int offsetSP = 0;
@@ -41,11 +43,29 @@ public class StackManager {
     public StackManager(IMAProgram program, int numRegisters) {
         idxAvailableGPRegisters = new LinkedList<>();
         idxUsedGPRegisters = new LinkedList<>();
+        usedRegistersMethod = new LinkedList<>();
         this.program = program;
 
         for (int i = 2; i < numRegisters; i++) { // R0 and R1 are scratch registers
             idxAvailableGPRegisters.add(i);
         }
+    }
+
+    public void initStackForMethod() {
+        offsetLB = 0;
+        assert (usedRegistersMethod.isEmpty());
+    }
+
+    public void markRegisterUsedMethod(GPRegister reg) {
+        usedRegistersMethod.addFirst(reg.getNumber());
+    }
+
+    public LinkedList<Integer> getUsedRegistersMethod() {
+        return usedRegistersMethod;
+    }
+
+    public int popUsedRegisterMethod() {
+        return usedRegistersMethod.removeFirst();
     }
 
     /**
@@ -167,6 +187,11 @@ public class StackManager {
         LOG.debug("Adding global variable at offset " + offsetGB);
         // TODO: switch case to determine the size of the offset and add type in arg
         return new RegisterOffset(++offsetGB, GB);
+    }
+
+    public RegisterOffset addLocalVariable() {
+        LOG.debug("Adding local variable at offset " + offsetLB);
+        return new RegisterOffset(++offsetLB, LB);
     }
 
     /**

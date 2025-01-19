@@ -1,21 +1,46 @@
-	TSTO #3	; 3 (variables) + 0 (saved registers) + 0 (temporaries) + 0 (method parameters x 2)
+	TSTO #8	; 8 (variables) + 0 (saved registers) + 0 (temporaries) + 0 (method parameters x 2)
 	BOV stack_overflow_error
-	ADDSP #3
+	ADDSP #8
 ; start main program
 ; Method Table of class Object
 	LOAD #null, R0
 	STORE R0, 1(GB)
 	LOAD code.Object.equals, R0
 	STORE R0, 2(GB)
+; Method Table of class A
+	LEA 1(GB), R0
+	STORE R0, 3(GB)
+	LOAD code.Object.equals, R0
+	STORE R0, 4(GB)
+; Method Table of class B
+	LEA 3(GB), R0
+	STORE R0, 5(GB)
+	LOAD code.Object.equals, R0
+	STORE R0, 6(GB)
 ; Main program
 ; Beginning of main instructions:
-	LOAD #1, R3
-	LOAD #3, R2
-	CMP #2, R2
-	BLE end_label_2
-	LOAD #0, R3
-end_label_2:
-	STORE R3, 3(GB)
+	NEW #1, R3
+	BOV heap_overflow_error
+	LEA 5(GB), R0
+	STORE R0, 0(R3)
+	PUSH R3
+	BSR init.B
+	POP R3
+	STORE R3, 7(GB)
+	LOAD 7(GB), R3
+	LOAD 0(R3), R3
+InstanceOf_4:
+	CMP #null, R3
+	BEQ ElseCast_2
+	LOAD 0(R3), R3	; Load method table addr
+	CMP 5(GB), R3
+	BNE InstanceOf_4
+	BRA EndCast_3
+ElseCast_2:
+	BRA cast_error
+EndCast_3:
+	LOAD 7(GB), R3
+	STORE R3, 8(GB)
 	HALT
 ; Code Object
 code.Object.equals:
@@ -34,6 +59,12 @@ return_false_0:
 end_method_1:
 	POP R3
 	POP R2
+	RTS
+; Class A
+init.A:
+	RTS
+; Class B
+init.B:
 	RTS
 stack_overflow_error:
 	WSTR "Error: Stack Overflow"

@@ -1,28 +1,50 @@
-	TSTO #1	; 1 (variables) + 0 (saved registers) + 0 (temporaries) + 0 (method parameters x 2)
+	TSTO #3	; 3 (variables) + 0 (saved registers) + 0 (temporaries) + 0 (method parameters x 2)
 	BOV stack_overflow_error
-	ADDSP #1
+	ADDSP #3
 ; start main program
+; Method Table of class Object
+	LOAD #null, R0
+	STORE R0, 1(GB)
+	LOAD code.Object.equals, R0
+	STORE R0, 2(GB)
 ; Main program
 ; Beginning of main instructions:
-	LOAD #0, R2
-	STORE R2, 1(GB)
-	LOAD 1(GB), R2
-	CMP #0, R2
-	BLE Or_end_label_3
-	LOAD 1(GB), R2
-	CMP #5, R2
-	BGT else_1
-Or_end_label_3:
-then_0:
+	LOAD #0, R3
+	STORE R3, 3(GB)
+	LOAD 3(GB), R3
+	CMP #0, R3
+	BLE Or_end_label_5
+	LOAD 3(GB), R3
+	CMP #5, R3
+	BGT else_3
+Or_end_label_5:
+then_2:
 	WSTR "At least one condition is true."
 	WNL
-	BRA end_2
-else_1:
+	BRA end_4
+else_3:
 	WSTR "Both conditions are false."
 	WNL
-end_2:
+end_4:
 	HALT
+; Code Object
 code.Object.equals:
+	TSTO #2
+	BOV stack_overflow_error
+	PUSH R2
+	PUSH R3
+	LOAD -2(LB), R2
+	LOAD -3(LB), R3
+	CMP R2, R3
+	BNE return_false_0
+	LOAD #1, R0
+	BRA end_method_1
+return_false_0:
+	LOAD #0, R1
+end_method_1:
+	POP R3
+	POP R2
+	RTS
 stack_overflow_error:
 	WSTR "Error: Stack Overflow"
 	WNL

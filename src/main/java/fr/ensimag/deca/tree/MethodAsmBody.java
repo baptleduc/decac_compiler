@@ -5,7 +5,9 @@ import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.ima.pseudocode.InlinePortion;
 import java.io.PrintStream;
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -13,11 +15,12 @@ import java.io.PrintStream;
  * @date 13/01/2025
  */
 public class MethodAsmBody extends AbstractMethodBody {
+    private static final Logger LOG = Logger.getLogger(MethodAsmBody.class);
 
-    private AbstractStringLiteral asmName;
+    private AbstractStringLiteral asmCode;
 
-    public MethodAsmBody(AbstractStringLiteral asmname) {
-        asmName = asmname;
+    public MethodAsmBody(AbstractStringLiteral asmCode) {
+        this.asmCode = asmCode;
     }
 
     /**
@@ -32,18 +35,23 @@ public class MethodAsmBody extends AbstractMethodBody {
     @Override
     public void decompile(IndentPrintStream s) {
         s.print("asm(");
-        asmName.decompile(s);
+        asmCode.decompile(s);
         s.print(");");
     }
 
     @Override
     protected void prettyPrintChildren(PrintStream s, String prefix) {
-        asmName.prettyPrint(s, prefix, true);
+        asmCode.prettyPrint(s, prefix, true);
     }
 
     @Override
     protected void iterChildren(TreeFunction f) {
-        throw new UnsupportedOperationException("Not yet supported");
+        asmCode.iter(f);
+    }
+
+    @Override
+    protected void codeGenMethodBody(DecacCompiler compiler) {
+        compiler.add(new InlinePortion(asmCode.getValue()));
     }
 
 }

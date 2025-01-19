@@ -1,21 +1,36 @@
-	TSTO #3	; 3 (variables) + 0 (saved registers) + 0 (temporaries) + 0 (method parameters x 2)
+	TSTO #14	; 14 (variables) + 0 (saved registers) + 0 (temporaries) + 0 (method parameters x 2)
 	BOV stack_overflow_error
-	ADDSP #3
+	ADDSP #12
 ; start main program
 ; Method Table of class Object
 	LOAD #null, R0
 	STORE R0, 1(GB)
 	LOAD code.Object.equals, R0
 	STORE R0, 2(GB)
+; Method Table of class A
+	LEA 1(GB), R0
+	STORE R0, 3(GB)
+	LOAD code.Object.equals, R0
+	STORE R0, 4(GB)
+	LOAD code.A.m, R0
+	STORE R0, 5(GB)
+	LOAD code.A.p, R0
+	STORE R0, 6(GB)
+; Method Table of class B
+	LEA 3(GB), R0
+	STORE R0, 7(GB)
+	LOAD code.Object.equals, R0
+	STORE R0, 8(GB)
+	LOAD code.A.m, R0
+	STORE R0, 9(GB)
+	LOAD code.B.p, R0
+	STORE R0, 10(GB)
+	LOAD code.B.q, R0
+	STORE R0, 11(GB)
 ; Main program
 ; Beginning of main instructions:
-	LOAD #1, R3
-	LOAD #3, R2
-	CMP #2, R2
-	BLE end_label_2
-	LOAD #0, R3
-end_label_2:
-	STORE R3, 3(GB)
+	LOAD #3, R3
+	STORE R3, 12(GB)
 	HALT
 ; Code Object
 code.Object.equals:
@@ -35,6 +50,20 @@ end_method_1:
 	POP R3
 	POP R2
 	RTS
+; Class A
+init.A:
+	RTS
+code.A.m:
+	LOAD #1, R3
+	STORE R3, 1(LB)
+	LOAD #2, R3
+	STORE R3, 2(LB)
+code.A.p:
+; Class B
+init.B:
+	RTS
+code.B.p:
+code.B.q:
 stack_overflow_error:
 	WSTR "Error: Stack Overflow"
 	WNL

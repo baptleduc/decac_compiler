@@ -108,5 +108,6 @@ public class InstanceOf extends AbstractExpr {
                 "Load method table addr"); // Load the address of the method table in R0
         compiler.addInstruction(new CMP(methodTableAddrToCompare, regHeapStartAddr));
         compiler.addInstruction(new BNE(labelInstanceOf));
+        regHeapStartAddr.freeGPRegister(compiler);
     }
 }

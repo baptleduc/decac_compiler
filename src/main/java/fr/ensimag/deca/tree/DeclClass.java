@@ -10,6 +10,7 @@ import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.TypeDefinition;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.deca.tools.SymbolTable.Symbol;
+import fr.ensimag.ima.pseudocode.IMAProgram;
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
 import org.apache.log4j.Logger;
@@ -141,14 +142,31 @@ public class DeclClass extends AbstractDeclClass {
     }
 
     @Override
-    protected void codeGenDeclClass(DecacCompiler compiler) {
+    protected void codeGenMethodTable(DecacCompiler compiler) {
         MethodTable methodTable = new MethodTable(classIdentifier.getClassDefinition());
         methodTable.codeGenTable(compiler);
     }
 
-    @Override
-    protected void codeGenConstructor(DecacCompiler compiler) {
+    private void codeGenConstructor(DecacCompiler compiler) {
         Constructor constructor = new Constructor(classIdentifier, superClassIdentifier, fields);
         constructor.codeGenConstructor(compiler);
+    }
+
+    private void codeGenMethods(DecacCompiler compiler) {
+        for (AbstractDeclMethod method : methods.getList()) {
+            method.codeGenDeclMethod(compiler);
+        }
+    }
+
+    @Override
+    protected void codeGenClass(DecacCompiler compiler) {
+        compiler.addComment("Class " + classIdentifier.getName());
+        IMAProgram constructor = new IMAProgram();
+        compiler.withProgram(constructor, () -> codeGenConstructor(compiler));
+        IMAProgram methods = new IMAProgram();
+        compiler.withProgram(methods, () -> codeGenMethods(compiler));
+
+        compiler.getProgram().append(constructor);
+        compiler.getProgram().append(methods);
     }
 }

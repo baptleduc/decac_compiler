@@ -7,6 +7,7 @@ import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.ExpDefinition;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.deca.tools.SymbolTable.Symbol;
+import fr.ensimag.ima.pseudocode.IMAProgram;
 import java.util.Map;
 import org.apache.log4j.Logger;
 
@@ -69,6 +70,14 @@ public class ListDeclMethod extends TreeList<AbstractDeclMethod> {
         for (AbstractDeclMethod c : getList()) {
             c.decompile(s);
             s.println();
+        }
+    }
+
+    public void codeGenListDeclMethod(DecacCompiler compiler) {
+        for (AbstractDeclMethod declMethod : getList()) {
+            IMAProgram methodProgram = new IMAProgram();
+            compiler.withProgram(methodProgram, () -> declMethod.codeGenDeclMethod(compiler));
+            compiler.getProgram().append(methodProgram);
         }
     }
 }

@@ -15,9 +15,27 @@
 ; Main program
 ; Beginning of main instructions:
 	HALT
+; Code Object
+code.Object.equals:
+	TSTO #2
+	BOV stack_overflow_error
+	PUSH R2
+	PUSH R3
+	LOAD -2(LB), R2
+	LOAD -3(LB), R3
+	CMP R2, R3
+	BNE return_false_0
+	LOAD #1, R0
+	BRA end_method_1
+return_false_0:
+	LOAD #0, R1
+end_method_1:
+	POP R3
+	POP R2
+	RTS
+; Class A
 init.A:
 	RTS
-code.Object.equals:
 stack_overflow_error:
 	WSTR "Error: Stack Overflow"
 	WNL
