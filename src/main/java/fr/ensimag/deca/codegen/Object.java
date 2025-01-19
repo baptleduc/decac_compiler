@@ -63,6 +63,8 @@ public class Object {
         compiler.addLabel(endLabel);
         compiler.codeGenMethodPrologue();
         compiler.codeGenMethodEpilogue();
+        regThisObject.freeGPRegister(compiler);
+        regOtherObject.freeGPRegister(compiler);
         compiler.addInstruction(new RTS());
 
     }
