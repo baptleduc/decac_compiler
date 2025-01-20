@@ -78,6 +78,7 @@ public class Assign extends AbstractBinaryExpr {
         }
 
         compiler.addInstruction(new STORE(regRight, destAddr));
+        regRight.freeGPRegister(compiler);
         setDVal(leftDVal);
     }
 

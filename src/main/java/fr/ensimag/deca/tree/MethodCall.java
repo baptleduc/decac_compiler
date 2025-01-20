@@ -116,7 +116,7 @@ public class MethodCall extends AbstractExpr {
             param.codeGenInst(compiler);
             GPRegister regParam = param.getDVal(compiler).codeGenToGPRegister(compiler);
             compiler.addInstruction(new PUSH(regParam));
-            compiler.freeRegister(regParam);
+            regParam.freeGPRegister(compiler);
         }
 
         leftOperand.codeGenInst(compiler);
@@ -131,15 +131,17 @@ public class MethodCall extends AbstractExpr {
                 new BSR(new RegisterOffset(rightOperand.getMethodDefinition().getIndex() + 1, regLeft))); // +1 because
                                                                                                           // of the
                                                                                                           // method
-                                                                                                          // table
+        regLeft.freeGPRegister(compiler);                                                                                                  // table
         compiler.addInstruction(new SUBSP(params.getList().size() + 1)); // +1 for the object
-
-        setDVal(compiler.getRegister0());
+        
+        GPRegister regResult = compiler.allocGPRegister();
+        compiler.addInstruction(new LOAD(compiler.getRegister0(), regResult));
+        setDVal(regResult);
     }
 
     @Override
     protected boolean isImmediate() {
-        throw new UnsupportedOperationException("not yet implemented");
+        return false;
     }
 
     @Override
@@ -153,7 +155,7 @@ public class MethodCall extends AbstractExpr {
             compiler.addInstruction(new BEQ(label));
         }
 
-        compiler.freeRegister(regDest);
+        regDest.freeGPRegister(compiler);
     }
 
 }
