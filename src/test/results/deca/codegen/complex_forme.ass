@@ -144,7 +144,7 @@ end_method_3:
 code.Shape.display:
 	TSTO #0
 	BOV stack_overflow_error
-	WSTR "I am a shape."
+	WSTR "I am a shape "
 end_method_4:
 	RTS
 ; Class Circle
@@ -184,7 +184,7 @@ end_method_5:
 code.Circle.display:
 	TSTO #0
 	BOV stack_overflow_error
-	WSTR "I am a circle."
+	WSTR "I am a circle "
 end_method_6:
 	RTS
 ; Class Square
@@ -222,7 +222,7 @@ end_method_7:
 code.Square.display:
 	TSTO #0
 	BOV stack_overflow_error
-	WSTR "I am a square."
+	WSTR "I am a square "
 end_method_8:
 	RTS
 stack_overflow_error:
