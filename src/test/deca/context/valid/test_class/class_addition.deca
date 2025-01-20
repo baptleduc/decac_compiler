@@ -1,0 +1,19 @@
+// Description:
+//    Minimalistic program using add.
+// Results:
+//    8
+//
+// History:
+//    Created on 16/01/2025
+
+
+class Adder {
+    int add(int a, int b) {
+        return a + b;
+    }
+}
+
+{
+        Adder adder = new Adder();
+        println(adder.add(3, 5));
+}

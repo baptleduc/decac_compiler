@@ -1,0 +1,18 @@
+// Description:
+//    Program declaring a field already existing as a method in a parent class
+//
+// Results:
+//    error
+//
+// History:
+//    Created on 13/01/2025
+
+class B{
+        void x(){
+        print(12);
+        }
+}
+
+class A extends B{
+        float x;
+}

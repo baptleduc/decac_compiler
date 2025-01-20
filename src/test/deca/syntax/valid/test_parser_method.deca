@@ -1,0 +1,14 @@
+// Description:
+//    Minimalistic program to test a method in a class.
+//
+// Results:
+//    None
+//
+// History:
+//    Created on 13/1/2025
+
+class Car {
+    void afficher(int limite){
+        print(limite);
+    }
+}

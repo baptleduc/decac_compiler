@@ -1,0 +1,20 @@
+// Description:
+//    Unit Test can not declare a method that aldready exist
+// Results:
+//    error
+//
+// History:
+//    Created on 20/01/2025
+
+
+
+
+class A{
+    void test(){
+	
+    }
+
+    void test(){
+	
+    }
+}

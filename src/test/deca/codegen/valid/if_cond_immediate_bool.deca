@@ -1,0 +1,16 @@
+// Description:
+//    Minimalistic program making a If-then-else statement with immediate bool as condition, passing through the else branch.
+// Results:
+//    else
+//
+// History:
+//    Created on 12/01/2025
+
+{       
+        if (true && false) {
+            println("if");
+        }
+        else{
+            println("else");
+        }
+}

@@ -1,0 +1,24 @@
+// Description:
+//    Minimalistic program using a class with a method with no param but have local variables
+// Results:
+//    None
+//
+// History:
+//    Created on 19/01/2025
+
+class A{
+    int m(){
+        int x = 1;
+        int y = 2;
+    }
+    void p(){}
+}
+
+class B extends A{
+    void p(){}
+    int q(){}
+}
+
+{
+    int x = 3;
+}

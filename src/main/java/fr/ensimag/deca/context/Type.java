@@ -74,7 +74,21 @@ public abstract class Type {
      */
     public ClassType asClassType(String errorMessage, Location l)
             throws ContextualError {
+        // if(!compiler.environmentType.getEnvTypes().get(superName).isClass()){
+        // throw new ContextualError(errorMessage, l);
+        // }
+        // else{
+        // ClassType result = new ClassType(name, l, this.)
+        // }
         throw new ContextualError(errorMessage, l);
+    }
+
+    /**
+     * Return true if potentialSuperClass is a superclass of this class.
+     */
+
+    public boolean isSubClassOf(ClassType potentialSuperClass) {
+        return false;
     }
 
 }

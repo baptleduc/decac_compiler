@@ -1,0 +1,27 @@
+// Description:
+//    Test object equals method with two same objects
+// Results:
+//    1
+//
+// History:
+//    Created on 19/01/2025
+class B{
+    void a(A a){
+        println("de B");
+    }
+}
+class A{
+    void a(B b){
+        println("de A");
+    }
+}
+{
+    A a = new A();
+    A b = a;
+    if (a.equals(b)){
+        println("1");
+    }
+    else{
+        println("0");
+    }
+}

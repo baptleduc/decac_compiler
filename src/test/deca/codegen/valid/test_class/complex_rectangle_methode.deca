@@ -1,0 +1,44 @@
+// Description:
+//    Test d'une classe avec plusieurs paramètres dans un constructeur et méthodes supplémentaires.
+//
+// Results:
+//    12 48
+//    
+//
+// History:
+//    Created on 6/1/2025
+
+class Rectangle {
+        int width;
+        int height;
+        
+        
+        void rectangle(int w, int h) {
+            this.width = w;
+            this.height = h;
+        }
+
+        
+        int area() {
+            return this.width * this.height;
+        }
+
+        boolean isLargerThan(Rectangle other) {
+            return this.area() > other.area();
+        }
+    }
+
+
+{
+
+    // Créer deux instances de Rectangle
+    Rectangle r1 = new Rectangle();
+    Rectangle r2 = new Rectangle();
+    r1.rectangle(2,6);
+    r2.rectangle(8,6);
+    
+    print(r1.area());   
+    print(" ");
+    print(r2.area());        
+    
+}

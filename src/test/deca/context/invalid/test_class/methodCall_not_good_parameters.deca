@@ -1,0 +1,19 @@
+// Description:
+//    Unit Test MethodCall not good parameters 
+// Results:
+//    error
+//
+// History:
+//    Created on 20/01/2025
+
+
+class A {
+    void test(int c){
+	
+    }
+}
+
+{
+    A a = new A();
+    a.test();
+}

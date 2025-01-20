@@ -1,0 +1,19 @@
+// Description:
+//    Minimalistic program using /.
+// Results:
+//    2
+//
+// History:
+//    Created on 16/01/2025
+
+
+class Div {
+    int divide(int a, int b) {
+        return a / b;
+    }
+}
+
+{
+        Div sub = new Div();
+        println(sub.divide(10, 5));
+}

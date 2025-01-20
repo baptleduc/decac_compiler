@@ -1,0 +1,24 @@
+// Description:
+//    Minimalistic program using a class with method with params
+// Results:
+//    None
+//
+// History:
+//    Created on 14/01/2025
+
+class A{
+    int x;
+    int add(int a, int b){
+        x = a + b;
+    }
+    void p(){
+    }
+}
+
+class B extends A{
+    void p(){}
+    int q(){}
+}
+
+{
+}

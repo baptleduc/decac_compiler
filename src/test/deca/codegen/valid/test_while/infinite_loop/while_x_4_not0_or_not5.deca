@@ -1,0 +1,15 @@
+// Description:
+//    Minimalistic program demonstrating a while loop with || (logical OR)
+// Results:
+//    infinity
+//
+// History:
+//    Created on 14/01/2025
+
+{
+int x = 4;
+while (x != 0 || x != 5) {
+    x = x+1;
+}
+println(x);
+}

@@ -1,6 +1,8 @@
 package fr.ensimag.deca;
 
-import fr.ensimag.deca.codegen.StackManagement;
+import fr.ensimag.deca.codegen.ErrorManager;
+import fr.ensimag.deca.codegen.LabelManager;
+import fr.ensimag.deca.codegen.StackManager;
 import fr.ensimag.deca.context.EnvironmentType;
 import fr.ensimag.deca.syntax.DecaLexer;
 import fr.ensimag.deca.syntax.DecaParser;
@@ -11,6 +13,7 @@ import fr.ensimag.deca.tools.SymbolTable.Symbol;
 import fr.ensimag.deca.tree.AbstractProgram;
 import fr.ensimag.deca.tree.LocationException;
 import fr.ensimag.ima.pseudocode.AbstractLine;
+import fr.ensimag.ima.pseudocode.DAddr;
 import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.IMAProgram;
 import fr.ensimag.ima.pseudocode.ImmediateInteger;
@@ -20,11 +23,10 @@ import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.RegisterOffset;
 import fr.ensimag.ima.pseudocode.instructions.ADDSP;
 import fr.ensimag.ima.pseudocode.instructions.BOV;
-import fr.ensimag.ima.pseudocode.instructions.ERROR;
+import fr.ensimag.ima.pseudocode.instructions.BRA;
+import fr.ensimag.ima.pseudocode.instructions.POP;
 import fr.ensimag.ima.pseudocode.instructions.PUSH;
 import fr.ensimag.ima.pseudocode.instructions.TSTO;
-import fr.ensimag.ima.pseudocode.instructions.WNL;
-import fr.ensimag.ima.pseudocode.instructions.WSTR;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -61,9 +63,9 @@ public class DecacCompiler {
         super();
         this.compilerOptions = compilerOptions;
         if (compilerOptions == null || this.compilerOptions.getRegisters() == -1) {
-            this.stackManager = new StackManagement(program, Register.getMaxGPRegisters());
+            this.stackManager = new StackManager(program, Register.getMaxGPRegisters());
         } else {
-            this.stackManager = new StackManagement(program, this.compilerOptions.getRegisters());
+            this.stackManager = new StackManager(program, this.compilerOptions.getRegisters());
         }
         this.source = source;
     }
@@ -83,7 +85,7 @@ public class DecacCompiler {
         return compilerOptions;
     }
 
-    public StackManagement getStackManager() {
+    public StackManager getStackManager() {
         return stackManager;
     }
 
@@ -94,10 +96,12 @@ public class DecacCompiler {
      */
     private IMAProgram program = new IMAProgram();
 
+    private Label endMethodLabel = new Label("end_method");
+
     /**
      * Stack management to handle registers and stack.
      */
-    private final StackManagement stackManager;
+    private final StackManager stackManager;
 
     /** The global environment for types (and the symbolTable) */
     public final SymbolTable symbolTable = new SymbolTable();
@@ -123,6 +127,10 @@ public class DecacCompiler {
         this.program = program;
         r.run();
         this.program = oldProgram;
+    }
+
+    public IMAProgram getProgram() {
+        return program;
     }
 
     /**
@@ -190,39 +198,107 @@ public class DecacCompiler {
     }
 
     /**
-     * Inserts a TSTO instruction to test for stack overflow and calculates
-     * the required stack size. If 'noVerify' is false, it adds a block to handle
-     * stack overflow errors.
+     * @see
+     *      fr.ensimag.ima.pseudocode.ErrorManager#generateAllErrors()
+     */
+    public void generateAllErrors() {
+        ErrorManager.generateAllErrors(this);
+    }
+
+    /**
+     * Inserts a `TSTO` instruction to check for stack overflow and calculates the
+     * required stack size.
+     * Adds code at the start to check for overflow and at the end to handle the
+     * error, unless `noVerify` is true.
      *
      * @param noVerify
-     *            if true, skips adding the stack overflow error-handling block
+     *            if true, skips adding the stack overflow error-handling code
      */
-    public void stackOverflowCheck(boolean noVerify) {
-        if (noVerify) {
+    public void checkStackOverflow() {
+        if (getCompilerOptions().getNoCheck()) {
             return;
         }
+
         LOG.debug("Inserting TSTO instruction");
-        LOG.debug(noVerify);
-        int d = stackManager.getNeededStackFrame();
-        Label label = new Label("stack_overflow_error");
-        ImmediateInteger imm = new ImmediateInteger(stackManager.getOffsetGB());
+        int d = stackManager.calculateTSTOSize();
+        ImmediateInteger imm = new ImmediateInteger(stackManager.getOffsetGBValue());
+
+        // Insert TSTO instruction to test for stack overflow at the beginning of the
+        // program
         addFirst(new ADDSP(imm)); // Increment SP by offsetGB
-        addFirst(new BOV(label));
+        addFirst(new BOV(LabelManager.STACK_OVERFLOW_ERROR.getLabel())); // Branch to stack overflow error if overflow
         addFirst(new TSTO(d), stackManager.getCommentTSTO());
-        addLabel(label);
-        addInstruction(new WSTR("Error: Stack Overflow"));
-        addInstruction(new WNL());
-        addInstruction(new ERROR());
     }
 
     /**
      * @see
-     *      fr.ensimag.deca.codegen.StackManagement#addGlobalVariable()
+     *      fr.ensimag.deca.codegen.StackManager#addGlobalVariable()
      */
     public RegisterOffset addGlobalVariable() {
         return stackManager.addGlobalVariable();
     }
 
+    /**
+     * @see
+     *      fr.ensimag.deca.codegen.StackManager#addLocalVariable()
+     */
+    public RegisterOffset addLocalVariable() {
+        return stackManager.addLocalVariable();
+    }
+
+    /**
+     * @see
+     *      fr.ensimag.deca.codegen.StackManager#IncrementOffsetGB()
+     */
+    public void incrementOffsetGB() {
+        stackManager.incrementOffsetGB();
+    }
+
+    /**
+     * @see
+     *      fr.ensimag.deca.codegen.StackManager#IncrementOffsetGB(int value)
+     */
+    public void incrementOffsetGB(int value) {
+        stackManager.incrementOffsetGB(value);
+    }
+
+    /**
+     * @see
+     *      fr.ensimag.deca.codegen.StackManager#getOffsetGB()
+     */
+    public RegisterOffset getOffsetGB() {
+        return stackManager.getOffsetGB();
+    }
+
+    /**
+     * @see
+     *      fr.ensimag.deca.codegen.StackManager#getLastMethodTableAddr()
+     */
+    public DAddr getLastMethodTableAddr() {
+        return stackManager.getLastMethodTableAddr();
+    }
+
+    /**
+     * @see
+     *      fr.ensimag.deca.codegen.StackManager#setLastMethodTableAddr()
+     */
+    public void setLastMethodTableAddr(DAddr addr) {
+        stackManager.setLastMethodTableAddr(addr);
+    }
+
+    /**
+     * @see
+     *      fr.ensimag.deca.codegen.StackManager#incrementLastMethodTableAddr(int
+     *      value)
+     */
+    public void incrementLastMethodTableAddr(int value) {
+        stackManager.incrementLastMethodTableAddr(value);
+    }
+
+    /**
+     * @see
+     *      fr.ensimag.deca.codegen.StackManager#getLastUsedRegister()
+     */
     public GPRegister getLastUsedRegister() {
         return stackManager.getLastUsedRegister();
     }
@@ -231,18 +307,34 @@ public class DecacCompiler {
         stackManager.pushAvailableGPRegister(reg);
     }
 
+    /**
+     * @see
+     *      fr.ensimag.deca.codegen.StackManager#debugAvailableRegister()
+     */
     public String debugAvailableRegister() {
         return stackManager.debugAvailableRegister();
     }
 
+    /**
+     * @see
+     *      fr.ensimag.deca.codegen.StackManager#debugUsedRegister()
+     */
     public String debugUsedRegister() {
         return stackManager.debugUsedRegister();
     }
 
+    /**
+     * @see
+     *      fr.ensimag.deca.codegen.StackManager#getRegister1()
+     */
     public GPRegister getRegister1() {
         return stackManager.getRegister1();
     }
 
+    /**
+     * @see
+     *      fr.ensimag.deca.codegen.StackManager#getRegister0()
+     */
     public GPRegister getRegister0() {
         return stackManager.getRegister0();
     }
@@ -256,11 +348,50 @@ public class DecacCompiler {
         if (stackManager.isAvailableGPRegisterEmpty()) {
             GPRegister reg = stackManager.getLastUsedRegister();
             saveRegister(reg);
+            stackManager.markRegisterUsedMethod(reg);
             return reg;
         }
         GPRegister reg = stackManager.popAvailableGPRegister();
         stackManager.pushUsedGPRegister(reg);
+        stackManager.markRegisterUsedMethod(reg);
         return reg;
+    }
+
+    private int calculateTSTOMethod() {
+        return stackManager.getUsedRegistersMethod().size() + stackManager.getOffsetLBValue()
+                + 2 * stackManager.getNumMethodCall();
+    }
+
+    public void incrementNumMethodCall() {
+        stackManager.incrementNumMethodCall();
+    }
+
+    public void codeGenMethodPrologue() {
+        for (int regIndex : stackManager.getUsedRegistersMethod()) {
+            addFirst(new PUSH(Register.getR(regIndex)));
+        }
+        addFirst(new BOV(LabelManager.STACK_OVERFLOW_ERROR.getLabel()));
+        addFirst(new TSTO(calculateTSTOMethod()));
+    }
+
+    public void codeGenMethodEpilogue(boolean hasReturn) {
+        if (hasReturn) {
+            addInstruction(new BRA(LabelManager.NO_RETURN_ERROR.getLabel()));
+        }
+        addLabel(endMethodLabel);
+        while (!stackManager.getUsedRegistersMethod().isEmpty()) {
+            int regIndex = stackManager.popUsedRegisterMethod();
+            addInstruction(new POP(Register.getR(regIndex)));
+        }
+    }
+
+    public void startNewMethod() {
+        stackManager.initStackForMethod();
+        endMethodLabel = LabelManager.getEndMethodLabel();
+    }
+
+    public Label getEndMethodLabel() {
+        return endMethodLabel;
     }
 
     /**

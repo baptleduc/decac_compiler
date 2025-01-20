@@ -1,0 +1,1 @@
+./src/test/deca/context/invalid/test_pass_2_field_type_void.deca:12:4: Can't declare a field x with void type

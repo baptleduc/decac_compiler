@@ -4,6 +4,7 @@ import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.ima.pseudocode.instructions.HALT;
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
 import org.apache.log4j.Logger;
@@ -35,7 +36,6 @@ public class Main extends AbstractMain {
 
         // Create a new local environment
         EnvironmentExp localEnv = new EnvironmentExp(null);
-
         declVariables.verifyListDeclVariable(compiler, localEnv, null);
 
         EnvironmentExp empiledEnv = localEnv.empile(localEnv.getParent());
@@ -53,6 +53,8 @@ public class Main extends AbstractMain {
         declVariables.codeGenListDeclVar(compiler);
         // Generate code for instructions
         insts.codeGenListInst(compiler);
+
+        compiler.addInstruction(new HALT());
 
     }
 

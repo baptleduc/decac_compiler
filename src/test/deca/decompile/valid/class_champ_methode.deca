@@ -1,0 +1,36 @@
+// Description:
+//    decompilation d'une classe avec des champs et des méthodes
+//
+// Resultats:
+// class Test {
+//    public int x;
+//    public int y;
+//
+//    void setX(int x){
+//          this.x = x;
+//    }
+//
+//    void getX(int x){
+//          return this.x;
+//    }
+// }
+//
+// Historique:
+//    cree le 07/01/2025
+
+
+
+// Test de réorganisation des méthodes et champs
+// Les méthodes sont regroupées après les champs
+class Test {
+   int x;
+   void setX(int x) {
+       this.x = x;
+   }
+
+   void getX(int x){
+    return this.x;
+   }
+   int y;
+}
+

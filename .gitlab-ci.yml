@@ -6,8 +6,8 @@ image: maven:latest
 
 stages:
   - build
-  - test
   - format-check
+  - test
 
 cache:
   paths:
@@ -68,15 +68,8 @@ basic-test:
     - mvn exec:exec@basic-synt
     - mvn exec:exec@basic-context
     - mvn exec:exec@basic-gencode
-
-basic-decac:
-  stage: test
-  dependencies:
-    - maven_build
-  script:
-    - echo "Running basic syntactic tests..."
     - mvn exec:exec@basic-decac
-
+    
 spotless_check:
   stage: format-check
   script:

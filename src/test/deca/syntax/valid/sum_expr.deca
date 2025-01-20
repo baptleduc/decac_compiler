@@ -1,0 +1,12 @@
+// Description:
+//    Test for sum_expr precedence.
+//
+// Results:
+//    None
+//
+// History:
+//    Created on 6/1/2025
+{
+    print(1 + 2 + 3);
+    print((5 * 2) - 3);
+}

@@ -6,9 +6,11 @@ import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.DecacInternalError;
+import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.DAddr;
 import fr.ensimag.ima.pseudocode.DVal;
 import fr.ensimag.ima.pseudocode.GPRegister;
+import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.instructions.STORE;
 import org.apache.log4j.Logger;
 
@@ -48,6 +50,13 @@ public class Assign extends AbstractBinaryExpr {
     }
 
     @Override
+    public void decompile(IndentPrintStream s) {
+        getLeftOperand().decompile(s);
+        s.print(" = ");
+        getRightOperand().decompile(s);
+    }
+
+    @Override
     protected boolean isImmediate() {
         return false;
     }
@@ -69,7 +78,13 @@ public class Assign extends AbstractBinaryExpr {
         }
 
         compiler.addInstruction(new STORE(regRight, destAddr));
-        setDVal(leftDVal);
+        regRight.freeGPRegister(compiler);
+        leftDVal.freeGPRegister(compiler);
+    }
+
+    @Override
+    protected void codeGenBool(DecacCompiler compiler, Label label, boolean branchOn) {
+        throw new DecacInternalError("Should not be called");
     }
 
 }

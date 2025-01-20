@@ -36,6 +36,7 @@ public class DeclVar extends AbstractDeclVar {
     protected void verifyDeclVar(DecacCompiler compiler,
             EnvironmentExp localEnv, ClassDefinition currentClass)
             throws ContextualError {
+
         // Verified that type is correct
         Type varType = type.verifyType(compiler);
 
@@ -51,7 +52,6 @@ public class DeclVar extends AbstractDeclVar {
 
         // Add the variable to the environment
         VariableDefinition varDef = new VariableDefinition(varType, varName.getLocation());
-        varDef.setOperand(compiler.addGlobalVariable());
         varName.setDefinition(varDef);
         try {
             localEnv.declare(varName.getName(), varDef);
@@ -65,10 +65,17 @@ public class DeclVar extends AbstractDeclVar {
     }
 
     @Override
-    protected void codeGenDeclVar(DecacCompiler compiler) {
-        DAddr addr = ((VariableDefinition) varName.getDefinition()).getOperand();
+    protected void codeGenDeclVarGlob(DecacCompiler compiler) {
+        DAddr addr = compiler.addGlobalVariable();
+        ((VariableDefinition) varName.getDefinition()).setOperand(addr);
         initialization.codeGenInitialization(compiler, addr);
+    }
 
+    @Override
+    protected void codeGenDeclVarLoc(DecacCompiler compiler) {
+        DAddr addr = compiler.addLocalVariable();
+        ((VariableDefinition) varName.getDefinition()).setOperand(addr);
+        initialization.codeGenInitialization(compiler, addr);
     }
 
     @Override

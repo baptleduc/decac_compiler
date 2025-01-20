@@ -1,0 +1,46 @@
+`> [11, 0] Program
+   +> ListDeclClass [List with 2 elements]
+   |  []> [11, 0] DeclClass
+   |  ||  +> [11, 6] Identifier (TypeObject)
+   |  ||  |  definition: type defined at [11, 6], type=TypeObject
+   |  ||  +> [builtin] Identifier (Object)
+   |  ||  |  definition: type (builtin), type=Object
+   |  ||  +> ListDeclField [List with 0 elements]
+   |  ||  `> ListDeclMethod [List with 0 elements]
+   |  []> [15, 0] DeclClass
+   |      +> [15, 6] Identifier (Test)
+   |      |  definition: type defined at [15, 6], type=Test
+   |      +> [builtin] Identifier (Object)
+   |      |  definition: type (builtin), type=Object
+   |      +> ListDeclField [List with 0 elements]
+   |      `> ListDeclMethod [List with 1 elements]
+   |         []> [16, 4] DeclMethod
+   |             +> [16, 4] Identifier (void)
+   |             |  definition: type (builtin), type=void
+   |             +> [16, 9] Identifier (MethodWithParams)
+   |             |  definition: method defined at [16, 9], type=void
+   |             +> ListDeclParam [List with 4 elements]
+   |             |  []> [16, 30] DeclParam
+   |             |  ||  +> [16, 26] Identifier (int)
+   |             |  ||  |  definition: type (builtin), type=int
+   |             |  ||  `> [16, 30] Identifier (x)
+   |             |  ||     definition: parameter defined at [16, 30], type=int
+   |             |  []> [16, 39] DeclParam
+   |             |  ||  +> [16, 33] Identifier (float)
+   |             |  ||  |  definition: type (builtin), type=float
+   |             |  ||  `> [16, 39] Identifier (y)
+   |             |  ||     definition: parameter defined at [16, 39], type=float
+   |             |  []> [16, 50] DeclParam
+   |             |  ||  +> [16, 42] Identifier (boolean)
+   |             |  ||  |  definition: type (builtin), type=boolean
+   |             |  ||  `> [16, 50] Identifier (z)
+   |             |  ||     definition: parameter defined at [16, 50], type=boolean
+   |             |  []> [16, 64] DeclParam
+   |             |      +> [16, 53] Identifier (TypeObject)
+   |             |      |  definition: type defined at [11, 6], type=TypeObject
+   |             |      `> [16, 64] Identifier (o)
+   |             |         definition: parameter defined at [16, 64], type=TypeObject
+   |             `> [16, 25] MethodBody
+   |                +> ListDeclVar [List with 0 elements]
+   |                `> ListInst [List with 0 elements]
+   `> EmptyMain

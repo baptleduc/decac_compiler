@@ -1,0 +1,1 @@
+./src/test/deca/context/invalid/test_class/this_outside_class.deca:11:12: Can not use this outside of a class

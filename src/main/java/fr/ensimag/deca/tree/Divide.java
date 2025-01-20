@@ -1,8 +1,12 @@
 package fr.ensimag.deca.tree;
 
 import fr.ensimag.deca.DecacCompiler;
+import fr.ensimag.deca.codegen.LabelManager;
+import fr.ensimag.deca.tools.DecacInternalError;
 import fr.ensimag.ima.pseudocode.DVal;
 import fr.ensimag.ima.pseudocode.GPRegister;
+import fr.ensimag.ima.pseudocode.Label;
+import fr.ensimag.ima.pseudocode.instructions.BOV;
 import fr.ensimag.ima.pseudocode.instructions.DIV;
 import fr.ensimag.ima.pseudocode.instructions.QUO;
 import org.apache.log4j.Logger;
@@ -32,6 +36,8 @@ public class Divide extends AbstractOpArith {
         } else {
             compiler.addInstruction(new DIV(right, left));
         }
+
+        compiler.addInstruction(new BOV(LabelManager.DIVIDE_BY_ZERO_ERROR.getLabel()));
     }
 
     @Override
@@ -47,4 +53,10 @@ public class Divide extends AbstractOpArith {
         setRegDest(regDest);
         setSourceDVal(sourceDVal);
     }
+
+    @Override
+    protected void codeGenBool(DecacCompiler compiler, Label label, boolean branchOn) {
+        throw new DecacInternalError("Should not be called");
+    }
+
 }

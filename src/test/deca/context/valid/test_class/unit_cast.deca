@@ -1,0 +1,12 @@
+// Description:
+//    Unit Test Cast
+// Results:
+//    none
+//
+// History:
+//    Created on 16/01/2025
+
+{
+    float a = (float) (5);
+    int b = (int) (3.14);
+}

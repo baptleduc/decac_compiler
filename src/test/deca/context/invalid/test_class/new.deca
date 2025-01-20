@@ -1,0 +1,13 @@
+// Description:
+//    Unit Test new 
+// Results:
+//    Must use a class, not a intto create a new object
+//
+// History:
+//    Created on 16/01/2025
+
+{
+    int a = new int();
+}
+
+

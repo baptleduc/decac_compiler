@@ -1,0 +1,113 @@
+	TSTO #11	; 11 (variables) + 0 (saved registers) + 0 (temporaries) + 0 (method parameters x 2)
+	BOV stack_overflow_error
+	ADDSP #11
+; start main program
+; Method Table of class Object
+	LOAD #null, R0
+	STORE R0, 1(GB)
+	LOAD code.Object.equals, R0
+	STORE R0, 2(GB)
+; Method Table of class A
+	LEA 1(GB), R0
+	STORE R0, 3(GB)
+	LOAD code.Object.equals, R0
+	STORE R0, 4(GB)
+	LOAD code.A.m, R0
+	STORE R0, 5(GB)
+	LOAD code.A.p, R0
+	STORE R0, 6(GB)
+; Method Table of class B
+	LEA 3(GB), R0
+	STORE R0, 7(GB)
+	LOAD code.Object.equals, R0
+	STORE R0, 8(GB)
+	LOAD code.A.m, R0
+	STORE R0, 9(GB)
+	LOAD code.B.p, R0
+	STORE R0, 10(GB)
+	LOAD code.B.q, R0
+	STORE R0, 11(GB)
+; Main program
+; Beginning of main instructions:
+	HALT
+; Code Object
+code.Object.equals:
+	TSTO #2
+	BOV stack_overflow_error
+	PUSH R2
+	PUSH R3
+	LOAD -2(LB), R2
+	LOAD -3(LB), R3
+	CMP R2, R3
+	BNE return_false_2
+	LOAD #1, R0
+	BRA end_method_1
+return_false_2:
+	LOAD #0, R0
+	BRA end_method_1
+	BRA no_return_error
+end_method_1:
+	POP R3
+	POP R2
+	RTS
+; Class A
+init.A:
+	RTS
+code.A.m:
+	TSTO #0
+	BOV stack_overflow_error
+	BRA no_return_error
+end_method_3:
+	RTS
+code.A.p:
+	TSTO #0
+	BOV stack_overflow_error
+end_method_4:
+	RTS
+; Class B
+init.B:
+	RTS
+code.B.p:
+	TSTO #0
+	BOV stack_overflow_error
+end_method_5:
+	RTS
+code.B.q:
+	TSTO #0
+	BOV stack_overflow_error
+	BRA no_return_error
+end_method_6:
+	RTS
+stack_overflow_error:
+	WSTR "Error: Stack Overflow"
+	WNL
+	ERROR
+overflow_error:
+	WSTR "Error: Overflow during arithmetic operation"
+	WNL
+	ERROR
+io_error:
+	WSTR "Error: Input/Output error"
+	WNL
+	ERROR
+divide_by_zero_error:
+	WSTR "Error: Division by zero"
+	WNL
+	ERROR
+heap_overflow_error:
+	WSTR "Error: Heap Overflow"
+	WNL
+	ERROR
+null_pointer_error:
+	WSTR "Error: Deferencing a null pointer"
+	WNL
+	ERROR
+cast_error:
+	WSTR "Error: Cast invalid"
+	WNL
+	ERROR
+no_return_error:
+	WSTR "Error: Exit from method without return"
+	WNL
+	ERROR
+; end main program

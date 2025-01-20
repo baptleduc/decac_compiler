@@ -1,0 +1,111 @@
+`> [9, 0] Program
+   +> ListDeclClass [List with 1 elements]
+   |  []> [9, 0] DeclClass
+   |      +> [9, 6] Identifier (A)
+   |      |  definition: type defined at [9, 6], type=A
+   |      +> [builtin] Identifier (Object)
+   |      |  definition: type (builtin), type=Object
+   |      +> ListDeclField [List with 6 elements]
+   |      |  []> [10, 8] [visibility=public] DeclField
+   |      |  ||  +> [10, 4] Identifier (int)
+   |      |  ||  |  definition: type (builtin), type=int
+   |      |  ||  +> [10, 8] Identifier (x)
+   |      |  ||  |  definition: field defined at [10, 8], type=int
+   |      |  ||  +> [10, 12] Initialization
+   |      |  ||  |  `> [10, 12] Int (10)
+   |      |  ||  |     type: int
+   |      |  []> [11, 8] [visibility=public] DeclField
+   |      |  ||  +> [11, 4] Identifier (int)
+   |      |  ||  |  definition: type (builtin), type=int
+   |      |  ||  +> [11, 8] Identifier (y)
+   |      |  ||  |  definition: field defined at [11, 8], type=int
+   |      |  ||  +> [11, 12] Initialization
+   |      |  ||  |  `> [11, 12] Int (10)
+   |      |  ||  |     type: int
+   |      |  []> [12, 8] [visibility=public] DeclField
+   |      |  ||  +> [12, 4] Identifier (int)
+   |      |  ||  |  definition: type (builtin), type=int
+   |      |  ||  +> [12, 8] Identifier (z)
+   |      |  ||  |  definition: field defined at [12, 8], type=int
+   |      |  ||  +> [12, 12] Initialization
+   |      |  ||  |  `> [12, 12] Int (10)
+   |      |  ||  |     type: int
+   |      |  []> [13, 8] [visibility=public] DeclField
+   |      |  ||  +> [13, 4] Identifier (int)
+   |      |  ||  |  definition: type (builtin), type=int
+   |      |  ||  +> [13, 8] Identifier (a)
+   |      |  ||  |  definition: field defined at [13, 8], type=int
+   |      |  ||  +> [13, 12] Initialization
+   |      |  ||  |  `> [13, 12] Int (10)
+   |      |  ||  |     type: int
+   |      |  []> [14, 8] [visibility=public] DeclField
+   |      |  ||  +> [14, 4] Identifier (int)
+   |      |  ||  |  definition: type (builtin), type=int
+   |      |  ||  +> [14, 8] Identifier (b)
+   |      |  ||  |  definition: field defined at [14, 8], type=int
+   |      |  ||  +> [14, 12] Initialization
+   |      |  ||  |  `> [14, 12] Int (10)
+   |      |  ||  |     type: int
+   |      |  []> [15, 8] [visibility=public] DeclField
+   |      |      +> [15, 4] Identifier (int)
+   |      |      |  definition: type (builtin), type=int
+   |      |      +> [15, 8] Identifier (c)
+   |      |      |  definition: field defined at [15, 8], type=int
+   |      |      +> [15, 12] Initialization
+   |      |      |  `> [15, 12] Int (10)
+   |      |      |     type: int
+   |      `> ListDeclMethod [List with 1 elements]
+   |         []> [17, 4] DeclMethod
+   |             +> [17, 4] Identifier (int)
+   |             |  definition: type (builtin), type=int
+   |             +> [17, 8] Identifier (sum)
+   |             |  definition: method defined at [17, 8], type=int
+   |             +> ListDeclParam [List with 0 elements]
+   |             `> [17, 11] MethodBody
+   |                +> ListDeclVar [List with 0 elements]
+   |                `> ListInst [List with 1 elements]
+   |                   []> [18, 8] Return
+   |                       `> [18, 33] Plus
+   |                          type: int
+   |                          +> [18, 29] Plus
+   |                          |  type: int
+   |                          |  +> [18, 25] Plus
+   |                          |  |  type: int
+   |                          |  |  +> [18, 21] Plus
+   |                          |  |  |  type: int
+   |                          |  |  |  +> [18, 17] Plus
+   |                          |  |  |  |  type: int
+   |                          |  |  |  |  +> [18, 15] Identifier (x)
+   |                          |  |  |  |  |  definition: field defined at [10, 8], type=int
+   |                          |  |  |  |  `> [18, 19] Identifier (y)
+   |                          |  |  |  |     definition: field defined at [11, 8], type=int
+   |                          |  |  |  `> [18, 23] Identifier (z)
+   |                          |  |  |     definition: field defined at [12, 8], type=int
+   |                          |  |  `> [18, 27] Identifier (a)
+   |                          |  |     definition: field defined at [13, 8], type=int
+   |                          |  `> [18, 31] Identifier (b)
+   |                          |     definition: field defined at [14, 8], type=int
+   |                          `> [18, 35] Identifier (c)
+   |                             definition: field defined at [15, 8], type=int
+   `> [22, 0] Main
+      +> ListDeclVar [List with 1 elements]
+      |  []> [23, 10] DeclVar
+      |      +> [23, 4] Identifier (A)
+      |      |  definition: type defined at [9, 6], type=A
+      |      +> [23, 6] Identifier (a)
+      |      |  definition: variable defined at [23, 6], type=A
+      |      `> [23, 10] Initialization
+      |         `> [23, 10] New
+      |            type: A
+      |            `> [23, 14] Identifier (A)
+      |               definition: type defined at [9, 6], type=A
+      `> ListInst [List with 1 elements]
+         []> [24, 4] Println
+             `> ListExpr [List with 1 elements]
+                []> [24, 13] MethodCall
+                    type: int
+                    +> [24, 12] Identifier (a)
+                    |  definition: variable defined at [23, 6], type=A
+                    +> [24, 14] Identifier (sum)
+                    |  definition: method defined at [17, 8], type=int
+                    `> ListExpr [List with 0 elements]

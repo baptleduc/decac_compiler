@@ -1,0 +1,13 @@
+// Description:
+//    Program testing pass 1, create object with a non-object superclass like int 
+//
+// Results:
+//    ok
+//
+// History:
+//    Created on 14/01/2025
+
+class Test1 extends int{
+    
+}
+

@@ -1,0 +1,13 @@
+// Description:
+//    Unit Test new 
+// Results:
+//    Can not use this outside of a class
+//
+// History:
+//    Created on 16/01/2025
+
+// Utilisation de this en dehors d'une définition de classe
+{
+    println(this);
+}
+

@@ -7,6 +7,8 @@ import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.ImmediateInteger;
+import fr.ensimag.ima.pseudocode.Label;
+import fr.ensimag.ima.pseudocode.instructions.BRA;
 import java.io.PrintStream;
 
 /**
@@ -74,6 +76,19 @@ public class BooleanLiteral extends AbstractExpr {
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
         setDVal(immediate);
+    }
+
+    @Override
+    protected void codeGenBool(DecacCompiler compiler, Label label, boolean branchOn) {
+        if (value) {
+            if (branchOn) {
+                compiler.addInstruction(new BRA(label));
+            }
+        } else {
+            if (!branchOn) {
+                compiler.addInstruction(new BRA(label));
+            }
+        }
     }
 
 }

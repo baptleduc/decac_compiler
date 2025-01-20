@@ -1,0 +1,13 @@
+// Description:
+//    Test Cast
+// Results:
+//    1.00000e+00
+//
+// History:
+//    Created on 16/01/2025
+
+{
+    int b = 1;
+    float a = (float) (b);
+    println(a);
+}

@@ -1,0 +1,11 @@
+// Description:
+//   Test of an identifier without attached definition.
+//
+// Results:
+//    Error "Identifier has no attached Definition".
+//
+// History:
+//    Created on 20/1/2025
+{
+    unknownVar = 10;
+}

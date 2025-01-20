@@ -1,0 +1,19 @@
+// Description:
+//    Minimalistic program using sub.
+// Results:
+//    8
+//
+// History:
+//    Created on 16/01/2025
+
+
+class Sub {
+    int substraction(int a, int b) {
+        return a - b;
+    }
+}
+
+{
+        Sub sub = new Sub();
+        println(sub.substraction(13, 5));
+}

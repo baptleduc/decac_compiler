@@ -1,0 +1,13 @@
+// Description:
+//    Program testing the raising of an exception Assignment error.
+//
+// Results:
+//    Line 10: mismatched input '==' expecting {'=', ',', ';'}
+//
+// History:
+//    Created on 19/01/2025
+{
+    int x == 5;  
+
+}
+

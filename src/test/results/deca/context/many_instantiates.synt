@@ -1,0 +1,78 @@
+`> [9, 0] Program
+   +> ListDeclClass [List with 1 elements]
+   |  []> [9, 0] DeclClass
+   |      +> [9, 6] Identifier (A)
+   |      |  definition: type defined at [9, 6], type=A
+   |      +> [builtin] Identifier (Object)
+   |      |  definition: type (builtin), type=Object
+   |      +> ListDeclField [List with 1 elements]
+   |      |  []> [10, 8] [visibility=public] DeclField
+   |      |      +> [10, 4] Identifier (int)
+   |      |      |  definition: type (builtin), type=int
+   |      |      +> [10, 8] Identifier (x)
+   |      |      |  definition: field defined at [10, 8], type=int
+   |      |      +> NoInitialization
+   |      `> ListDeclMethod [List with 0 elements]
+   `> [13, 0] Main
+      +> ListDeclVar [List with 6 elements]
+      |  []> [14, 11] DeclVar
+      |  ||  +> [14, 4] Identifier (A)
+      |  ||  |  definition: type defined at [9, 6], type=A
+      |  ||  +> [14, 6] Identifier (a1)
+      |  ||  |  definition: variable defined at [14, 6], type=A
+      |  ||  `> [14, 11] Initialization
+      |  ||     `> [14, 11] New
+      |  ||        type: A
+      |  ||        `> [14, 15] Identifier (A)
+      |  ||           definition: type defined at [9, 6], type=A
+      |  []> [15, 11] DeclVar
+      |  ||  +> [15, 4] Identifier (A)
+      |  ||  |  definition: type defined at [9, 6], type=A
+      |  ||  +> [15, 6] Identifier (a2)
+      |  ||  |  definition: variable defined at [15, 6], type=A
+      |  ||  `> [15, 11] Initialization
+      |  ||     `> [15, 11] New
+      |  ||        type: A
+      |  ||        `> [15, 15] Identifier (A)
+      |  ||           definition: type defined at [9, 6], type=A
+      |  []> [16, 11] DeclVar
+      |  ||  +> [16, 4] Identifier (A)
+      |  ||  |  definition: type defined at [9, 6], type=A
+      |  ||  +> [16, 6] Identifier (a3)
+      |  ||  |  definition: variable defined at [16, 6], type=A
+      |  ||  `> [16, 11] Initialization
+      |  ||     `> [16, 11] New
+      |  ||        type: A
+      |  ||        `> [16, 15] Identifier (A)
+      |  ||           definition: type defined at [9, 6], type=A
+      |  []> [17, 11] DeclVar
+      |  ||  +> [17, 4] Identifier (A)
+      |  ||  |  definition: type defined at [9, 6], type=A
+      |  ||  +> [17, 6] Identifier (a4)
+      |  ||  |  definition: variable defined at [17, 6], type=A
+      |  ||  `> [17, 11] Initialization
+      |  ||     `> [17, 11] New
+      |  ||        type: A
+      |  ||        `> [17, 15] Identifier (A)
+      |  ||           definition: type defined at [9, 6], type=A
+      |  []> [18, 11] DeclVar
+      |  ||  +> [18, 4] Identifier (A)
+      |  ||  |  definition: type defined at [9, 6], type=A
+      |  ||  +> [18, 6] Identifier (a5)
+      |  ||  |  definition: variable defined at [18, 6], type=A
+      |  ||  `> [18, 11] Initialization
+      |  ||     `> [18, 11] New
+      |  ||        type: A
+      |  ||        `> [18, 15] Identifier (A)
+      |  ||           definition: type defined at [9, 6], type=A
+      |  []> [19, 11] DeclVar
+      |      +> [19, 4] Identifier (A)
+      |      |  definition: type defined at [9, 6], type=A
+      |      +> [19, 6] Identifier (a6)
+      |      |  definition: variable defined at [19, 6], type=A
+      |      `> [19, 11] Initialization
+      |         `> [19, 11] New
+      |            type: A
+      |            `> [19, 15] Identifier (A)
+      |               definition: type defined at [9, 6], type=A
+      `> ListInst [List with 0 elements]

@@ -1,0 +1,1 @@
+./src/test/deca/syntax/invalid/missing_parentheses_if.deca:11:11: missing '(' at 'x'

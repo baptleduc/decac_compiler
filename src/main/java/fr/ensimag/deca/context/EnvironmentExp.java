@@ -1,8 +1,12 @@
 package fr.ensimag.deca.context;
 
 import fr.ensimag.deca.tools.SymbolTable.Symbol;
+import fr.ensimag.deca.tree.Location;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Dictionary associating identifier's ExpDefinition to their names.
@@ -31,6 +35,10 @@ public class EnvironmentExp {
         return parentEnvironment;
     }
 
+    public void setParent(EnvironmentExp env) {
+        parentEnvironment = env;
+    }
+
     public HashMap<Symbol, ExpDefinition> getCurrentEnvironment() {
         return currentEnvironment;
     }
@@ -40,11 +48,9 @@ public class EnvironmentExp {
             return this;
         }
         EnvironmentExp empiledEnv = this;
-
         for (Map.Entry<Symbol, ExpDefinition> entry : env2.currentEnvironment.entrySet()) {
             Symbol var = entry.getKey();
             ExpDefinition definition = entry.getValue();
-
             try {
                 // Verify is the key is not in the current environment
                 if (!this.currentEnvironment.containsKey(var)) {
@@ -59,6 +65,29 @@ public class EnvironmentExp {
         return empiledEnv;
     }
 
+    public void directSum(EnvironmentExp env2) throws DirectSumException {
+        // Verify that this and env2 have no symb in common
+        for (Map.Entry<Symbol, ExpDefinition> entry : env2.getCurrentEnvironment().entrySet()) {
+            Symbol var = entry.getKey();
+            if (this.getCurrentEnvironment().containsKey(var)) {
+                throw new DirectSumException(var.getName(), this.getCurrentEnvironment().get(var).getLocation());
+            }
+        }
+
+        // add symb of env2 to this
+        for (Iterator<Map.Entry<Symbol, ExpDefinition>> it = env2.getCurrentEnvironment().entrySet().iterator(); it
+                .hasNext();) {
+            Map.Entry<Symbol, ExpDefinition> entry = it.next();
+            Symbol var = entry.getKey();
+            ExpDefinition definition = entry.getValue();
+            try {
+                declare(var, definition); // add the key-value
+            } catch (Exception e) {
+                // do nothing
+            }
+        }
+    }
+
     public EnvironmentExp(EnvironmentExp parentEnvironment) {
         this.parentEnvironment = parentEnvironment;
         this.currentEnvironment = new HashMap<Symbol, ExpDefinition>();
@@ -66,6 +95,26 @@ public class EnvironmentExp {
 
     public static class DoubleDefException extends Exception {
         private static final long serialVersionUID = -2733379901827316441L;
+    }
+
+    public static class DirectSumException extends Exception {
+        private static final long serialVersionUID = -2733379901827316441L;
+        private String name;
+        private Location loc;
+
+        public DirectSumException(String name, Location loc) {
+            this.name = name;
+            this.loc = loc;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public Location getLocation() {
+            return loc;
+        }
+
     }
 
     /**
@@ -101,6 +150,16 @@ public class EnvironmentExp {
         }
         // Hides the previous declaration
         this.currentEnvironment.put(name, def);
+    }
+
+    public Iterator<Symbol> getSymbolCurrentEnvIterator() {
+        Set<Symbol> symbols = new LinkedHashSet<>();
+        collectAllSymbols(symbols);
+        return symbols.iterator();
+    }
+
+    private void collectAllSymbols(Set<Symbol> symbols) {
+        symbols.addAll(currentEnvironment.keySet());
     }
 
 }

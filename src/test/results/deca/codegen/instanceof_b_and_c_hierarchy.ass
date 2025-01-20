@@ -1,0 +1,199 @@
+	TSTO #11	; 11 (variables) + 0 (saved registers) + 0 (temporaries) + 0 (method parameters x 2)
+	BOV stack_overflow_error
+	ADDSP #11
+; start main program
+; Method Table of class Object
+	LOAD #null, R0
+	STORE R0, 1(GB)
+	LOAD code.Object.equals, R0
+	STORE R0, 2(GB)
+; Method Table of class A
+	LEA 1(GB), R0
+	STORE R0, 3(GB)
+	LOAD code.Object.equals, R0
+	STORE R0, 4(GB)
+; Method Table of class B
+	LEA 3(GB), R0
+	STORE R0, 5(GB)
+	LOAD code.Object.equals, R0
+	STORE R0, 6(GB)
+; Method Table of class C
+	LEA 5(GB), R0
+	STORE R0, 7(GB)
+	LOAD code.Object.equals, R0
+	STORE R0, 8(GB)
+; Main program
+; Beginning of main instructions:
+	NEW #2, R3
+	BOV heap_overflow_error
+	LEA 5(GB), R0
+	STORE R0, 0(R3)
+	PUSH R3
+	BSR init.B
+	POP R3
+	STORE R3, 10(GB)
+	NEW #2, R3
+	BOV heap_overflow_error
+	LEA 7(GB), R0
+	STORE R0, 0(R3)
+	PUSH R3
+	BSR init.C
+	POP R3
+	STORE R3, 11(GB)
+	LOAD 10(GB), R3
+	LOAD 0(R3), R3
+InstanceOf_6:
+	CMP #null, R3
+	BEQ else_4
+	LOAD 0(R3), R3	; Load method table addr
+	CMP 3(GB), R3
+	BNE InstanceOf_6
+then_3:
+	WSTR "ok1"
+	BRA end_5
+else_4:
+end_5:
+	LOAD 11(GB), R3
+	LOAD 0(R3), R3
+InstanceOf_10:
+	CMP #null, R3
+	BEQ else_8
+	LOAD 0(R3), R3	; Load method table addr
+	CMP 5(GB), R3
+	BNE InstanceOf_10
+then_7:
+	WSTR "ok2"
+	BRA end_9
+else_8:
+end_9:
+	LOAD 11(GB), R3
+	LOAD 0(R3), R3
+InstanceOf_14:
+	CMP #null, R3
+	BEQ else_12
+	LOAD 0(R3), R3	; Load method table addr
+	CMP 3(GB), R3
+	BNE InstanceOf_14
+then_11:
+	WSTR "ok3"
+	BRA end_13
+else_12:
+end_13:
+	LOAD 10(GB), R3
+	LOAD 0(R3), R3
+InstanceOf_18:
+	CMP #null, R3
+	BEQ else_16
+	LOAD 0(R3), R3	; Load method table addr
+	CMP 5(GB), R3
+	BNE InstanceOf_18
+then_15:
+	WSTR "ok4"
+	BRA end_17
+else_16:
+end_17:
+	LOAD 11(GB), R3
+	LOAD 0(R3), R3
+InstanceOf_22:
+	CMP #null, R3
+	BEQ else_20
+	LOAD 0(R3), R3	; Load method table addr
+	CMP 7(GB), R3
+	BNE InstanceOf_22
+then_19:
+	WSTR "ok5"
+	BRA end_21
+else_20:
+end_21:
+	LOAD 10(GB), R3
+	LOAD 0(R3), R3
+InstanceOf_26:
+	CMP #null, R3
+	BEQ else_24
+	LOAD 0(R3), R3	; Load method table addr
+	CMP 7(GB), R3
+	BNE InstanceOf_26
+then_23:
+	WSTR "bug"
+	WNL
+	BRA end_25
+else_24:
+end_25:
+	HALT
+; Code Object
+code.Object.equals:
+	TSTO #2
+	BOV stack_overflow_error
+	PUSH R2
+	PUSH R3
+	LOAD -2(LB), R2
+	LOAD -3(LB), R3
+	CMP R2, R3
+	BNE return_false_2
+	LOAD #1, R0
+	BRA end_method_1
+return_false_2:
+	LOAD #0, R0
+	BRA end_method_1
+	BRA no_return_error
+end_method_1:
+	POP R3
+	POP R2
+	RTS
+; Class A
+init.A:
+	LOAD -2(LB), R1
+	LOAD #0, R0
+	STORE R0, 1(R1)
+	RTS
+; Class B
+init.B:
+	TSTO #3
+	BOV stack_overflow_error
+	LOAD -2(LB), R1
+	PUSH R1
+	BSR init.A
+	POP R1
+	RTS
+; Class C
+init.C:
+	TSTO #3
+	BOV stack_overflow_error
+	LOAD -2(LB), R1
+	PUSH R1
+	BSR init.B
+	POP R1
+	RTS
+stack_overflow_error:
+	WSTR "Error: Stack Overflow"
+	WNL
+	ERROR
+overflow_error:
+	WSTR "Error: Overflow during arithmetic operation"
+	WNL
+	ERROR
+io_error:
+	WSTR "Error: Input/Output error"
+	WNL
+	ERROR
+divide_by_zero_error:
+	WSTR "Error: Division by zero"
+	WNL
+	ERROR
+heap_overflow_error:
+	WSTR "Error: Heap Overflow"
+	WNL
+	ERROR
+null_pointer_error:
+	WSTR "Error: Deferencing a null pointer"
+	WNL
+	ERROR
+cast_error:
+	WSTR "Error: Cast invalid"
+	WNL
+	ERROR
+no_return_error:
+	WSTR "Error: Exit from method without return"
+	WNL
+	ERROR
+; end main program

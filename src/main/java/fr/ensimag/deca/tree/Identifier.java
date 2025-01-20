@@ -14,6 +14,14 @@ import fr.ensimag.deca.context.VariableDefinition;
 import fr.ensimag.deca.tools.DecacInternalError;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.deca.tools.SymbolTable.Symbol;
+import fr.ensimag.ima.pseudocode.GPRegister;
+import fr.ensimag.ima.pseudocode.Label;
+import fr.ensimag.ima.pseudocode.Register;
+import fr.ensimag.ima.pseudocode.RegisterOffset;
+import fr.ensimag.ima.pseudocode.instructions.BEQ;
+import fr.ensimag.ima.pseudocode.instructions.BNE;
+import fr.ensimag.ima.pseudocode.instructions.CMP;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
 import java.io.PrintStream;
 import org.apache.commons.lang.Validate;
 import org.apache.log4j.Logger;
@@ -166,9 +174,22 @@ public class Identifier extends AbstractIdentifier {
         this.name = name;
     }
 
+    /*
+     * 3.67
+     */
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
+        Definition exprDef = verifyIdentifier(localEnv);
+        Type type = exprDef.getType();
+        setType(type);
+        return type;
+    }
+
+    /*
+     * 0.1
+     */
+    public Definition verifyIdentifier(EnvironmentExp localEnv) throws ContextualError {
         ExpDefinition exprDef = localEnv.get(name);
         if (exprDef == null) {
             throw new ContextualError("Variable " + name.getName() + " is not declared", getLocation());
@@ -177,15 +198,12 @@ public class Identifier extends AbstractIdentifier {
         if (!exprDef.isExpression()) {
             throw new ContextualError("Variable " + name.getName() + " is not an expression", getLocation());
         }
-
-        Type type = exprDef.getType();
         setDefinition(exprDef);
-        setType(type);
-        return type;
+        return exprDef;
     }
 
     /**
-     * Implements non-terminal "type" of [SyntaxeContextuelle] in the 3 passes
+     * Implements non-terminal "type" of [SyntaxeContextuelle] in the 3 passes (0.2)
      * 
      * @param compiler
      *            contains "env_types" attribute
@@ -195,6 +213,8 @@ public class Identifier extends AbstractIdentifier {
         LOG.debug("verifyType : start");
         Symbol symbol = compiler.createSymbol(name.getName());
         TypeDefinition typeDef = compiler.environmentType.defOfType(symbol);
+        LOG.debug("Environment Types :" + compiler.environmentType.getEnvTypes());
+
         if (typeDef == null) {
             throw new ContextualError("Type " + name.getName() + " is not defined", getLocation());
         }
@@ -240,12 +260,29 @@ public class Identifier extends AbstractIdentifier {
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
-        setDVal(((VariableDefinition) getDefinition()).getOperand());
+        try {
+            int idx = getExpDefinition().asFieldDefinition(null, getLocation()).getIndex();
+            GPRegister regThis = compiler.allocGPRegister();
+            compiler.addInstruction(new LOAD(new RegisterOffset(-2, Register.LB), regThis));
+            setDVal(new RegisterOffset(idx, regThis));
+        } catch (ContextualError e) {
+            setDVal(getExpDefinition().getOperand());
+        }
+    }
+
+    @Override
+    protected void codeGenBool(DecacCompiler compiler, Label label, boolean branchOn) {
+        GPRegister regDest = ((VariableDefinition) getDefinition()).getOperand().codeGenToGPRegister(compiler);
+        compiler.addInstruction(new CMP(0, regDest));
+        if (branchOn) {
+            compiler.addInstruction(new BNE(label));
+        } else {
+            compiler.addInstruction(new BEQ(label));
+        }
     }
 
     @Override
     protected boolean isImmediate() {
         return false;
     }
-
 }

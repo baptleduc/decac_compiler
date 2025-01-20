@@ -1,0 +1,128 @@
+	TSTO #10	; 10 (variables) + 0 (saved registers) + 0 (temporaries) + 0 (method parameters x 2)
+	BOV stack_overflow_error
+	ADDSP #10
+; start main program
+; Method Table of class Object
+	LOAD #null, R0
+	STORE R0, 1(GB)
+	LOAD code.Object.equals, R0
+	STORE R0, 2(GB)
+; Method Table of class B
+	LEA 1(GB), R0
+	STORE R0, 3(GB)
+	LOAD code.Object.equals, R0
+	STORE R0, 4(GB)
+	LOAD code.B.a, R0
+	STORE R0, 5(GB)
+; Method Table of class A
+	LEA 3(GB), R0
+	STORE R0, 6(GB)
+	LOAD code.Object.equals, R0
+	STORE R0, 7(GB)
+	LOAD code.A.a, R0
+	STORE R0, 8(GB)
+; Main program
+; Beginning of main instructions:
+	NEW #1, R3
+	BOV heap_overflow_error
+	LEA 6(GB), R0
+	STORE R0, 0(R3)
+	PUSH R3
+	BSR init.A
+	POP R3
+	STORE R3, 9(GB)
+	LOAD 9(GB), R3
+	STORE R3, 10(GB)
+	LOAD 10(GB), R3
+	PUSH R3
+	LOAD 9(GB), R3
+	CMP #null, R3
+	BEQ null_pointer_error
+	PUSH R3
+	LOAD 0(R3), R3
+	BSR 1(R3)
+	SUBSP #2
+	CMP #0, R0
+	BEQ else_6
+then_5:
+	WSTR "1"
+	WNL
+	BRA end_7
+else_6:
+	WSTR "0"
+	WNL
+end_7:
+	HALT
+; Code Object
+code.Object.equals:
+	TSTO #2
+	BOV stack_overflow_error
+	PUSH R2
+	PUSH R3
+	LOAD -2(LB), R2
+	LOAD -3(LB), R3
+	CMP R2, R3
+	BNE return_false_2
+	LOAD #1, R0
+	BRA end_method_1
+return_false_2:
+	LOAD #0, R0
+	BRA end_method_1
+	BRA no_return_error
+end_method_1:
+	POP R3
+	POP R2
+	RTS
+; Class B
+init.B:
+	RTS
+code.B.a:
+	TSTO #0
+	BOV stack_overflow_error
+	WSTR "de B"
+	WNL
+end_method_3:
+	RTS
+; Class A
+init.A:
+	RTS
+code.A.a:
+	TSTO #0
+	BOV stack_overflow_error
+	WSTR "de A"
+	WNL
+end_method_4:
+	RTS
+stack_overflow_error:
+	WSTR "Error: Stack Overflow"
+	WNL
+	ERROR
+overflow_error:
+	WSTR "Error: Overflow during arithmetic operation"
+	WNL
+	ERROR
+io_error:
+	WSTR "Error: Input/Output error"
+	WNL
+	ERROR
+divide_by_zero_error:
+	WSTR "Error: Division by zero"
+	WNL
+	ERROR
+heap_overflow_error:
+	WSTR "Error: Heap Overflow"
+	WNL
+	ERROR
+null_pointer_error:
+	WSTR "Error: Deferencing a null pointer"
+	WNL
+	ERROR
+cast_error:
+	WSTR "Error: Cast invalid"
+	WNL
+	ERROR
+no_return_error:
+	WSTR "Error: Exit from method without return"
+	WNL
+	ERROR
+; end main program

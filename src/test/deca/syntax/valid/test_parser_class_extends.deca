@@ -1,0 +1,16 @@
+// Description:
+//    Minimalistic program to create a class daughter.
+//
+// Results:
+//    None
+//
+// History:
+//    Created on 13/1/2025
+
+class Car {
+    protected int immatriculation;
+}
+
+class Volkswagen extends Car {
+    int numeroModel;
+}

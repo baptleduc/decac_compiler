@@ -1,0 +1,16 @@
+// Description:
+//    Program testing pass 1, object already exist
+//
+// Results:
+//    ok
+//
+// History:
+//    Created on 14/01/2025
+
+class Test{
+    
+}
+
+class Test{
+    
+}

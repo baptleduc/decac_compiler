@@ -5,7 +5,10 @@ import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.Type;
+import fr.ensimag.deca.tools.DecacInternalError;
 import fr.ensimag.deca.tools.IndentPrintStream;
+import fr.ensimag.ima.pseudocode.Label;
+import fr.ensimag.ima.pseudocode.instructions.RINT;
 import java.io.PrintStream;
 
 /**
@@ -18,6 +21,7 @@ public class ReadInt extends AbstractReadExpr {
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
             ClassDefinition currentClass) throws ContextualError {
+        this.setType(compiler.environmentType.INT);
         return compiler.environmentType.INT;
     }
 
@@ -39,6 +43,16 @@ public class ReadInt extends AbstractReadExpr {
     @Override
     protected boolean isImmediate() {
         return false;
+    }
+
+    @Override
+    protected void codeGenRead(DecacCompiler compiler) {
+        compiler.addInstruction(new RINT());
+    }
+
+    @Override
+    protected void codeGenBool(DecacCompiler compiler, Label label, boolean branchOn) {
+        throw new DecacInternalError("Should not be called");
     }
 
 }

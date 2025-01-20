@@ -1,0 +1,1 @@
+This directory contains deca test cases that cannot be validated using the ./src/script/verify-ima-output script. The reason is that the output of these tests depends on user-provided inputs (readInt, readFloat etc..), making automatic validation unfeasible

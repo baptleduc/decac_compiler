@@ -1,0 +1,13 @@
+// Description:
+//    Minimalistic program to test float operations.
+//
+// Results:
+//    None
+//
+// History:
+//    Created on 19/01/2025
+{
+    float a = 4.2;
+    float b = 2.8;
+    print(a + b, a * b, a / b);
+}

@@ -1,6 +1,7 @@
 package fr.ensimag.deca.context;
 
 import fr.ensimag.deca.tree.Location;
+import fr.ensimag.ima.pseudocode.DAddr;
 import org.apache.commons.lang.Validate;
 
 /**
@@ -39,6 +40,15 @@ public class ClassDefinition extends TypeDefinition {
 
     private int numberOfFields = 0;
     private int numberOfMethods = 0;
+    private DAddr methodTableAddr = null;
+
+    public DAddr getMethodTableAddr() {
+        return methodTableAddr;
+    }
+
+    public void setMethodTableAddr(DAddr methodTableAddr) {
+        this.methodTableAddr = methodTableAddr;
+    }
 
     @Override
     public boolean isClass() {
@@ -74,5 +84,4 @@ public class ClassDefinition extends TypeDefinition {
         members = new EnvironmentExp(parent);
         this.superClass = superClass;
     }
-
 }

@@ -1,0 +1,24 @@
+`> [10, 0] Program
+   +> ListDeclClass [List with 1 elements]
+   |  []> [10, 0] DeclClass
+   |      +> [10, 6] Identifier (Car)
+   |      +> [builtin] Identifier (Object)
+   |      +> ListDeclField [List with 1 elements]
+   |      |  []> [11, 8] [visibility=PUBLIC] DeclField
+   |      |      +> [11, 4] Identifier (int)
+   |      |      +> [11, 8] Identifier (immatriculation)
+   |      |      +> NoInitialization
+   |      `> ListDeclMethod [List with 1 elements]
+   |         []> [12, 4] DeclMethod
+   |             +> [12, 4] Identifier (void)
+   |             +> [12, 9] Identifier (test)
+   |             +> ListDeclParam [List with 0 elements]
+   |             `> [12, 13] MethodBody
+   |                +> ListDeclVar [List with 0 elements]
+   |                `> ListInst [List with 1 elements]
+   |                   []> [13, 22] Assign
+   |                       +> [13, 5] Selection
+   |                       |  +> [13, 1] This
+   |                       |  `> [13, 6] Identifier (immatriculation)
+   |                       `> [13, 24] Int (5)
+   `> EmptyMain

@@ -25,9 +25,17 @@ public class Or extends AbstractOpBool {
     }
 
     @Override
-    protected void codeGenInst(DecacCompiler compiler) {
-        Label setFalse = new Label("set_true");
-        codeGenBooleanOperation(compiler, true, setFalse);
+    protected void codeGenBool(DecacCompiler compiler, Label label, boolean branchOn) {
+        Label endLabel = new Label("Or_end_label");
+        if (branchOn) {
+            getLeftOperand().codeGenBool(compiler, label, true);
+            getRightOperand().codeGenBool(compiler, label, true);
+        } else {
+            getLeftOperand().codeGenBool(compiler, endLabel, true);
+            getRightOperand().codeGenBool(compiler, label, false);
+        }
+
+        compiler.addLabel(endLabel);
     }
 
 }

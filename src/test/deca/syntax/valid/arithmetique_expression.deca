@@ -1,0 +1,11 @@
+// Description:
+//    Minimalistic program to test arithmetic expressions.
+//
+// Results:
+//    None
+//
+// History:
+//    Created on 19/01/2025
+{
+    print(5 + 3, 10 - 2, 4 * 2, 8 / 2);
+}

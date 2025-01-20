@@ -5,7 +5,7 @@ The test fails if the output of `decac -v` is not empty.
 Author: Baptiste LE DUC
 '
 
-INPUT_DIRS="./src/test/deca/context/valid/ ./src/test/deca/context/valid/provided/ ./src/test/deca/codegen/valid/ ./src/test/deca/codegen/valid/provided/"
+INPUT_DIRS="./src/test/deca/context/valid/test_class/ ./src/test/deca/context/valid/ ./src/test/deca/context/valid/provided/ ./src/test/deca/codegen/valid/ ./src/test/deca/codegen/valid/provided/"
 
 echo "[BEGIN] Testing contextual verification phase of the Deca compiler with : decac -v "
 for dir in $INPUT_DIRS; do

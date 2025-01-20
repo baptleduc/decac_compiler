@@ -1,0 +1,13 @@
+// Description:
+//    Program testing the raising of an exception.
+//
+// Results:
+//    Line 10: no viable alternative at input '}'
+//
+// History:
+//    Created on 19/01/2025
+{
+    int x = 5  
+
+}
+

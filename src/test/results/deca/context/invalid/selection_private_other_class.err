@@ -1,0 +1,1 @@
+./src/test/deca/context/invalid/test_class/selection_private_other_class.deca:16:17: Can't access to private attribute outside the class

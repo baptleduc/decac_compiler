@@ -1,0 +1,17 @@
+// Description:
+//    Program testing pass 1, create an object with a superclass declare after
+//
+// Results:
+//    ok
+//
+// History:
+//    Created on 14/01/2025
+
+
+class Test2 extends Test1{
+    
+}
+
+class Test1 {
+    
+}

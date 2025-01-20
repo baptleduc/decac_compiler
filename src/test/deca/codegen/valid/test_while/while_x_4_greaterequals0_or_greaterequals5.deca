@@ -1,0 +1,19 @@
+// Description:
+//    Minimalistic program demonstrating an while with || (logical OR)
+// Results:
+//    -1
+//
+// History:
+//    Created on 14/01/2025
+
+{
+int x = 4;
+while (x >= 0 || x >= 5) {
+    x = x+1;
+    if (x==100)
+    {
+        x = -1;
+    }
+}
+println(x);
+}

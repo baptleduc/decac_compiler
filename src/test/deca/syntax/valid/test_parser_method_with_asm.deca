@@ -1,0 +1,12 @@
+// Description:
+//    Minimalistic program to test a method using asm in a class.
+//
+// Results:
+//    None
+//
+// History:
+//    Created on 13/1/2025
+
+class Car {
+    void afficher(int limite) asm("a");
+}

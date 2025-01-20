@@ -1,0 +1,16 @@
+// Description:
+//    Minimalistic program demonstrating an if-then-else statement with && (logical AND)
+// Results:
+//    At least one condition is false
+//
+// History:
+//    Created on 14/01/2025
+
+{
+    int x = 0;
+    if (x != 0 && x != 5) {
+        println("Both conditions are true");
+    } else {
+        println("At least one condition is false");
+    }
+}

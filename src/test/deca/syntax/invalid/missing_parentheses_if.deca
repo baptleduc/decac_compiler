@@ -1,0 +1,14 @@
+// Description:
+//    Program testing the raising of an exception missing parentheses if.
+//
+// Results:
+//    Line 10: missing '(' at 'x'
+//
+// History:
+//    Created on 19/01/2025
+{
+    int x = 10;
+        if x > 5 {  // Erreur : Parenthèses autour de `x > 5` manquantes
+            x = 2;
+        }  
+}

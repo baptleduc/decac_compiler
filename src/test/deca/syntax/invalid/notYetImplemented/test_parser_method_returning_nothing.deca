@@ -1,0 +1,15 @@
+// Description:
+//    Minimalistic program to test the creation of a method that returns nothing.
+//
+// Results:
+//    None
+//
+// History:
+//    Created on 13/1/2025
+
+class Car{
+    int x = 42;
+    boolean myMethod(int param){
+        return;
+    }
+}

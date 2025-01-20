@@ -1,0 +1,12 @@
+// Description:
+//    Minimalistic program to test a protected field in a class.
+//
+// Results:
+//    None
+//
+// History:
+//    Created on 13/1/2025
+
+class Car {
+    protected int immatriculation;
+}

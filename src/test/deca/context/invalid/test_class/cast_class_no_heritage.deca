@@ -1,0 +1,15 @@
+// Description:
+//    Unit Test Cast void
+// Results:
+//    Can't cast those expressions
+//
+// History:
+//    Created on 16/01/2025
+
+class A { }
+class C { }
+
+{
+    C a = new C();
+    (A) (a);  // Erreur : Pas de relation d'héritage entre A et C
+}

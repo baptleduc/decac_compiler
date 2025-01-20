@@ -1,0 +1,15 @@
+class A extends Object {
+
+	void method(int w){
+		return null;
+	}
+	int method2(int w){
+		return 3;
+	}
+}
+{
+	A a = new A();
+	a.method(3);
+	println(a.method2(4));
+}
+

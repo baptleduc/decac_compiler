@@ -27,9 +27,6 @@ Usage:
 The script continues execution for all files, even if some tests fail.
 '
 
-# Stop script on any command failure
-set -e 
-
 process_deca_file() {
     local DECA_FILE="$1"
     echo "Processing file: $DECA_FILE"
@@ -37,7 +34,6 @@ process_deca_file() {
     # Extract the expected output from the line below "Results:"
     local EXPECTED_OUTPUT
     EXPECTED_OUTPUT=$(grep -A 1 -i "Results:" "$DECA_FILE" | tail -n 1 | sed 's|^[[:space:]]*//||' | sed 's|^[[:space:]]*||;s|[[:space:]]*$||')
-
 
     # If no "Results:" line is found, skip this file
     if [ -z "$EXPECTED_OUTPUT" ]; then
@@ -51,7 +47,8 @@ process_deca_file() {
     # Step 1: Compile the .deca file with decac
     echo "Compiling $DECA_FILE..."
     if ! "$DECAC_EXEC" "$DECA_FILE"; then
-        echo "Error: Compilation failed for $DECA_FILE. Skipping..."
+        echo "Error: Compilation failed for $DECA_FILE."
+        exit 1
         return
     fi
     echo "Compilation successful."
@@ -59,13 +56,9 @@ process_deca_file() {
     # Step 2: Execute the .ass file with $IMA_EXEC
     echo "Executing $ASS_FILE..."
     local OUTPUT
-    OUTPUT=$($IMA_EXEC "$ASS_FILE")
-    if [ $? -ne 0 ]; then
-        echo "Error: Execution failed for $ASS_FILE."
-        rm "$ASS_FILE"
-        exit 1
-        return
-    fi
+    local ERROR_OUTPUT
+    OUTPUT=$($IMA_EXEC "$ASS_FILE" 2> >(ERROR_OUTPUT=$(cat)))
+    local EXIT_CODE=$?
 
     # Step 3: Verify the program output
     # Convert the expected output to lowercase for case-insensitive comparison
@@ -95,14 +88,22 @@ process_deca_file() {
 }
 
 # Directory containing the .deca files, dir can be add as needed.
-DECA_DIR="./src/test/deca/codegen/valid"
+DECA_DIR="./src/test/deca/codegen/valid/test_cast ./src/test/deca/codegen/valid/test_class ./src/test/deca/codegen/valid/test_arithmetic ./src/test/deca/codegen/valid ./src/test/deca/codegen/valid/test_if ./src/test/deca/codegen/valid/test_while"
 IMA_EXEC="./env/ima_sources/bin/ima"
 DECAC_EXEC="./src/main/bin/decac"
 
 main() {
-    for DECA_FILE in "$DECA_DIR"/*.deca; do
-        process_deca_file "$DECA_FILE"
+    for dir in $DECA_DIR; do
+        if [ ! -d "$dir" ]; then
+            echo "Error: Directory $dir does not exist."
+            exit 1
+        fi
+
+        for DECA_FILE in "$dir"/*.deca; do
+            process_deca_file "$DECA_FILE"
+        done
     done
+
 }
 
 main

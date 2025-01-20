@@ -1,0 +1,20 @@
+// Description:
+//    Program testing pass 2, declare a field with a method name
+//
+// Results:
+//    ok
+//
+// History:
+//    Created on 14/01/2025
+
+
+class Test{
+
+    void x(){
+	
+    }
+
+    int x;
+
+}
+

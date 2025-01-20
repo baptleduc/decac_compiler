@@ -1,0 +1,13 @@
+// Description:
+//    Minimalistic program to test boolean variables.
+//
+// Results:
+//    None
+//
+// History:
+//    Created on 19/01/2025
+{
+    boolean isOk = true;
+    boolean result = isOk && false;
+    print(result);
+}

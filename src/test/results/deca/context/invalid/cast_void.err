@@ -1,0 +1,1 @@
+./src/test/deca/context/invalid/test_class/cast_void.deca:11:8:  can only cast from a class type or int, float

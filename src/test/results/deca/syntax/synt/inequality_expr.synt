@@ -1,0 +1,27 @@
+`> [9, 0] Program
+   +> ListDeclClass [List with 0 elements]
+   `> [9, 0] Main
+      +> ListDeclVar [List with 0 elements]
+      `> ListInst [List with 2 elements]
+         []> [10, 4] Print
+         ||  `> ListExpr [List with 1 elements]
+         ||     []> [10, 25] GreaterOrEqual
+         ||         +> [10, 21] Greater
+         ||         |  +> [10, 16] LowerOrEqual
+         ||         |  |  +> [10, 12] Lower
+         ||         |  |  |  +> [10, 10] Int (3)
+         ||         |  |  |  `> [10, 14] Int (5)
+         ||         |  |  `> [10, 19] Int (6)
+         ||         |  `> [10, 23] Int (2)
+         ||         `> [10, 28] Int (1)
+         []> [11, 4] Print
+             `> ListExpr [List with 1 elements]
+                []> [11, 20] And
+                    +> [11, 16] Lower
+                    |  +> [11, 12] Plus
+                    |  |  +> [11, 10] Int (3)
+                    |  |  `> [11, 14] Int (2)
+                    |  `> [11, 18] Int (7)
+                    `> [11, 25] Greater
+                       +> [11, 23] Int (5)
+                       `> [11, 27] Int (4)
