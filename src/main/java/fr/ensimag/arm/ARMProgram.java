@@ -21,7 +21,6 @@ public class ARMProgram {
     static public final IntRange RANGE_ARG_REGISTER = new IntRange(0, 7);
     static public final IntRange RANGE_SCRATCH_REGISTERS = new IntRange(9, 15);
 
-    static public final String RETURN_REGISTER = "X0";
 
     static public final String FRAME_POINTER = "X29";
 
@@ -64,7 +63,7 @@ public class ARMProgram {
     public ARMProgram() {
         for (int i = RANGE_SCRATCH_REGISTERS.getMaximumInteger(); i >= RANGE_SCRATCH_REGISTERS
                 .getMinimumInteger(); i--) {
-            scratchRegisters.push("X" + i);
+            scratchRegisters.push("w" + i);
         }
     }
 
