@@ -2,7 +2,7 @@
 //    Test program for methodAsm feature in Deca.
 //
 // Results:
-//    Should print 10 if assembly method works correctly.
+//    ok
 //
 // History:
 //    Created on 20/01/2025
@@ -10,14 +10,9 @@
 class TestAsm {
     
     int x;
-    int addAsm(int a, int b) {
-        methodAsm (
-            "LOAD R1, #a",
-            "ADD R1, #b",
-            "STORE R1, x"
+    int addAsm(int a, int b) asm(
+            "LOAD R1, #a ADD R1, #b STORE R1, x"
         );
-        return x;
-    }
 }
 
 {
