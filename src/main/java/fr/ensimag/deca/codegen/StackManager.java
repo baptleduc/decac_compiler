@@ -57,6 +57,9 @@ public class StackManager {
     }
 
     public void markRegisterUsedMethod(GPRegister reg) {
+        if (usedRegistersMethod.contains(reg.getNumber())) {
+            return;
+        }
         usedRegistersMethod.addFirst(reg.getNumber());
     }
 
