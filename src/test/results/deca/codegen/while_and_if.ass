@@ -18,8 +18,8 @@ start_while_3:
 	LOAD 3(GB), R3
 	ADD #1, R3
 	STORE R3, 3(GB)
-	LOAD 3(GB), R2
-	CMP #10, R2
+	LOAD 3(GB), R3
+	CMP #10, R3
 	BNE else_6
 then_5:
 	LOAD 3(GB), R1

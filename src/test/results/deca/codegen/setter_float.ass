@@ -16,23 +16,24 @@
 	STORE R0, 5(GB)
 ; Main program
 ; Beginning of main instructions:
-	NEW #2, R4
+	NEW #2, R2
 	BOV heap_overflow_error
 	LEA 3(GB), R0
-	STORE R0, 0(R4)
-	PUSH R4
+	STORE R0, 0(R2)
+	PUSH R2
 	BSR init.A
-	POP R4
-	STORE R4, 6(GB)
-	LOAD #0x1.333334p0, R4
-	PUSH R4
-	LOAD 6(GB), R4
-	CMP #null, R4
+	POP R2
+	STORE R2, 6(GB)
+	LOAD #0x1.333334p0, R2
+	PUSH R2
+	LOAD 6(GB), R2
+	CMP #null, R2
 	BEQ null_pointer_error
-	PUSH R4
-	LOAD 0(R4), R4
-	BSR 2(R4)
+	PUSH R2
+	LOAD 0(R2), R2
+	BSR 2(R2)
 	SUBSP #2
+	LOAD R0, R2
 	HALT
 ; Code Object
 code.Object.equals:

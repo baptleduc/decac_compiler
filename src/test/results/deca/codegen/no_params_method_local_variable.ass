@@ -56,9 +56,8 @@ end_method_1:
 init.A:
 	RTS
 code.A.m:
-	TSTO #2
+	TSTO #1
 	BOV stack_overflow_error
-	PUSH R3
 	PUSH R3
 	LOAD #1, R3
 	STORE R3, 1(LB)
@@ -66,7 +65,6 @@ code.A.m:
 	STORE R3, 2(LB)
 	BRA no_return_error
 end_method_3:
-	POP R3
 	POP R3
 	RTS
 code.A.p:

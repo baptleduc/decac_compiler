@@ -22,13 +22,13 @@ Or_end_label_5:
 	LOAD 3(GB), R3
 	ADD #1, R3
 	STORE R3, 3(GB)
-	LOAD 3(GB), R2
-	CMP #100, R2
+	LOAD 3(GB), R3
+	CMP #100, R3
 	BNE else_7
 then_6:
-	LOAD #1, R2
-	OPP #1, R2
-	STORE R2, 3(GB)
+	LOAD #1, R3
+	OPP #1, R3
+	STORE R3, 3(GB)
 	BRA end_8
 else_7:
 end_8:

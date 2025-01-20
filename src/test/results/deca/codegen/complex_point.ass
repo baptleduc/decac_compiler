@@ -1,39 +1,59 @@
-	TSTO #6	; 6 (variables) + 0 (saved registers) + 0 (temporaries) + 0 (method parameters x 2)
+	TSTO #11	; 11 (variables) + 0 (saved registers) + 0 (temporaries) + 0 (method parameters x 2)
 	BOV stack_overflow_error
-	ADDSP #6
+	ADDSP #10
 ; start main program
 ; Method Table of class Object
 	LOAD #null, R0
 	STORE R0, 1(GB)
 	LOAD code.Object.equals, R0
 	STORE R0, 2(GB)
-; Method Table of class A
+; Method Table of class Point
 	LEA 1(GB), R0
 	STORE R0, 3(GB)
 	LOAD code.Object.equals, R0
 	STORE R0, 4(GB)
-	LOAD code.A.setX, R0
+	LOAD code.Point.creer_point, R0
 	STORE R0, 5(GB)
+; Method Table of class Geometry
+	LEA 3(GB), R0
+	STORE R0, 6(GB)
+	LOAD code.Object.equals, R0
+	STORE R0, 7(GB)
+	LOAD code.Geometry.createPoint, R0
+	STORE R0, 8(GB)
 ; Main program
 ; Beginning of main instructions:
-	NEW #2, R2
+	NEW #1, R5
 	BOV heap_overflow_error
-	LEA 3(GB), R0
-	STORE R0, 0(R2)
-	PUSH R2
-	BSR init.A
-	POP R2
-	STORE R2, 6(GB)
-	LOAD #1, R2
-	PUSH R2
-	LOAD 6(GB), R2
-	CMP #null, R2
+	LEA 6(GB), R0
+	STORE R0, 0(R5)
+	PUSH R5
+	BSR init.Geometry
+	POP R5
+	STORE R5, 9(GB)
+	LOAD #7, R5
+	PUSH R5
+	LOAD #5, R5
+	PUSH R5
+	LOAD 9(GB), R5
+	CMP #null, R5
 	BEQ null_pointer_error
-	PUSH R2
-	LOAD 0(R2), R2
-	BSR 2(R2)
-	SUBSP #2
-	LOAD R0, R2
+	PUSH R5
+	LOAD 0(R5), R5
+	BSR 2(R5)
+	SUBSP #3
+	LOAD R0, R5
+	STORE R5, 10(GB)
+	LOAD 10(GB), R5
+	CMP #null, R5
+	BEQ null_pointer_error
+	LOAD 1(R5), R1
+	WINT
+	LOAD 10(GB), R6
+	CMP #null, R6
+	BEQ null_pointer_error
+	LOAD 2(R6), R1
+	WINT
 	HALT
 ; Code Object
 code.Object.equals:
@@ -55,25 +75,66 @@ end_method_1:
 	POP R3
 	POP R2
 	RTS
-; Class A
-init.A:
+; Class Point
+init.Point:
 	LOAD -2(LB), R1
 	LOAD #0, R0
 	STORE R0, 1(R1)
+	STORE R0, 2(R1)
 	RTS
-code.A.setX:
-	TSTO #2
+code.Point.creer_point:
+	TSTO #3
 	BOV stack_overflow_error
 	PUSH R3
 	PUSH R2
+	PUSH R4
 	LOAD -2(LB), R3
 	CMP #null, R3
 	BEQ null_pointer_error
 	LOAD -3(LB), R2
 	STORE R2, 1(R3)
+	LOAD -2(LB), R2
+	CMP #null, R2
+	BEQ null_pointer_error
+	LOAD -4(LB), R4
+	STORE R4, 2(R2)
 end_method_3:
+	POP R4
 	POP R2
 	POP R3
+	RTS
+; Class Geometry
+init.Geometry:
+	RTS
+code.Geometry.createPoint:
+	TSTO #1
+	BOV stack_overflow_error
+	PUSH R4
+	NEW #3, R4
+	BOV heap_overflow_error
+	LEA 3(GB), R0
+	STORE R0, 0(R4)
+	PUSH R4
+	BSR init.Point
+	POP R4
+	STORE R4, 1(LB)
+	LOAD -4(LB), R4
+	PUSH R4
+	LOAD -3(LB), R4
+	PUSH R4
+	LOAD 1(LB), R4
+	CMP #null, R4
+	BEQ null_pointer_error
+	PUSH R4
+	LOAD 0(R4), R4
+	BSR 2(R4)
+	SUBSP #3
+	LOAD R0, R4
+	LOAD 1(LB), R0
+	BRA end_method_4
+	BRA no_return_error
+end_method_4:
+	POP R4
 	RTS
 stack_overflow_error:
 	WSTR "Error: Stack Overflow"

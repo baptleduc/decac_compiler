@@ -18,31 +18,33 @@
 	STORE R0, 6(GB)
 ; Main program
 ; Beginning of main instructions:
-	NEW #2, R5
+	NEW #2, R4
 	BOV heap_overflow_error
 	LEA 3(GB), R0
-	STORE R0, 0(R5)
-	PUSH R5
+	STORE R0, 0(R4)
+	PUSH R4
 	BSR init.SimpleClass
-	POP R5
-	STORE R5, 7(GB)
-	LOAD #42, R5
-	PUSH R5
+	POP R4
+	STORE R4, 7(GB)
+	LOAD #42, R4
+	PUSH R4
+	LOAD 7(GB), R4
+	CMP #null, R4
+	BEQ null_pointer_error
+	PUSH R4
+	LOAD 0(R4), R4
+	BSR 2(R4)
+	SUBSP #2
+	LOAD R0, R4
 	LOAD 7(GB), R5
 	CMP #null, R5
 	BEQ null_pointer_error
 	PUSH R5
 	LOAD 0(R5), R5
-	BSR 2(R5)
-	SUBSP #2
-	LOAD 7(GB), R6
-	CMP #null, R6
-	BEQ null_pointer_error
-	PUSH R6
-	LOAD 0(R6), R6
-	BSR 3(R6)
+	BSR 3(R5)
 	SUBSP #1
-	LOAD R0, R1
+	LOAD R0, R5
+	LOAD R5, R1
 	WINT
 	WNL
 	HALT
@@ -87,13 +89,13 @@ end_method_3:
 code.SimpleClass.getNumber:
 	TSTO #1
 	BOV stack_overflow_error
-	PUSH R4
-	LOAD -2(LB), R4
-	LOAD 1(R4), R0
+	PUSH R2
+	LOAD -2(LB), R2
+	LOAD 1(R2), R0
 	BRA end_method_4
 	BRA no_return_error
 end_method_4:
-	POP R4
+	POP R2
 	RTS
 stack_overflow_error:
 	WSTR "Error: Stack Overflow"
