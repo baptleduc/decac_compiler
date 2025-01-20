@@ -40,6 +40,8 @@ public class StackManager {
     private int numTemporaries = 0;
     private int numMethodParams = 0;
 
+    private int numMethodCall = 0;
+
     public StackManager(IMAProgram program, int numRegisters) {
         idxAvailableGPRegisters = new LinkedList<>();
         idxUsedGPRegisters = new LinkedList<>();
@@ -53,7 +55,16 @@ public class StackManager {
 
     public void initStackForMethod() {
         offsetLB = 0;
+        numMethodCall = 0;
         usedRegistersMethod.clear();
+    }
+
+    public void incrementNumMethodCall() {
+        numMethodCall++;
+    }
+
+    public int getNumMethodCall() {
+        return numMethodCall;
     }
 
     public void markRegisterUsedMethod(GPRegister reg) {
@@ -118,6 +129,13 @@ public class StackManager {
      */
     public int getOffsetGBValue() {
         return offsetGB;
+    }
+
+    /**
+     * Returns the current value of the LB offset.
+     */
+    public int getOffsetLBValue() {
+        return offsetLB;
     }
 
     /**
@@ -188,7 +206,6 @@ public class StackManager {
      */
     public RegisterOffset addGlobalVariable() {
         LOG.debug("Adding global variable at offset " + offsetGB);
-        // TODO: switch case to determine the size of the offset and add type in arg
         return new RegisterOffset(++offsetGB, GB);
     }
 

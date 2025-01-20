@@ -114,6 +114,7 @@ public class MethodCall extends AbstractExpr {
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
+        compiler.incrementNumMethodCall(); // Necessary for TSTO calculation when a method is called in a method
 
         for (int i = params.getList().size() - 1; i >= 0; i--) {
             AbstractExpr param = params.getList().get(i);

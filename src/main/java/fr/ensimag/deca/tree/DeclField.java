@@ -27,7 +27,7 @@ public class DeclField extends AbstractDeclField {
             AbstractInitialization init) {
         this.visibility = visibility;
         this.type = type;
-        setType(type); // TODO : removes ?
+        setType(type);
         this.name = name;
         this.init = init;
     }

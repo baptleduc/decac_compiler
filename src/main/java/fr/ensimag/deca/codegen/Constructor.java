@@ -10,12 +10,14 @@ import fr.ensimag.deca.tree.ListDeclField;
 import fr.ensimag.ima.pseudocode.Label;
 import fr.ensimag.ima.pseudocode.Register;
 import fr.ensimag.ima.pseudocode.RegisterOffset;
+import fr.ensimag.ima.pseudocode.instructions.BOV;
 import fr.ensimag.ima.pseudocode.instructions.BSR;
 import fr.ensimag.ima.pseudocode.instructions.LOAD;
 import fr.ensimag.ima.pseudocode.instructions.POP;
 import fr.ensimag.ima.pseudocode.instructions.PUSH;
 import fr.ensimag.ima.pseudocode.instructions.RTS;
 import fr.ensimag.ima.pseudocode.instructions.STORE;
+import fr.ensimag.ima.pseudocode.instructions.TSTO;
 import org.apache.log4j.Logger;
 
 public class Constructor {
@@ -154,13 +156,14 @@ public class Constructor {
             compiler.addInstruction(new RTS());
             return;
         }
-        // TODO : handle stack overflow
-        compiler.addInstruction(new LOAD(INSTANCE_OFFSET, compiler.getRegister1()));
 
-        // Avoid BSR to the constructor of Object
         if (superClassDefinition.getSuperClass() == null) { // Base class, class that extends Object
+            compiler.addInstruction(new LOAD(INSTANCE_OFFSET, compiler.getRegister1()));
             initBaseClassFields(compiler);
         } else {
+            compiler.addInstruction(new TSTO(3)); // one for having push R1, 2 for BSR to superClass constructor
+            compiler.addInstruction(new BOV(LabelManager.STACK_OVERFLOW_ERROR.getLabel()));
+            compiler.addInstruction(new LOAD(INSTANCE_OFFSET, compiler.getRegister1()));
             initExtendedClassFields(compiler);
         }
         compiler.addInstruction(new RTS());

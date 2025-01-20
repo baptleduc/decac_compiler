@@ -357,14 +357,21 @@ public class DecacCompiler {
         return reg;
     }
 
+    private int calculateTSTOMethod() {
+        return stackManager.getUsedRegistersMethod().size() + stackManager.getOffsetLBValue()
+                + 2 * stackManager.getNumMethodCall();
+    }
+
+    public void incrementNumMethodCall() {
+        stackManager.incrementNumMethodCall();
+    }
+
     public void codeGenMethodPrologue() {
-        int counter = 0;
         for (int regIndex : stackManager.getUsedRegistersMethod()) {
             addFirst(new PUSH(Register.getR(regIndex)));
-            counter++;
         }
         addFirst(new BOV(LabelManager.STACK_OVERFLOW_ERROR.getLabel()));
-        addFirst(new TSTO(counter));
+        addFirst(new TSTO(calculateTSTOMethod()));
     }
 
     public void codeGenMethodEpilogue(boolean hasReturn) {

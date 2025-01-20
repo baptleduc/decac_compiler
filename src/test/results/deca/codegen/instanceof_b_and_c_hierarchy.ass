@@ -148,6 +148,8 @@ init.A:
 	RTS
 ; Class B
 init.B:
+	TSTO #3
+	BOV stack_overflow_error
 	LOAD -2(LB), R1
 	PUSH R1
 	BSR init.A
@@ -155,6 +157,8 @@ init.B:
 	RTS
 ; Class C
 init.C:
+	TSTO #3
+	BOV stack_overflow_error
 	LOAD -2(LB), R1
 	PUSH R1
 	BSR init.B
