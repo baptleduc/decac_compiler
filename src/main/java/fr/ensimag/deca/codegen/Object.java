@@ -1,7 +1,5 @@
 package fr.ensimag.deca.codegen;
 
-import org.apache.log4j.Logger;
-
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ExpDefinition;
 import fr.ensimag.deca.context.MethodDefinition;
@@ -16,6 +14,7 @@ import fr.ensimag.ima.pseudocode.instructions.BRA;
 import fr.ensimag.ima.pseudocode.instructions.CMP;
 import fr.ensimag.ima.pseudocode.instructions.LOAD;
 import fr.ensimag.ima.pseudocode.instructions.RTS;
+import org.apache.log4j.Logger;
 
 public class Object {
     private static final Logger LOG = Logger.getLogger(DecacCompiler.class);

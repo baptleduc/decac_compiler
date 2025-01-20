@@ -7,7 +7,6 @@ import fr.ensimag.deca.context.Type;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.instructions.RTS;
 import java.io.PrintStream;
-
 import org.apache.log4j.Logger;
 
 /**

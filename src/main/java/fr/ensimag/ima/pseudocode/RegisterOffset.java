@@ -36,10 +36,11 @@ public class RegisterOffset extends DAddr {
 
     @Override
     public void freeGPRegister(DecacCompiler compiler) {
-        if(register.isGPRegister()) {
+        if (register.isGPRegister()) {
             ((GPRegister) register).freeGPRegister(compiler);
         }
     }
+
     @Override
     public String toString() {
         return offset + "(" + register + ")";

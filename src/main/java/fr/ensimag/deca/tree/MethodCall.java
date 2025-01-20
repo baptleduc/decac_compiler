@@ -131,7 +131,7 @@ public class MethodCall extends AbstractExpr {
                 new BSR(new RegisterOffset(rightOperand.getMethodDefinition().getIndex() + 1, regLeft))); // +1 because
                                                                                                           // of the
                                                                                                           // method
-        regLeft.freeGPRegister(compiler);                                                                                                  // table
+        regLeft.freeGPRegister(compiler); // table
         compiler.addInstruction(new SUBSP(params.getList().size() + 1)); // +1 for the object
 
         setDVal(compiler.getRegister0());
