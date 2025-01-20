@@ -77,7 +77,7 @@ public class This extends AbstractExpr {
 
     @Override
     protected boolean isImmediate() {
-        throw new UnsupportedOperationException("not yet implemented");
+        return false;
     }
 
     @Override
