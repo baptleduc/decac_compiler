@@ -75,11 +75,6 @@ public class InstanceOf extends AbstractExpr {
     }
 
     @Override
-    protected DVal getDVal(DecacCompiler compiler) {
-        throw new UnsupportedOperationException("not yet implemented");
-    }
-
-    @Override
     protected void codeGenInst(DecacCompiler compiler) {
         DVal heapStartAddr = leftOperand.getDVal(compiler);
         LOG.debug("HeapStartAddr start addr: " + heapStartAddr);
@@ -88,7 +83,7 @@ public class InstanceOf extends AbstractExpr {
 
     @Override
     protected boolean isImmediate() {
-        throw new UnsupportedOperationException("not yet implemented");
+        return false;
     }
 
     @Override
