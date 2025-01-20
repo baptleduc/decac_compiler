@@ -27,6 +27,6 @@ class Calculator {
 {
     Calculator calc = new Calculator();
     // Appel de méthodes statiques
-    print(calc.add(5, 10)+calc.multiply(3, 5)+calc.subtract(20, 5));
+    print(calc.add(5, 10) + calc.multiply(3,5) + calc.subtract(20, 5));
 
 }

@@ -1,8 +1,8 @@
 // Description:
-//    Testing a girl class inherited from a parent class and redefines a method.
+//    Testing a children class inherited from a parent class and redefines a method.
 //
 // Results:
-//    Some sound puis Bark
+//    Some soundBark
 //
 // History:
 //    Created on 6/1/2025

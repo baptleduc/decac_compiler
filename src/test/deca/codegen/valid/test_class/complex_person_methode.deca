@@ -1,8 +1,8 @@
 // Description:
-//    Test d'une classe avec un constructeur et une méthode simple.
+//    Test initialize fields to 0
 //
 // Results:
-//    None
+//    0
 //
 // History:
 //    Created on 6/1/2025
