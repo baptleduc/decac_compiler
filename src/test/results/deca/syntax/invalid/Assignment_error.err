@@ -1,0 +1,1 @@
+./src/test/deca/syntax/invalid/Assignment_error.deca:10:10: mismatched input '==' expecting {'=', ',', ';'}

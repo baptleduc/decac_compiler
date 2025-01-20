@@ -1,0 +1,1 @@
+./src/test/deca/syntax/invalid/test_parser_non_lvalue.deca:11:4: left-hand side of assignment is not an lvalue
