@@ -62,6 +62,10 @@ public class MethodCall extends AbstractExpr {
                 .asMethodDefinition(rightOperand.getName() + " is not defined as a method", rightOperand.getLocation());
         Signature sig = methodDef.getSignature();
         int n = 0;
+        if (sig.size() != params.size()) {
+            throw new ContextualError(rightOperand.getName() + " method have " + sig.size() + " arguments but "
+                    + params.size() + " are given", rightOperand.getLocation());
+        }
         for (AbstractExpr param : params.getList()) {
             AbstractExpr convType = param.verifyRValue(compiler, localEnv, currentClass, sig.paramNumber(n));
             params.set(n, convType);
