@@ -8,12 +8,16 @@ import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.instructions.RTS;
 import java.io.PrintStream;
 
+import org.apache.log4j.Logger;
+
 /**
  * 
  * @author nicolmal
  * @date 13/01/2025
  */
 public class MethodBody extends AbstractMethodBody {
+
+    private static final Logger LOG = Logger.getLogger(MethodBody.class);
 
     private ListDeclVar listDeclVar;
     private ListInst listInst;
@@ -62,6 +66,9 @@ public class MethodBody extends AbstractMethodBody {
     @Override
     protected void codeGenMethodBody(DecacCompiler compiler, boolean hasReturn) {
         compiler.startNewMethod();
+        LOG.debug("Method body code generation: start :");
+
+        LOG.debug(compiler.debugAvailableRegister());
 
         for (AbstractDeclVar declVar : listDeclVar.getList()) {
             declVar.codeGenDeclVarLoc(compiler);
@@ -73,5 +80,8 @@ public class MethodBody extends AbstractMethodBody {
         compiler.codeGenMethodPrologue();
         compiler.codeGenMethodEpilogue(hasReturn);
         compiler.addInstruction(new RTS());
+
+        LOG.debug("Method body code generation: end");
+        LOG.debug(compiler.debugAvailableRegister());
     }
 }

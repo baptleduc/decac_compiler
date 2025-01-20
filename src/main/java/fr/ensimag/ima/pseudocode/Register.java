@@ -32,6 +32,10 @@ public class Register extends DVal {
         throw new DecacInternalError("Should not be called");
     }
 
+    public boolean isGPRegister() {
+        return false;
+    }
+
     /**
      * Global Base register
      */

@@ -32,4 +32,9 @@ public class GPRegister extends Register {
     public void freeGPRegister(DecacCompiler compiler) {
         compiler.freeRegister(this);
     }
+
+    @Override
+    public boolean isGPRegister() {
+        return true;
+    }
 }

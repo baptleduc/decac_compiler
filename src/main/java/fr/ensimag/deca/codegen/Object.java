@@ -1,5 +1,7 @@
 package fr.ensimag.deca.codegen;
 
+import org.apache.log4j.Logger;
+
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ExpDefinition;
 import fr.ensimag.deca.context.MethodDefinition;
@@ -16,6 +18,7 @@ import fr.ensimag.ima.pseudocode.instructions.LOAD;
 import fr.ensimag.ima.pseudocode.instructions.RTS;
 
 public class Object {
+    private static final Logger LOG = Logger.getLogger(DecacCompiler.class);
 
     public static void codeGenClass(DecacCompiler compiler) {
         compiler.addComment("Code Object");
@@ -43,6 +46,8 @@ public class Object {
 
     private static void codeGenEqualsMethodBody(DecacCompiler compiler) {
         compiler.startNewMethod();
+        LOG.debug("Generating code for equals method");
+        LOG.debug(compiler.debugAvailableRegister());
 
         GPRegister regThisObject = compiler.allocGPRegister();
         GPRegister regOtherObject = compiler.allocGPRegister();
@@ -66,6 +71,8 @@ public class Object {
         regOtherObject.freeGPRegister(compiler);
         compiler.addInstruction(new RTS());
 
+        LOG.debug("End of code generation for equals method");
+        LOG.debug(compiler.debugAvailableRegister());
     }
 
 }
