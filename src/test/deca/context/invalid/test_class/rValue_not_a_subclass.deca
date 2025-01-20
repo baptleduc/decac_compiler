@@ -1,0 +1,21 @@
+// Description:
+//    Unit Test rValue not a subvlass of
+// Results:
+//    error
+//
+// History:
+//    Created on 20/01/2025
+
+
+
+class A{
+    
+}
+
+class B{
+    
+}
+
+{
+    A a = new B();
+}
