@@ -1,0 +1,20 @@
+// Description:
+//    Program returning void type
+//
+// Results:
+//    error
+//
+// History:
+//    Created on 13/01/2025
+
+class B{
+    void x(){
+        print(12);
+    }
+    void m(){
+        return x();
+    }
+}
+{
+    B b = new B();
+}
