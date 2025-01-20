@@ -48,8 +48,7 @@
 	LOAD 0(R3), R3
 	BSR 2(R3)
 	SUBSP #3
-	LOAD R0, R3
-	LOAD R3, R1
+	LOAD R0, R1
 	WINT
 	HALT
 ; Code Object

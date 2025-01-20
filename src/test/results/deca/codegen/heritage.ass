@@ -38,7 +38,6 @@
 	LOAD 0(R3), R3
 	BSR 2(R3)
 	SUBSP #1
-	LOAD R0, R3
 	HALT
 ; Code Object
 code.Object.equals:

@@ -115,7 +115,7 @@ public class Selection extends AbstractLValue {
 
     @Override
     protected boolean isImmediate() {
-        throw new UnsupportedOperationException("not yet implemented");
+        return false;
     }
 
     @Override

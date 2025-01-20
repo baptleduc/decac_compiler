@@ -2,6 +2,7 @@
 //    Test of a class with inheritance and methods
 //
 // Results:
+//  I am a shape I am a circle 7.85000e+01I am a square 1.60000e+01
 //    
 //
 // History:
@@ -17,7 +18,7 @@
 
         // Méthode pour afficher un message
         void display() {
-            print("I am a shape.");
+            print("I am a shape ");
         }
     }
 
@@ -32,7 +33,7 @@
 
         // Méthode pour afficher un message spécifique au cercle
         void display() {
-            print("I am a circle.");
+            print("I am a circle ");
         }
     }
 
@@ -47,7 +48,7 @@
 
         // Méthode pour afficher un message spécifique au carré
         void display() {
-            print("I am a square.");
+            print("I am a square ");
         }
     }
 
