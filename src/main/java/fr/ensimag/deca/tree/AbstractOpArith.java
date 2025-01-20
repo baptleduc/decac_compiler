@@ -9,6 +9,8 @@ import fr.ensimag.deca.context.Type;
 import fr.ensimag.ima.pseudocode.DVal;
 import fr.ensimag.ima.pseudocode.GPRegister;
 import fr.ensimag.ima.pseudocode.instructions.BOV;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
+
 import org.apache.log4j.Logger;
 
 /**
@@ -126,6 +128,14 @@ public abstract class AbstractOpArith extends AbstractBinaryExpr {
     protected void codeGenInst(DecacCompiler compiler) {
         // Generate code for the left and right operands
         getLeftOperand().codeGenInst(compiler);
+
+        if (getLeftOperand().getDVal(compiler) == compiler.getRegister0()){ // Case when left operand is a result of method Call 
+            LOG.debug("Left operand is in R0");
+            GPRegister regResult = compiler.allocGPRegister();
+            compiler.addInstruction(new LOAD(compiler.getRegister0(), regResult), "Left operand is in R0");
+            getLeftOperand().setDVal(regResult);
+        }
+        
         getRightOperand().codeGenInst(compiler);
 
         // Initialize registers and operands for the operation

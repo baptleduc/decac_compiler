@@ -133,10 +133,8 @@ public class MethodCall extends AbstractExpr {
                                                                                                           // method
         regLeft.freeGPRegister(compiler);                                                                                                  // table
         compiler.addInstruction(new SUBSP(params.getList().size() + 1)); // +1 for the object
-        
-        GPRegister regResult = compiler.allocGPRegister();
-        compiler.addInstruction(new LOAD(compiler.getRegister0(), regResult));
-        setDVal(regResult);
+
+        setDVal(compiler.getRegister0());
     }
 
     @Override

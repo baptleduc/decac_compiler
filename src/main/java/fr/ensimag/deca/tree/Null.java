@@ -63,7 +63,7 @@ public class Null extends AbstractExpr {
 
     @Override
     protected boolean isImmediate() {
-        throw new UnsupportedOperationException("not yet implemented");
+        return true;
     }
 
     @Override
