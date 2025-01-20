@@ -29,6 +29,8 @@ public class MethodAsmBody extends AbstractMethodBody {
     @Override
     public void verifyMethodBodyBody(DecacCompiler compiler, EnvironmentExp envExp, EnvironmentExp envExpParams,
             AbstractIdentifier methodClass, Type methodReturnType) throws ContextualError {
+        Type stringType = compiler.environmentType.STRING;
+        asmCode.setType(stringType);
         return;
     }
 

@@ -32,6 +32,7 @@ pass
    |             |         definition: parameter defined at [13, 26], type=int
    |             `> [14, 12] MethodAsmBody
    |                `> [14, 12] StringLiteral ("LOAD R1, #a ADD R1, #b STORE R1, x")
+   |                   type: string
    `> [18, 0] Main
       +> ListDeclVar [List with 2 elements]
       |  []> [19, 18] DeclVar
