@@ -56,7 +56,7 @@ end_method_1:
 init.A:
 	RTS
 code.A.m:
-	TSTO #1
+	TSTO #3
 	BOV stack_overflow_error
 	PUSH R3
 	LOAD #1, R3

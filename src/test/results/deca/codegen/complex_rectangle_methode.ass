@@ -147,7 +147,7 @@ end_method_4:
 	POP R3
 	RTS
 code.Rectangle.isLargerThan:
-	TSTO #2
+	TSTO #6
 	BOV stack_overflow_error
 	PUSH R4
 	PUSH R2

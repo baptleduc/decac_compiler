@@ -149,6 +149,8 @@ end_method_4:
 	RTS
 ; Class Circle
 init.Circle:
+	TSTO #3
+	BOV stack_overflow_error
 	LOAD -2(LB), R1
 	LOAD #0, R0
 	STORE R0, 1(R1)
@@ -189,6 +191,8 @@ end_method_6:
 	RTS
 ; Class Square
 init.Square:
+	TSTO #3
+	BOV stack_overflow_error
 	LOAD -2(LB), R1
 	LOAD #0, R0
 	STORE R0, 1(R1)

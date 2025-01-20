@@ -104,7 +104,7 @@ end_method_3:
 init.Geometry:
 	RTS
 code.Geometry.createPoint:
-	TSTO #1
+	TSTO #4
 	BOV stack_overflow_error
 	PUSH R3
 	NEW #3, R3
