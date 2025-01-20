@@ -1,0 +1,13 @@
+// Description:
+//    decompilation d'un programme qui utuilise list_exp
+//
+// Resultats:
+// {
+// 	print(3,0x1.cp1,"test");
+// }
+//
+// Historique:
+//    cree le 20/01/2025
+
+{
+    print(3, 3.5, "
