@@ -1,0 +1,14 @@
+// Description:
+//    Minimalistic program to test null in a if then else node
+//
+// Results:
+//    is Null
+//
+// History:
+//    Created on 20/1/2025
+{
+    Object a = null;
+    if (a == null){
+        print("is Null");
+    }
+}

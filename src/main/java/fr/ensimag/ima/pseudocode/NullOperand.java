@@ -1,6 +1,7 @@
 package fr.ensimag.ima.pseudocode;
 
 import fr.ensimag.deca.DecacCompiler;
+import fr.ensimag.ima.pseudocode.instructions.LOAD;
 
 /**
  * The #null operand.
@@ -17,12 +18,14 @@ public class NullOperand extends DVal {
 
     @Override
     public GPRegister codeGenToGPRegister(DecacCompiler compiler) {
-        throw new UnsupportedOperationException("Not supposed to be called");
+        GPRegister reg = compiler.allocGPRegister();
+        compiler.addInstruction(new LOAD(this, reg));
+        return reg;
     }
 
     @Override
     public void freeGPRegister(DecacCompiler compiler) {
-        throw new UnsupportedOperationException("Not supposed to be called");
+        // Do nothing
     }
 
 }
