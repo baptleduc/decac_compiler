@@ -1,0 +1,1 @@
+./src/test/deca/context/invalid/test_class/var_already_exist_in_method.deca:17:14: x must be declared as a Field 

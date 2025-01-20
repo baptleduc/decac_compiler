@@ -1,0 +1,12 @@
+// Description:
+//    Unit Test this used outside of a class
+// Results:
+//    error
+//
+// History:
+//    Created on 20/01/2025
+
+
+{
+    int x = this.x;
+}

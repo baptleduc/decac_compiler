@@ -1,0 +1,1 @@
+./src/test/deca/context/invalid/test_class/rValue_not_a_subclass.deca:20:10: B is not subclass of A
