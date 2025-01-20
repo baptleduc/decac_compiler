@@ -1,0 +1,1 @@
+./src/test/deca/syntax/invalid/test_parser_float_too_small.deca:11:17: no viable alternative at input 'E'

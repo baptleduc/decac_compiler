@@ -1,0 +1,1 @@
+./src/test/deca/syntax/invalid/test_parser_int_too_large.deca:11:12: 2147483648 : can not be represented with 32 bits 

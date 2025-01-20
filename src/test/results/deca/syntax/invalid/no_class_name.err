@@ -1,0 +1,1 @@
+./src/test/deca/syntax/invalid/no_class_name.deca:10:6: extraneous input '{' expecting IDENT

@@ -40,6 +40,8 @@ INPUT_DIR_DECOMPILE="./src/test/deca/decompile/valid/"
 INPUT_DIR_CODEGEN="./src/test/deca/codegen/valid/ ./src/test/deca/codegen/valid/provided/ ./src/test/deca/codegen/valid/test_arithmetic/ ./src/test/deca/codegen/valid/test_class/ ./src/test/deca/codegen/valid/test_if/ ./src/test/deca/codegen/valid/test_while/"
 INPUT_DIR_CONTEXT="./src/test/deca/context/valid/ ./src/test/deca/context/valid/provided/ ./src/test/deca/context/valid/test_class/"
 INPUT_DIR_INVALID_CONTEXT="./src/test/deca/context/invalid/ ./src/test/deca/context/invalid/test_class/ ./src/test/deca/context/invalid/provided/"
+INPUT_DIR_INVALID_SYNTAX="./src/test/deca/syntax/invalid/"
+
 
 # SYNTAX TESTS CONFIGURATION
 NAME_TEST_LEX="testlex"
@@ -62,11 +64,18 @@ OUTPUT_DIR_TEST_CONTEXT="./src/test/results/deca/context/"
 OPTIONS_TEST_CONTEXT=""
 
 # CONTEXT INVALID TESTS CONFIGURATION
-NAME_TEST_INVALID_CONTEXT="invalid"
+NAME_TEST_INVALID_CONTEXT="invalidcontext"
 EXEC_INVALID_CONTEXT="./src/test/script/launchers/test_context"
 EXTENSION_TEST_INVALID_CONTEXT="err"
 OUTPUT_DIR_TEST_INVALID_CONTEXT="./src/test/results/deca/context/invalid/"
 OPTIONS_TEST_INVALID_CONTEXT=""
+
+# SYNTAX INVALID TESTS CONFIGURATION
+NAME_TEST_INVALID_SYNTAX="invalidsyntax"
+EXEC_INVALID_SYNTAX="./src/test/script/launchers/test_synt"
+EXTENSION_TEST_INVALID_SYNTAX="err"
+OUTPUT_DIR_TEST_INVALID_SYNTAX="./src/test/results/deca/syntax/invalid/"
+OPTIONS_TEST_INVALID_SYNTAX=""
 
 # DECOMPILE TESTS CONFIGURATION
 NAME_TEST_DECOMPILE="decompile"
@@ -99,6 +108,9 @@ get_output_dir() {
     $NAME_TEST_INVALID_CONTEXT)
         echo $OUTPUT_DIR_TEST_INVALID_CONTEXT
         ;;
+    $NAME_TEST_INVALID_SYNTAX)
+        echo $OUTPUT_DIR_TEST_INVALID_SYNTAX
+        ;;
     $NAME_TEST_DECOMPILE)
         echo $OUTPUT_DIR_TEST_DECOMPILE
         ;;
@@ -126,6 +138,9 @@ get_input_dir() {
         ;;
     $NAME_TEST_INVALID_CONTEXT)
         echo $INPUT_DIR_INVALID_CONTEXT
+        ;;
+    $NAME_TEST_INVALID_SYNTAX)
+        echo $INPUT_DIR_INVALID_SYNTAX
         ;;
     $NAME_TEST_DECOMPILE)
         echo $INPUT_DIR_DECOMPILE
@@ -155,6 +170,9 @@ get_exec() {
     $NAME_TEST_INVALID_CONTEXT)
         echo $EXEC_INVALID_CONTEXT
         ;;
+    $NAME_TEST_INVALID_SYNTAX)
+        echo $EXEC_INVALID_SYNTAX
+        ;;
     $NAME_TEST_DECOMPILE)
         echo $EXEC_DECOMPILE
         ;;
@@ -183,6 +201,9 @@ get_extension() {
     $NAME_TEST_INVALID_CONTEXT)
         echo $EXTENSION_TEST_INVALID_CONTEXT
         ;;
+    $NAME_TEST_INVALID_SYNTAX)
+        echo $EXTENSION_TEST_INVALID_SYNTAX
+        ;;
     $NAME_TEST_DECOMPILE)
         echo $EXTENSION_TEST_DECOMPILE
         ;;
@@ -210,6 +231,9 @@ get_options() {
         ;;
     $NAME_TEST_INVALID_CONTEXT)
         echo $OPTIONS_TEST_INVALID_CONTEXT
+        ;;
+    $NAME_TEST_INVALID_SYNTAX)
+        echo $OPTIONS_TEST_INVALID_SYNTAX
         ;;
     $NAME_TEST_DECOMPILE)
         echo $OPTIONS_DECOMPILE
@@ -253,6 +277,17 @@ exec_test_invalid_context() {
 
     $executable $options "$file" >"$tmp_file" 2>&1 || true
 }
+
+# Execute invalid-context-related tests and save output to a temporary file for comparison (ex : test_context file.deca > tmp_file.synt 2>&1)
+exec_test_invalid_syntax() {
+    executable=$1
+    options=$2
+    file=$3
+    tmp_file=$4
+
+    $executable $options "$file" >"$tmp_file" 2>&1 || true
+}
+
 # Execute decompilation tests and save output to a temporary file for comparison (ex : decac -p file.deca > tmp_file.synt)
 exec_test_decompile() {
     executable=$1
@@ -294,6 +329,9 @@ exec_test() {
         ;;
     $NAME_TEST_INVALID_CONTEXT)
         exec_test_invalid_context "$executable" "$options" "$file" "$tmp_file"
+        ;;
+    $NAME_TEST_INVALID_SYNTAX)
+        exec_test_invalid_syntax "$executable" "$options" "$file" "$tmp_file"
         ;;
     $NAME_TEST_DECOMPILE)
         exec_test_decompile "$executable" "$options" "$file" "$tmp_file"
@@ -397,7 +435,7 @@ determine_tests_to_run() {
                 ;;
         esac
     else
-        ALL_TESTS="$NAME_TEST_LEX $NAME_TEST_SYNT $NAME_TEST_CONTEXT $NAME_TEST_INVALID_CONTEXT $NAME_TEST_DECOMPILE $NAME_TEST_CODEGEN"
+        ALL_TESTS="$NAME_TEST_INVALID_SYNTAX $NAME_TEST_LEX $NAME_TEST_SYNT $NAME_TEST_CONTEXT $NAME_TEST_INVALID_CONTEXT $NAME_TEST_DECOMPILE $NAME_TEST_CODEGEN"
     fi
 }
 
