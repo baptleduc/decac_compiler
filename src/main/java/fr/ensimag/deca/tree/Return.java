@@ -57,6 +57,7 @@ public class Return extends AbstractInst {
         returnExpr.codeGenInst(compiler);
         DVal dval = returnExpr.getDVal(compiler);
         compiler.addInstruction(new LOAD(dval, compiler.getRegister0()));
+        dval.freeGPRegister(compiler);
         compiler.addInstruction(new BRA(compiler.getEndMethodLabel()));
     }
 }

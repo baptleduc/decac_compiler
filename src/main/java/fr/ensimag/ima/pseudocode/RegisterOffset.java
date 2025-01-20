@@ -36,7 +36,9 @@ public class RegisterOffset extends DAddr {
 
     @Override
     public void freeGPRegister(DecacCompiler compiler) {
-        // Do nothing
+        if (register.isGPRegister()) {
+            ((GPRegister) register).freeGPRegister(compiler);
+        }
     }
 
     @Override

@@ -1,0 +1,11 @@
+// Description:
+//    Program testing the raising of an exception Forgotten hugs.
+//
+// Results:
+//    Line 10: no viable alternative at input 'int'
+//
+// History:
+//    Created on 19/01/2025
+
+    int x;  
+}

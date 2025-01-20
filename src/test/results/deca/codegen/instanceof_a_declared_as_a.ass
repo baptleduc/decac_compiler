@@ -32,39 +32,39 @@
 	BSR init.B
 	POP R3
 	STORE R3, 9(GB)
-	LOAD 9(GB), R2
-	LOAD 0(R2), R2
+	LOAD 9(GB), R3
+	LOAD 0(R3), R3
 InstanceOf_6:
-	CMP #null, R2
+	CMP #null, R3
 	BEQ else_4
-	LOAD 0(R2), R2	; Load method table addr
-	CMP 7(GB), R2
+	LOAD 0(R3), R3	; Load method table addr
+	CMP 7(GB), R3
 	BNE InstanceOf_6
 then_3:
 	WSTR "bug"
 	BRA end_5
 else_4:
 end_5:
-	LOAD 9(GB), R2
-	LOAD 0(R2), R2
+	LOAD 9(GB), R3
+	LOAD 0(R3), R3
 InstanceOf_10:
-	CMP #null, R2
+	CMP #null, R3
 	BEQ else_8
-	LOAD 0(R2), R2	; Load method table addr
-	CMP 5(GB), R2
+	LOAD 0(R3), R3	; Load method table addr
+	CMP 5(GB), R3
 	BNE InstanceOf_10
 then_7:
 	WSTR "ok1"
 	BRA end_9
 else_8:
 end_9:
-	LOAD 9(GB), R2
-	LOAD 0(R2), R2
+	LOAD 9(GB), R3
+	LOAD 0(R3), R3
 InstanceOf_14:
-	CMP #null, R2
+	CMP #null, R3
 	BEQ else_12
-	LOAD 0(R2), R2	; Load method table addr
-	CMP 3(GB), R2
+	LOAD 0(R3), R3	; Load method table addr
+	CMP 3(GB), R3
 	BNE InstanceOf_14
 then_11:
 	WSTR "ok2"

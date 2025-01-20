@@ -1,0 +1,260 @@
+	TSTO #17	; 17 (variables) + 0 (saved registers) + 0 (temporaries) + 0 (method parameters x 2)
+	BOV stack_overflow_error
+	ADDSP #17
+; start main program
+; Method Table of class Object
+	LOAD #null, R0
+	STORE R0, 1(GB)
+	LOAD code.Object.equals, R0
+	STORE R0, 2(GB)
+; Method Table of class Shape
+	LEA 1(GB), R0
+	STORE R0, 3(GB)
+	LOAD code.Object.equals, R0
+	STORE R0, 4(GB)
+	LOAD code.Shape.area, R0
+	STORE R0, 5(GB)
+	LOAD code.Shape.display, R0
+	STORE R0, 6(GB)
+; Method Table of class Circle
+	LEA 3(GB), R0
+	STORE R0, 7(GB)
+	LOAD code.Object.equals, R0
+	STORE R0, 8(GB)
+	LOAD code.Circle.area, R0
+	STORE R0, 9(GB)
+	LOAD code.Circle.display, R0
+	STORE R0, 10(GB)
+; Method Table of class Square
+	LEA 7(GB), R0
+	STORE R0, 11(GB)
+	LOAD code.Object.equals, R0
+	STORE R0, 12(GB)
+	LOAD code.Square.area, R0
+	STORE R0, 13(GB)
+	LOAD code.Square.display, R0
+	STORE R0, 14(GB)
+; Main program
+; Beginning of main instructions:
+	NEW #1, R5
+	BOV heap_overflow_error
+	LEA 3(GB), R0
+	STORE R0, 0(R5)
+	PUSH R5
+	BSR init.Shape
+	POP R5
+	STORE R5, 15(GB)
+	NEW #2, R5
+	BOV heap_overflow_error
+	LEA 7(GB), R0
+	STORE R0, 0(R5)
+	PUSH R5
+	BSR init.Circle
+	POP R5
+	STORE R5, 16(GB)
+	NEW #2, R5
+	BOV heap_overflow_error
+	LEA 11(GB), R0
+	STORE R0, 0(R5)
+	PUSH R5
+	BSR init.Square
+	POP R5
+	STORE R5, 17(GB)
+	LOAD 15(GB), R5
+	CMP #null, R5
+	BEQ null_pointer_error
+	PUSH R5
+	LOAD 0(R5), R5
+	BSR 3(R5)
+	SUBSP #1
+	LOAD 16(GB), R5
+	CMP #null, R5
+	BEQ null_pointer_error
+	LOAD #0x1.4p2, R4
+	STORE R4, 1(R5)
+	LOAD 16(GB), R5
+	CMP #null, R5
+	BEQ null_pointer_error
+	PUSH R5
+	LOAD 0(R5), R5
+	BSR 3(R5)
+	SUBSP #1
+	LOAD 16(GB), R5
+	CMP #null, R5
+	BEQ null_pointer_error
+	PUSH R5
+	LOAD 0(R5), R5
+	BSR 2(R5)
+	SUBSP #1
+	LOAD R0, R1
+	WFLOAT
+	LOAD 17(GB), R5
+	CMP #null, R5
+	BEQ null_pointer_error
+	LOAD #0x1.0p2, R4
+	STORE R4, 1(R5)
+	LOAD 17(GB), R5
+	CMP #null, R5
+	BEQ null_pointer_error
+	PUSH R5
+	LOAD 0(R5), R5
+	BSR 3(R5)
+	SUBSP #1
+	LOAD 17(GB), R5
+	CMP #null, R5
+	BEQ null_pointer_error
+	PUSH R5
+	LOAD 0(R5), R5
+	BSR 2(R5)
+	SUBSP #1
+	LOAD R0, R1
+	WFLOAT
+	HALT
+; Code Object
+code.Object.equals:
+	TSTO #2
+	BOV stack_overflow_error
+	PUSH R2
+	PUSH R3
+	LOAD -2(LB), R2
+	LOAD -3(LB), R3
+	CMP R2, R3
+	BNE return_false_2
+	LOAD #1, R0
+	BRA end_method_1
+return_false_2:
+	LOAD #0, R0
+	BRA end_method_1
+	BRA no_return_error
+end_method_1:
+	POP R3
+	POP R2
+	RTS
+; Class Shape
+init.Shape:
+	RTS
+code.Shape.area:
+	TSTO #0
+	BOV stack_overflow_error
+	LOAD #0x0.0p0, R0
+	BRA end_method_3
+	BRA no_return_error
+end_method_3:
+	RTS
+code.Shape.display:
+	TSTO #0
+	BOV stack_overflow_error
+	WSTR "I am a shape "
+end_method_4:
+	RTS
+; Class Circle
+init.Circle:
+	LOAD -2(LB), R1
+	LOAD #0, R0
+	STORE R0, 1(R1)
+	PUSH R1
+	BSR init.Shape
+	POP R1
+	RTS
+code.Circle.area:
+	TSTO #3
+	BOV stack_overflow_error
+	PUSH R3
+	PUSH R2
+	PUSH R4
+	LOAD -2(LB), R3
+	CMP #null, R3
+	BEQ null_pointer_error
+	LOAD 1(R3), R2
+	MUL #0x1.91eb86p1, R2
+	BOV overflow_error
+	LOAD -2(LB), R4
+	CMP #null, R4
+	BEQ null_pointer_error
+	MUL 1(R4), R2
+	BOV overflow_error
+	LOAD R2, R0
+	BRA end_method_5
+	BRA no_return_error
+end_method_5:
+	POP R4
+	POP R2
+	POP R3
+	RTS
+code.Circle.display:
+	TSTO #0
+	BOV stack_overflow_error
+	WSTR "I am a circle "
+end_method_6:
+	RTS
+; Class Square
+init.Square:
+	LOAD -2(LB), R1
+	LOAD #0, R0
+	STORE R0, 1(R1)
+	PUSH R1
+	BSR init.Shape
+	POP R1
+	RTS
+code.Square.area:
+	TSTO #3
+	BOV stack_overflow_error
+	PUSH R2
+	PUSH R4
+	PUSH R5
+	LOAD -2(LB), R2
+	CMP #null, R2
+	BEQ null_pointer_error
+	LOAD -2(LB), R4
+	CMP #null, R4
+	BEQ null_pointer_error
+	LOAD 1(R2), R5
+	MUL 1(R4), R5
+	BOV overflow_error
+	LOAD R5, R0
+	BRA end_method_7
+	BRA no_return_error
+end_method_7:
+	POP R5
+	POP R4
+	POP R2
+	RTS
+code.Square.display:
+	TSTO #0
+	BOV stack_overflow_error
+	WSTR "I am a square "
+end_method_8:
+	RTS
+stack_overflow_error:
+	WSTR "Error: Stack Overflow"
+	WNL
+	ERROR
+overflow_error:
+	WSTR "Error: Overflow during arithmetic operation"
+	WNL
+	ERROR
+io_error:
+	WSTR "Error: Input/Output error"
+	WNL
+	ERROR
+divide_by_zero_error:
+	WSTR "Error: Division by zero"
+	WNL
+	ERROR
+heap_overflow_error:
+	WSTR "Error: Heap Overflow"
+	WNL
+	ERROR
+null_pointer_error:
+	WSTR "Error: Deferencing a null pointer"
+	WNL
+	ERROR
+cast_error:
+	WSTR "Error: Cast invalid"
+	WNL
+	ERROR
+no_return_error:
+	WSTR "Error: Exit from method without return"
+	WNL
+	ERROR
+; end main program

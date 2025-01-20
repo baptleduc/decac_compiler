@@ -18,34 +18,34 @@
 	STORE R0, 6(GB)
 ; Main program
 ; Beginning of main instructions:
-	NEW #2, R6
+	NEW #2, R3
 	BOV heap_overflow_error
 	LEA 3(GB), R0
-	STORE R0, 0(R6)
-	PUSH R6
+	STORE R0, 0(R3)
+	PUSH R3
 	BSR init.Counter
-	POP R6
-	STORE R6, 7(GB)
-	LOAD 7(GB), R6
-	CMP #null, R6
+	POP R3
+	STORE R3, 7(GB)
+	LOAD 7(GB), R3
+	CMP #null, R3
 	BEQ null_pointer_error
-	PUSH R6
-	LOAD 0(R6), R6
-	BSR 2(R6)
+	PUSH R3
+	LOAD 0(R3), R3
+	BSR 2(R3)
 	SUBSP #1
-	LOAD 7(GB), R7
-	CMP #null, R7
+	LOAD 7(GB), R3
+	CMP #null, R3
 	BEQ null_pointer_error
-	PUSH R7
-	LOAD 0(R7), R7
-	BSR 2(R7)
+	PUSH R3
+	LOAD 0(R3), R3
+	BSR 2(R3)
 	SUBSP #1
-	LOAD 7(GB), R8
-	CMP #null, R8
+	LOAD 7(GB), R3
+	CMP #null, R3
 	BEQ null_pointer_error
-	PUSH R8
-	LOAD 0(R8), R8
-	BSR 3(R8)
+	PUSH R3
+	LOAD 0(R3), R3
+	BSR 3(R3)
 	SUBSP #1
 	LOAD R0, R1
 	WFLOAT
@@ -98,13 +98,13 @@ end_method_3:
 code.Counter.getCount:
 	TSTO #1
 	BOV stack_overflow_error
-	PUSH R5
-	LOAD -2(LB), R5
-	LOAD 1(R5), R0
+	PUSH R3
+	LOAD -2(LB), R3
+	LOAD 1(R3), R0
 	BRA end_method_4
 	BRA no_return_error
 end_method_4:
-	POP R5
+	POP R3
 	RTS
 stack_overflow_error:
 	WSTR "Error: Stack Overflow"

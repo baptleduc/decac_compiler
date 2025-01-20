@@ -1,0 +1,38 @@
+// Description:
+//    Test des méthodes avec des valeurs de retour complexes (ici une instance d'objet).
+//
+// Results:
+//    57
+//    
+//
+// History:
+//    Created on 6/1/2025
+
+class Point {
+        int x;
+        int y;
+
+        
+        void creer_point(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
+    }
+
+    class Geometry {
+        
+        Point createPoint(int x, int y) {
+            Point p = new Point();
+            p.creer_point(x, y);
+            return p;
+        }
+    }
+
+{
+    
+
+    
+    Geometry g = new Geometry();
+    Point p = g.createPoint(5, 7);
+    print(p.x, p.y);  
+}
