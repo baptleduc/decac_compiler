@@ -357,11 +357,12 @@ public class DecacCompiler {
         return reg;
     }
 
-    private int calculateTSTOMethod(){
-        return stackManager.getUsedRegistersMethod().size() + stackManager.getOffsetLBValue() + 2 * stackManager.getNumMethodCall();
+    private int calculateTSTOMethod() {
+        return stackManager.getUsedRegistersMethod().size() + stackManager.getOffsetLBValue()
+                + 2 * stackManager.getNumMethodCall();
     }
 
-    public void incrementNumMethodCall(){
+    public void incrementNumMethodCall() {
         stackManager.incrementNumMethodCall();
     }
 

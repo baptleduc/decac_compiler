@@ -18,7 +18,6 @@ import fr.ensimag.ima.pseudocode.instructions.PUSH;
 import fr.ensimag.ima.pseudocode.instructions.RTS;
 import fr.ensimag.ima.pseudocode.instructions.STORE;
 import fr.ensimag.ima.pseudocode.instructions.TSTO;
-
 import org.apache.log4j.Logger;
 
 public class Constructor {
