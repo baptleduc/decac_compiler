@@ -30,4 +30,9 @@ public class Lower extends AbstractOpIneq {
         return new BLT(setTrueLabel);
     }
 
+    @Override
+    protected String getARMCmpInverseAcronym() {
+        return "ge";
+    }
+
 }

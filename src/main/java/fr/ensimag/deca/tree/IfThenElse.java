@@ -1,5 +1,8 @@
 package fr.ensimag.deca.tree;
 
+import fr.ensimag.arm.ARMDVal;
+import fr.ensimag.arm.ARMProgram;
+import fr.ensimag.arm.instruction.ARMInstruction;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
@@ -78,7 +81,25 @@ public class IfThenElse extends AbstractInst {
 
     @Override
     protected void codeGenInstARM(DecacCompiler compiler) {
-        // TODO ARM
+        ARMProgram program = compiler.getARMProgram();
+        String ifLabel = program.createLabel();
+        String elseLabel = program.createLabel();
+        String finalLabel = program.createLabel();
+
+        condition.codeGenInstARM(compiler);
+        ARMDVal resultCondition = condition.getARMDVal(); // register containing either 1 or 0 (true or false)
+        program.addInstruction(new ARMInstruction("tbnz", resultCondition.toString(), "#0", elseLabel));
+        program.addInstruction(new ARMInstruction("b", ifLabel));
+        // then branch
+        program.addLabelLine(ifLabel);
+        thenBranch.codeGenListInstARM(compiler);
+        program.addInstruction(new ARMInstruction("b", finalLabel));
+        // else branch
+        program.addLabelLine(elseLabel);
+        elseBranch.codeGenListInstARM(compiler);
+        program.addInstruction(new ARMInstruction("b", finalLabel));
+
+        program.addLabelLine(finalLabel);
     }
 
     @Override

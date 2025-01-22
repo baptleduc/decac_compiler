@@ -1,5 +1,7 @@
 package fr.ensimag.deca.tree;
 
+import fr.ensimag.arm.ARMProgram;
+import fr.ensimag.arm.instruction.ARMInstruction;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.tools.IndentPrintStream;
@@ -25,7 +27,8 @@ public class EmptyMain extends AbstractMain {
 
     @Override
     protected void codeGenMainARM(DecacCompiler compiler) {
-        // TODO ARM
+        ARMProgram program = compiler.getARMProgram();
+        program.addInstruction(new ARMInstruction("// Empty main program"));
     }
 
     /**

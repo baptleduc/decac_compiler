@@ -30,4 +30,9 @@ public class Equals extends AbstractOpExactCmp {
         return new BEQ(setTrueLabel);
     }
 
+    @Override
+    protected String getARMCmpInverseAcronym() {
+        return "ne";
+    }
+
 }

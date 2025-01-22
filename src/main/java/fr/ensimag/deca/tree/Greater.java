@@ -30,4 +30,9 @@ public class Greater extends AbstractOpIneq {
         return new BGT(setTrueLabel);
     }
 
+    @Override
+    protected String getARMCmpInverseAcronym() {
+        return "le";
+    }
+
 }

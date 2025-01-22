@@ -29,4 +29,9 @@ public class LowerOrEqual extends AbstractOpIneq {
         return new BLE(setTrueLabel);
     }
 
+    @Override
+    protected String getARMCmpInverseAcronym() {
+        return "gt";
+    }
+
 }

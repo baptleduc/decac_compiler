@@ -1,5 +1,7 @@
 package fr.ensimag.deca.tree;
 
+import fr.ensimag.arm.ARMProgram;
+import fr.ensimag.arm.instruction.ARMInstruction;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
@@ -94,7 +96,19 @@ public class While extends AbstractInst {
 
     @Override
     protected void codeGenInstARM(DecacCompiler compiler) {
-        // TODO ARM
+        ARMProgram program = compiler.getARMProgram();
+
+        String startWhileARM = program.createLabel();
+        String endLabelARM = program.createLabel();
+
+        program.addLabelLine(startWhileARM);
+        condition.codeGenInstARM(compiler);
+        program.addInstruction(new ARMInstruction("tbnz", condition.getARMDVal().toString(), "#0", endLabelARM));
+        body.codeGenListInstARM(compiler);
+        program.addInstruction(new ARMInstruction("b", startWhileARM));
+        program.addLabelLine(endLabelARM);
+
+        program.freeRegister(condition.getARMDVal().toString());
     }
 
 }

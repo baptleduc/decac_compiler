@@ -1,5 +1,8 @@
 package fr.ensimag.deca.tree;
 
+import fr.ensimag.arm.ARMDVal;
+import fr.ensimag.arm.ARMProgram;
+import fr.ensimag.arm.instruction.ARMInstruction;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
@@ -47,6 +50,8 @@ public abstract class AbstractOpCmp extends AbstractBinaryExpr {
 
     protected abstract BranchInstruction getBranchInstruction(Label setTrueLabel);
 
+    protected abstract String getARMCmpInverseAcronym();
+
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
         getLeftOperand().codeGenInst(compiler);
@@ -81,6 +86,35 @@ public abstract class AbstractOpCmp extends AbstractBinaryExpr {
 
     @Override
     protected void codeGenInstARM(DecacCompiler compiler) {
-        // TODO ARM
+        ARMProgram program = compiler.getARMProgram();
+
+        // we get a register with the value of the left operand (this operation is done
+        // multiple time throught the projet, may be factorized)
+        String leftRg;
+        getLeftOperand().codeGenInstARM(compiler);
+        ARMDVal leftOpDval = getLeftOperand().getARMDVal();
+        if (getLeftOperand().isImmediate()) {
+            leftRg = program.getAvailableRegister();
+            program.addInstruction(new ARMInstruction("mov", leftRg, leftOpDval.toString()));
+        } else {
+            leftRg = leftOpDval.toString();
+        }
+
+        // same with the right operand
+        String rightRg;
+        getRightOperand().codeGenInstARM(compiler);
+        ARMDVal rightOpDval = getRightOperand().getARMDVal();
+        if (getRightOperand().isImmediate()) {
+            rightRg = program.getAvailableRegister();
+            program.addInstruction(new ARMInstruction("mov", rightRg, rightOpDval.toString()));
+        } else {
+            rightRg = rightOpDval.toString();
+        }
+
+        program.addInstruction(new ARMInstruction("subs", leftRg, leftRg, rightRg));
+        program.addInstruction(new ARMInstruction("cset", leftRg, getARMCmpInverseAcronym()));
+        program.freeRegister(rightRg);
+        setARMDVal(new ARMDVal(leftRg)); // either 0 or 1
+
     }
 }

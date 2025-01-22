@@ -33,8 +33,8 @@ public class And extends AbstractOpBool {
     }
 
     @Override
-    protected void codeGenInstARM(DecacCompiler compiler) {
-        // TODO ARM
+    protected boolean endIfTrueARM() {
+        return false;
     }
 
 }

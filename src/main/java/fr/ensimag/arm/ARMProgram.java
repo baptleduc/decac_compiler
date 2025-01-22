@@ -1,5 +1,6 @@
 package fr.ensimag.arm;
 
+import fr.ensimag.arm.instruction.ARMLabel;
 import fr.ensimag.arm.instruction.AbstractARMInstruction;
 import fr.ensimag.deca.context.Type;
 import java.util.HashMap;
@@ -19,8 +20,7 @@ public class ARMProgram {
     };
 
     static public final IntRange RANGE_ARG_REGISTER = new IntRange(0, 7);
-    static public final IntRange RANGE_SCRATCH_REGISTERS = new IntRange(9, 15);
-
+    static public final IntRange RANGE_SCRATCH_REGISTERS = new IntRange(8, 15);
 
     static public final String FRAME_POINTER = "X29";
 
@@ -40,6 +40,8 @@ public class ARMProgram {
 
     static public final String CALL_KERNEL = "svc #0x80";
 
+    private boolean usingClang = false;
+
     private final Stack<String> scratchRegisters = new Stack<String>();
 
     private final LinkedList<String> stringLines = new LinkedList<String>();
@@ -56,6 +58,8 @@ public class ARMProgram {
 
     private int printNbParameters = -1; // -1 if no printf call
 
+    private int labelNameCounter = 0;
+
     public void addInstruction(AbstractARMInstruction inst) {
         mainInstructions.add(inst);
     }
@@ -65,6 +69,14 @@ public class ARMProgram {
                 .getMinimumInteger(); i--) {
             scratchRegisters.push("w" + i);
         }
+    }
+
+    public void setProc(boolean isM2) {
+        usingClang = isM2;
+    }
+
+    public boolean isUsingClang() {
+        return usingClang;
     }
 
     // ############
@@ -82,11 +94,14 @@ public class ARMProgram {
     // return res;
     // }
 
-    private int computeVarMemory() { // return the max offset, can be optimized, TODO ARM : different size
+    private int computeVarMemory() { // return the max offset, TODO ARM : different size
         assert memoryMap.isEmpty();
-        int multiplier = printNbParameters == -1 ? 1 : -1; // the offset is negative (we use the frame pointer to store
-                                                           // variables) if there is a printf call
-        int offset = printNbParameters == -1 ? 0 : -4;
+
+        boolean useFramePointer = printNbParameters > -1 && isUsingClang();
+
+        int multiplier = useFramePointer ? -1 : 1;
+
+        int offset = useFramePointer ? -4 : 0;
 
         for (String varName : varOccurences.keySet()) {
             for (String varName2 : memoryMap.keySet()) {
@@ -153,6 +168,14 @@ public class ARMProgram {
         return name;
     }
 
+    public void addLabelLine(String label) {
+        mainInstructions.add(new ARMLabel(label));
+    }
+
+    public String createLabel() {
+        return "label_" + labelNameCounter++;
+    }
+
     private int getNextPowerOf2(int n) {
         if (n <= 0) {
             throw new IllegalArgumentException("Input must be a positive integer.");
@@ -174,29 +197,43 @@ public class ARMProgram {
     }
 
     private LinkedList<String> genBeginningLines(int spSize) {
+        spSize = printNbParameters > -1 ? spSize + 16 : spSize;
         LinkedList<String> lines = new LinkedList<String>();
-        lines.add(".globl _main");
+        lines.add(isUsingClang() ? ".globl _main" : ".globl main");
         lines.add(".p2align 2");
-        lines.add("_main:");
-        lines.add("sub sp, sp, #" + (spSize + 16));
-        lines.add("stp X29, X30, [sp, #" + spSize + "]"); // save frame pointer and link register
-        lines.add("add X29, sp, #" + spSize);
+        lines.add(isUsingClang() ? "_main:" : "main:");
+        lines.add(".cfi_startproc");
+        lines.add("sub sp, sp, #" + (spSize));
+        lines.add(".cfi_def_cfa_offset " + spSize);
+        lines.add("mov w0, #0"); // return 0
+        // lines.add("str wzr, [sp, #" + (spSize-4) + "]"); // if no print call else x29
+        // #-4
+        if (printNbParameters > -1) {
+            lines.add("stp X29, X30, [sp, #" + (spSize - 16) + "]"); // save frame pointer and link register
+            lines.add("add X29, sp, #" + (spSize - 16));
+        }
         return lines;
     }
 
     private LinkedList<String> genEndingLines(int spSize) {
+        spSize = printNbParameters > -1 ? spSize + 16 : spSize;
         LinkedList<String> lines = new LinkedList<String>();
-        lines.add("ldp X29, X30, [sp, #" + spSize + "]"); // restore frame pointer and link register
-        lines.add("add sp, sp, #" + (spSize + 16));
+        if (printNbParameters > -1) {
+            lines.add("ldp X29, X30, [sp, #" + (spSize - 16) + "]"); // restore frame pointer and link register
+        }
+        lines.add("add sp, sp, #" + (spSize));
         lines.add("ret");
+        lines.add(".cfi_endproc");
         // codeLines.add("mov X0, #0");
         // codeLines.add("bl _exit");
         return lines;
     }
 
     private int getSpSize(int spMaxOffset) {
-        int size = getNextPowerOf2(16 + spMaxOffset + printNbParameters * 8);
-        return size;
+        if (printNbParameters == -1) {
+            return Math.max(getNextPowerOf2(spMaxOffset), 16);
+        }
+        return Math.max(getNextPowerOf2(spMaxOffset + printNbParameters * 8), 16);
     }
 
     public LinkedList<String> genAssemblyCode() {
@@ -216,12 +253,6 @@ public class ARMProgram {
         }
 
         return codeLines;
-    }
-
-    public void display() {
-        for (String line : genAssemblyCode()) {
-            System.out.println(line);
-        }
     }
 
     public static String getARMTypeFromDecaType(Type type) {

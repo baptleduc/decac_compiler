@@ -1,5 +1,8 @@
 package fr.ensimag.deca.tree;
 
+import fr.ensimag.arm.ARMDVal;
+import fr.ensimag.arm.ARMProgram;
+import fr.ensimag.arm.instruction.ARMInstruction;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
@@ -89,6 +92,46 @@ public abstract class AbstractOpBool extends AbstractBinaryExpr {
         // End
         compiler.addLabel(endLabel);
         setDVal(regLeft);
+    }
+
+    abstract protected boolean endIfTrueARM();
+
+    @Override
+    protected void codeGenInstARM(DecacCompiler compiler) {
+        ARMProgram program = compiler.getARMProgram();
+
+        // si le premier est faux et que c'est and on branche sur final avec 0 (deja
+        // dedans), si premier est vrai et que c'est or on branche sur final avec 1
+        // (deja dedans)
+        // sinon on branche sur le label deuxième opérande et dans celui ci on se
+        // contente de mettre le résultat dans le registre puis de brancher sur le final
+
+        String secondOperandLabel = program.createLabel();
+        String finalLabel = program.createLabel();
+        String labelIfTrue = endIfTrueARM() ? secondOperandLabel : finalLabel;
+        String labelIfFalse = endIfTrueARM() ? finalLabel : secondOperandLabel;
+
+        getLeftOperand().codeGenInstARM(compiler);
+        String rgLeft;
+        if (getLeftOperand().isImmediate()) {
+            rgLeft = program.getAvailableRegister();
+            program.addInstruction(new ARMInstruction("mov", rgLeft, getLeftOperand().getARMDVal().toString()));
+        } else {
+            rgLeft = getLeftOperand().getARMDVal().toString();
+        }
+
+        program.addInstruction(new ARMInstruction("tbnz", rgLeft, "#0", labelIfTrue));
+        program.addInstruction(new ARMInstruction("b", labelIfFalse));
+        program.addLabelLine(secondOperandLabel);
+        getRightOperand().codeGenInstARM(compiler);
+        program.addInstruction(new ARMInstruction("mov", rgLeft, getRightOperand().getARMDVal().toString()));
+        program.addInstruction(new ARMInstruction("b", finalLabel));
+        program.addLabelLine(finalLabel);
+
+        if (!getRightOperand().isImmediate()) {
+            program.freeRegister(getRightOperand().getARMDVal().toString());
+        }
+        setARMDVal(new ARMDVal(rgLeft));
     }
 
 }

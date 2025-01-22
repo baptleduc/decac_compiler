@@ -31,6 +31,7 @@ public class CompilerOptions {
     private boolean printBanner = false;
     private boolean warnings = false;
     private boolean arm = false;
+    private boolean isM2 = false;
 
     private List<File> sourceFiles = new ArrayList<File>();
     private HashSet<String> sourceFilesPath = new HashSet<String>();
@@ -71,6 +72,10 @@ public class CompilerOptions {
         return arm;
     }
 
+    public boolean getIsM2() {
+        return isM2;
+    }
+
     public List<File> getSourceFiles() {
         return Collections.unmodifiableList(sourceFiles);
     }
@@ -95,6 +100,8 @@ public class CompilerOptions {
                 warnings = true;
             } else if (args[i].equals("--arm")) {
                 arm = true;
+            } else if (args[i].equals("--M2")) {
+                isM2 = true;
             } else if (args[i].endsWith(".deca")) {
                 handleSourceFile(args[i]);
             } else {
@@ -199,7 +206,8 @@ public class CompilerOptions {
                 + "    -r X (registers): limits the available registers to R0 ... R{X-1}, with 4 <= X <= 16\n"
                 + "    -d (debug): enables debug traces. Repeat the option multiple times for more traces.\n"
                 + "    -P (parallel): if there are multiple source files, compiles them in parallel (to speed up compilation)\n"
-                + "    --arm: generates ARM code\n";
+                + "    --arm: generates ARM code\n"
+                + "    --M2: (only for ARM) the code is generated so that it works at least on MAC M2\n";
 
         System.out.println(usage);
     }

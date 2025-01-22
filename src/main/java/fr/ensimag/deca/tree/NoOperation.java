@@ -29,7 +29,7 @@ public class NoOperation extends AbstractInst {
 
     @Override
     protected void codeGenInstARM(DecacCompiler compiler) {
-        // TODO ARM
+        throw new UnsupportedOperationException("not yet implemented");
     }
 
     @Override

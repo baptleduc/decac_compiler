@@ -31,8 +31,8 @@ public class Or extends AbstractOpBool {
     }
 
     @Override
-    protected void codeGenInstARM(DecacCompiler compiler) {
-        // TODO ARM
+    protected boolean endIfTrueARM() {
+        return true;
     }
 
 }

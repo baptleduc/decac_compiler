@@ -111,7 +111,7 @@ public abstract class AbstractPrint extends AbstractInst {
 
         // we call _printf
         program.addInstruction(new ARMInstruction("adr", "X0", stringName));
-        program.addInstruction(new ARMInstruction("bl", "_printf"));
+        program.addInstruction(new ARMInstruction("bl", program.isUsingClang() ? "_printf" : "printf"));
     }
 
     private boolean getPrintHex() {

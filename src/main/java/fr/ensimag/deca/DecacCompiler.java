@@ -59,6 +59,7 @@ public class DecacCompiler {
     public DecacCompiler(CompilerOptions compilerOptions, File source) {
         super();
         this.compilerOptions = compilerOptions;
+        getARMProgram().setProc(getCompilerOptions().getIsM2());
         if (compilerOptions == null || this.compilerOptions.getRegisters() == -1) {
             this.stackManager = new StackManager(program, Register.getMaxGPRegisters());
         } else {
@@ -324,7 +325,12 @@ public class DecacCompiler {
      */
     public boolean compile() {
         String sourceFile = source.getAbsolutePath();
-        String destFile = sourceFile.replaceAll("\\.deca$", ".ass");
+        String destFile;
+        if (getCompilerOptions().getArm()) {
+            destFile = sourceFile.replaceAll("\\.deca$", ".s");
+        } else {
+            destFile = sourceFile.replaceAll("\\.deca$", ".ass");
+        }
         PrintStream err = System.err;
         PrintStream out = System.out;
         LOG.debug("Compiling file " + sourceFile + " to assembly file " + destFile);
@@ -408,8 +414,11 @@ public class DecacCompiler {
         }
 
         LOG.info("Writing assembler file ...");
-
-        program.display(new PrintStream(fstream));
+        if (getCompilerOptions().getArm()) {
+            generateAllCodeARM(new PrintStream(fstream));
+        } else {
+            program.display(new PrintStream(fstream));
+        }
         LOG.info("Compilation of " + sourceName + " successful.");
         return false;
     }
@@ -447,4 +456,12 @@ public class DecacCompiler {
         return parser.parseProgramAndManageErrors(err);
     }
 
+    public void generateAllCodeARM(PrintStream s) throws DecacFatalError {
+
+        ARMProgram program = getARMProgram();
+
+        for (String line : program.genAssemblyCode()) {
+            s.println(line);
+        }
+    }
 }

@@ -29,4 +29,10 @@ public class InstanceOf extends AbstractOpExactCmp {
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
+    @Override
+    protected String getARMCmpInverseAcronym() {
+        // TODO ARM
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
 }
