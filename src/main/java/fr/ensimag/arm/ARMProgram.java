@@ -197,7 +197,8 @@ public class ARMProgram {
     }
 
     private LinkedList<String> genBeginningLines(int spSize) {
-        spSize = printNbParameters > -1 ? spSize + 16 : spSize;
+        boolean usingFP = printNbParameters > -1 && isUsingClang();
+        spSize = usingFP ? spSize + 16 : spSize;
         LinkedList<String> lines = new LinkedList<String>();
         lines.add(isUsingClang() ? ".globl _main" : ".globl main");
         lines.add(".p2align 2");
@@ -205,10 +206,10 @@ public class ARMProgram {
         lines.add(".cfi_startproc");
         lines.add("sub sp, sp, #" + (spSize));
         lines.add(".cfi_def_cfa_offset " + spSize);
-        lines.add("mov w0, #0"); // return 0
+        // lines.add("mov w0, #0"); // return 0
         // lines.add("str wzr, [sp, #" + (spSize-4) + "]"); // if no print call else x29
         // #-4
-        if (printNbParameters > -1) {
+        if (usingFP) {
             lines.add("stp X29, X30, [sp, #" + (spSize - 16) + "]"); // save frame pointer and link register
             lines.add("add X29, sp, #" + (spSize - 16));
         }
@@ -216,12 +217,14 @@ public class ARMProgram {
     }
 
     private LinkedList<String> genEndingLines(int spSize) {
-        spSize = printNbParameters > -1 ? spSize + 16 : spSize;
+        boolean usingFP = printNbParameters > -1 && isUsingClang();
+        spSize = usingFP ? spSize + 16 : spSize;
         LinkedList<String> lines = new LinkedList<String>();
-        if (printNbParameters > -1) {
+        if (usingFP) {
             lines.add("ldp X29, X30, [sp, #" + (spSize - 16) + "]"); // restore frame pointer and link register
         }
         lines.add("add sp, sp, #" + (spSize));
+        lines.add("mov w0, #0"); // not sure
         lines.add("ret");
         lines.add(".cfi_endproc");
         // codeLines.add("mov X0, #0");
@@ -230,7 +233,8 @@ public class ARMProgram {
     }
 
     private int getSpSize(int spMaxOffset) {
-        if (printNbParameters == -1) {
+        boolean usingFP = printNbParameters > -1 && isUsingClang();
+        if (!usingFP) {
             return Math.max(getNextPowerOf2(spMaxOffset), 16);
         }
         return Math.max(getNextPowerOf2(spMaxOffset + printNbParameters * 8), 16);

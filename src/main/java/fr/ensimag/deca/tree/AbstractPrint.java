@@ -75,6 +75,27 @@ public abstract class AbstractPrint extends AbstractInst {
         }
     }
 
+    private void putParamsInSP(ARMProgram program, LinkedList<AbstractExpr> abExps, DecacCompiler compiler) {
+        program.setPrintNbParametersIfSup(abExps.size());
+        int offset = 0;
+        for (AbstractExpr a : abExps) {
+            a.codeGenInstARM(compiler);
+            program.addInstruction(new ARMDirectStore(a.getARMDVal().toString(), offset));
+            program.freeRegister(a.getARMDVal().toString());
+            offset += 8;
+        }
+    }
+
+    private void putParamsInRgs(ARMProgram program, LinkedList<AbstractExpr> abExps, DecacCompiler compiler) {
+        // program.setPrintNbParametersIfSup(abExps.size());
+        int count = 1;
+        for (AbstractExpr a : abExps) {
+            a.codeGenInstARM(compiler);
+            program.addInstruction(new ARMInstruction("mv", "w" + count, a.getARMDVal().toString()));
+            count += 1;
+        }
+    }
+
     @Override
     protected void codeGenInstARM(DecacCompiler compiler) {
         ARMProgram program = compiler.getARMProgram();
@@ -97,16 +118,11 @@ public abstract class AbstractPrint extends AbstractInst {
         }
         String stringName = program.addStringLine(getARMPrintModification(format));
 
-        // we put in sp the print parameters
-        program.setPrintNbParametersIfSup(abExp.size());
-        int offset = 0;
-        for (AbstractExpr a : abExp) {
-            a.codeGenInstARM(compiler);
-            // String reg;
-            // if (a.armIsVariable)
-            program.addInstruction(new ARMDirectStore(a.getARMDVal().toString(), offset));
-            program.freeRegister(a.getARMDVal().toString());
-            offset += 8;
+        // we put in sp the print parameters if clang is used
+        if (program.isUsingClang()) {
+            putParamsInSP(program, abExp, compiler);
+        } else {
+            putParamsInRgs(program, abExp, compiler);
         }
 
         // we call _printf
