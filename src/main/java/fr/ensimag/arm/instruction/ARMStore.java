@@ -5,7 +5,12 @@ import fr.ensimag.arm.ARMProgram;
 public class ARMStore extends ARMLoadStore {
 
     public ARMStore(String register, String varName, ARMProgram program) {
-        super(register, varName, program);
+        super(register, varName, program, ARMProgram.INT_SIZE);
+    }
+    
+
+    public ARMStore(String register, String varName, ARMProgram program, int size) {
+        super(register, varName, program, size);
     }
 
     @Override

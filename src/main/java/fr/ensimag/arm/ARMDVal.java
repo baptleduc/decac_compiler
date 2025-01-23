@@ -2,15 +2,20 @@ package fr.ensimag.arm;
 
 public class ARMDVal {
 
-    String forInstructionVal;
+    protected String forInstructionVal;
 
-    String trueVal;
+    protected String trueVal;
 
-    String varName;
+    protected String varName;
 
-    int valueInt;
+    protected int valueInt;
+
+    private boolean isFloat = false;
 
     public ARMDVal(String val) {
+        if (val.contains("s")){
+            isFloat = true;
+        }
         this.forInstructionVal = val;
         this.trueVal = val;
     }
@@ -22,6 +27,9 @@ public class ARMDVal {
     }
 
     public ARMDVal(String val, String name) {
+        if (val.contains("s")){
+            isFloat = true;
+        }
         this.forInstructionVal = val;
         this.trueVal = val;
         this.varName = name;
@@ -41,6 +49,10 @@ public class ARMDVal {
 
     public String getVarName() {
         return varName;
+    }
+
+    public boolean isFloat(){
+        return isFloat;
     }
 
     @Override

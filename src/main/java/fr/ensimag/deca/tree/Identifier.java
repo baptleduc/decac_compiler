@@ -249,8 +249,9 @@ public class Identifier extends AbstractIdentifier {
     @Override
     protected void codeGenInstARM(DecacCompiler compiler) {
         ARMProgram program = compiler.getARMProgram();
-        String reg = program.getAvailableRegister();
-        program.addInstruction(new ARMLoad(reg, name.toString(), program));
+        int varSize = program.getSizeOfVar(name.toString());
+        String reg = varSize == ARMProgram.FLOAT_SIZE ? program.getAvailableRegisterTypeS() : program.getAvailableRegister();
+        program.addInstruction(new ARMLoad(reg, name.toString(), program, varSize));
         setARMDVal(new ARMDVal(reg, name.toString()));
     }
 

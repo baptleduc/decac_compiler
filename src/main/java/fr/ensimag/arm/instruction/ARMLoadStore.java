@@ -10,11 +10,13 @@ public abstract class ARMLoadStore extends AbstractARMInstruction {
 
     protected ARMProgram program;
 
-    protected ARMLoadStore(String register, String varName, ARMProgram program) {
+    protected int size;
+
+    protected ARMLoadStore(String register, String varName, ARMProgram program, int size) {
         this.varName = varName;
         this.register = register;
         this.program = program;
-        program.addVarOccurence(varName);
+        program.addVarOccurence(varName, size);
     }
 
     protected abstract String getInstructionLabel(int offset);

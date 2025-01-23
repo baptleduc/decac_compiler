@@ -80,18 +80,20 @@ public abstract class AbstractPrint extends AbstractInst {
         int offset = 0;
         for (AbstractExpr a : abExps) {
             a.codeGenInstARM(compiler);
-            program.addInstruction(new ARMDirectStore(a.getARMDVal().toString(), offset));
-            program.freeRegister(a.getARMDVal().toString());
+            String reg = program.getReadyRegister(a.getARMDVal());
+            program.addInstruction(new ARMDirectStore(reg, offset));
+            program.freeRegister(reg);
             offset += 8;
         }
     }
 
     private void putParamsInRgs(ARMProgram program, LinkedList<AbstractExpr> abExps, DecacCompiler compiler) {
-        // program.setPrintNbParametersIfSup(abExps.size());
         int count = 1;
         for (AbstractExpr a : abExps) {
             a.codeGenInstARM(compiler);
-            program.addInstruction(new ARMInstruction("mv", "w" + count, a.getARMDVal().toString()));
+            String reg = program.getReadyRegister(a.getARMDVal());
+            program.addInstruction(new ARMInstruction("mov", "x" + count, reg));
+            program.freeRegister(reg);
             count += 1;
         }
     }

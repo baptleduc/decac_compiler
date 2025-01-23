@@ -75,11 +75,23 @@ public class Initialization extends AbstractInitialization {
         LOG.debug("STORE " + regDest + "," + addr);
     }
 
+    private void immediateFloatInitializationARM(ARMProgram program, String varName){
+        String sRg = expression.getARMDVal().toString();
+        program.addInstruction(new ARMStore(sRg, varName, program, ARMProgram.FLOAT_SIZE));
+        program.freeRegisterTypeS(sRg);
+    }
+
     @Override
     public void codeGenInitializationARM(DecacCompiler compiler, String varName, String type) {
         expression.codeGenInstARM(compiler);
         ARMProgram prog = compiler.getARMProgram();
         if (expression.isImmediate()) {
+
+            if (expression.getARMDVal().isFloat()){
+                immediateFloatInitializationARM(prog, varName);
+                return;
+            }
+
             String reg = prog.getAvailableRegister();
             prog.addInstruction(new ARMInstruction("mov", reg, expression.getARMDVal().toString()));
             prog.addInstruction(new ARMStore(reg, varName, prog));
