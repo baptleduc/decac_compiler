@@ -27,15 +27,11 @@ import fr.ensimag.ima.pseudocode.instructions.BRA;
 import fr.ensimag.ima.pseudocode.instructions.POP;
 import fr.ensimag.ima.pseudocode.instructions.PUSH;
 import fr.ensimag.ima.pseudocode.instructions.TSTO;
-import net.bytebuddy.dynamic.scaffold.MethodGraph.Linked;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.util.LinkedList;
-
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.apache.log4j.Logger;
@@ -364,7 +360,7 @@ public class DecacCompiler {
         return reg;
     }
 
-    public void freeAllGPRegisters(){
+    public void freeAllGPRegisters() {
         while (!stackManager.getUsedGPRegisters().isEmpty()) {
             GPRegister reg = stackManager.popUsedRegister();
             reg.freeGPRegister(this);
