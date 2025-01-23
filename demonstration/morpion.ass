@@ -42,22 +42,22 @@ start_while_84:
 	LOAD 12(GB), R2
 	CMP #0, R2
 	BNE end_while_85
-	LOAD 10(GB), R12
-	CMP #null, R12
+	LOAD 10(GB), R4
+	CMP #null, R4
 	BEQ null_pointer_error
-	PUSH R12
-	LOAD 0(R12), R12
-	BSR 6(R12)
+	PUSH R4
+	LOAD 0(R4), R4
+	BSR 6(R4)
 	SUBSP #1
 	CMP #0, R0
 	BNE end_while_85
 And_end_label_86:
-	LOAD 10(GB), R12
-	CMP #null, R12
+	LOAD 10(GB), R4
+	CMP #null, R4
 	BEQ null_pointer_error
-	PUSH R12
-	LOAD 0(R12), R12
-	BSR 2(R12)
+	PUSH R4
+	LOAD 0(R4), R4
+	BSR 2(R4)
 	SUBSP #1
 	WSTR "Joueur "
 	LOAD 11(GB), R1
@@ -95,12 +95,12 @@ then_87:
 	CMP #0, R2
 	BNE else_91
 then_90:
-	LOAD 11(GB), R3
-	CMP #1, R3
+	LOAD 11(GB), R4
+	CMP #1, R4
 	BNE else_94
 then_93:
-	LOAD #2, R3
-	STORE R3, 11(GB)
+	LOAD #2, R4
+	STORE R4, 11(GB)
 	BRA end_95
 else_94:
 	LOAD #1, R2
@@ -275,201 +275,201 @@ then_7:
 	BRA end_method_6
 	BRA end_9
 else_8:
-	LOAD -3(LB), R2
-	CMP #2, R2
+	LOAD -3(LB), R3
+	CMP #2, R3
 	BNE else_12
-	LOAD -2(LB), R2
-	LOAD 2(R2), R3
-	PUSH R3
 	LOAD -2(LB), R3
-	CMP #null, R3
+	LOAD 2(R3), R2
+	PUSH R2
+	LOAD -2(LB), R2
+	CMP #null, R2
 	BEQ null_pointer_error
-	PUSH R3
-	LOAD 0(R3), R3
-	BSR 3(R3)
+	PUSH R2
+	LOAD 0(R2), R2
+	BSR 3(R2)
 	SUBSP #2
 	CMP #0, R0
 	BEQ else_12
 And_end_label_14:
 then_11:
-	LOAD -2(LB), R3
+	LOAD -2(LB), R2
 	LOAD -4(LB), R4
-	STORE R4, 2(R3)
+	STORE R4, 2(R2)
 	LOAD #1, R0
 	BRA end_method_6
 	BRA end_13
 else_12:
 end_13:
-	LOAD -3(LB), R2
-	CMP #3, R2
+	LOAD -3(LB), R3
+	CMP #3, R3
 	BNE else_16
-	LOAD -2(LB), R2
-	LOAD 3(R2), R3
-	PUSH R3
 	LOAD -2(LB), R3
-	CMP #null, R3
+	LOAD 3(R3), R2
+	PUSH R2
+	LOAD -2(LB), R2
+	CMP #null, R2
 	BEQ null_pointer_error
-	PUSH R3
-	LOAD 0(R3), R3
-	BSR 3(R3)
+	PUSH R2
+	LOAD 0(R2), R2
+	BSR 3(R2)
 	SUBSP #2
 	CMP #0, R0
 	BEQ else_16
 And_end_label_18:
 then_15:
-	LOAD -2(LB), R3
+	LOAD -2(LB), R2
 	LOAD -4(LB), R4
-	STORE R4, 3(R3)
+	STORE R4, 3(R2)
 	LOAD #1, R0
 	BRA end_method_6
 	BRA end_17
 else_16:
 end_17:
-	LOAD -3(LB), R2
-	CMP #4, R2
+	LOAD -3(LB), R3
+	CMP #4, R3
 	BNE else_20
-	LOAD -2(LB), R2
-	LOAD 4(R2), R3
-	PUSH R3
 	LOAD -2(LB), R3
-	CMP #null, R3
+	LOAD 4(R3), R2
+	PUSH R2
+	LOAD -2(LB), R2
+	CMP #null, R2
 	BEQ null_pointer_error
-	PUSH R3
-	LOAD 0(R3), R3
-	BSR 3(R3)
+	PUSH R2
+	LOAD 0(R2), R2
+	BSR 3(R2)
 	SUBSP #2
 	CMP #0, R0
 	BEQ else_20
 And_end_label_22:
 then_19:
-	LOAD -2(LB), R3
+	LOAD -2(LB), R2
 	LOAD -4(LB), R4
-	STORE R4, 4(R3)
+	STORE R4, 4(R2)
 	LOAD #1, R0
 	BRA end_method_6
 	BRA end_21
 else_20:
 end_21:
-	LOAD -3(LB), R2
-	CMP #5, R2
+	LOAD -3(LB), R3
+	CMP #5, R3
 	BNE else_24
-	LOAD -2(LB), R2
-	LOAD 5(R2), R3
-	PUSH R3
 	LOAD -2(LB), R3
-	CMP #null, R3
+	LOAD 5(R3), R2
+	PUSH R2
+	LOAD -2(LB), R2
+	CMP #null, R2
 	BEQ null_pointer_error
-	PUSH R3
-	LOAD 0(R3), R3
-	BSR 3(R3)
+	PUSH R2
+	LOAD 0(R2), R2
+	BSR 3(R2)
 	SUBSP #2
 	CMP #0, R0
 	BEQ else_24
 And_end_label_26:
 then_23:
-	LOAD -2(LB), R3
+	LOAD -2(LB), R2
 	LOAD -4(LB), R4
-	STORE R4, 5(R3)
+	STORE R4, 5(R2)
 	LOAD #1, R0
 	BRA end_method_6
 	BRA end_25
 else_24:
 end_25:
-	LOAD -3(LB), R2
-	CMP #6, R2
+	LOAD -3(LB), R3
+	CMP #6, R3
 	BNE else_28
-	LOAD -2(LB), R2
-	LOAD 6(R2), R3
-	PUSH R3
 	LOAD -2(LB), R3
-	CMP #null, R3
+	LOAD 6(R3), R2
+	PUSH R2
+	LOAD -2(LB), R2
+	CMP #null, R2
 	BEQ null_pointer_error
-	PUSH R3
-	LOAD 0(R3), R3
-	BSR 3(R3)
+	PUSH R2
+	LOAD 0(R2), R2
+	BSR 3(R2)
 	SUBSP #2
 	CMP #0, R0
 	BEQ else_28
 And_end_label_30:
 then_27:
-	LOAD -2(LB), R3
+	LOAD -2(LB), R2
 	LOAD -4(LB), R4
-	STORE R4, 6(R3)
+	STORE R4, 6(R2)
 	LOAD #1, R0
 	BRA end_method_6
 	BRA end_29
 else_28:
 end_29:
-	LOAD -3(LB), R2
-	CMP #7, R2
+	LOAD -3(LB), R3
+	CMP #7, R3
 	BNE else_32
-	LOAD -2(LB), R2
-	LOAD 7(R2), R3
-	PUSH R3
 	LOAD -2(LB), R3
-	CMP #null, R3
+	LOAD 7(R3), R2
+	PUSH R2
+	LOAD -2(LB), R2
+	CMP #null, R2
 	BEQ null_pointer_error
-	PUSH R3
-	LOAD 0(R3), R3
-	BSR 3(R3)
+	PUSH R2
+	LOAD 0(R2), R2
+	BSR 3(R2)
 	SUBSP #2
 	CMP #0, R0
 	BEQ else_32
 And_end_label_34:
 then_31:
-	LOAD -2(LB), R3
+	LOAD -2(LB), R2
 	LOAD -4(LB), R4
-	STORE R4, 7(R3)
+	STORE R4, 7(R2)
 	LOAD #1, R0
 	BRA end_method_6
 	BRA end_33
 else_32:
 end_33:
-	LOAD -3(LB), R2
-	CMP #8, R2
+	LOAD -3(LB), R3
+	CMP #8, R3
 	BNE else_36
-	LOAD -2(LB), R2
-	LOAD 8(R2), R3
-	PUSH R3
 	LOAD -2(LB), R3
-	CMP #null, R3
+	LOAD 8(R3), R2
+	PUSH R2
+	LOAD -2(LB), R2
+	CMP #null, R2
 	BEQ null_pointer_error
-	PUSH R3
-	LOAD 0(R3), R3
-	BSR 3(R3)
+	PUSH R2
+	LOAD 0(R2), R2
+	BSR 3(R2)
 	SUBSP #2
 	CMP #0, R0
 	BEQ else_36
 And_end_label_38:
 then_35:
-	LOAD -2(LB), R3
+	LOAD -2(LB), R2
 	LOAD -4(LB), R4
-	STORE R4, 8(R3)
+	STORE R4, 8(R2)
 	LOAD #1, R0
 	BRA end_method_6
 	BRA end_37
 else_36:
 end_37:
-	LOAD -3(LB), R2
-	CMP #9, R2
+	LOAD -3(LB), R3
+	CMP #9, R3
 	BNE else_40
-	LOAD -2(LB), R2
-	LOAD 9(R2), R3
-	PUSH R3
 	LOAD -2(LB), R3
-	CMP #null, R3
+	LOAD 9(R3), R2
+	PUSH R2
+	LOAD -2(LB), R2
+	CMP #null, R2
 	BEQ null_pointer_error
-	PUSH R3
-	LOAD 0(R3), R3
-	BSR 3(R3)
+	PUSH R2
+	LOAD 0(R2), R2
+	BSR 3(R2)
 	SUBSP #2
 	CMP #0, R0
 	BEQ else_40
 And_end_label_42:
 then_39:
-	LOAD -2(LB), R3
+	LOAD -2(LB), R2
 	LOAD -4(LB), R4
-	STORE R4, 9(R3)
+	STORE R4, 9(R2)
 	LOAD #1, R0
 	BRA end_method_6
 	BRA end_41
@@ -487,8 +487,8 @@ end_method_6:
 code.Tableau.verifierVictoire:
 	TSTO #10
 	BOV stack_overflow_error
-	PUSH R2
 	PUSH R3
+	PUSH R2
 	PUSH R4
 	PUSH R5
 	PUSH R6
@@ -497,12 +497,12 @@ code.Tableau.verifierVictoire:
 	PUSH R9
 	PUSH R10
 	PUSH R11
-	LOAD -2(LB), R2
-	LOAD 1(R2), R3
-	CMP -3(LB), R3
-	BNE And_end_label_49
 	LOAD -2(LB), R3
-	LOAD 2(R3), R4
+	LOAD 1(R3), R2
+	CMP -3(LB), R2
+	BNE And_end_label_49
+	LOAD -2(LB), R2
+	LOAD 2(R2), R4
 	CMP -3(LB), R4
 	BNE And_end_label_49
 And_end_label_50:
@@ -547,12 +547,12 @@ then_44:
 	BRA end_46
 else_45:
 end_46:
-	LOAD -2(LB), R2
-	LOAD 1(R2), R3
-	CMP -3(LB), R3
-	BNE And_end_label_60
 	LOAD -2(LB), R3
-	LOAD 4(R3), R4
+	LOAD 1(R3), R2
+	CMP -3(LB), R2
+	BNE And_end_label_60
+	LOAD -2(LB), R2
+	LOAD 4(R2), R4
 	CMP -3(LB), R4
 	BNE And_end_label_60
 And_end_label_61:
@@ -597,12 +597,12 @@ then_55:
 	BRA end_57
 else_56:
 end_57:
-	LOAD -2(LB), R2
-	LOAD 1(R2), R3
-	CMP -3(LB), R3
-	BNE And_end_label_70
 	LOAD -2(LB), R3
-	LOAD 5(R3), R4
+	LOAD 1(R3), R2
+	CMP -3(LB), R2
+	BNE And_end_label_70
+	LOAD -2(LB), R2
+	LOAD 5(R2), R4
 	CMP -3(LB), R4
 	BNE And_end_label_70
 And_end_label_71:
@@ -644,14 +644,14 @@ end_method_43:
 	POP R6
 	POP R5
 	POP R4
-	POP R3
 	POP R2
+	POP R3
 	RTS
 code.Tableau.estPlein:
 	TSTO #11
 	BOV stack_overflow_error
-	PUSH R2
 	PUSH R3
+	PUSH R2
 	PUSH R4
 	PUSH R5
 	PUSH R6
@@ -661,9 +661,9 @@ code.Tableau.estPlein:
 	PUSH R10
 	PUSH R11
 	PUSH R12
-	LOAD #1, R2
-	LOAD -2(LB), R3
-	LOAD 1(R3), R4
+	LOAD #1, R3
+	LOAD -2(LB), R2
+	LOAD 1(R2), R4
 	CMP #0, R4
 	BEQ And_end_label_76
 	LOAD -2(LB), R4
@@ -706,9 +706,9 @@ And_end_label_77:
 	CMP #0, R12
 	BNE end_label_75
 And_end_label_76:
-	LOAD #0, R2
+	LOAD #0, R3
 end_label_75:
-	LOAD R2, R0
+	LOAD R3, R0
 	BRA end_method_74
 	BRA no_return_error
 end_method_74:
@@ -721,8 +721,8 @@ end_method_74:
 	POP R6
 	POP R5
 	POP R4
-	POP R3
 	POP R2
+	POP R3
 	RTS
 stack_overflow_error:
 	WSTR "Error: Stack Overflow"
