@@ -168,11 +168,13 @@ public abstract class AbstractExpr extends AbstractInst {
             codeGenInst(compiler);
             DVal dval = getDVal(compiler);
             compiler.addInstruction(new LOAD(dval, compiler.getRegister1()));
+            dval.freeGPRegister(compiler);
             compiler.addInstruction(new WINT());
         } else if (getType().isFloat()) {
             codeGenInst(compiler);
             DVal dval = getDVal(compiler);
             compiler.addInstruction(new LOAD(dval, compiler.getRegister1()));
+            dval.freeGPRegister(compiler);
             compiler.addInstruction(new WFLOAT());
         } else {
             throw new DecacInternalError("Type of expression is not int or float");

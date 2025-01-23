@@ -304,6 +304,9 @@ public class DecacCompiler {
     }
 
     public void freeRegister(GPRegister reg) {
+        if (reg.getNumber() == 0 || reg.getNumber() == 1) {
+            return;
+        }
         stackManager.pushAvailableGPRegister(reg);
     }
 
@@ -355,6 +358,13 @@ public class DecacCompiler {
         stackManager.pushUsedGPRegister(reg);
         stackManager.markRegisterUsedMethod(reg);
         return reg;
+    }
+
+    public void freeAllGPRegisters() {
+        while (!stackManager.getUsedGPRegisters().isEmpty()) {
+            GPRegister reg = stackManager.popUsedRegister();
+            reg.freeGPRegister(this);
+        }
     }
 
     private int calculateTSTOMethod() {

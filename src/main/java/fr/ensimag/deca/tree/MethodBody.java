@@ -74,6 +74,7 @@ public class MethodBody extends AbstractMethodBody {
         }
         for (AbstractInst inst : listInst.getList()) {
             inst.codeGenInst(compiler);
+            compiler.freeAllGPRegisters();
         }
 
         compiler.codeGenMethodPrologue();

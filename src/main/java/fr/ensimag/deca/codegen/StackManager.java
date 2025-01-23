@@ -78,6 +78,10 @@ public class StackManager {
         return usedRegistersMethod;
     }
 
+    public LinkedList<Integer> getUsedGPRegisters() {
+        return idxUsedGPRegisters;
+    }
+
     public int popUsedRegisterMethod() {
         return usedRegistersMethod.removeFirst();
     }
@@ -283,6 +287,9 @@ public class StackManager {
      */
     public void pushAvailableGPRegister(GPRegister reg) {
         int idx = reg.getNumber();
+        if (idxAvailableGPRegisters.contains(idx)) {
+            return;
+        }
         idxAvailableGPRegisters.addFirst(idx);
     }
 
@@ -294,6 +301,9 @@ public class StackManager {
      */
     public void pushUsedGPRegister(GPRegister reg) {
         int idx = reg.getNumber();
+        if (idxUsedGPRegisters.contains(idx)) {
+            return;
+        }
         idxUsedGPRegisters.addFirst(idx);
     }
 

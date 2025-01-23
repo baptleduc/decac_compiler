@@ -43,10 +43,10 @@
 	BSR 2(R3)
 	SUBSP #3
 	STORE R0, 10(GB)
-	LOAD 10(GB), R0
-	CMP #null, R0
+	LOAD 10(GB), R3
+	CMP #null, R3
 	BEQ null_pointer_error
-	LOAD 1(R0), R1
+	LOAD 1(R3), R1
 	WINT
 	LOAD 10(GB), R3
 	CMP #null, R3
