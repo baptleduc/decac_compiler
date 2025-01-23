@@ -11,6 +11,7 @@ date: \today
 pagesize: A4
 toc: true
 toc-depth: 5
+linkcolor: blue
 ---
 
 # Introduction
@@ -100,6 +101,8 @@ Cet objectif sera alors considéré comme atteints si il remplit cette spécific
 
 Afin de parvenir à l'objectif fixé, nous nous sommes organisés dès le début du projet afin d'organiser notre temps et nos développement. Nous avons alors établis ces différents étapes : 
 
+![Diagramme de Gantt pour ARM](arm/assets/ARMGantt.png)
+
 1. **Spécification et Analyse préliminaire**:
    - Choix de la cible
    - Étude de la la sémantique des instructions ARM et leur correspondance avec les instructions de Deca. 
@@ -185,8 +188,8 @@ Cette phase présente de nombeux avantages :
 
 ### Registres
 
-#### Registres à usage général
-
+#### Registres à usage général 
+\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; L'architecture ARM fournit 31 registres à usage général. Chaque registre peut être utilisé soit comme un registre 64 bits (nommé `X0` à `X30`), soit comme un registre 32 bits (nommé `W0` à `W30`). Les registres W représentent les 32 bits de poids faible des registres **X** correspondants. Lorsqu'une opération est effectuée sur un registre **W**, les 32 bits supérieurs du registre **X** associé sont mis à zéro.
 
 
@@ -220,10 +223,10 @@ Lorsqu'on utilise un registre **V**, le registre est traité comme un vecteur.
 
 
 #### Autres registres
-
+\ 
 Les registres `ZXR` et `WZR` lisent 0 et ignorent les écritures. 
 
-Le stack pointer `SP` peut être utilisé comme l'adresse de base pour les loads et les store (cf Addressage)
+Le stack pointer `SP` peut être utilisé comme l'adresse de base pour les loads et les store (cf. [Adressage](#modes-dadressages))
 
 ## Modes d'adressages
 On dispose de plusieurs modes d'addressages: 
@@ -231,30 +234,36 @@ On dispose de plusieurs modes d'addressages:
 - **Adressage registre** Wm ou Xm (avec m dans 0..30)
 - **Adressage indirect par registre** 
 ```assembly
-LDR X0, [X1]        // Charge la valeur située à l'adresse contenue dans X1 dans le registre X0
-STR X2, [X3]        // Stocke la valeur du registre X2 à l'adresse contenue dans X3
+LDR X0, [X1]   // Charge la valeur située à l'adresse contenue
+               // dans X1 dans le registre X0
+STR X2, [X3]   // Stocke la valeur du registre X2 à l'adresse 
+               // contenue dans X3
 ```
 
 - **Adressage avec décalage** : Un décalage est ajouté à un registre pour calculer l'adresse effective.
 Déplacement immédiat: 
 ```assembly
-LDR X0, [X1, #16]   // Charge la valeur située à l'adresse (X1 + 16) dans X0
-STR X2, [X3, #8]    // Stocke la valeur de X2 à l'adresse (X3 + 8)
+LDR X0, [X1, #16] // Charge la valeur située à l'adresse (X1 + 16) dans X0
+STR X2, [X3, #8]  // Stocke la valeur de X2 à l'adresse (X3 + 8)
 ```
 Déplacement basé sur un autre registre :
 ```assembly
-LDR X0, [X1, X2]    // Charge la valeur à l'adresse (X1 + X2) dans X0
+LDR X0, [X1, X2]  // Charge la valeur à l'adresse (X1 + X2) dans X0
 ```
 
 - **Adressage pré-indexé**
 ```assembly
-LDR X0, [X1, #8]!  // Incrémente X1 de 8, puis charge la valeur à cette nouvelle adresse dans X0
-STR X2, [X3, #-4]!  // Décrémente X3 de 4, puis stocke la valeur de X2 à cette nouvelle adresse
+LDR X0, [X1, #8]!    // Incrémente X1 de 8, puis charge la valeur 
+                     //  à cette nouvelle adresse dans X0
+STR X2, [X3, #-4]!   // Décrémente X3 de 4, puis stocke la valeur de X2
+                     // à cette nouvelle adresse
 ```
 - **Adressage post-indexé**
 ```assembly
-LDR X0, [X1], #8    // Charge la valeur située à l'adresse X1 dans X0, puis incrémente X1 de 8
-STR X2, [X3], #-4    // Stocke la valeur de X2 à l'adresse X3, puis décrémente X3 de 4
+LDR X0, [X1], #8     // Charge la valeur située à l'adresse X1 dans X0
+                     // puis incrémente X1 de 8
+STR X2, [X3], #-4    // Stocke la valeur de X2 à l'adresse X3
+                     // puis décrémente X3 de 4
 ```
 
 - **Adressage relatif à PC**
@@ -269,8 +278,7 @@ label:
 ``` 
 L'ensemble des modes d'adressages est regroupé dans ce tableau : 
 
-![Modes d'adressages](arm/assets/addressing_mode.png)
-
+![Modes d'adressages](arm/assets/addressing_mode.png) \
 
 
 ## Opérations arithmétique et logiques
@@ -282,6 +290,8 @@ Une opération arithmétique en ARMv8-A est de cette forme :
   - `ADD` : Addition.
   - `SUB` : Soustraction.
   - `MUL` : Multiplication.
+  - `SDIV`: Division avec entiers signés
+  - `UDIV`: Division avec entiers non-signés
   - `AND` : ET logique (bitwise AND).
   - `ORR` : OU logique (bitwise OR).
 
@@ -305,7 +315,7 @@ SDIV W0, W1, W2 // W0 <- W1 ÷ W2 en traitant W1 et W2 comme des entiers signés
 UDIV W0, W1, W2 // W0 <- W1 ÷ W2 en traitant W1 et W2 comme des entiers non-signés
 ```
 
-Remarque: ces instructions sont basiques et servent de base à beaucoup d'instructions dérivées comme `MADD`:
+*Remarque*: ces instructions sont basiques et servent de base à beaucoup d'instructions dérivées comme `MADD`:
 
 ```assembly
 MADD W0, W1, W2, W3  // W0 <- W3 + (W1 x W2)
@@ -324,8 +334,9 @@ Les branchements conditionnels dans l'architecture ARMv8-A reposent sur l'état 
 Ces flags sont automatiquement mis à jour lorsqu'on ajoute le suffixe `S` à une instruction arithmétique ou logique (comme `SUBS` pour une soustraction).
 
 Voici l'ensemble des codes conditions disponible dans ARMv8-A : 
-
-![Codes condition](arm/assets/code_condition.png)
+\begin{center}
+\includegraphics[width=0.8\textwidth]{arm/assets/code_condition.png}
+\end{center}
 
 ### Exemples
 
@@ -346,14 +357,25 @@ L'instruction `CMP` pour Compare, met également à jour les `flags` ALU et est 
 CMP W0, W1 //alias pour SUBS WZR, W0, W1
 ```
 
+## Contrôle
+### Branchement inconditionnel
 
-## Branchement inconditionnel
+`B<label>` réalise un branchement direct par rapport à PC en branchant à &lt;label&gt;.
 
-- `B<label>` réalise un branchement direct par rapport à PC en branchant à &lt;label&gt;.
+### Branchement contionnel
 
-## Branchement contionnel
+Un branchement conditionel est de la forme `B.<cond><label>` et est la version condition de l'instuction `B`. Le branchement se fait si `<cond>` est true. `<cond>` représente un des codes conditions spécifiés plus [haut](#codes-conditions-code-cond)
 
-Un branchement conditionel est de la forme `B.<cond><label>` et est la version condition de l'instuction `B`. Le branchement se fait si `<cond>` est true. `<cond>` représente un des codes conditions spécifiés plus haut. 
+### Appel de fonctions
+
+L'architecture ARMv8-A permet d'effectuer des appels de fonctions, qu'il s'agisse de fonctions définies par l'utilisateur ou de fonctions intégrées au langage `C`, comme printf. Lorsqu'une fonction est appelée, il est essentiel de disposer d'un mécanisme permettant de revenir à l'instruction suivante dans l'appelant une fois l'exécution de la fonction terminée.
+
+Pour cela, les instructions de branchement simples (`B` ou `BR`) doivent être modifiées en **branchements avec lien** en ajoutant le suffixe ``L (ce qui donne `BL` ou `BLR`). Cette modification permet de sauvegarder l'adresse de retour (celle de l'instruction suivante après l'appel) dans le registre dédié à cet usage, le registre `X30`, également connu sous le nom de Link Register (`LR`).
+
+À la fin de la fonction, l'instruction `RET` doit être utilisée pour effectuer un branchement indirect vers l'adresse de retour contenue dans le registre `X30`. Cela garantit un retour correct à l'appelant et la poursuite normale de l'exécution du programme.
+
+![Schém appel de fonction](arm/assets/function_call.png)\
+
 
 
 
@@ -385,3 +407,14 @@ Pour développer et tester l'extension ARM, nous utiliserons les outils suivants
      ```
 
       L'option `-L` spécifie le chemin vers les bibliothèques dynamiques nécessaires à l'exécution du programme. Dans cet exemple, `aarch64-linux-gnu` est le répertoire contenant les bibliothèques pour l'architecture ARM.
+
+
+# Conception
+
+# Implémentation
+
+# Validation
+
+# Analyse des résultats obtenus
+
+# Conclusion
