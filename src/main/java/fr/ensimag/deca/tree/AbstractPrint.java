@@ -76,7 +76,7 @@ public abstract class AbstractPrint extends AbstractInst {
     }
 
     private void putParamsInSP(ARMProgram program, LinkedList<AbstractExpr> abExps, DecacCompiler compiler) {
-        program.setPrintNbParametersIfSup(abExps.size());
+       
         int offset = 0;
         for (AbstractExpr a : abExps) {
             a.codeGenInstARM(compiler);
@@ -104,7 +104,7 @@ public abstract class AbstractPrint extends AbstractInst {
 
         // we create the string format and we store it in the data section
         String format = "";
-        LinkedList<AbstractExpr> abExp = new LinkedList<>();
+        LinkedList<AbstractExpr> abExps = new LinkedList<>();
         for (AbstractExpr a : getArguments().getList()) {
             if (a.isImmediate()) {
                 a.codeGenInstARM(compiler);
@@ -116,15 +116,16 @@ public abstract class AbstractPrint extends AbstractInst {
             } else if (a.getType().isFloat()) {
                 format += "%f";
             }
-            abExp.add(a);
+            abExps.add(a);
         }
         String stringName = program.addStringLine(getARMPrintModification(format));
 
+        program.setPrintNbParametersIfSup(abExps.size());
         // we put in sp the print parameters if clang is used
         if (program.isUsingClang()) {
-            putParamsInSP(program, abExp, compiler);
+            putParamsInSP(program, abExps, compiler);
         } else {
-            putParamsInRgs(program, abExp, compiler);
+            putParamsInRgs(program, abExps, compiler);
         }
 
         // we call _printf
