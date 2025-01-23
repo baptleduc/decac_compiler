@@ -1,5 +1,6 @@
 package fr.ensimag.deca;
 
+import fr.ensimag.arm.ARMProgram;
 import fr.ensimag.deca.codegen.ErrorManager;
 import fr.ensimag.deca.codegen.LabelManager;
 import fr.ensimag.deca.codegen.StackManager;
@@ -62,6 +63,7 @@ public class DecacCompiler {
     public DecacCompiler(CompilerOptions compilerOptions, File source) {
         super();
         this.compilerOptions = compilerOptions;
+        getARMProgram().setProc(getCompilerOptions().getIsM2());
         if (compilerOptions == null || this.compilerOptions.getRegisters() == -1) {
             this.stackManager = new StackManager(program, Register.getMaxGPRegisters());
         } else {
@@ -96,6 +98,8 @@ public class DecacCompiler {
      */
     private IMAProgram program = new IMAProgram();
 
+    private ARMProgram armProgram = new ARMProgram();
+
     private Label endMethodLabel = new Label("end_method");
 
     /**
@@ -127,6 +131,17 @@ public class DecacCompiler {
         this.program = program;
         r.run();
         this.program = oldProgram;
+    }
+
+    public void withARMProgram(ARMProgram program, Runnable r) {
+        ARMProgram oldProgram = this.armProgram;
+        this.armProgram = program;
+        r.run();
+        this.armProgram = oldProgram;
+    }
+
+    public ARMProgram getARMProgram() {
+        return armProgram;
     }
 
     public IMAProgram getProgram() {
@@ -427,7 +442,12 @@ public class DecacCompiler {
      */
     public boolean compile() {
         String sourceFile = source.getAbsolutePath();
-        String destFile = sourceFile.replaceAll("\\.deca$", ".ass");
+        String destFile;
+        if (getCompilerOptions().getArm()) {
+            destFile = sourceFile.replaceAll("\\.deca$", ".s");
+        } else {
+            destFile = sourceFile.replaceAll("\\.deca$", ".ass");
+        }
         PrintStream err = System.err;
         PrintStream out = System.out;
         LOG.debug("Compiling file " + sourceFile + " to assembly file " + destFile);
@@ -494,7 +514,11 @@ public class DecacCompiler {
         }
 
         addComment("start main program");
-        prog.codeGenProgram(this);
+        if (getCompilerOptions().getArm()) {
+            prog.codeGenProgramARM(this);
+        } else {
+            prog.codeGenProgram(this);
+        }
         addComment("end main program");
         LOG.debug("Generated assembly code:" + nl + program.display());
         LOG.info("Output file assembly file is: " + destName);
@@ -507,8 +531,11 @@ public class DecacCompiler {
         }
 
         LOG.info("Writing assembler file ...");
-
-        program.display(new PrintStream(fstream));
+        if (getCompilerOptions().getArm()) {
+            generateAllCodeARM(new PrintStream(fstream));
+        } else {
+            program.display(new PrintStream(fstream));
+        }
         LOG.info("Compilation of " + sourceName + " successful.");
         return false;
     }
@@ -546,4 +573,12 @@ public class DecacCompiler {
         return parser.parseProgramAndManageErrors(err);
     }
 
+    public void generateAllCodeARM(PrintStream s) throws DecacFatalError {
+
+        ARMProgram program = getARMProgram();
+
+        for (String line : program.genAssemblyCode()) {
+            s.println(line);
+        }
+    }
 }

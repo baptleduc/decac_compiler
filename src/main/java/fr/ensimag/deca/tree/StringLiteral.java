@@ -1,5 +1,6 @@
 package fr.ensimag.deca.tree;
 
+import fr.ensimag.arm.ARMDVal;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
@@ -31,6 +32,11 @@ public class StringLiteral extends AbstractStringLiteral {
     public StringLiteral(String value) {
         Validate.notNull(value);
         this.value = value;
+    }
+
+    @Override
+    protected void codeGenInstARM(DecacCompiler compiler) {
+        setARMDVal(new ARMDVal(value));
     }
 
     @Override
@@ -77,7 +83,7 @@ public class StringLiteral extends AbstractStringLiteral {
 
     @Override
     protected boolean isImmediate() {
-        return false;
+        return true;
     }
 
     @Override

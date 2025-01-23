@@ -1,5 +1,8 @@
 package fr.ensimag.deca.tree;
 
+import fr.ensimag.arm.ARMProgram;
+import fr.ensimag.arm.instruction.ARMDirectStore;
+import fr.ensimag.arm.instruction.ARMInstruction;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
@@ -11,6 +14,7 @@ import fr.ensimag.ima.pseudocode.instructions.FLOAT;
 import fr.ensimag.ima.pseudocode.instructions.LOAD;
 import fr.ensimag.ima.pseudocode.instructions.WFLOATX;
 import java.io.PrintStream;
+import java.util.LinkedList;
 import org.apache.commons.lang.Validate;
 
 /**
@@ -25,6 +29,8 @@ public abstract class AbstractPrint extends AbstractInst {
     private ListExpr arguments = new ListExpr();
 
     abstract String getSuffix();
+
+    abstract String getARMPrintModification(String format);
 
     public AbstractPrint(boolean printHex, ListExpr arguments) {
         Validate.notNull(arguments);
@@ -67,6 +73,64 @@ public abstract class AbstractPrint extends AbstractInst {
                 a.codeGenPrint(compiler);
             }
         }
+    }
+
+    private void putParamsInSP(ARMProgram program, LinkedList<AbstractExpr> abExps, DecacCompiler compiler) {
+
+        int offset = 0;
+        for (AbstractExpr a : abExps) {
+            a.codeGenInstARM(compiler);
+            String reg = program.getReadyRegister(a.getARMDVal());
+            program.addInstruction(new ARMDirectStore(reg, offset));
+            program.freeRegister(reg);
+            offset += 8;
+        }
+    }
+
+    private void putParamsInRgs(ARMProgram program, LinkedList<AbstractExpr> abExps, DecacCompiler compiler) {
+        int count = 1;
+        for (AbstractExpr a : abExps) {
+            a.codeGenInstARM(compiler);
+            String reg = program.getReadyRegister(a.getARMDVal());
+            program.addInstruction(new ARMInstruction("mov", "x" + count, reg));
+            program.freeRegister(reg);
+            count += 1;
+        }
+    }
+
+    @Override
+    protected void codeGenInstARM(DecacCompiler compiler) {
+        ARMProgram program = compiler.getARMProgram();
+
+        // we create the string format and we store it in the data section
+        String format = "";
+        LinkedList<AbstractExpr> abExps = new LinkedList<>();
+        for (AbstractExpr a : getArguments().getList()) {
+            if (a.isImmediate()) {
+                a.codeGenInstARM(compiler);
+                format += a.getARMDVal().getTrueVal(); // without the instruction decoration
+                continue;
+            }
+            if (a.getType().isInt()) {
+                format += "%d";
+            } else if (a.getType().isFloat()) {
+                format += "%f";
+            }
+            abExps.add(a);
+        }
+        String stringName = program.addStringLine(getARMPrintModification(format));
+
+        program.setPrintNbParametersIfSup(abExps.size());
+        // we put in sp the print parameters if clang is used
+        if (program.isUsingClang()) {
+            putParamsInSP(program, abExps, compiler);
+        } else {
+            putParamsInRgs(program, abExps, compiler);
+        }
+
+        // we call _printf
+        program.addInstruction(new ARMInstruction("adr", "X0", stringName));
+        program.addInstruction(new ARMInstruction("bl", program.isUsingClang() ? "_printf" : "printf"));
     }
 
     private boolean getPrintHex() {

@@ -35,4 +35,9 @@ public class Lower extends AbstractOpIneq {
         }
     }
 
+    @Override
+    protected String getARMCmpInverseAcronym() {
+        return "ge";
+    }
+
 }

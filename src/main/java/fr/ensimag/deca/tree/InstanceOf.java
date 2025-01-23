@@ -105,4 +105,10 @@ public class InstanceOf extends AbstractExpr {
         compiler.addInstruction(new BNE(labelInstanceOf));
         regHeapStartAddr.freeGPRegister(compiler);
     }
+
+    protected String getARMCmpInverseAcronym() {
+        // TODO ARM
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
 }

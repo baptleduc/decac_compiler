@@ -30,6 +30,8 @@ public class CompilerOptions {
     private boolean parallel = false;
     private boolean printBanner = false;
     private boolean warnings = false;
+    private boolean arm = false;
+    private boolean isM2 = false;
 
     private List<File> sourceFiles = new ArrayList<File>();
     private HashSet<String> sourceFilesPath = new HashSet<String>();
@@ -66,6 +68,14 @@ public class CompilerOptions {
         return warnings;
     }
 
+    public boolean getArm() {
+        return arm;
+    }
+
+    public boolean getIsM2() {
+        return isM2;
+    }
+
     public List<File> getSourceFiles() {
         return Collections.unmodifiableList(sourceFiles);
     }
@@ -88,6 +98,10 @@ public class CompilerOptions {
                 parallel = true;
             } else if (args[i].equals("-w")) {
                 warnings = true;
+            } else if (args[i].equals("--arm")) {
+                arm = true;
+            } else if (args[i].equals("--M2")) {
+                isM2 = true;
             } else if (args[i].endsWith(".deca")) {
                 handleSourceFile(args[i]);
             } else {
@@ -181,7 +195,7 @@ public class CompilerOptions {
     }
 
     protected void displayUsage() {
-        String usage = "usage: decac [-h] [-b] [-p] [-v] [-n] [-r X] [-d]* [-P] <deca file>...\n\n"
+        String usage = "usage: decac [-h] [-b] [-p] [-v] [-n] [-r X] [-d]* [-P] [--arm] <deca file>...\n\n"
                 + "options:\n"
                 + "    -b (banner): displays a banner with the team's name\n"
                 + "           (cannot be used with any other options)\n"
@@ -191,7 +205,9 @@ public class CompilerOptions {
                 + "    -n (no check): disables runtime checks specified in points 11.1 and 11.3 of the Deca semantics.\n"
                 + "    -r X (registers): limits the available registers to R0 ... R{X-1}, with 4 <= X <= 16\n"
                 + "    -d (debug): enables debug traces. Repeat the option multiple times for more traces.\n"
-                + "    -P (parallel): if there are multiple source files, compiles them in parallel (to speed up compilation)\n";
+                + "    -P (parallel): if there are multiple source files, compiles them in parallel (to speed up compilation)\n"
+                + "    --arm: generates ARM code\n"
+                + "    --M2: (only for ARM) the code is generated so that it works at least on MAC M2\n";
 
         System.out.println(usage);
     }

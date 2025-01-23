@@ -35,4 +35,9 @@ public class NotEquals extends AbstractOpExactCmp {
         }
     }
 
+    @Override
+    protected String getARMCmpInverseAcronym() {
+        return "eq";
+    }
+
 }

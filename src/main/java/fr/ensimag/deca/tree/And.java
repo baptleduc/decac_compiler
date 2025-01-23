@@ -39,4 +39,10 @@ public class And extends AbstractOpBool {
 
         compiler.addLabel(endLabel);
     }
+
+    @Override
+    protected boolean endIfTrueARM() {
+        return false;
+    }
+
 }

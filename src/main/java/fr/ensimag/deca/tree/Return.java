@@ -5,6 +5,7 @@ import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
 import fr.ensimag.deca.context.EnvironmentExp;
 import fr.ensimag.deca.context.Type;
+import fr.ensimag.deca.tools.DecacInternalError;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.DVal;
 import fr.ensimag.ima.pseudocode.instructions.BRA;
@@ -60,4 +61,10 @@ public class Return extends AbstractInst {
         dval.freeGPRegister(compiler);
         compiler.addInstruction(new BRA(compiler.getEndMethodLabel()));
     }
+
+    @Override
+    protected void codeGenInstARM(DecacCompiler compiler) {
+        throw new DecacInternalError("not yet implemented");
+    }
+
 }

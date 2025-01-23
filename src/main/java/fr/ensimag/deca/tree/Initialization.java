@@ -1,5 +1,8 @@
 package fr.ensimag.deca.tree;
 
+import fr.ensimag.arm.ARMProgram;
+import fr.ensimag.arm.instruction.ARMInstruction;
+import fr.ensimag.arm.instruction.ARMStore;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
@@ -74,5 +77,33 @@ public class Initialization extends AbstractInitialization {
         compiler.addInstruction(new STORE(regDest, addr));
         regDest.freeGPRegister(compiler);
         LOG.debug("STORE " + regDest + "," + addr);
+    }
+
+    private void immediateFloatInitializationARM(ARMProgram program, String varName) {
+        String sRg = expression.getARMDVal().toString();
+        program.addInstruction(new ARMStore(sRg, varName, program, ARMProgram.FLOAT_SIZE));
+        program.freeRegisterTypeS(sRg);
+    }
+
+    @Override
+    public void codeGenInitializationARM(DecacCompiler compiler, String varName, String type) {
+        expression.codeGenInstARM(compiler);
+        ARMProgram prog = compiler.getARMProgram();
+        if (expression.isImmediate()) {
+
+            if (expression.getType().isFloat()) {
+                immediateFloatInitializationARM(prog, varName);
+                return;
+            }
+
+            String reg = prog.getAvailableRegister();
+            prog.addInstruction(new ARMInstruction("mov", reg, expression.getARMDVal().toString()));
+            prog.addInstruction(new ARMStore(reg, varName, prog));
+            prog.freeRegister(reg);
+        } else {
+            String reg = expression.getARMDVal().toString();
+            prog.addInstruction(new ARMStore(reg, varName, prog));
+            prog.freeRegister(reg);
+        }
     }
 }

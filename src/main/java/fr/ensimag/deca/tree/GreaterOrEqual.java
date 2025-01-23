@@ -36,4 +36,9 @@ public class GreaterOrEqual extends AbstractOpIneq {
         return false;
     }
 
+    @Override
+    protected String getARMCmpInverseAcronym() {
+        return "lt";
+    }
+
 }

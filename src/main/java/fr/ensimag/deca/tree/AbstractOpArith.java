@@ -1,5 +1,8 @@
 package fr.ensimag.deca.tree;
 
+import fr.ensimag.arm.ARMDVal;
+import fr.ensimag.arm.ARMProgram;
+import fr.ensimag.arm.instruction.ARMInstruction;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.codegen.LabelManager;
 import fr.ensimag.deca.context.ClassDefinition;
@@ -44,6 +47,9 @@ public abstract class AbstractOpArith extends AbstractBinaryExpr {
      * @param compiler
      */
     abstract protected void codeGenOperationInst(GPRegister dest, DVal source, DecacCompiler compiler);
+
+    abstract protected void codeGenOperationInstARM(String dest, String left, AbstractExpr right,
+            DecacCompiler compiler);
 
     @Override
     public Type verifyExpr(DecacCompiler compiler, EnvironmentExp localEnv,
@@ -154,5 +160,50 @@ public abstract class AbstractOpArith extends AbstractBinaryExpr {
 
         // Store the result in the destination DVal
         setDVal(regDest);
+    }
+
+    protected void codeGenFloatRegistersPreparationARM(ARMProgram prog, String dest) {
+        String ldreg = prog.getReadyRegister(getLeftOperand().getARMDVal());
+        String rdreg = prog.getReadyRegister(getRightOperand().getARMDVal());
+        addFloatOpARM(prog, ldreg, rdreg);
+        prog.addInstruction(new ARMInstruction("fcvt", dest, ldreg));
+        prog.freeRegisterTypeD(ldreg);
+        prog.freeRegisterTypeD(rdreg);
+    }
+
+    protected void addFloatOpARM(ARMProgram prog, String lr, String rr) {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    @Override
+    protected void codeGenInstARM(DecacCompiler compiler) {
+        ARMProgram prog = compiler.getARMProgram();
+        AbstractExpr left = getLeftOperand();
+        AbstractExpr right = getRightOperand();
+
+        left.codeGenInstARM(compiler);
+        right.codeGenInstARM(compiler);
+
+        String regDest = left.getARMDVal().toString();
+
+        if (left.isImmediate() && right.isImmediate()) {
+            regDest = compiler.getARMProgram().getAvailableRegister();
+            prog.addInstruction(new ARMInstruction("mov", regDest, left.getARMDVal().toString()));
+        } else if (left.isImmediate()) {
+            regDest = getRightOperand().getARMDVal().toString();
+            right = left;
+        }
+
+        if (getLeftOperand().getType().isFloat()) {
+            codeGenFloatRegistersPreparationARM(prog, regDest);
+        } else {
+            codeGenOperationInstARM(regDest, regDest, right, compiler);
+        }
+
+        setARMDVal(new ARMDVal(regDest));
+
+        if (!right.isImmediate() && !left.isImmediate()) {
+            compiler.getARMProgram().freeRegister(right.getARMDVal().toString());
+        }
     }
 }

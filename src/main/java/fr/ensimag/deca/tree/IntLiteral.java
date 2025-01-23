@@ -1,5 +1,6 @@
 package fr.ensimag.deca.tree;
 
+import fr.ensimag.arm.ARMDVal;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
@@ -71,6 +72,11 @@ public class IntLiteral extends AbstractExpr {
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
         setDVal(immediate);
+    }
+
+    @Override
+    protected void codeGenInstARM(DecacCompiler compiler) {
+        setARMDVal(new ARMDVal(value));
     }
 
     @Override

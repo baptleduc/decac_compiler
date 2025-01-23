@@ -1,5 +1,6 @@
 package fr.ensimag.deca.tree;
 
+import fr.ensimag.arm.ARMDVal;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
@@ -89,6 +90,12 @@ public class BooleanLiteral extends AbstractExpr {
                 compiler.addInstruction(new BRA(label));
             }
         }
+    }
+
+    @Override
+    protected void codeGenInstARM(DecacCompiler compiler) {
+        int value = this.value ? 1 : 0;
+        setARMDVal(new ARMDVal(value));
     }
 
 }

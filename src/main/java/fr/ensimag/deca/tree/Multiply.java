@@ -1,5 +1,7 @@
 package fr.ensimag.deca.tree;
 
+import fr.ensimag.arm.ARMProgram;
+import fr.ensimag.arm.instruction.ARMInstruction;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.tools.DecacInternalError;
 import fr.ensimag.ima.pseudocode.DVal;
@@ -27,6 +29,23 @@ public class Multiply extends AbstractOpArith {
     }
 
     @Override
+    protected void codeGenOperationInstARM(String dest, String left, AbstractExpr right, DecacCompiler compiler) {
+        ARMProgram program = compiler.getARMProgram();
+
+        String rightRg;
+        if (right.isImmediate()) {
+            rightRg = program.getAvailableRegister();
+            program.addInstruction(new ARMInstruction("mov", rightRg, right.getARMDVal().toString()));
+        } else {
+            rightRg = right.getARMDVal().toString();
+        }
+        compiler.getARMProgram().addInstruction(new ARMInstruction("mul", dest, left, rightRg));
+        if (right.isImmediate()) {
+            program.freeRegister(rightRg);
+        }
+    }
+
+    @Override
     protected boolean isImmediate() {
         return false;
     }
@@ -34,6 +53,11 @@ public class Multiply extends AbstractOpArith {
     @Override
     protected void codeGenBool(DecacCompiler compiler, Label label, boolean branchOn) {
         throw new DecacInternalError("Should not be called");
+    }
+
+    @Override
+    protected void addFloatOpARM(ARMProgram prog, String lr, String rr) {
+        prog.addInstruction(new ARMInstruction("fmul", lr, lr, rr));
     }
 
 }

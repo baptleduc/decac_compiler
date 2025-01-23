@@ -34,4 +34,10 @@ public class Greater extends AbstractOpIneq {
             compiler.addInstruction(new BLE(label));
         }
     }
+
+    @Override
+    protected String getARMCmpInverseAcronym() {
+        return "le";
+    }
+
 }

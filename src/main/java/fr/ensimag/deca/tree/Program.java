@@ -74,6 +74,11 @@ public class Program extends AbstractProgram {
     }
 
     @Override
+    public void codeGenProgramARM(DecacCompiler compiler) {
+        main.codeGenMainARM(compiler);
+    }
+
+    @Override
     public void decompile(IndentPrintStream s) {
         getClasses().decompile(s);
         getMain().decompile(s);

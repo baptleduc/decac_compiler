@@ -49,3 +49,12 @@ Pour formater le code et passer la CI, utilisez la commande suivante :
 ```bash
 mvn spotless:apply 
 ```
+
+
+
+
+// execute le fichier arm64
+clang -arch arm64 -o hello hello.s
+
+// compile du c en arm64
+clang -S -arch arm64 -o programme.s printtest.c

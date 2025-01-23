@@ -33,4 +33,10 @@ public class LowerOrEqual extends AbstractOpIneq {
             compiler.addInstruction(new BGT(label));
         }
     }
+
+    @Override
+    protected String getARMCmpInverseAcronym() {
+        return "gt";
+    }
+
 }

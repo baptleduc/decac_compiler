@@ -1,5 +1,8 @@
 package fr.ensimag.deca.tree;
 
+import fr.ensimag.arm.ARMDVal;
+import fr.ensimag.arm.ARMProgram;
+import fr.ensimag.arm.instruction.ARMLoad;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
@@ -279,6 +282,16 @@ public class Identifier extends AbstractIdentifier {
         } else {
             compiler.addInstruction(new BEQ(label));
         }
+    }
+
+    @Override
+    protected void codeGenInstARM(DecacCompiler compiler) {
+        ARMProgram program = compiler.getARMProgram();
+        int varSize = program.getSizeOfVar(name.toString());
+        String reg = varSize == ARMProgram.FLOAT_SIZE ? program.getAvailableRegisterTypeS()
+                : program.getAvailableRegister();
+        program.addInstruction(new ARMLoad(reg, name.toString(), program, varSize));
+        setARMDVal(new ARMDVal(reg, name.toString()));
     }
 
     @Override
