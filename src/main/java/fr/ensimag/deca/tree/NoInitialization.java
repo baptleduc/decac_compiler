@@ -59,6 +59,17 @@ public class NoInitialization extends AbstractInitialization {
     @Override
     public void codeGenInitializationARM(DecacCompiler compiler, String varName, String type) {
         ARMProgram prog = compiler.getARMProgram();
+
+        if (type.equals(".double")){
+            // float
+            String reg = prog.getAvailableRegisterTypeS();
+            prog.addInstruction(new ARMInstruction("fmov", reg, "#0.0"));
+            prog.addInstruction(new ARMStore(reg, varName, prog, ARMProgram.FLOAT_SIZE));
+            prog.freeRegisterTypeS(reg);
+            return;
+        }
+
+
         String reg = prog.getAvailableRegister();
         prog.addInstruction(new ARMInstruction("mov", reg, 0));
         prog.addInstruction(new ARMStore(reg, varName, prog));

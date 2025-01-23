@@ -82,17 +82,25 @@ public class Assign extends AbstractBinaryExpr {
 
         ARMProgram program = compiler.getARMProgram();
 
+        int size = getRightOperand().getType().isFloat() ? ARMProgram.FLOAT_SIZE : ARMProgram.INT_SIZE;
+
+
         String rightReg;
         if (getRightOperand().isImmediate()) {
-            rightReg = program.getAvailableRegister();
-            program.addInstruction(new ARMInstruction("mov", rightReg, getRightOperand().getARMDVal().toString()));
+            if (getRightOperand().getType().isFloat()){
+                rightReg = program.getAvailableRegisterTypeS();
+                program.addInstruction(new ARMInstruction("fmov", rightReg, getRightOperand().getARMDVal().toString()));
+            } else {
+                rightReg = program.getAvailableRegister();
+                program.addInstruction(new ARMInstruction("mov", rightReg, getRightOperand().getARMDVal().toString()));
+            }
         } else {
             rightReg = getRightOperand().getARMDVal().toString();
         }
         program.addInstruction(new ARMStore(
                 rightReg,
                 getLeftOperand().getARMDVal().getVarName(),
-                program));
+                program, size));
 
         program.freeRegister(rightReg);
     }

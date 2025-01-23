@@ -1,5 +1,6 @@
 package fr.ensimag.deca.tree;
 
+import fr.ensimag.arm.ARMProgram;
 import fr.ensimag.arm.instruction.ARMInstruction;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.ima.pseudocode.DVal;
@@ -42,6 +43,11 @@ public class Minus extends AbstractOpArith {
         DVal sourceDVal = rightDVal.codeGenToGPRegister(compiler);
         setRegDest(regDest);
         setSourceDVal(sourceDVal);
+    }
+
+    @Override
+    protected void addFloatOpARM(ARMProgram prog, String lr, String rr) {
+        prog.addInstruction(new ARMInstruction("fsub", lr, lr, rr));
     }
 
 }

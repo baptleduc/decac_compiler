@@ -71,4 +71,9 @@ public class Divide extends AbstractOpArith {
         setRegDest(regDest);
         setSourceDVal(sourceDVal);
     }
+
+    @Override
+    protected void addFloatOpARM(ARMProgram prog, String lr, String rr) {
+        prog.addInstruction(new ARMInstruction("fdiv", lr, lr, rr));
+    }
 }

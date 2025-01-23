@@ -48,4 +48,9 @@ public class Multiply extends AbstractOpArith {
         return false;
     }
 
+    @Override
+    protected void addFloatOpARM(ARMProgram prog, String lr, String rr) {
+        prog.addInstruction(new ARMInstruction("fmul", lr, lr, rr));
+    }
+
 }

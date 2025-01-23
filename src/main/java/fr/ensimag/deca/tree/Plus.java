@@ -1,5 +1,6 @@
 package fr.ensimag.deca.tree;
 
+import fr.ensimag.arm.ARMProgram;
 import fr.ensimag.arm.instruction.ARMInstruction;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.ima.pseudocode.DVal;
@@ -32,6 +33,11 @@ public class Plus extends AbstractOpArith {
     @Override
     protected void codeGenOperationInstARM(String dest, String left, AbstractExpr right, DecacCompiler compiler) {
         compiler.getARMProgram().addInstruction(new ARMInstruction("add", dest, left, right.getARMDVal().toString()));
+    }
+
+    @Override
+    protected void addFloatOpARM(ARMProgram prog, String lr, String rr) {
+        prog.addInstruction(new ARMInstruction("fadd", lr, lr, rr));
     }
 
     @Override

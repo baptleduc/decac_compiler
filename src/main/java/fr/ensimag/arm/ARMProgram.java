@@ -157,6 +157,7 @@ public class ARMProgram {
     }
 
     public void freeRegister(String register) {
+        assert (register.length() < 5);
         if (register.contains("w")) {
             scratchRegisters.push(register);
         } else if (register.contains("d")) {
