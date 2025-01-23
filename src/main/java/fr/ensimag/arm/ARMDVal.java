@@ -13,7 +13,7 @@ public class ARMDVal {
     private boolean isFloat = false;
 
     public ARMDVal(String val) {
-        if (val.contains("s")){
+        if (val.contains("s")) {
             isFloat = true;
         }
         this.forInstructionVal = val;
@@ -27,7 +27,7 @@ public class ARMDVal {
     }
 
     public ARMDVal(String val, String name) {
-        if (val.contains("s")){
+        if (val.contains("s")) {
             isFloat = true;
         }
         this.forInstructionVal = val;
@@ -51,7 +51,7 @@ public class ARMDVal {
         return varName;
     }
 
-    public boolean isFloat(){
+    public boolean isFloat() {
         return isFloat;
     }
 

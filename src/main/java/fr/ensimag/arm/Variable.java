@@ -20,7 +20,7 @@ public class Variable {
         return secondOccurence;
     }
 
-    public int getSize(){
+    public int getSize() {
         return size;
     }
 
@@ -32,7 +32,7 @@ public class Variable {
         this.secondOccurence = second;
     }
 
-    public void setSize(int size){
+    public void setSize(int size) {
         this.size = size;
     }
 

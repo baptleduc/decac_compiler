@@ -75,7 +75,7 @@ public class Initialization extends AbstractInitialization {
         LOG.debug("STORE " + regDest + "," + addr);
     }
 
-    private void immediateFloatInitializationARM(ARMProgram program, String varName){
+    private void immediateFloatInitializationARM(ARMProgram program, String varName) {
         String sRg = expression.getARMDVal().toString();
         program.addInstruction(new ARMStore(sRg, varName, program, ARMProgram.FLOAT_SIZE));
         program.freeRegisterTypeS(sRg);
@@ -87,7 +87,7 @@ public class Initialization extends AbstractInitialization {
         ARMProgram prog = compiler.getARMProgram();
         if (expression.isImmediate()) {
 
-            if (expression.getARMDVal().isFloat()){
+            if (expression.getType().isFloat()) {
                 immediateFloatInitializationARM(prog, varName);
                 return;
             }

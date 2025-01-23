@@ -69,7 +69,7 @@ public class ARMProgram {
 
     private int labelNameCounter = 0;
 
-    public int getSizeOfVar(String varName){
+    public int getSizeOfVar(String varName) {
         return varOccurences.get(varName).getSize();
     }
 
@@ -96,21 +96,6 @@ public class ARMProgram {
         return usingClang;
     }
 
-    // ############
-
-    // public boolean isVarInMemory(String varName) {
-    // return memoryMap.containsKey(varName);
-    // }
-
-    // public int addVarToMemory(String varName) {
-    // // should only be called by the constructor of ARMStore
-    // // return the offset of the new variable
-    // memoryMap.put(varName, actualSpOffset);
-    // int res = actualSpOffset;
-    // actualSpOffset += 4;
-    // return res;
-    // }
-
     private int computeVarMemory() { // return the max offset
         assert memoryMap.isEmpty();
 
@@ -124,9 +109,11 @@ public class ARMProgram {
             for (String varName2 : memoryMap.keySet()) {
                 if (varOccurences.get(varName).getFirstOccurence() > varOccurences.get(varName2).getSecondOccurence()) {
                     memoryMap.put(varName, memoryMap.get(varName2));
-                    varOccurences.get(varName2).setSecondOccurence(varOccurences.get(varName).getSecondOccurence()); // work around to
-                                                                                                   // avoid offset
-                                                                                                   // conflict
+                    varOccurences.get(varName2).setSecondOccurence(varOccurences.get(varName).getSecondOccurence()); // work
+                                                                                                                     // around
+                                                                                                                     // to
+                    // avoid offset
+                    // conflict
                     break;
                 }
             }
@@ -149,8 +136,6 @@ public class ARMProgram {
         occurencesCounter++;
     }
 
-    // ###############
-
     public int getVarOffset(String varName) {
         return memoryMap.get(varName);
     }
@@ -162,44 +147,36 @@ public class ARMProgram {
     public String getAvailableRegister() {
         return scratchRegisters.pop();
     }
+
     public String getAvailableRegisterTypeD() {
         return registersTypeD.pop();
     }
+
     public String getAvailableRegisterTypeS() {
         return registersTypeS.pop();
     }
 
     public void freeRegister(String register) {
-        if (register.contains("w")){
+        if (register.contains("w")) {
             scratchRegisters.push(register);
-        } else if (register.contains("d")){
+        } else if (register.contains("d")) {
             registersTypeD.push(register);
-        } else if (register.contains("s")){
+        } else if (register.contains("s")) {
             registersTypeS.push(register);
         }
     }
+
     public void freeRegisterTypeD(String register) {
         registersTypeD.push(register);
     }
+
     public void freeRegisterTypeS(String register) {
         registersTypeS.push(register);
     }
-    public void freeRegisterTypeW(String register){
+
+    public void freeRegisterTypeW(String register) {
         scratchRegisters.push(register);
     }
-
-    // static public int getSizeForType(String type) {
-    // switch (type) {
-    // case BYTE:
-    // return 1;
-    // case WORD:
-    // return 4;
-    // case DOUBLE_WORD:
-    // return 8;
-    // default:
-    // return 0;
-    // }
-    // }
 
     public String addStringLine(String value) {
         String name = "strl_" + stringNameCounter++;
@@ -308,19 +285,17 @@ public class ARMProgram {
         }
     }
 
-    public String getReadyRegister(ARMDVal dval){
+    public String getReadyRegister(ARMDVal dval) {
         String reg;
-        if (dval.getForInstructionVal().contains("#")){
+        if (dval.getForInstructionVal().contains("#")) {
             reg = getAvailableRegister();
             addInstruction(new ARMInstruction("mov", reg, dval.toString()));
-        }
-        else if (dval.isFloat()){
+        } else if (dval.isFloat()) {
             reg = getAvailableRegisterTypeD();
             String sreg = dval.toString();
             addInstruction(new ARMInstruction("fcvt", reg, sreg));
             freeRegisterTypeS(sreg);
-        }
-        else {
+        } else {
             reg = dval.toString();
         }
         return reg;

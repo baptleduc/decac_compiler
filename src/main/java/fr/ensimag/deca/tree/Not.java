@@ -1,5 +1,8 @@
 package fr.ensimag.deca.tree;
 
+import fr.ensimag.arm.ARMDVal;
+import fr.ensimag.arm.ARMProgram;
+import fr.ensimag.arm.instruction.ARMInstruction;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
@@ -67,5 +70,18 @@ public class Not extends AbstractUnaryExpr {
         compiler.addInstruction(new BRA(endLabel));
 
         compiler.addLabel(endLabel);
+    }
+
+    @Override
+    protected String codeGenUnaryExprARM(ARMDVal dval, ARMProgram program) {
+
+        String srcReg = program.getReadyRegister(dval);
+
+        String minus1 = program.getAvailableRegister();
+        program.addInstruction(new ARMInstruction("mov", minus1, "#-1"));
+        program.addInstruction(new ARMInstruction("sub", srcReg, srcReg, minus1));
+        program.addInstruction(new ARMInstruction("mul", srcReg, srcReg, minus1));
+        program.freeRegisterTypeW(minus1);
+        return srcReg;
     }
 }

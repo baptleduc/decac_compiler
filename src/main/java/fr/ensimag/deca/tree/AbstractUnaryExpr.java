@@ -1,5 +1,7 @@
 package fr.ensimag.deca.tree;
 
+import fr.ensimag.arm.ARMDVal;
+import fr.ensimag.arm.ARMProgram;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.tools.IndentPrintStream;
 import fr.ensimag.ima.pseudocode.DVal;
@@ -46,6 +48,9 @@ public abstract class AbstractUnaryExpr extends AbstractExpr {
 
     protected abstract void codeGenUnaryExpr(GPRegister regDest, DVal sourceDVal, DecacCompiler compiler);
 
+    // return the new register
+    protected abstract String codeGenUnaryExprARM(ARMDVal dval, ARMProgram program);
+
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
         getOperand().codeGenInst(compiler);
@@ -57,7 +62,10 @@ public abstract class AbstractUnaryExpr extends AbstractExpr {
 
     @Override
     protected void codeGenInstARM(DecacCompiler compiler) {
-        // TODO ARM
+
+        getOperand().codeGenInstARM(compiler);
+        String reg = codeGenUnaryExprARM(getOperand().getARMDVal(), compiler.getARMProgram());
+        setARMDVal(new ARMDVal(reg));
     }
 
 }
