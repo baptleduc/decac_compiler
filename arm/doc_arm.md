@@ -1,12 +1,12 @@
 ---
-title: Documentation de l'extension ARM pour la langage Deca
+title: Documentation de l'extension ARM pour le langage Deca
 lang: fr
 author:
   - Baptiste Le Duc
   - Mathéo Dupiat
   - Malo Nicolas
   - Ryan El Aroud
-  - Théo Giozovanni
+  - Théo Giovinazzi
 date: \today
 pagesize: A4
 toc: true
@@ -20,17 +20,17 @@ linkcolor: blue
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Au cœur de cette évolution, la loi de Moore, formulée par Gordon Moore en 1965, a joué un rôle clé en prévoyant un doublement des transistors dans les processeurs tous les deux ans, à coût constant. Bien que ses effets s'atténuent aujourd'hui, elle a façonné les progrès des architectures processeur, notamment ARM.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Les processeurs ARM (Advanced RISC Machines) se sont imposés comme une référence, notamment dans les systèmes embarqués et les appareils mobiles, mais aussi, plus récemment, dans les ordinateurs personnels comme ceux d’Apple.  Leur architecture RISC (Reduced Instruction Set Computing) est conçue pour maximiser l’efficacité énergétique tout en offrant des performances adaptées à une large gamme d’applications. Leur finesse de gravure illustre les progrès des semi-conducteurs et la Loi de Morre : de 180 nm dans les années 2000 à 3 nm aujourd’hui pour les Cortex-X925 ou Cortex-A520. 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Les processeurs ARM (Advanced RISC Machines) se sont imposés comme une référence, notamment dans les systèmes embarqués et les appareils mobiles, mais aussi, plus récemment, dans les ordinateurs personnels comme ceux d’Apple.  Leur architecture RISC (Reduced Instruction Set Computing) est conçue pour maximiser l’efficacité énergétique tout en offrant des performances adaptées à une large gamme d’applications. Leur finesse de gravure illustre les progrès des semi-conducteurs et la Loi de Moore : de 180 nm dans les années 2000 à 3 nm aujourd’hui pour les Cortex-X925 ou Cortex-A520. 
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Désireux d’approfondir nos connaissances sur l’architecture ARM, omniprésente dans les téléphones mobiles et récemment adoptée par Apple pour ses ordinateurs, nous avons entrepris d’étendre notre compilateur pour le langage Deca afin de le rendre compatible avec cette architecture. Dès lors, nous pouvons nous demander : **comment adapter efficacement notre compilateur pour exploiter les spécificités de l’architecture ARM tout en respectant des contraintes de temps limité ?**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Ce document se propose d’exposer notre démarche en quatres étapes principales : une spécification détaillée de l’extensio avec une analyse bibliographique des architectures ARM, la présentation de nos choix de conception, d’architecture et d’algorithmes, une description de la méthode de validation mise en œuvre, et enfin, les résultats obtenus lors de la validation de l’extension.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Ce document se propose d’exposer notre démarche en quatres étapes principales : une spécification détaillée de l’extension avec une analyse bibliographique des architectures ARM, la présentation de nos choix de conception, d’architecture et d’algorithmes, une description de la méthode de validation mise en œuvre, et enfin, les résultats obtenus lors de la validation de l’extension.
 
 # Spécification de l'extension ARM
 
 ### Définition de la cible
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Le choix du processeur cible pour notre compilateur a été un difficile, car il devait à la fois s’intégrer facilement dans notre environnement de développement, notamment via des outils comme QEMU, tout en répondant à des critères techniques précis. Ce choix s’est avéré complexe en raison de la diversité des processeurs disponibles, chacun ayant ses propres spécificités. Les contraintes que nous nous avions fixé était alors les suivantes : 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Le choix du processeur cible pour notre compilateur a été un difficile, car il devait à la fois s’intégrer facilement dans notre environnement de développement, notamment via des outils comme QEMU, tout en répondant à des critères techniques précis. Ce choix s’est avéré complexe en raison de la diversité des processeurs disponibles, chacun ayant ses propres spécificités. Les contraintes que nous nous étions fixées étaient alors les suivantes : 
 
    - Possibilité de simuler la cible facilement via Qemu
    - Accessibilité de la documentation
@@ -43,7 +43,7 @@ linkcolor: blue
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Compte tenu de notre besoin de faciliter l’émulation et d’exécuter des systèmes complets, nous avons opté pour les processeurs A-profile. De plus, nous souhaitions travailler avec une architecture moderne afin d’avoir un aperçu concret des standards actuels de l’industrie. Cela nous a conduits à choisir une architecture 64 bits.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Ainsi, de part ses contraintes, nous avions le choix entre 3 processeur finaux tous utilisant l'architecture ARMv8-A qui est la première architecture ARM en 64-bits :
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Ainsi, de par ces contraintes, nous avions le choix entre 3 processeur finaux tous utilisant l'architecture ARMv8-A qui est la première architecture ARM en 64-bits :
 
    - Cortex-A53
    - Cortex-A57
@@ -72,11 +72,11 @@ Notre choix final s’est porté sur le **Cortex-A53**.
 Au début du projet GL, nous nous sommes fixé un objectif SMART (Spécifique, Mesurable, Atteignable, Réaliste et Temporel) : réaliser l'extension ARM du compilateur pour la partie sans objet du langage Deca. Ce choix, justifié lors des réunions de suivi, reflétait notre priorité de créer un compilateur Deca respectant au mieux la spécification initiale du langage. Conscients que cette tâche nécessiterait un investissement de temps considérable, nous avons choisi de concentrer nos efforts sur cet objectif précis afin de garantir une base solide et conforme avant d’envisager l'extension.
 
 
-Cet objectif sera alors considéré comme atteints si il remplit cette spécification : 
+Cet objectif sera alors considéré comme atteint s'il remplit cette spécification : 
 
-1. Gestion des opération arithmétique (addition, soustraction, division, multiplication et modulo) sur les **entiers** et les **flottants** (via un cast implicit). 
+1. Gestion des opérations arithmétiques (addition, soustraction, division, multiplication et modulo) sur les **entiers** et les **flottants** (via un cast implicit). 
 
-2. Gestion des opérations booléene : 
+2. Gestion des opérations booléennes : 
    - Noeuds If-then-else
    - Opérateur de comparaison `(=, !=, >=, >, <=, <)`
    - And `(&&)`
@@ -99,7 +99,7 @@ Cet objectif sera alors considéré comme atteints si il remplit cette spécific
 
 ## Plan d'action
 
-Afin de parvenir à l'objectif fixé, nous nous sommes organisés dès le début du projet afin d'organiser notre temps et nos développement. Nous avons alors établis ces différents étapes : 
+Afin de parvenir à l'objectif fixé, nous nous sommes organisés dès le début du projet afin d'organiser notre temps et nos développement. Nous avons alors établi ces différents étapes : 
 
 ![Diagramme de Gantt pour ARM](arm/assets/ARMGantt.png)
 
@@ -133,10 +133,10 @@ Afin de parvenir à l'objectif fixé, nous nous sommes organisés dès le début
 
 ## Définition du langage d'assemblage ARMv8-A
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; L'Instruction Set Architecure (ISA) est une part du modele abstrait de model d'un ordinateur. Il définit comment le software control le processeur via des instructions.  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Pour réaliser l'extension du compilateur vers le langage d'assemblage cible (ARMv8-A) nous nous sommes donc appuyé sur l'ISA mis à disposition par ARM dans la documentation de notre processeur. 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **L'Instruction Set Architecture** (ISA) constitue une partie essentielle du modèle abstrait d'un ordinateur. Elle définit l'ensemble des instructions que le processeur est capable d'exécuter et le mécanisme par lequel le logiciel contrôle le matériel.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Dans le cadre de l'extension de notre compilateur vers le langage d'assemblage cible (ARMv8-A), nous nous sommes appuyés sur les spécifications détaillées de l'ISA fournies par ARM. Ces documents officiels nous ont permis de comprendre les particularités de l'architecture ARMv8-A, d'adapter nos outils de développement et d'assurer la compatibilité avec notre processeur cible.
 
-### Éxecution simple séquentielle 
+### Execution simple séquentielle 
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; L'architecture ARM utilise historiquement le modèle **SSE (Simple Sequential Execution)**, où le processeur traite une instruction à la fois en suivant les étapes classiques : **Fetch**, **Decode**, et **Execute**. Ce traitement est séquentiel, c'est-à-dire que chaque instruction est exécutée dans l'ordre exact dans lequel elle apparaît en mémoire.
 
@@ -179,7 +179,7 @@ Dans cette phase, les instructions sont exécutées de manière désordonnée, m
 - **Load** : Gère les opérations de lecture en mémoire.
 - **Store** : Gère les opérations d’écriture en mémoire
 
-Cette phase présente de nombeux avantages : 
+Cette phase présente de nombreux avantages : 
 
 - **Amélioration des performances** : Les instructions sont exécutées dès que les ressources nécessaires sont disponibles, même si cela implique une exécution hors de l'ordre du programme.
 - **Réduction des latences** : Les dépendances entre instructions sont gérées dynamiquement, minimisant les temps d'attente.
@@ -241,15 +241,17 @@ STR X2, [X3]   // Stocke la valeur du registre X2 à l'adresse
 ```
 
 - **Adressage avec décalage** : Un décalage est ajouté à un registre pour calculer l'adresse effective.
-Déplacement immédiat: 
-```assembly
-LDR X0, [X1, #16] // Charge la valeur située à l'adresse (X1 + 16) dans X0
-STR X2, [X3, #8]  // Stocke la valeur de X2 à l'adresse (X3 + 8)
-```
-Déplacement basé sur un autre registre :
-```assembly
-LDR X0, [X1, X2]  // Charge la valeur à l'adresse (X1 + X2) dans X0
-```
+   Déplacement immédiat: 
+
+   ```assembly
+   LDR X0, [X1, #16] // Charge la valeur située à l'adresse (X1 + 16) dans X0
+   STR X2, [X3, #8]  // Stocke la valeur de X2 à l'adresse (X3 + 8)
+   ```
+   Déplacement basé sur un autre registre: 
+
+   ```assembly
+   LDR X0, [X1, X2]  // Charge la valeur à l'adresse (X1 + X2) dans X0
+   ```
 
 - **Adressage pré-indexé**
 ```assembly
@@ -364,24 +366,24 @@ CMP W0, W1 //alias pour SUBS WZR, W0, W1
 
 ### Branchement contionnel
 
-Un branchement conditionel est de la forme `B.<cond><label>` et est la version condition de l'instuction `B`. Le branchement se fait si `<cond>` est true. `<cond>` représente un des codes conditions spécifiés plus [haut](#codes-conditions-code-cond)
+Un branchement conditionnel est de la forme `B.<cond><label>` et est la version condition de l'instuction `B`. Le branchement se fait si `<cond>` est true. `<cond>` représente un des codes conditions spécifiés plus [haut](#codes-conditions-code-cond)
 
-### Appel de fonctions
+### Appels de fonctions
 
-L'architecture ARMv8-A permet d'effectuer des appels de fonctions, qu'il s'agisse de fonctions définies par l'utilisateur ou de fonctions intégrées au langage `C`, comme printf. Lorsqu'une fonction est appelée, il est essentiel de disposer d'un mécanisme permettant de revenir à l'instruction suivante dans l'appelant une fois l'exécution de la fonction terminée.
+L'architecture ARMv8-A permet d'effectuer des appels de fonctions, qu'il s'agisse de fonctions définies par l'utilisateur ou de fonctions intégrées au langage `C`, comme `printf`. Lorsqu'une fonction est appelée, il est essentiel de disposer d'un mécanisme permettant de revenir à l'instruction suivante dans l'appelant une fois l'exécution de la fonction terminée.
 
-Pour cela, les instructions de branchement simples (`B` ou `BR`) doivent être modifiées en **branchements avec lien** en ajoutant le suffixe ``L (ce qui donne `BL` ou `BLR`). Cette modification permet de sauvegarder l'adresse de retour (celle de l'instruction suivante après l'appel) dans le registre dédié à cet usage, le registre `X30`, également connu sous le nom de Link Register (`LR`).
+Pour cela, les instructions de branchement simples (`B` ou `BR`) doivent être modifiées en **branchements avec lien** en ajoutant le suffixe `L` (ce qui donne `BL` ou `BLR`). Cette modification permet de sauvegarder l'adresse de retour (celle de l'instruction suivante après l'appel) dans le registre dédié à cet usage, le registre `X30`, également connu sous le nom de Link Register (`LR`).
 
 À la fin de la fonction, l'instruction `RET` doit être utilisée pour effectuer un branchement indirect vers l'adresse de retour contenue dans le registre `X30`. Cela garantit un retour correct à l'appelant et la poursuite normale de l'exécution du programme.
 
-![Schém appel de fonction](arm/assets/function_call.png)\
+![Schéma d'un appel de fonction](arm/assets/function_call.png)\
 
 
 
 
 # Mise en place de l'environnement 
 
-Pour développer et tester l'extension ARM, nous utiliserons les outils suivants :
+Pour développer et tester l'extension ARM, nous avons utilisé les outils suivants :
 
 1. **Cross-compilation avec aarch64-linux-gnu-gcc** :
    - Le compilateur `arm-linux-gnueabihf-gcc` permet, grâce à son outil d'assemblage et de linkage, de générer du code binaire pour l'architecture ARMv8-A (64 bits).
