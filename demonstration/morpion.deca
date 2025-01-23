@@ -1,0 +1,144 @@
+// Classe Tableau qui représente les cases du morpion
+class Tableau {
+    // Les 9 cases du plateau, initialisées à 0
+    int case1 = 0;
+    int case2 = 0;
+    int case3 = 0;
+    int case4 = 0;
+    int case5 = 0;
+    int case6 = 0;
+    int case7 = 0;
+    int case8 = 0;
+    int case9 = 0;
+
+    // Affichage du plateau
+    void afficher() {
+    print(case1);
+    print(" | ");
+    print(case2);
+    print(" | ");
+    println(case3);
+    
+    println("--+---+--");
+    
+    print(case4);
+    print(" | ");
+    print(case5);
+    print(" | ");
+    println(case6);
+    
+    println("--+---+--");
+    
+    print(case7);
+    print(" | ");
+    print(case8);
+    print(" | ");
+    println(case9);
+    }
+
+    // Vérifie si une case est libre
+    boolean estLibre(int caseNum) {
+        return (caseNum == 0);
+    }
+
+    // Mise à jour d'une case
+    boolean jouer(int numCase, int joueur) {
+        if (numCase == 1 && estLibre(case1)) {
+            case1 = joueur;
+            return true;
+        } else if (numCase == 2 && estLibre(case2)) {
+            case2 = joueur;
+            return true;
+        } else if (numCase == 3 && estLibre(case3)) {
+            case3 = joueur;
+            return true;
+        } else if (numCase == 4 && estLibre(case4)) {
+            case4 = joueur;
+            return true;
+        } else if (numCase == 5 && estLibre(case5)) {
+            case5 = joueur;
+            return true;
+        } else if (numCase == 6 && estLibre(case6)) {
+            case6 = joueur;
+            return true;
+        } else if (numCase == 7 && estLibre(case7)) {
+            case7 = joueur;
+            return true;
+        } else if (numCase == 8 && estLibre(case8)) {
+            case8 = joueur;
+            return true;
+        } else if (numCase == 9 && estLibre(case9)) {
+            case9 = joueur;
+            return true;
+        }
+        return false;
+    }
+
+    // Vérifie si un joueur a gagné
+    boolean verifierVictoire(int joueur) {
+        // Lignes
+        if ((case1 == joueur && case2 == joueur && case3 == joueur) ||
+            (case4 == joueur && case5 == joueur && case6 == joueur) ||
+            (case7 == joueur && case8 == joueur && case9 == joueur)) {
+            return true;
+        }
+        // Colonnes
+        if ((case1 == joueur && case4 == joueur && case7 == joueur) ||
+            (case2 == joueur && case5 == joueur && case8 == joueur) ||
+            (case3 == joueur && case6 == joueur && case9 == joueur)) {
+            return true;
+        }
+        // Diagonales
+        if ((case1 == joueur && case5 == joueur && case9 == joueur) ||
+            (case3 == joueur && case5 == joueur && case7 == joueur)) {
+            return true;
+        }
+        return false;
+    }
+
+    // Vérifie si le plateau est plein
+    boolean estPlein() {
+        return (case1 != 0 && case2 != 0 && case3 != 0 &&
+                case4 != 0 && case5 != 0 && case6 != 0 &&
+                case7 != 0 && case8 != 0 && case9 != 0);
+    }
+}
+
+// Classe principale pour jouer au morpion
+{
+    Tableau plateau = new Tableau();
+    int joueur = 1; // 1 pour croix, 2 pour cercle
+    boolean victoire = false;
+    int choix = 0;
+
+    while (!victoire && !plateau.estPlein()) {
+        plateau.afficher();
+        print("Joueur ");
+        print(joueur);
+        println(", entrez un numéro de case (1-9) :");
+        choix = readInt(); // Entrée utilisateur
+
+        if (plateau.jouer(choix, joueur)) {
+            victoire = plateau.verifierVictoire(joueur);
+            if (!victoire) {
+                if (joueur == 1) {
+                    joueur = 2;
+                } else {
+                    joueur = 1;
+                }
+            }
+        } else {
+            println("Case invalide, essayez à nouveau.");
+        }
+    }
+
+    plateau.afficher();
+    if (victoire) {
+        print("Le joueur ");
+        print(joueur);
+        println(" a gagné !");
+    } else {
+        println("Match nul !");
+    }
+}
+

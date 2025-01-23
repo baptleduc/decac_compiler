@@ -1,0 +1,760 @@
+	TSTO #28	; 13 (variables) + 15 (saved registers) + 0 (temporaries) + 0 (method parameters x 2)
+	BOV stack_overflow_error
+	ADDSP #13
+; start main program
+; Method Table of class Object
+	LOAD #null, R0
+	STORE R0, 1(GB)
+	LOAD code.Object.equals, R0
+	STORE R0, 2(GB)
+; Method Table of class Tableau
+	LEA 1(GB), R0
+	STORE R0, 3(GB)
+	LOAD code.Object.equals, R0
+	STORE R0, 4(GB)
+	LOAD code.Tableau.afficher, R0
+	STORE R0, 5(GB)
+	LOAD code.Tableau.estLibre, R0
+	STORE R0, 6(GB)
+	LOAD code.Tableau.jouer, R0
+	STORE R0, 7(GB)
+	LOAD code.Tableau.verifierVictoire, R0
+	STORE R0, 8(GB)
+	LOAD code.Tableau.estPlein, R0
+	STORE R0, 9(GB)
+; Main program
+; Beginning of main instructions:
+	NEW #10, R15
+	BOV heap_overflow_error
+	LEA 3(GB), R0
+	STORE R0, 0(R15)
+	PUSH R15
+	BSR init.Tableau
+	POP R15
+	STORE R15, 10(GB)
+	LOAD #1, R15
+	STORE R15, 11(GB)
+	LOAD #0, R15
+	STORE R15, 12(GB)
+	LOAD #0, R15
+	STORE R15, 13(GB)
+start_while_84:
+	LOAD 12(GB), R15
+	CMP #0, R15
+	BNE end_while_85
+	LOAD 10(GB), R15
+	CMP #null, R15
+	BEQ null_pointer_error
+	PUSH R15
+	LOAD 0(R15), R15
+	BSR 6(R15)
+	SUBSP #1
+	CMP #0, R0
+	BNE end_while_85
+And_end_label_86:
+	LOAD 10(GB), R0
+	CMP #null, R0
+	BEQ null_pointer_error
+	PUSH R0
+	LOAD 0(R0), R0
+	BSR 2(R0)
+	SUBSP #1
+	WSTR "Joueur "
+	LOAD 11(GB), R1
+	WINT
+	WSTR ", entrez un numéro de case (1-9) :"
+	WNL
+	RINT
+	BOV io_error
+	STORE R1, 13(GB)
+	LOAD 11(GB), R1
+	PUSH R1
+	LOAD 13(GB), R1
+	PUSH R1
+	LOAD 10(GB), R1
+	CMP #null, R1
+	BEQ null_pointer_error
+	PUSH R1
+	LOAD 0(R1), R1
+	BSR 4(R1)
+	SUBSP #3
+	CMP #0, R0
+	BEQ else_88
+then_87:
+	LOAD 11(GB), R0
+	PUSH R0
+	LOAD 10(GB), R0
+	CMP #null, R0
+	BEQ null_pointer_error
+	PUSH R0
+	LOAD 0(R0), R0
+	BSR 5(R0)
+	SUBSP #2
+	STORE R0, 12(GB)
+	LOAD 12(GB), R0
+	CMP #0, R0
+	BNE else_91
+then_90:
+	LOAD 11(GB), R0
+	CMP #1, R0
+	BNE else_94
+then_93:
+	LOAD #2, R0
+	STORE R0, 11(GB)
+	BRA end_95
+else_94:
+	LOAD #1, R0
+	STORE R0, 11(GB)
+end_95:
+	BRA end_92
+else_91:
+end_92:
+	BRA end_89
+else_88:
+	WSTR "Case invalide, essayez à nouveau."
+	WNL
+end_89:
+	BRA start_while_84
+end_while_85:
+	LOAD 10(GB), R0
+	CMP #null, R0
+	BEQ null_pointer_error
+	PUSH R0
+	LOAD 0(R0), R0
+	BSR 2(R0)
+	SUBSP #1
+	LOAD 12(GB), R0
+	CMP #0, R0
+	BEQ else_97
+then_96:
+	WSTR "Le joueur "
+	LOAD 11(GB), R1
+	WINT
+	WSTR " a gagné !"
+	WNL
+	BRA end_98
+else_97:
+	WSTR "Match nul !"
+	WNL
+end_98:
+	HALT
+; Code Object
+code.Object.equals:
+	TSTO #2
+	BOV stack_overflow_error
+	PUSH R2
+	PUSH R3
+	LOAD -2(LB), R2
+	LOAD -3(LB), R3
+	CMP R2, R3
+	BNE return_false_2
+	LOAD #1, R0
+	BRA end_method_1
+return_false_2:
+	LOAD #0, R0
+	BRA end_method_1
+	BRA no_return_error
+end_method_1:
+	POP R3
+	POP R2
+	RTS
+; Class Tableau
+init.Tableau:
+	LOAD -2(LB), R1
+	LOAD #0, R3
+	STORE R3, 1(R1)
+	LOAD #0, R3
+	STORE R3, 2(R1)
+	LOAD #0, R3
+	STORE R3, 3(R1)
+	LOAD #0, R3
+	STORE R3, 4(R1)
+	LOAD #0, R3
+	STORE R3, 5(R1)
+	LOAD #0, R3
+	STORE R3, 6(R1)
+	LOAD #0, R3
+	STORE R3, 7(R1)
+	LOAD #0, R3
+	STORE R3, 8(R1)
+	LOAD #0, R3
+	STORE R3, 9(R1)
+	RTS
+code.Tableau.afficher:
+	TSTO #9
+	BOV stack_overflow_error
+	PUSH R3
+	PUSH R2
+	PUSH R4
+	PUSH R5
+	PUSH R6
+	PUSH R7
+	PUSH R8
+	PUSH R9
+	PUSH R10
+	LOAD -2(LB), R3
+	LOAD 1(R3), R1
+	WINT
+	WSTR " | "
+	LOAD -2(LB), R2
+	LOAD 2(R2), R1
+	WINT
+	WSTR " | "
+	LOAD -2(LB), R4
+	LOAD 3(R4), R1
+	WINT
+	WNL
+	WSTR "--+---+--"
+	WNL
+	LOAD -2(LB), R5
+	LOAD 4(R5), R1
+	WINT
+	WSTR " | "
+	LOAD -2(LB), R6
+	LOAD 5(R6), R1
+	WINT
+	WSTR " | "
+	LOAD -2(LB), R7
+	LOAD 6(R7), R1
+	WINT
+	WNL
+	WSTR "--+---+--"
+	WNL
+	LOAD -2(LB), R8
+	LOAD 7(R8), R1
+	WINT
+	WSTR " | "
+	LOAD -2(LB), R9
+	LOAD 8(R9), R1
+	WINT
+	WSTR " | "
+	LOAD -2(LB), R10
+	LOAD 9(R10), R1
+	WINT
+	WNL
+end_method_3:
+	POP R10
+	POP R9
+	POP R8
+	POP R7
+	POP R6
+	POP R5
+	POP R4
+	POP R2
+	POP R3
+	RTS
+code.Tableau.estLibre:
+	TSTO #2
+	BOV stack_overflow_error
+	PUSH R11
+	PUSH R12
+	LOAD #1, R11
+	LOAD -3(LB), R12
+	CMP #0, R12
+	BEQ end_label_5
+	LOAD #0, R11
+end_label_5:
+	LOAD R11, R0
+	BRA end_method_4
+	BRA no_return_error
+end_method_4:
+	POP R12
+	POP R11
+	RTS
+code.Tableau.jouer:
+	TSTO #21
+	BOV stack_overflow_error
+	PUSH R11
+	PUSH R12
+	PUSH R0
+	LOAD -3(LB), R11
+	CMP #1, R11
+	BNE else_8
+	LOAD -2(LB), R11
+	LOAD 1(R11), R12
+	PUSH R12
+	LOAD -2(LB), R12
+	CMP #null, R12
+	BEQ null_pointer_error
+	PUSH R12
+	LOAD 0(R12), R12
+	BSR 3(R12)
+	SUBSP #2
+	CMP #0, R0
+	BEQ else_8
+And_end_label_10:
+then_7:
+	LOAD -2(LB), R0
+	LOAD -4(LB), R12
+	STORE R12, 1(R0)
+	LOAD #1, R0
+	BRA end_method_6
+	BRA end_9
+else_8:
+	LOAD -3(LB), R0
+	CMP #2, R0
+	BNE else_12
+	LOAD -2(LB), R0
+	LOAD 2(R0), R12
+	PUSH R12
+	LOAD -2(LB), R12
+	CMP #null, R12
+	BEQ null_pointer_error
+	PUSH R12
+	LOAD 0(R12), R12
+	BSR 3(R12)
+	SUBSP #2
+	CMP #0, R0
+	BEQ else_12
+And_end_label_14:
+then_11:
+	LOAD -2(LB), R0
+	LOAD -4(LB), R12
+	STORE R12, 2(R0)
+	LOAD #1, R0
+	BRA end_method_6
+	BRA end_13
+else_12:
+end_13:
+	LOAD -3(LB), R0
+	CMP #3, R0
+	BNE else_16
+	LOAD -2(LB), R0
+	LOAD 3(R0), R12
+	PUSH R12
+	LOAD -2(LB), R12
+	CMP #null, R12
+	BEQ null_pointer_error
+	PUSH R12
+	LOAD 0(R12), R12
+	BSR 3(R12)
+	SUBSP #2
+	CMP #0, R0
+	BEQ else_16
+And_end_label_18:
+then_15:
+	LOAD -2(LB), R0
+	LOAD -4(LB), R12
+	STORE R12, 3(R0)
+	LOAD #1, R0
+	BRA end_method_6
+	BRA end_17
+else_16:
+end_17:
+	LOAD -3(LB), R0
+	CMP #4, R0
+	BNE else_20
+	LOAD -2(LB), R0
+	LOAD 4(R0), R12
+	PUSH R12
+	LOAD -2(LB), R12
+	CMP #null, R12
+	BEQ null_pointer_error
+	PUSH R12
+	LOAD 0(R12), R12
+	BSR 3(R12)
+	SUBSP #2
+	CMP #0, R0
+	BEQ else_20
+And_end_label_22:
+then_19:
+	LOAD -2(LB), R0
+	LOAD -4(LB), R12
+	STORE R12, 4(R0)
+	LOAD #1, R0
+	BRA end_method_6
+	BRA end_21
+else_20:
+end_21:
+	LOAD -3(LB), R0
+	CMP #5, R0
+	BNE else_24
+	LOAD -2(LB), R0
+	LOAD 5(R0), R12
+	PUSH R12
+	LOAD -2(LB), R12
+	CMP #null, R12
+	BEQ null_pointer_error
+	PUSH R12
+	LOAD 0(R12), R12
+	BSR 3(R12)
+	SUBSP #2
+	CMP #0, R0
+	BEQ else_24
+And_end_label_26:
+then_23:
+	LOAD -2(LB), R0
+	LOAD -4(LB), R12
+	STORE R12, 5(R0)
+	LOAD #1, R0
+	BRA end_method_6
+	BRA end_25
+else_24:
+end_25:
+	LOAD -3(LB), R0
+	CMP #6, R0
+	BNE else_28
+	LOAD -2(LB), R0
+	LOAD 6(R0), R12
+	PUSH R12
+	LOAD -2(LB), R12
+	CMP #null, R12
+	BEQ null_pointer_error
+	PUSH R12
+	LOAD 0(R12), R12
+	BSR 3(R12)
+	SUBSP #2
+	CMP #0, R0
+	BEQ else_28
+And_end_label_30:
+then_27:
+	LOAD -2(LB), R0
+	LOAD -4(LB), R12
+	STORE R12, 6(R0)
+	LOAD #1, R0
+	BRA end_method_6
+	BRA end_29
+else_28:
+end_29:
+	LOAD -3(LB), R0
+	CMP #7, R0
+	BNE else_32
+	LOAD -2(LB), R0
+	LOAD 7(R0), R12
+	PUSH R12
+	LOAD -2(LB), R12
+	CMP #null, R12
+	BEQ null_pointer_error
+	PUSH R12
+	LOAD 0(R12), R12
+	BSR 3(R12)
+	SUBSP #2
+	CMP #0, R0
+	BEQ else_32
+And_end_label_34:
+then_31:
+	LOAD -2(LB), R0
+	LOAD -4(LB), R12
+	STORE R12, 7(R0)
+	LOAD #1, R0
+	BRA end_method_6
+	BRA end_33
+else_32:
+end_33:
+	LOAD -3(LB), R0
+	CMP #8, R0
+	BNE else_36
+	LOAD -2(LB), R0
+	LOAD 8(R0), R12
+	PUSH R12
+	LOAD -2(LB), R12
+	CMP #null, R12
+	BEQ null_pointer_error
+	PUSH R12
+	LOAD 0(R12), R12
+	BSR 3(R12)
+	SUBSP #2
+	CMP #0, R0
+	BEQ else_36
+And_end_label_38:
+then_35:
+	LOAD -2(LB), R0
+	LOAD -4(LB), R12
+	STORE R12, 8(R0)
+	LOAD #1, R0
+	BRA end_method_6
+	BRA end_37
+else_36:
+end_37:
+	LOAD -3(LB), R0
+	CMP #9, R0
+	BNE else_40
+	LOAD -2(LB), R0
+	LOAD 9(R0), R12
+	PUSH R12
+	LOAD -2(LB), R12
+	CMP #null, R12
+	BEQ null_pointer_error
+	PUSH R12
+	LOAD 0(R12), R12
+	BSR 3(R12)
+	SUBSP #2
+	CMP #0, R0
+	BEQ else_40
+And_end_label_42:
+then_39:
+	LOAD -2(LB), R0
+	LOAD -4(LB), R12
+	STORE R12, 9(R0)
+	LOAD #1, R0
+	BRA end_method_6
+	BRA end_41
+else_40:
+end_41:
+end_9:
+	LOAD #0, R0
+	BRA end_method_6
+	BRA no_return_error
+end_method_6:
+	POP R0
+	POP R12
+	POP R11
+	RTS
+code.Tableau.verifierVictoire:
+	TSTO #5
+	BOV stack_overflow_error
+	PUSH R0
+	PUSH R12
+	PUSH R13
+	PUSH R14
+	PUSH R15
+	LOAD -2(LB), R0
+	LOAD 1(R0), R12
+	CMP -3(LB), R12
+	BNE And_end_label_49
+	LOAD -2(LB), R12
+	LOAD 2(R12), R13
+	CMP -3(LB), R13
+	BNE And_end_label_49
+And_end_label_50:
+	LOAD -2(LB), R13
+	LOAD 3(R13), R14
+	CMP -3(LB), R14
+	BEQ Or_end_label_47
+And_end_label_49:
+	LOAD -2(LB), R14
+	LOAD 4(R14), R15
+	CMP -3(LB), R15
+	BNE And_end_label_51
+	LOAD -2(LB), R15
+	PUSH R15	; Save register R15
+	LOAD 5(R15), R15
+	CMP -3(LB), R15
+	BNE And_end_label_51
+And_end_label_52:
+	LOAD -2(LB), R15
+	LOAD 6(R15), R15
+	CMP -3(LB), R15
+	BEQ Or_end_label_47
+And_end_label_51:
+Or_end_label_48:
+	LOAD -2(LB), R15
+	PUSH R15	; Save register R15
+	LOAD 7(R15), R15
+	CMP -3(LB), R15
+	BNE else_45
+	LOAD -2(LB), R15
+	LOAD 8(R15), R15
+	CMP -3(LB), R15
+	BNE else_45
+And_end_label_54:
+	LOAD -2(LB), R15
+	PUSH R15	; Save register R15
+	LOAD 9(R15), R15
+	CMP -3(LB), R15
+	BNE else_45
+And_end_label_53:
+Or_end_label_47:
+then_44:
+	LOAD #1, R0
+	BRA end_method_43
+	BRA end_46
+else_45:
+end_46:
+	LOAD -2(LB), R15
+	LOAD 1(R15), R15
+	CMP -3(LB), R15
+	BNE And_end_label_60
+	LOAD -2(LB), R15
+	PUSH R15	; Save register R15
+	LOAD 4(R15), R15
+	CMP -3(LB), R15
+	BNE And_end_label_60
+And_end_label_61:
+	LOAD -2(LB), R15
+	LOAD 7(R15), R15
+	CMP -3(LB), R15
+	BEQ Or_end_label_58
+And_end_label_60:
+	LOAD -2(LB), R15
+	PUSH R15	; Save register R15
+	LOAD 2(R15), R15
+	CMP -3(LB), R15
+	BNE And_end_label_62
+	LOAD -2(LB), R15
+	LOAD 5(R15), R15
+	CMP -3(LB), R15
+	BNE And_end_label_62
+And_end_label_63:
+	LOAD -2(LB), R15
+	PUSH R15	; Save register R15
+	LOAD 8(R15), R15
+	CMP -3(LB), R15
+	BEQ Or_end_label_58
+And_end_label_62:
+Or_end_label_59:
+	LOAD -2(LB), R15
+	LOAD 3(R15), R15
+	CMP -3(LB), R15
+	BNE else_56
+	LOAD -2(LB), R15
+	PUSH R15	; Save register R15
+	LOAD 6(R15), R15
+	CMP -3(LB), R15
+	BNE else_56
+And_end_label_65:
+	LOAD -2(LB), R15
+	LOAD 9(R15), R15
+	CMP -3(LB), R15
+	BNE else_56
+And_end_label_64:
+Or_end_label_58:
+then_55:
+	LOAD #1, R0
+	BRA end_method_43
+	BRA end_57
+else_56:
+end_57:
+	LOAD -2(LB), R15
+	PUSH R15	; Save register R15
+	LOAD 1(R15), R15
+	CMP -3(LB), R15
+	BNE And_end_label_70
+	LOAD -2(LB), R15
+	LOAD 5(R15), R15
+	CMP -3(LB), R15
+	BNE And_end_label_70
+And_end_label_71:
+	LOAD -2(LB), R15
+	PUSH R15	; Save register R15
+	LOAD 9(R15), R15
+	CMP -3(LB), R15
+	BEQ Or_end_label_69
+And_end_label_70:
+	LOAD -2(LB), R15
+	LOAD 3(R15), R15
+	CMP -3(LB), R15
+	BNE else_67
+	LOAD -2(LB), R15
+	PUSH R15	; Save register R15
+	LOAD 5(R15), R15
+	CMP -3(LB), R15
+	BNE else_67
+And_end_label_73:
+	LOAD -2(LB), R15
+	LOAD 7(R15), R15
+	CMP -3(LB), R15
+	BNE else_67
+And_end_label_72:
+Or_end_label_69:
+then_66:
+	LOAD #1, R0
+	BRA end_method_43
+	BRA end_68
+else_67:
+end_68:
+	LOAD #0, R0
+	BRA end_method_43
+	BRA no_return_error
+end_method_43:
+	POP R15
+	POP R14
+	POP R13
+	POP R12
+	POP R0
+	RTS
+code.Tableau.estPlein:
+	TSTO #1
+	BOV stack_overflow_error
+	PUSH R15
+	LOAD #1, R15
+	PUSH R15	; Save register R15
+	LOAD -2(LB), R15
+	LOAD 1(R15), R15
+	CMP #0, R15
+	BEQ And_end_label_76
+	LOAD -2(LB), R15
+	PUSH R15	; Save register R15
+	LOAD 2(R15), R15
+	CMP #0, R15
+	BEQ And_end_label_76
+And_end_label_83:
+	LOAD -2(LB), R15
+	LOAD 3(R15), R15
+	CMP #0, R15
+	BEQ And_end_label_76
+And_end_label_82:
+	LOAD -2(LB), R15
+	PUSH R15	; Save register R15
+	LOAD 4(R15), R15
+	CMP #0, R15
+	BEQ And_end_label_76
+And_end_label_81:
+	LOAD -2(LB), R15
+	LOAD 5(R15), R15
+	CMP #0, R15
+	BEQ And_end_label_76
+And_end_label_80:
+	LOAD -2(LB), R15
+	PUSH R15	; Save register R15
+	LOAD 6(R15), R15
+	CMP #0, R15
+	BEQ And_end_label_76
+And_end_label_79:
+	LOAD -2(LB), R15
+	LOAD 7(R15), R15
+	CMP #0, R15
+	BEQ And_end_label_76
+And_end_label_78:
+	LOAD -2(LB), R15
+	PUSH R15	; Save register R15
+	LOAD 8(R15), R15
+	CMP #0, R15
+	BEQ And_end_label_76
+And_end_label_77:
+	LOAD -2(LB), R15
+	LOAD 9(R15), R15
+	CMP #0, R15
+	BNE end_label_75
+And_end_label_76:
+	LOAD #0, R15
+end_label_75:
+	LOAD R15, R0
+	BRA end_method_74
+	BRA no_return_error
+end_method_74:
+	POP R15
+	RTS
+stack_overflow_error:
+	WSTR "Error: Stack Overflow"
+	WNL
+	ERROR
+overflow_error:
+	WSTR "Error: Overflow during arithmetic operation"
+	WNL
+	ERROR
+io_error:
+	WSTR "Error: Input/Output error"
+	WNL
+	ERROR
+divide_by_zero_error:
+	WSTR "Error: Division by zero"
+	WNL
+	ERROR
+heap_overflow_error:
+	WSTR "Error: Heap Overflow"
+	WNL
+	ERROR
+null_pointer_error:
+	WSTR "Error: Deferencing a null pointer"
+	WNL
+	ERROR
+cast_error:
+	WSTR "Error: Cast invalid"
+	WNL
+	ERROR
+no_return_error:
+	WSTR "Error: Exit from method without return"
+	WNL
+	ERROR
+; end main program
