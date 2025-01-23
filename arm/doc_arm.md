@@ -161,9 +161,9 @@ Dans cette phase, les instructions sont traitées dans l’ordre dans lequel ell
 
 - **Dispatch** : Les instructions décodées et renommées sont placées dans une file d’attente et prêtes à être distribuées aux unités fonctionnelles.
 
-#### 2. Étape d'Issue
+#### 2. Étape d'Issue  
 
-L'étape **Issue** assure la transition entre les phases **In Order** et **Out of Order**. À ce stade, les instructions sont assignées aux unités d'exécution spécialisées en fonction de la disponibilité des ressources matérielles et des opérandes requis. Cette répartition permet une exécution potentiellement hors de l'ordre initial du programme.
+L'étape **d'Issue** assure la transition entre les phases **In Order** et **Out of Order**. À ce stade, les instructions sont assignées aux unités d'exécution spécialisées en fonction de la disponibilité des ressources matérielles et des opérandes requis. Cette répartition permet une exécution potentiellement hors de l'ordre initial du programme.
 
 #### 3. Phase Out of Order
 
@@ -267,11 +267,16 @@ LDR X1, [X0, #4]    // Charge la valeur à l'adresse (label + 4) dans X1
 label:
     .word 0x12345678 // Valeur à charger
 ``` 
+L'ensemble des modes d'adressages est regroupé dans ce tableau : 
 
-![Modes d'adressages](arm/assets/addresing_mode.png)
+![Modes d'adressages](arm/assets/addressing_mode.png)
+
 
 
 ## Opérations arithmétique et logiques
+Une opération arithmétique en ARMv8-A est de cette forme : 
+
+![Format des opérations arithmétiques](arm/assets/op_arith.png)
 
 - **&lt;operation&gt;** : Spécifie l'opération effectuée par l'instruction. Les opérations possibles incluent :
   - `ADD` : Addition.
@@ -310,13 +315,13 @@ Dans ce document, nous ne présenterons pas l'ensemble des dérivations ni la to
 
 ## Codes conditions
 
-Les branchements conditionnels dans l'architecture ARMv8-A reposent sur l'état de certains *flags* mis à jour par les opérations dans l'ALU (*Arithmetic Logic Unit*). Ces flags sont :
-- **N** : Negative
-- **C** : Carry
-- **V** : Overflow
-- **Z** : Zero
+Les branchements conditionnels dans l'architecture ARMv8-A reposent sur l'état de certains *flags* mis à jour par les opérations dans l'ALU (*Arithmetic Logic Unit*). Ces flags sont :  
+- **N** : Negative  
+- **C** : Carry  
+- **V** : Overflow  
+- **Z** : Zero  
 
-Ces flags sont automatiquement mis à jour lorsque vous ajoutez le suffixe `S` à une instruction arithmétique ou logique (comme `SUBS` pour une soustraction).
+Ces flags sont automatiquement mis à jour lorsqu'on ajoute le suffixe `S` à une instruction arithmétique ou logique (comme `SUBS` pour une soustraction).
 
 Voici l'ensemble des codes conditions disponible dans ARMv8-A : 
 
