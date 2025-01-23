@@ -1,5 +1,7 @@
 package fr.ensimag.deca.tree;
 
+import org.apache.log4j.Logger;
+
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
@@ -13,6 +15,7 @@ import fr.ensimag.deca.tools.IndentPrintStream;
  * @date 01/01/2025
  */
 public class ListInst extends TreeList<AbstractInst> {
+    private static final Logger LOG = Logger.getLogger(ListInst.class);
 
     /**
      * Implements non-terminal "list_inst" of [SyntaxeContextuelle] in pass 3
@@ -39,7 +42,9 @@ public class ListInst extends TreeList<AbstractInst> {
     public void codeGenListInst(DecacCompiler compiler) {
         for (AbstractInst i : getList()) {
             i.codeGenInst(compiler);
+            compiler.freeAllGPRegisters();
         }
+        
     }
 
     @Override
