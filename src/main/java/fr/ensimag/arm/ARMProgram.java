@@ -226,9 +226,6 @@ public class ARMProgram {
         lines.add(".cfi_startproc");
         lines.add("sub sp, sp, #" + (spSize));
         lines.add(".cfi_def_cfa_offset " + spSize);
-        // lines.add("mov w0, #0"); // return 0
-        // lines.add("str wzr, [sp, #" + (spSize-4) + "]"); // if no print call else x29
-        // #-4
         if (usingFP) {
             lines.add("stp X29, X30, [sp, #" + (spSize - 16) + "]"); // save frame pointer and link register
             lines.add("add X29, sp, #" + (spSize - 16));

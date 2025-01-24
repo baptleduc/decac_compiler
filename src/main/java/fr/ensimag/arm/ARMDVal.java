@@ -31,7 +31,7 @@ public class ARMDVal {
         this.isImm = true;
     }
 
-    public ARMDVal(float val){
+    public ARMDVal(float val) {
         this.forInstructionVal = "#" + val;
         this.trueVal = "" + val;
         this.valueFloat = val;
@@ -47,7 +47,7 @@ public class ARMDVal {
         this.varName = name;
     }
 
-    public boolean isImmediate(){
+    public boolean isImmediate() {
         return isImm;
     }
 
@@ -55,7 +55,7 @@ public class ARMDVal {
         return valueInt;
     }
 
-    public float getValueFloat(){
+    public float getValueFloat() {
         return valueFloat;
     }
 

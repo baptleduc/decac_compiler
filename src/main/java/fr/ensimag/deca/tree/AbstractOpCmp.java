@@ -88,7 +88,7 @@ public abstract class AbstractOpCmp extends AbstractBinaryExpr {
             rightRg = rightOpDval.toString();
         }
 
-        if (leftOpDval.isFloat()){
+        if (leftOpDval.isFloat()) {
             String ldreg = program.getReadyRegister(getLeftOperand().getARMDVal());
             String rdreg = program.getReadyRegister(getRightOperand().getARMDVal());
             program.addInstruction(new ARMInstruction("fcmp", ldreg, rdreg));
