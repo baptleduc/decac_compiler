@@ -107,8 +107,10 @@ process_deca_file() {
             read -n 1 -p "Press 's' to skip or any other key to exit: " choice
             echo ""
             if [ "$choice" = "s" ]; then
+                rm "$ASM_FILE" "$BINARY_FILE"
                 return
             else
+                rm "$ASM_FILE" "$BINARY_FILE"
                 exit 1
             fi
         fi
