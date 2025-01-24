@@ -21,6 +21,7 @@ public class Object {
 
     public static void codeGenClass(DecacCompiler compiler) {
         compiler.addComment("Code Object");
+        codeGenConstructor(compiler);
         codeGenObjectMethods(compiler);
     }
 
@@ -41,6 +42,11 @@ public class Object {
         IMAProgram methodBody = new IMAProgram();
         compiler.withProgram(methodBody, () -> codeGenEqualsMethodBody(compiler));
         compiler.getProgram().append(methodBody);
+    }
+
+    private static void codeGenConstructor(DecacCompiler compiler) {
+        compiler.addLabel(new Label("init.Object", false));
+        compiler.addInstruction(new RTS());
     }
 
     private static void codeGenEqualsMethodBody(DecacCompiler compiler) {
