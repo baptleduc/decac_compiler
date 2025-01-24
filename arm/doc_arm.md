@@ -413,10 +413,124 @@ Pour développer et tester l'extension ARM, nous avons utilisé les outils suiva
 
 # Conception
 
-# Implémentation
+## Compilation avec CLANG et GCC
 
-# Validation
+Dans le cadre de notre projet, l’objectif principal était de compiler pour une cible ARM Cortex-A53 (architecture ARMv8). Le code assembleur généré devait ensuite être lié et assemblé à l’aide de GCC. Cependant, nous avons rencontré plusieurs limitations avec l’utilisation de GCC sur macOS. Ces problèmes nous ont conduits à privilégier l’usage de Clang, qui s’intègre mieux dans cet environnement.
 
-# Analyse des résultats obtenus
+Toutefois, cette transition n’a pas été sans difficultés : les spécificités du code assembleur ARM diffèrent légèrement entre les environnements utilisant Clang et ceux utilisant GCC. Afin de pallier ces divergences et de maximiser la compatibilité, nous avons décidé d’implémenter une option permettant de compiler directement pour un Mac équipé d’une puce Apple M2 (basée sur ARM64). Le code généré dans ce cas devrait également être compatible avec d’autres Macs utilisant des processeurs ARM64. La compatibilité peut être vérifiée via la commande suivante :  
+
+```bash
+uname -m
+```
+
+### Commandes pour la Compilation
+
+Pour générer un fichier compilé destiné à un Mac avec une puce M2, la commande à exécuter est la suivante :  
+
+```bash
+decac --arm --M2 programme.s
+```
+
+En revanche, pour une cible utilisant GCC (par exemple, un environnement Linux avec une architecture ARMv8), la commande standard est :  
+
+```bash
+decac --arm programme.s
+```
+
+Une fois le fichier assembleur `.s` généré, il peut être transformé en un exécutable à l’aide de Clang avec la commande suivante :  
+
+```bash
+clang -arch arm64 -o executable programme.s
+```
+
+### Différences entre Clang et GCC dans le Contexte de Deca
+
+Dans le cadre de notre compilateur Deca sans objet, deux différences notables entre Clang et GCC ont nécessité des ajustements spécifiques :  
+
+1. **Appels de fonctions (noms des symboles)**  
+   - Avec **Clang**, les noms des fonctions nécessitent un préfixe par un underscore (`_`). Par exemple, les fonctions `main` et `printf` doivent être référencées respectivement en tant que `_main` et `_printf`.  
+   - Avec **GCC**, ce préfixe n’est pas requis. Les mêmes fonctions sont appelées directement par leurs noms (`main`, `printf`).  
+
+2. **Gestion des paramètres pour la fonction `printf`**  
+   - Dans un environnement Clang, les paramètres de la fonction `printf` doivent être placés sur la **pile** (via le registre **SP**, `Stack Pointer`).  
+   - Avec GCC, les paramètres sont au contraire passés directement dans les registres dédiés, en commençant par les registres `x1`, `x2`, etc.  
+
+Dans les deux environnements, l’adresse de la chaîne de caractères utilisée dans l’appel à `printf` est systématiquement stockée dans le registre `x0`. Cette uniformité facilite la gestion de cette partie du code, mais les ajustements précédemment évoqués doivent être pris en compte pour assurer une compatibilité complète entre les deux compilateurs.  
+
+## Manières de procéder
+
+Pour développer un compilateur ciblant l'architecture ARM64 pour un langage deca sans objet, nous avons adopté une approche méthodique et progressive. Cette démarche nous a permis de limiter les difficultés rencontrées à chaque étape tout en assurant une compréhension approfondie des concepts nécessaires à la génération de code de qualité.
+
+### Étapes initiales : gestion des variables entières
+
+Nous avons débuté par l’implémentation des fonctionnalités de base, à savoir la déclaration et l’initialisation de variables entières, suivies de leur affichage. Cette approche visait à simplifier les tests initiaux et à poser les fondations nécessaires pour les étapes suivantes. La mise en place de ces fonctionnalités a permis de valider la génération d'instructions assembleur élémentaires et d’assurer une bonne gestion des registres.
+
+### Ajout des opérations arithmétiques et booléennes
+
+Une fois les bases posées, nous avons intégré les opérations arithmétiques (addition, soustraction, multiplication et division) ainsi que les opérations booléennes (AND, OR, NOT, etc.). Ces ajouts ont nécessité une gestion plus complexe des registres et une meilleure compréhension du jeu d’instructions ARMv8.
+
+### Gestion des branchements conditionnels
+
+Les branchements conditionnels ont été implémentés dans une étape ultérieure. Cette partie impliquait la manipulation directe des drapeaux du processeur ARM et l’utilisation d'instructions telles que `CSET`, `SUBS` ou `TBNZ`. Ces instructions nous ont permis de structurer les blocs conditionnels `if-then-else` et d’implémenter des structures comme les boucles `while`.
+
+### Prise en charge des flottants
+
+L’ajout de la prise en charge des nombres flottants a constitué un défi majeur. Contrairement aux entiers, les flottants nécessitent l’utilisation des registres spécifiques et des instructions dédiées, comme `FADD` (addition flottante) ou `FSUB` (soustraction flottante). On a aussi du adapter notre code afin qu'il puisse s'adapter à des variables de différentes tailles. Cet ajout nous a donc forcé à revoir une grande partie de notre code.
+
+### Documentation et inspirations
+
+Pour garantir une implémentation correcte, nous nous sommes inspirés des compilateurs GCC et Clang. Nous avons étudié la manière dont ces outils génèrent du code assembleur pour ARM64 en analysant les fichiers assembleurs produits à partir de programmes simples. Cela nous a permis de comprendre les bonnes pratiques en matière de gestion des registres, d’utilisation de la pile, et de respect des conventions ARM64.
+
+### Utilisation de la libc
+
+Afin de simplifier l’implémentation des fonctions d’affichage (comme la fonction `println`), nous avons décidé de nous appuyer sur la libc, une bibliothèque standard qui fournit des fonctionnalités essentielles. En utilisant la libc, nous avons pu accéder facilement à des fonctions comme `printf` pour afficher des variables entières ou flottantes. Cette approche présente plusieurs avantages :
+- Réduction de la complexité du compilateur, en déléguant certaines tâches à une bibliothèque fiable et optimisée.
+- Compatibilité accrue avec les environnements standards.
+
+## Implémentation
+
+Nous allons maintenant examiner la manière dont certaines parties du compilateur pour ARM ont été implémentées. Celui-ci s'inspire fortement du compilateur pour IMA, en réutilisant des principes similaires, notamment l'appel de méthode `codeGen` et des structures analogues. Par exemple, on retrouve des éléments tels que `ARMProgram`, `ARMDVal`, ou encore certaines instructions comme `ARMStore` et `ARMLoad`. Cependant, nous avons simplifié l'architecture en réduisant significativement le nombre de classes, en regroupant les instructions dans une seule classe : `ARMInstruction`.
+
+Le cœur du compilateur réside dans la classe `ARMProgram`, qui se charge de générer les lignes de code ARM64. Cette classe gère également les registres sous forme de pile ainsi que la gestion de la mémoire.
+
+### Gestion de la mémoire
+La gestion de la mémoire est en réalité une gestion des offsets dans la pile. Chaque variable se voit attribuer un offset après la génération des instructions, ce qui permet à un même offset d'être partagé par plusieurs variables si elles ne sont pas utilisées simultanément. 
+
+Nous utilisons le registre `X29` pour stocker les variables, tandis que le registre `SP` est réservé à d'autres tâches, comme l'appel à `printf`. Pour déterminer la taille de la pile et bien l'initialiser, nous prenons en compte le nombre maximum de variables utilisées simultanément ainsi que le nombre de paramètres passés à `printf`. Enfin, la taille de la pile est arrondie à la puissance de deux la plus proche.
+
+### Mise en place de la pile et des normes
+La génération des lignes de début et de fin de code inclut l'initialisation de la pile, la sauvegarde des registres, ainsi que le respect de certaines normes, telles que `.cfi_startproc` et `.cfi_endproc`.
+
+### Méthodes utilitaires
+En plus de ces fonctionnalités, `ARMProgram` propose diverses méthodes utilitaires comme `getReadyRegister`, pour faciliter la gestion des registres.
+
+### Mise en place de tests
+
+Nous avons implémenté le test `verify-arm-output` qui utilise les tests DECA, et qui permet de passer à un test suivant lorsque l'un d'eux échoue. Ce mécanisme garantit des exécutions ordonnées et une meilleure gestion des erreurs tout au long du projet.
+
+# Résultats obtenus
+
+Notre compilateur ARM est capable de compiler un sous-ensemble du langage DECA sans objets, comprenant les fonctionnalités suivantes :
+
+- Déclaration de variables
+- Opérations arithmétiques et booléennes
+- Affichage avec `print`
+- Branches conditionnelles
+
+Le tout avec un bon niveau de robustesse. 
+
+Nous avons également implémenté un début de prise en charge des flottants, bien que cette fonctionnalité comporte encore plusieurs bugs. Néanmoins, elle permet de déclarer des flottants, d'effectuer des opérations arithmétiques avec ces derniers, ainsi que de réaliser des branchements conditionnels avec une robustesse correcte.
+
+En revanche, l'implémentation de la fonction `read` n’a  pas été réalisée. 
+
+Les problèmes rencontrés ont principalement découlé d'un manque d'abstraction dans le code, ce qui a rendu celui-ci difficile à maintenir et a complexifié l'ajout de nouvelles fonctionnalités. Les abstractions ont été introduites trop tard dans le développement, ce qui a engendré des ralentissements notables, notamment lors de la gestion des flottants. Les modifications fréquentes sur des instructions telles que `mov` et `fmov` ont exigé de repenser plusieurs parties du code. Cette situation nous a permis de réaliser l'importance d'une conception soignée dès le départ, pour éviter les problèmes à long terme et améliorer la maintenabilité du code.
+
+Nous en avons tiré la leçon qu’il est crucial de prendre le temps nécessaire pour bien structurer le projet, notamment en introduisant des classes et des abstractions dès le début, comme cela a été fait dans le compilateur IMA. Une bonne planification et une gestion rigoureuse des abstractions permettent de mieux gérer l'évolution du code et de minimiser les difficultés liées aux changements futurs.
 
 # Conclusion
+
+## Conclusion
+
+Cet extension du compilateur pour l'architecture ARM Cortex-A53 a permis d'explorer de nombreuses facettes du développement de compilateurs, notamment la gestion de la mémoire, l'optimisation des registres et la compatibilité entre différents environnements de compilation (Clang et GCC). Grâce à l'intégration progressive de fonctionnalités telles que la gestion des variables entières, les opérations arithmétiques, les branchements conditionnels et les flottants, nous avons pu tester et valider l'évolution du compilateur tout en identifiant les difficultés rencontrées à chaque étape.
+
+Ce projet nous a permis de tirer des leçons sur l'importance de la planification, de la gestion des abstractions et de la maintenance du code dans un projet à long terme. En tirant parti des bonnes pratiques des compilateurs existants et en prenant soin de structurer le code de manière évolutive, nous avons pu développer une extension robuste.
