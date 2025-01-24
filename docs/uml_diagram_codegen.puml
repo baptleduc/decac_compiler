@@ -1,0 +1,140 @@
+@startuml
+
+package fr.ensimag.deca.codegen{
+    class ErrorManager {
+        -{static}{final}LOG: Logger 
+        -{static}generateStackOverflowError(compiler: DecacCompiler)
+        -{static}generateIOError(compiler: DecacCompiler)
+        -{static}generateOverflowError(compiler: DecacCompiler)
+        -{static}generateCastError(compiler: DecacCompiler)
+        -{static}generateDivideByZeroError(compiler: DecacCompiler)
+        -{static}generateHeapOverflowError(compiler: DecacCompiler)
+        -{static}generateNullPointerError(compiler: DecacCompiler)
+        -{static}generateNoReturnError(compiler: DecacCompiler)
+        -{static}generateError(label: Label, message: String, compiler: DecacCompiler)
+        -{static}ErrorManager()
+        +{static}generateAllErrors(compiler: DecacCompiler)
+    }
+
+    enum LabelManager{
+        STACK_OVERFLOW_ERROR, IO_ERROR, OVERFLOW_ERROR, DIVIDE_BY_ZERO_ERROR, HEAP_OVERFLOW_ERROR, CAST_ERROR, NO_RETURN_ERROR, OBJECT_EQUALS_LABEL
+
+        -{final}label: Label 
+        -{static}{final}initLabels: Map<String, Label> 
+        -LabelManager(labelName: String)
+        +getLabel(): Label
+        +{static}getInitLabel(ident: AbstractIdentifier): Label
+        +{static}getEndMethodLabel(): Label
+    }
+
+    class Constructor {
+    -{static}{final}LOG : Logger 
+    -{static}{final}INSTANCE_OFFSET : RegisterOffset 
+
+
+    -{final}classIdentifier : AbstractIdentifier 
+    -{final}superClassIdentifier : AbstractIdentifier 
+    -{final}classDefinition : ClassDefinition 
+    -{final}superClassDefinition : ClassDefinition 
+    -{final}fields : ListDeclField 
+
+
+    +Constructor(classIdentifier : AbstractIdentifier, superClassIdentifier : AbstractIdentifier, fields : ListDeclField)
+
+
+    -initializeAllFieldsExplicitly(classDef : ClassDefinition, compiler : DecacCompiler)
+    -initializeFieldExplicitly(compiler : DecacCompiler, fieldDef : FieldDefinition, init : AbstractInitialization)
+    -initializeFieldToZero(compiler : DecacCompiler, fieldDef : FieldDefinition)
+    -initializeAllFieldsToZero(compiler : DecacCompiler)
+    -initBaseClassFields(compiler : DecacCompiler)
+    -initExtendedClassFields(compiler : DecacCompiler)
+
+    +codeGenConstructor(compiler : DecacCompiler)
+    }
+
+    class MethodTable {
+    -{static}{final}LOG : Logger 
+
+    -classDefinition : ClassDefinition
+    -className : String
+    -methods : ArrayList<Label>
+
+    +MethodTable(classDefinition : ClassDefinition)
+
+    -initializeMethods() : ArrayList<Label>
+    -{static}{final}fillListWithNull(list : ArrayList<Label>, size : int)
+    -addMethod(index : int, objectName : String, methodName : String, methodDefinition : MethodDefinition)
+    -addMethods(objectName : String, classMembers : EnvironmentExp)
+    -buildTable(classDef : ClassDefinition, compiler : DecacCompiler)
+
+    +codeGenTable(compiler : DecacCompiler)
+    +toString() : String
+    }
+
+    class Object {
+    -{static}{final}LOG : Logger 
+
+    +{static}codeGenClass(compiler : DecacCompiler)
+    +{static}codeGenObjectMethods(compiler : DecacCompiler)
+    -{static}codeGenEqualsMethodBody(compiler : DecacCompiler)
+    }
+
+    class StackManager {
+        - static LOG : Logger
+        - program : IMAProgram
+        - {final}GB : Register
+        - {final}LB : Register
+        - {final}SP : Register
+        - idxAvailableGPRegisters : LinkedList<Integer>
+        - idxUsedGPRegisters : LinkedList<Integer>
+        - usedRegistersMethod : LinkedList<Integer>
+        - offsetGB : int
+        - offsetLB : int
+        - offsetSP : int
+        - lastMethodTableAddr : DAddr
+        - numSavedRegisters : int
+        - numTemporaries : int
+        - numMethodParams : int
+        - numMethodCall : int
+
+        + StackManager(program : IMAProgram, numRegisters : int)
+
+        + initStackForMethod() : void
+        + incrementNumMethodCall() : void
+        + getNumMethodCall() : int
+        + markRegisterUsedMethod(reg : GPRegister) : void
+        + getUsedRegistersMethod() : LinkedList<Integer>
+        + getUsedGPRegisters() : LinkedList<Integer>
+        + popUsedRegisterMethod() : int
+        + getGBRegister() : Register
+        + getRegister1() : GPRegister
+        + getRegister0() : GPRegister
+        + getLBRegister() : Register
+        + getSPRegister() : Register
+        + getOffsetGB() : RegisterOffset
+        + getOffsetGBValue() : int
+        + getOffsetLBValue() : int
+        + incrementOffsetGB(value : int) : void
+        + incrementOffsetGB() : void
+        + incrementNumSavedRegisters() : void
+        + getLastMethodTableAddr() : DAddr
+        + setLastMethodTableAddr(addr : DAddr) : void
+        + incrementLastMethodTableAddr(value : int) : void
+        + getCommentTSTO() : String
+        + getOffsetLB() : int
+        + getOffsetSP() : int
+        + addGlobalVariable() : RegisterOffset
+        + addLocalVariable() : RegisterOffset
+        + getProgram() : IMAProgram
+        + calculateTSTOSize() : int
+        + getLastUsedRegister() : GPRegister
+        + popUsedRegister() : GPRegister
+        + popAvailableGPRegister() : GPRegister
+        + isAvailableGPRegisterEmpty() : boolean
+        + pushAvailableGPRegister(reg : GPRegister) : void
+        + pushUsedGPRegister(reg : GPRegister) : void
+        + debugAvailableRegister() : String
+        + debugUsedRegister() : String
+    }
+}
+@enduml

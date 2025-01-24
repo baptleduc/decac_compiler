@@ -38,4 +38,9 @@ public class Or extends AbstractOpBool {
         compiler.addLabel(endLabel);
     }
 
+    @Override
+    protected boolean endIfTrueARM() {
+        return true;
+    }
+
 }

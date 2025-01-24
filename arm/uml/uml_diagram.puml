@@ -1,0 +1,139 @@
+@startuml
+
+package fr.ensimag.arm.instruction{
+    class AbstractARMInstruction{
+        #instructionLabel: String
+        #p1: String
+        #p2: String
+        #p3: String
+
+        +getInstructionLabel(): String
+        +getP1(): String
+        +getP2(): String
+        +getP3(): String
+        +toString(): String
+    }
+
+    class ARMDirectStore{
+        -register: String
+        -offset: int 
+        
+        +ARMDirectStore(register: String, offset: int)
+        +toString(): String
+    }
+
+    class ARMLabel{
+        -{final}label: String
+        
+        +ARMLabel(label: String)
+        +toString(): String
+    }
+
+    class ARMLoadStore{
+        #varName: String
+        #register: String
+        #program: ARMProgram
+
+        #ARMLoadStore(varName: String, register: String, program: ARMProgram)
+        #{abstract}getInstructionLabel(): String
+        +toString(): String
+    }
+
+    class ARMLoad{
+        +ARMLoad(varName: String, register: String, program: ARMProgram)
+        +toString(): String
+    }
+
+    class ARMStore{
+        +ARMStore(varName: String, register: String, program: ARMProgram)
+        +toString(): String
+    }
+
+    AbstractARMInstruction <|-- ARMDirectStore
+    AbstractARMInstruction <|-- ARMLabel
+    AbstractARMInstruction <|-- ARMLoadStore
+    ARMLoadStore <|-- ARMLoad
+    ARMLoadStore <|-- ARMStore
+}
+
+package fr.ensimag.arm{
+    enum ARMDataType{
+        ASCIZ, BYTE, WORD, DOUBLE_WORD
+    }
+
+    class ARMDVal{
+        -forInstruction: String
+        -trueVal: String
+        -varName: String
+        -valueInt: int
+
+        +ARMDVal(val: String)
+        +ARMDVal(val: int)
+        +ARMDVal(val: String, name: String)
+        +getValueInt(): int
+        +getForInstructionVal(): String
+        +getTrueVal(): String
+        +getVarName(): String
+        +toString(): String
+    }
+
+    class ARMProgram{
+        +{static}{final}dataSectionLines: HashMap<ARMDataType, String>
+        +{static}{final}RANGE_ARG_REGISTER: IntRange
+        +{static}{final}RANGE_SCRATCH_REGISTERS: IntRange
+        +{static}{final}FRAME_POINTER: String
+        +{static}{final}STACK_POINTER: String
+        +{static}{final}LINK_REGISTER: String
+        +{static}{final}PROGRAM_COUNTER: String
+        +{static}{final}ZERO_REGISTER: String
+        +{static}{final}ZERO_REGISTER: String
+        +{static}{final}WORD: String
+        +{static}{final}DOUBLE_WORD: String
+        +{static}{final}BYTE: String
+        +{static}{final}CALL_KERNAL: String
+        -usingClang: boolean
+        -{final}scratchRegisters: Stack<String>
+        -{final}stringLines: LinkedList<String>
+        -{final}mainInstructions: LinkedList<AbstractARMInstruction>
+        -{final}varOccurences: HashMap<String, IntTuple>
+        -{final}memoryMap: HashMap<String, Integer>
+        -occurencesCounter: int
+        -stringNameCounter: int
+        -printNbParameters: int
+        -labelNameCounter: int
+
+        +addInstruction(instruction: AbstractARMInstruction)
+        +ARMProgram()
+        +setProc(isM2: boolean)
+        +isUsingClang(): boolean
+        +computeVarMemory(): int
+        +addVarOccurence(varName: String)
+        +getVarOffset(varName: String): int
+        +setPrintNbParametersIfSup(nb: int)
+        +getAvailableRegister(): String
+        +freeRegister(register: String)
+        +addStringLine(value: String): String
+        +addLabelLine(label: String)
+        +createLabel(): String
+        -getNextPowerof2(n: int): int
+        -genBeginningLines(spSize: int): LinkedList<String>
+        -genEndingLines(spSize: int): LinkedList<String>
+        -getSpSize(int spMaxOffset): int
+        +genAssemblyCode(): LinkedList<String>
+        +{static}getARMTypeFromDecaType(type: Type): String
+    }
+
+    class IntTuple{
+        -first: int
+        -second: int
+
+        +IntTuple(first: int, second: int)
+        +getFirst(): int
+        +getSecond(): int
+        +setFirst(first: int)
+        +setSecond(second: int)
+        +equals(o: Object): boolean
+        +toString(): String
+    }
+}
+@enduml

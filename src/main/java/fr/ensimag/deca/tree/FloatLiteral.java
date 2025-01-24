@@ -1,5 +1,8 @@
 package fr.ensimag.deca.tree;
 
+import fr.ensimag.arm.ARMDVal;
+import fr.ensimag.arm.ARMProgram;
+import fr.ensimag.arm.instruction.ARMInstruction;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
@@ -90,4 +93,22 @@ public class FloatLiteral extends AbstractExpr {
         throw new DecacInternalError("Should not be called");
     }
 
+    @Override
+    protected void codeGenInstARM(DecacCompiler compiler) {
+        ARMProgram program = compiler.getARMProgram();
+        String reg = program.getAvailableRegister();
+        String floatReg = program.getAvailableRegisterTypeS();
+
+        int intBitsRepresentation = Float.floatToIntBits(value);
+        int lower16 = intBitsRepresentation & 0xFFFF;
+        int upper16 = (intBitsRepresentation >>> 16) & 0xFFFF;
+
+        program.addInstruction(new ARMInstruction("mov", reg, lower16));
+        program.addInstruction(new ARMInstruction("movk", reg, "#" + upper16, "lsl #16"));
+        program.addInstruction(new ARMInstruction("fmov", floatReg, reg));
+
+        program.freeRegister(reg);
+
+        setARMDVal(new ARMDVal(floatReg));
+    }
 }

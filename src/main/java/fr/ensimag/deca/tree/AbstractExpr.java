@@ -1,5 +1,6 @@
 package fr.ensimag.deca.tree;
 
+import fr.ensimag.arm.ARMDVal;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ClassType;
@@ -48,8 +49,14 @@ public abstract class AbstractExpr extends AbstractInst {
         this.dval = dval;
     }
 
+    protected void setARMDVal(ARMDVal ARMDVal) {
+        this.ARMDVal = ARMDVal;
+    }
+
     private Type type;
     private DVal dval = null; // Register, Immediate or d(XX)
+
+    private ARMDVal ARMDVal; // Register or Immediate for ARM
 
     @Override
     protected void checkDecoration() {
@@ -168,11 +175,13 @@ public abstract class AbstractExpr extends AbstractInst {
             codeGenInst(compiler);
             DVal dval = getDVal(compiler);
             compiler.addInstruction(new LOAD(dval, compiler.getRegister1()));
+            dval.freeGPRegister(compiler);
             compiler.addInstruction(new WINT());
         } else if (getType().isFloat()) {
             codeGenInst(compiler);
             DVal dval = getDVal(compiler);
             compiler.addInstruction(new LOAD(dval, compiler.getRegister1()));
+            dval.freeGPRegister(compiler);
             compiler.addInstruction(new WFLOAT());
         } else {
             throw new DecacInternalError("Type of expression is not int or float");
@@ -184,12 +193,21 @@ public abstract class AbstractExpr extends AbstractInst {
         return dval;
     }
 
+    protected ARMDVal getARMDVal() {
+        return ARMDVal;
+    }
+
     protected boolean isImmediate() {
         return false;
     }
 
     @Override
     protected void codeGenInst(DecacCompiler compiler) {
+        throw new UnsupportedOperationException("not yet implemented");
+    }
+
+    @Override
+    protected void codeGenInstARM(DecacCompiler compiler) {
         throw new UnsupportedOperationException("not yet implemented");
     }
 

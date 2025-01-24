@@ -52,22 +52,24 @@
 	BSR 4(R2)
 	SUBSP #3
 	ADD R0, R3
-	LOAD #5, R0
-	PUSH R0
-	LOAD #20, R0
-	PUSH R0
-	LOAD 8(GB), R0
-	CMP #null, R0
+	LOAD #5, R2
+	PUSH R2
+	LOAD #20, R2
+	PUSH R2
+	LOAD 8(GB), R2
+	CMP #null, R2
 	BEQ null_pointer_error
-	PUSH R0
-	LOAD 0(R0), R0
-	BSR 3(R0)
+	PUSH R2
+	LOAD 0(R2), R2
+	BSR 3(R2)
 	SUBSP #3
 	ADD R0, R3
 	LOAD R3, R1
 	WINT
 	HALT
 ; Code Object
+init.Object:
+	RTS
 code.Object.equals:
 	TSTO #2
 	BOV stack_overflow_error

@@ -36,81 +36,83 @@
 	STORE R0, 14(GB)
 ; Main program
 ; Beginning of main instructions:
-	NEW #1, R5
+	NEW #1, R3
 	BOV heap_overflow_error
 	LEA 3(GB), R0
-	STORE R0, 0(R5)
-	PUSH R5
+	STORE R0, 0(R3)
+	PUSH R3
 	BSR init.Shape
-	POP R5
-	STORE R5, 15(GB)
-	NEW #2, R5
+	POP R3
+	STORE R3, 15(GB)
+	NEW #2, R3
 	BOV heap_overflow_error
 	LEA 7(GB), R0
-	STORE R0, 0(R5)
-	PUSH R5
+	STORE R0, 0(R3)
+	PUSH R3
 	BSR init.Circle
-	POP R5
-	STORE R5, 16(GB)
-	NEW #2, R5
+	POP R3
+	STORE R3, 16(GB)
+	NEW #2, R3
 	BOV heap_overflow_error
 	LEA 11(GB), R0
-	STORE R0, 0(R5)
-	PUSH R5
+	STORE R0, 0(R3)
+	PUSH R3
 	BSR init.Square
-	POP R5
-	STORE R5, 17(GB)
-	LOAD 15(GB), R5
-	CMP #null, R5
+	POP R3
+	STORE R3, 17(GB)
+	LOAD 15(GB), R3
+	CMP #null, R3
 	BEQ null_pointer_error
-	PUSH R5
-	LOAD 0(R5), R5
-	BSR 3(R5)
+	PUSH R3
+	LOAD 0(R3), R3
+	BSR 3(R3)
 	SUBSP #1
-	LOAD 16(GB), R5
-	CMP #null, R5
+	LOAD 16(GB), R3
+	CMP #null, R3
 	BEQ null_pointer_error
 	LOAD #0x1.4p2, R4
-	STORE R4, 1(R5)
-	LOAD 16(GB), R5
-	CMP #null, R5
+	STORE R4, 1(R3)
+	LOAD 16(GB), R3
+	CMP #null, R3
 	BEQ null_pointer_error
-	PUSH R5
-	LOAD 0(R5), R5
-	BSR 3(R5)
+	PUSH R3
+	LOAD 0(R3), R3
+	BSR 3(R3)
 	SUBSP #1
-	LOAD 16(GB), R5
-	CMP #null, R5
+	LOAD 16(GB), R3
+	CMP #null, R3
 	BEQ null_pointer_error
-	PUSH R5
-	LOAD 0(R5), R5
-	BSR 2(R5)
+	PUSH R3
+	LOAD 0(R3), R3
+	BSR 2(R3)
 	SUBSP #1
 	LOAD R0, R1
 	WFLOAT
-	LOAD 17(GB), R5
-	CMP #null, R5
+	LOAD 17(GB), R3
+	CMP #null, R3
 	BEQ null_pointer_error
 	LOAD #0x1.0p2, R4
-	STORE R4, 1(R5)
-	LOAD 17(GB), R5
-	CMP #null, R5
+	STORE R4, 1(R3)
+	LOAD 17(GB), R3
+	CMP #null, R3
 	BEQ null_pointer_error
-	PUSH R5
-	LOAD 0(R5), R5
-	BSR 3(R5)
+	PUSH R3
+	LOAD 0(R3), R3
+	BSR 3(R3)
 	SUBSP #1
-	LOAD 17(GB), R5
-	CMP #null, R5
+	LOAD 17(GB), R3
+	CMP #null, R3
 	BEQ null_pointer_error
-	PUSH R5
-	LOAD 0(R5), R5
-	BSR 2(R5)
+	PUSH R3
+	LOAD 0(R3), R3
+	BSR 2(R3)
 	SUBSP #1
 	LOAD R0, R1
 	WFLOAT
 	HALT
 ; Code Object
+init.Object:
+	RTS
 code.Object.equals:
 	TSTO #2
 	BOV stack_overflow_error
@@ -203,25 +205,25 @@ init.Square:
 code.Square.area:
 	TSTO #3
 	BOV stack_overflow_error
+	PUSH R3
 	PUSH R2
 	PUSH R4
-	PUSH R5
+	LOAD -2(LB), R3
+	CMP #null, R3
+	BEQ null_pointer_error
 	LOAD -2(LB), R2
 	CMP #null, R2
 	BEQ null_pointer_error
-	LOAD -2(LB), R4
-	CMP #null, R4
-	BEQ null_pointer_error
-	LOAD 1(R2), R5
-	MUL 1(R4), R5
+	LOAD 1(R3), R4
+	MUL 1(R2), R4
 	BOV overflow_error
-	LOAD R5, R0
+	LOAD R4, R0
 	BRA end_method_7
 	BRA no_return_error
 end_method_7:
-	POP R5
 	POP R4
 	POP R2
+	POP R3
 	RTS
 code.Square.display:
 	TSTO #0

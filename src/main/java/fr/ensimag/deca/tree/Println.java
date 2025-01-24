@@ -26,6 +26,11 @@ public class Println extends AbstractPrint {
     }
 
     @Override
+    String getARMPrintModification(String format) {
+        return format + "\n";
+    }
+
+    @Override
     String getSuffix() {
         return "ln";
     }

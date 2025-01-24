@@ -1,5 +1,8 @@
 package fr.ensimag.deca.tree;
 
+import fr.ensimag.arm.ARMDVal;
+import fr.ensimag.arm.ARMProgram;
+import fr.ensimag.arm.instruction.ARMInstruction;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.EnvironmentExp;
@@ -52,5 +55,15 @@ public class ConvFloat extends AbstractUnaryExpr {
     @Override
     protected void codeGenBool(DecacCompiler compiler, Label label, boolean branchOn) {
         throw new DecacInternalError("Should not be called");
+    }
+
+    @Override
+    protected String codeGenUnaryExprARM(ARMDVal dval, ARMProgram program) {
+
+        String srcReg = program.getReadyRegister(dval);
+        String sreg = program.getAvailableRegisterTypeS();
+        program.addInstruction(new ARMInstruction("scvtf", sreg, srcReg));
+        program.freeRegister(srcReg);
+        return sreg;
     }
 }

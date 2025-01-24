@@ -1,5 +1,8 @@
 package fr.ensimag.deca.tree;
 
+import fr.ensimag.arm.ARMProgram;
+import fr.ensimag.arm.instruction.ARMInstruction;
+import fr.ensimag.arm.instruction.ARMStore;
 import fr.ensimag.deca.DecacCompiler;
 import fr.ensimag.deca.context.ClassDefinition;
 import fr.ensimag.deca.context.ContextualError;
@@ -79,12 +82,41 @@ public class Assign extends AbstractBinaryExpr {
 
         compiler.addInstruction(new STORE(regRight, destAddr));
         regRight.freeGPRegister(compiler);
-        leftDVal.freeGPRegister(compiler);
+        setDVal(leftDVal);
     }
 
     @Override
     protected void codeGenBool(DecacCompiler compiler, Label label, boolean branchOn) {
         throw new DecacInternalError("Should not be called");
+    }
+
+    @Override
+    protected void codeGenInstARM(DecacCompiler compiler) {
+        getLeftOperand().codeGenInstARM(compiler);
+        getRightOperand().codeGenInstARM(compiler);
+
+        ARMProgram program = compiler.getARMProgram();
+
+        int size = getRightOperand().getType().isFloat() ? ARMProgram.FLOAT_SIZE : ARMProgram.INT_SIZE;
+
+        String rightReg;
+        if (getRightOperand().isImmediate()) {
+            if (getRightOperand().getType().isFloat()) {
+                rightReg = program.getAvailableRegisterTypeS();
+                program.addInstruction(new ARMInstruction("fmov", rightReg, getRightOperand().getARMDVal().toString()));
+            } else {
+                rightReg = program.getAvailableRegister();
+                program.addInstruction(new ARMInstruction("mov", rightReg, getRightOperand().getARMDVal().toString()));
+            }
+        } else {
+            rightReg = getRightOperand().getARMDVal().toString();
+        }
+        program.addInstruction(new ARMStore(
+                rightReg,
+                getLeftOperand().getARMDVal().getVarName(),
+                program, size));
+
+        program.freeRegister(rightReg);
     }
 
 }

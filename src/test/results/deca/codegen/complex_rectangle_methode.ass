@@ -20,65 +20,67 @@
 	STORE R0, 7(GB)
 ; Main program
 ; Beginning of main instructions:
-	NEW #3, R4
+	NEW #3, R3
 	BOV heap_overflow_error
 	LEA 3(GB), R0
-	STORE R0, 0(R4)
-	PUSH R4
+	STORE R0, 0(R3)
+	PUSH R3
 	BSR init.Rectangle
-	POP R4
-	STORE R4, 8(GB)
-	NEW #3, R4
+	POP R3
+	STORE R3, 8(GB)
+	NEW #3, R3
 	BOV heap_overflow_error
 	LEA 3(GB), R0
-	STORE R0, 0(R4)
-	PUSH R4
+	STORE R0, 0(R3)
+	PUSH R3
 	BSR init.Rectangle
-	POP R4
-	STORE R4, 9(GB)
-	LOAD #6, R4
-	PUSH R4
-	LOAD #2, R4
-	PUSH R4
-	LOAD 8(GB), R4
-	CMP #null, R4
+	POP R3
+	STORE R3, 9(GB)
+	LOAD #6, R3
+	PUSH R3
+	LOAD #2, R3
+	PUSH R3
+	LOAD 8(GB), R3
+	CMP #null, R3
 	BEQ null_pointer_error
-	PUSH R4
-	LOAD 0(R4), R4
-	BSR 2(R4)
+	PUSH R3
+	LOAD 0(R3), R3
+	BSR 2(R3)
 	SUBSP #3
-	LOAD #6, R4
-	PUSH R4
-	LOAD #8, R4
-	PUSH R4
-	LOAD 9(GB), R4
-	CMP #null, R4
+	LOAD #6, R3
+	PUSH R3
+	LOAD #8, R3
+	PUSH R3
+	LOAD 9(GB), R3
+	CMP #null, R3
 	BEQ null_pointer_error
-	PUSH R4
-	LOAD 0(R4), R4
-	BSR 2(R4)
+	PUSH R3
+	LOAD 0(R3), R3
+	BSR 2(R3)
 	SUBSP #3
-	LOAD 8(GB), R4
-	CMP #null, R4
+	LOAD 8(GB), R3
+	CMP #null, R3
 	BEQ null_pointer_error
-	PUSH R4
-	LOAD 0(R4), R4
-	BSR 3(R4)
+	PUSH R3
+	LOAD 0(R3), R3
+	BSR 3(R3)
 	SUBSP #1
 	LOAD R0, R1
 	WINT
 	WSTR " "
-	LOAD 9(GB), R4
-	CMP #null, R4
+	LOAD 9(GB), R3
+	CMP #null, R3
 	BEQ null_pointer_error
-	PUSH R4
-	LOAD 0(R4), R4
-	BSR 3(R4)
+	PUSH R3
+	LOAD 0(R3), R3
+	BSR 3(R3)
 	SUBSP #1
 	LOAD R0, R1
 	WINT
 	HALT
 ; Code Object
+init.Object:
+	RTS
 code.Object.equals:
 	TSTO #2
 	BOV stack_overflow_error
@@ -149,33 +151,33 @@ end_method_4:
 code.Rectangle.isLargerThan:
 	TSTO #6
 	BOV stack_overflow_error
+	PUSH R3
 	PUSH R4
-	PUSH R2
-	LOAD #1, R4
-	LOAD -2(LB), R2
-	CMP #null, R2
+	LOAD #1, R3
+	LOAD -2(LB), R4
+	CMP #null, R4
 	BEQ null_pointer_error
-	PUSH R2
-	LOAD 0(R2), R2
-	BSR 3(R2)
+	PUSH R4
+	LOAD 0(R4), R4
+	BSR 3(R4)
 	SUBSP #1
-	LOAD -3(LB), R2
-	CMP #null, R2
+	LOAD -3(LB), R4
+	CMP #null, R4
 	BEQ null_pointer_error
-	PUSH R2
-	LOAD 0(R2), R2
-	BSR 3(R2)
+	PUSH R4
+	LOAD 0(R4), R4
+	BSR 3(R4)
 	SUBSP #1
 	CMP R0, R0
 	BGT end_label_6
-	LOAD #0, R4
+	LOAD #0, R3
 end_label_6:
-	LOAD R4, R0
+	LOAD R3, R0
 	BRA end_method_5
 	BRA no_return_error
 end_method_5:
-	POP R2
 	POP R4
+	POP R3
 	RTS
 stack_overflow_error:
 	WSTR "Error: Stack Overflow"
