@@ -31,7 +31,7 @@ public class Signature {
 
         // Vérification des éléments
         for (int i = 0; i < size(); i++) {
-            if (paramNumber(i).sameType(otherSignature.paramNumber(i))) {
+            if (!paramNumber(i).sameType(otherSignature.paramNumber(i))) {
                 return false;
             }
         }
