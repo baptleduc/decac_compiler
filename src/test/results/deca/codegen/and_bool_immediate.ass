@@ -16,6 +16,8 @@ end_label_3:
 	STORE R3, 3(GB)
 	HALT
 ; Code Object
+init.Object:
+	RTS
 code.Object.equals:
 	TSTO #2
 	BOV stack_overflow_error
