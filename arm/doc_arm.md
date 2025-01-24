@@ -508,6 +508,15 @@ En plus de ces fonctionnalités, `ARMProgram` propose diverses méthodes utilita
 
 Nous avons implémenté le test `verify-arm-output` qui utilise les tests DECA, et qui permet de passer à un test suivant lorsque l'un d'eux échoue. Ce mécanisme garantit des exécutions ordonnées et une meilleure gestion des erreurs tout au long du projet.
 
+
+### UML
+
+Voici un diagramme `UML` représentant les différentes classes utilisées pour cette extension :
+
+\begin{center}
+\includegraphics[width=\textwidth]{arm/assets/arm_uml.png}
+\end{center}
+
 # Résultats obtenus
 
 Notre compilateur ARM est capable de compiler un sous-ensemble du langage DECA sans objets, comprenant les fonctionnalités suivantes :
