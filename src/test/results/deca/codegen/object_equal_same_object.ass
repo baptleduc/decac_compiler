@@ -54,6 +54,8 @@ else_6:
 end_7:
 	HALT
 ; Code Object
+init.Object:
+	RTS
 code.Object.equals:
 	TSTO #2
 	BOV stack_overflow_error
