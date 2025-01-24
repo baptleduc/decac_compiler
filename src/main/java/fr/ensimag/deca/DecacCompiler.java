@@ -63,7 +63,10 @@ public class DecacCompiler {
     public DecacCompiler(CompilerOptions compilerOptions, File source) {
         super();
         this.compilerOptions = compilerOptions;
-        getARMProgram().setProc(getCompilerOptions().getIsM2());
+        if (getCompilerOptions() != null) {
+            getARMProgram().setProc(getCompilerOptions().getIsM2());
+        }
+
         if (compilerOptions == null || this.compilerOptions.getRegisters() == -1) {
             this.stackManager = new StackManager(program, Register.getMaxGPRegisters());
         } else {
