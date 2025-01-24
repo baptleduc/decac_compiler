@@ -53,7 +53,7 @@ public class Divide extends AbstractOpArith {
         } else {
             rightRg = right.getARMDVal().toString();
         }
-        compiler.getARMProgram().addInstruction(new ARMInstruction("udiv", dest, left, rightRg));
+        compiler.getARMProgram().addInstruction(new ARMInstruction("sdiv", dest, left, rightRg));
 
         if (right.isImmediate()) {
             program.freeRegister(rightRg);

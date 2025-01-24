@@ -194,8 +194,11 @@ public class ARMProgram {
     }
 
     private int getNextPowerOf2(int n) {
-        if (n <= 0) {
+        if (n < 0) {
             throw new IllegalArgumentException("Input must be a positive integer.");
+        }
+        if (n == 0) {
+            return 0;
         }
 
         // If n is already a power of 2, return n
