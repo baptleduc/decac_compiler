@@ -123,17 +123,39 @@ package fr.ensimag.arm{
         +{static}getARMTypeFromDecaType(type: Type): String
     }
 
-    class IntTuple{
-        -first: int
-        -second: int
+    class Variable{
+        -firstOccurence: int
+        -secondOccurence: int
+        -size: int
 
-        +IntTuple(first: int, second: int)
-        +getFirst(): int
-        +getSecond(): int
-        +setFirst(first: int)
-        +setSecond(second: int)
-        +equals(o: Object): boolean
+        +getFirstOccurence(): int
+        +getSecondOccurence(): int
+        +getSize(): int
+        +setFirstOccurence(first: int)
+        +setSecondOccurence(second: int)
+        +setSize(size: int)
+        +equals(obj: Object): boolean
         +toString(): String
+    }
+
+    class ARMLoadedRegister{
+        -reg: String
+        -dval: ARMDVal
+        -program: ARMProgram
+        -isFloat: boolean
+        -isInt: boolean
+
+        +ARMLoadedRegister(value: ARMDVal, prog: ARMProgram)
+        +getReg(): String
+        +freeReg()
+        +isFloat(): boolean
+        +isInt(): boolean
+        -genImmFloat()
+        -genImmInt()
+        -genRegFloat()
+        -genReg()
+        +toString(): String
+        
     }
 }
 @enduml

@@ -18,6 +18,7 @@ public class ARMInstruction extends AbstractARMInstruction {
     }
 
     public ARMInstruction(String instructionLabel, String p1, String p2) {
+        assert (!(instructionLabel == "mov" && p1.contains("w") && p2.contains("s")));
         this.instructionLabel = instructionLabel;
         this.p1 = p1;
         this.p2 = p2;
