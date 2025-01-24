@@ -1,0 +1,13 @@
+class A 
+{
+    float f(int x)
+    {
+        return x; 
+    }
+}
+
+{
+    A a = new A();
+    float res = 1.0 + a.f(2);
+    println(res);
+}
