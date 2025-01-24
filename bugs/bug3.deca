@@ -1,0 +1,9 @@
+class A 
+{
+    void f(int a) {}
+}
+
+class B extends A 
+{
+    void f(float a) {}
+}

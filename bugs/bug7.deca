@@ -1,0 +1,23 @@
+// Initialisation des champs et sauvegarde des registres
+
+class A {
+
+   int x = m() ;
+
+   int m() {
+      return 4 ; 
+   }
+
+   int getX() {
+      return 3+x ; 
+   }
+}
+
+{
+   A a ; 
+   int r ; 
+
+   r = 100 + (200 + (300 + new A().getX())) ; 
+   println(r) ; 
+}
+

@@ -1,0 +1,9 @@
+class A
+{
+    void f() {}
+    void F() {}
+}
+
+{
+    A a = new A();
+}
