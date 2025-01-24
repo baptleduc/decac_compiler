@@ -10,7 +10,11 @@ public class ARMDVal {
 
     protected int valueInt;
 
+    protected float valueFloat;
+
     private boolean isFloat = false;
+
+    private boolean isImm = false;
 
     public ARMDVal(String val) {
         if (val.contains("s")) {
@@ -24,6 +28,14 @@ public class ARMDVal {
         this.forInstructionVal = "#" + val;
         this.trueVal = "" + val;
         this.valueInt = val;
+        this.isImm = true;
+    }
+
+    public ARMDVal(float val) {
+        this.forInstructionVal = "#" + val;
+        this.trueVal = "" + val;
+        this.valueFloat = val;
+        this.isImm = true;
     }
 
     public ARMDVal(String val, String name) {
@@ -35,8 +47,16 @@ public class ARMDVal {
         this.varName = name;
     }
 
+    public boolean isImmediate() {
+        return isImm;
+    }
+
     public int getValueInt() {
         return valueInt;
+    }
+
+    public float getValueFloat() {
+        return valueFloat;
     }
 
     public String getForInstructionVal() {

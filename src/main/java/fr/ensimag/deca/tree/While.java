@@ -90,7 +90,9 @@ public class While extends AbstractInst {
 
         program.addLabelLine(startWhileARM);
         condition.codeGenInstARM(compiler);
-        program.addInstruction(new ARMInstruction("tbnz", condition.getARMDVal().toString(), "#0", endLabelARM));
+
+        String tbnzReg = condition.getARMDVal().toString().contains("s") ? "w8" : condition.getARMDVal().toString();
+        program.addInstruction(new ARMInstruction("tbnz", tbnzReg, "#0", endLabelARM));
         body.codeGenListInstARM(compiler);
         program.addInstruction(new ARMInstruction("b", startWhileARM));
         program.addLabelLine(endLabelARM);

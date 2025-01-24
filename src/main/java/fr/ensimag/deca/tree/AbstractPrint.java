@@ -92,7 +92,9 @@ public abstract class AbstractPrint extends AbstractInst {
         for (AbstractExpr a : abExps) {
             a.codeGenInstARM(compiler);
             String reg = program.getReadyRegister(a.getARMDVal());
-            program.addInstruction(new ARMInstruction("mov", "x" + count, reg));
+            String regType = a.getType().isFloat() ? "d" : "w";
+            String inst = a.getType().isFloat() ? "fmov" : "mov";
+            program.addInstruction(new ARMInstruction(inst, regType + count, reg));
             program.freeRegister(reg);
             count += 1;
         }

@@ -194,8 +194,11 @@ public class ARMProgram {
     }
 
     private int getNextPowerOf2(int n) {
-        if (n <= 0) {
+        if (n < 0) {
             throw new IllegalArgumentException("Input must be a positive integer.");
+        }
+        if (n == 0) {
+            return 0;
         }
 
         // If n is already a power of 2, return n
@@ -223,9 +226,6 @@ public class ARMProgram {
         lines.add(".cfi_startproc");
         lines.add("sub sp, sp, #" + (spSize));
         lines.add(".cfi_def_cfa_offset " + spSize);
-        // lines.add("mov w0, #0"); // return 0
-        // lines.add("str wzr, [sp, #" + (spSize-4) + "]"); // if no print call else x29
-        // #-4
         if (usingFP) {
             lines.add("stp X29, X30, [sp, #" + (spSize - 16) + "]"); // save frame pointer and link register
             lines.add("add X29, sp, #" + (spSize - 16));

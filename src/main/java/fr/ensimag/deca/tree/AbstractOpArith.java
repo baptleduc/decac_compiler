@@ -186,12 +186,9 @@ public abstract class AbstractOpArith extends AbstractBinaryExpr {
 
         String regDest = left.getARMDVal().toString();
 
-        if (left.isImmediate() && right.isImmediate()) {
+        if (left.isImmediate() && !left.getARMDVal().isFloat()) {
             regDest = compiler.getARMProgram().getAvailableRegister();
             prog.addInstruction(new ARMInstruction("mov", regDest, left.getARMDVal().toString()));
-        } else if (left.isImmediate()) {
-            regDest = getRightOperand().getARMDVal().toString();
-            right = left;
         }
 
         if (getLeftOperand().getType().isFloat()) {

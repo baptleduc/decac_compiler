@@ -65,11 +65,12 @@ public class UnaryMinus extends AbstractUnaryExpr {
 
         String srcReg = program.getReadyRegister(dval);
 
-        String minus1 = program.getAvailableRegister();
-        program.addInstruction(new ARMInstruction("mov", minus1, "#-1"));
-        program.addInstruction(new ARMInstruction("sub", srcReg, srcReg, minus1));
-        program.addInstruction(new ARMInstruction("mul", srcReg, srcReg, minus1));
-        program.freeRegisterTypeW(minus1);
+        boolean isFloat = dval.isFloat();
+
+        String minus1 = isFloat ? program.getAvailableRegisterTypeD() : program.getAvailableRegister();
+        program.addInstruction(new ARMInstruction(isFloat ? "fmov" : "mov", minus1, isFloat ? "#-1.0" : "#-1"));
+        program.addInstruction(new ARMInstruction(isFloat ? "fmul" : "mul", srcReg, srcReg, minus1));
+        program.freeRegister(minus1);
         return srcReg;
 
     }
