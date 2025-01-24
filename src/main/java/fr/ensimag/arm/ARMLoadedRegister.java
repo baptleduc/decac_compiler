@@ -67,6 +67,7 @@ public class ARMLoadedRegister {
     private void genImmInt(){
         String reg = program.getAvailableRegister();
         program.addInstruction(new ARMInstruction("mov", reg, dval.getValueInt()));
+        this.reg = reg;
         this.isInt = true;
     }
 

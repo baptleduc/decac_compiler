@@ -68,8 +68,6 @@ public abstract class AbstractOpCmp extends AbstractBinaryExpr {
     protected void codeGenInstARM(DecacCompiler compiler) {
         ARMProgram program = compiler.getARMProgram();
 
-        // we get a register with the value of the left operand (this operation is done
-        // multiple time throught the projet, may be factorized)
         String leftRg;
         getLeftOperand().codeGenInstARM(compiler);
         ARMDVal leftOpDval = getLeftOperand().getARMDVal();
@@ -80,7 +78,6 @@ public abstract class AbstractOpCmp extends AbstractBinaryExpr {
             leftRg = leftOpDval.toString();
         }
 
-        // same with the right operand
         String rightRg;
         getRightOperand().codeGenInstARM(compiler);
         ARMDVal rightOpDval = getRightOperand().getARMDVal();
@@ -103,7 +100,7 @@ public abstract class AbstractOpCmp extends AbstractBinaryExpr {
             program.addInstruction(new ARMInstruction("cset", leftRg, getARMCmpInverseAcronym()));
         }
         program.freeRegister(rightRg);
-        setARMDVal(new ARMDVal(leftRg)); // either 0 or 1
+        setARMDVal(new ARMDVal(leftRg));
 
     }
 }
