@@ -84,15 +84,24 @@ public abstract class AbstractOpCmp extends AbstractBinaryExpr {
         String rightRg;
         getRightOperand().codeGenInstARM(compiler);
         ARMDVal rightOpDval = getRightOperand().getARMDVal();
-        if (getRightOperand().isImmediate()) {
+        if (getRightOperand().isImmediate() && !getRightOperand().getARMDVal().isFloat()) {
             rightRg = program.getAvailableRegister();
             program.addInstruction(new ARMInstruction("mov", rightRg, rightOpDval.toString()));
         } else {
             rightRg = rightOpDval.toString();
         }
 
-        program.addInstruction(new ARMInstruction("subs", leftRg, leftRg, rightRg));
-        program.addInstruction(new ARMInstruction("cset", leftRg, getARMCmpInverseAcronym()));
+        if (leftOpDval.isFloat()){
+            String ldreg = program.getReadyRegister(getLeftOperand().getARMDVal());
+            String rdreg = program.getReadyRegister(getRightOperand().getARMDVal());
+            program.addInstruction(new ARMInstruction("fcmp", ldreg, rdreg));
+            program.addInstruction(new ARMInstruction("cset", "w8", getARMCmpInverseAcronym()));
+            program.freeRegisterTypeD(ldreg);
+            program.freeRegisterTypeD(rdreg);
+        } else {
+            program.addInstruction(new ARMInstruction("subs", leftRg, leftRg, rightRg));
+            program.addInstruction(new ARMInstruction("cset", leftRg, getARMCmpInverseAcronym()));
+        }
         program.freeRegister(rightRg);
         setARMDVal(new ARMDVal(leftRg)); // either 0 or 1
 

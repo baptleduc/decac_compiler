@@ -120,7 +120,8 @@ public abstract class AbstractOpBool extends AbstractBinaryExpr {
             rgLeft = getLeftOperand().getARMDVal().toString();
         }
 
-        program.addInstruction(new ARMInstruction("tbnz", rgLeft, "#0", labelIfTrue));
+        String tbnzReg = rgLeft.contains("s") ? "w8" : rgLeft;
+        program.addInstruction(new ARMInstruction("tbnz", tbnzReg, "#0", labelIfTrue));
         program.addInstruction(new ARMInstruction("b", labelIfFalse));
         program.addLabelLine(secondOperandLabel);
         getRightOperand().codeGenInstARM(compiler);

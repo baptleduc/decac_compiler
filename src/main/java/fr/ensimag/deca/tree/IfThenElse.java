@@ -77,7 +77,8 @@ public class IfThenElse extends AbstractInst {
 
         condition.codeGenInstARM(compiler);
         ARMDVal resultCondition = condition.getARMDVal(); // register containing either 1 or 0 (true or false)
-        program.addInstruction(new ARMInstruction("tbnz", resultCondition.toString(), "#0", elseLabel));
+        String tbnzReg = resultCondition.toString().contains("s") ? "w8" : resultCondition.toString();
+        program.addInstruction(new ARMInstruction("tbnz", tbnzReg, "#0", elseLabel));
         program.addInstruction(new ARMInstruction("b", ifLabel));
         // then branch
         program.addLabelLine(ifLabel);
