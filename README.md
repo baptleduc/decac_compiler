@@ -1,60 +1,64 @@
-# Projet Génie Logiciel, Ensimag.
-gl12, 01/01/2025.
 
-## 🚀 Lancer le Compilateur Deca
+# Deca Compiler - Software Engineering Project, Ensimag
 
-Pour lancer le compilateur **Deca**, utilisez la commande suivante dans votre terminal :  
+The Deca compiler is a well-known Software Engineering project I developed during my second year at Ensimag. It compiles Deca, a simplified object-oriented sublanguage of Java, designed to teach the fundamentals of compiler construction. The compiler processes Deca code through lexical analysis, syntax analysis, and code generation, producing assembly code for the IMA (Intermediate Machine Architecture), a virtual machine created for educational purposes. The project also includes scripts to test each phase and ensure the compiler functions correctly.
+
+Originally hosted on GitLab with GitLab CI for continuous integration, the CI tests have not been migrated to GitHub Actions.
+
+## 🚀 Run the Deca Compiler
+
+To run the Deca compiler, you need to have maven in order to install all dependencies. Then, use the following command in your terminal:
 
 ```bash
-./src/main/bin/decac [fichier-à-compiler]
+mvn clean test-compile
+./src/main/bin/decac [file-to-compile]
 ```
-**ℹ️ Note :**  
-Pour afficher l'usage du compilateur, exécutez la commande suivante sans argument :  
+
+ℹ️ **Note**:  
+To view the compiler usage, run the following command without any arguments:
+
 ```bash
 ./src/main/bin/decac
 ```
 
----
+## 🧪 Test the Different Phases
 
-## 🧪 Tester les différentes étapes
+### Lexer (Lexical Analysis)
 
-### **Test du Lexer (Analyse Lexicale) :**  
-Pour tester l'analyse lexicale :  
+To test the lexical analysis:
+
 ```bash
-./src/test/script/launchers/test_lex [fichier-à-tester]
-```
-### **Test de la Syntaxe (Analyse Syntaxique) :**  
-Pour tester l'analyse syntaxique :
-```bash
-./src/test/script/launchers/test_synt [fichier-à-tester]
-```
-### **Test du Contexte (Analyse Sémantique) :**
-Pour tester l'analyse du contexte :
-```bash
-./src/test/script/launchers/test_context [fichier-à-tester]
+./src/test/script/launchers/test_lex [file-to-test]
 ```
 
----
+### Syntax (Syntactic Analysis)
 
-## 🧪 Tester avec les scripts
+To test the syntax analysis:
 
-Les scripts de tests sont disponibles dans le dossier `src/test/script`.
-Les fichiers utilisés par les scripts sont dans le dossier `src/test/deca` et les résultats attendus sont dans le dossier `src/test/results`.
-
----
-
-## 🎨 Formattage
-
-Pour formater le code et passer la CI, utilisez la commande suivante :  
 ```bash
-mvn spotless:apply 
+./src/test/script/launchers/test_synt [file-to-test]
 ```
 
+### Context (Semantic Analysis)
 
+To test the context analysis:
 
+```bash
+./src/test/script/launchers/test_context [file-to-test]
+```
 
-// execute le fichier arm64
-clang -arch arm64 -o hello hello.s
+## 🧪 Testing with Scripts
 
-// compile du c en arm64
-clang -S -arch arm64 -o programme.s printtest.c
+The test scripts are available in the `src/test/script` folder. The files used by the scripts are in the `src/test/deca` folder, and the expected results are in the `src/test/results` folder.
+
+## 🎨 Code Formatting
+
+The code is formatted according to the configuration in the `config/formatter/eclipse-formatter.xml` file. To apply the formatting and pass the CI checks, use the following command:
+
+```bash
+mvn spotless:apply
+```
+
+## ⚙️ CI Configuration
+
+This project was originally hosted on GitLab, where the CI pipeline was configured using GitLab CI. The CI tests have **not** been migrated to GitHub Actions. Therefore, the continuous integration setup needs to be manually configured on GitHub if desired.
